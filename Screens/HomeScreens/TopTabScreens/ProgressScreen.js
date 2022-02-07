@@ -9,7 +9,8 @@ const ProgressScreen = (props) => {
         <View style={styles.screen}>
             <View style={styles.DetailsConatainer}>
                 <Text style={styles.wlcm}>Hello,{props.UserName}</Text>
-                <Text style={styles.subtext}>“Success is not final; failure is not fatal: it is the courage to continue that counts.”</Text>
+                <Text style={styles.subtext}>{props.qoute}</Text>
+                <Text style={styles.subtext}>{props.author == "-null" ? "" : props.author}</Text>
             </View>
             <View style={styles.ProgressCard}>
                 <ProgressCard />

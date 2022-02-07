@@ -8,7 +8,7 @@ import Paginator from '../../../Componants/HomeScreenComponants/NewsScreenCompon
 
 
 const NewsScreen = () => {
-
+    const scrollX = useRef(new Animated.Value(0)).current;
     return (
         <View style={styles.screen}>
             <View>
@@ -17,8 +17,14 @@ const NewsScreen = () => {
                 </View>
                 <TrendingNewsCard
                     data={NewsData}
+                    onScroll={Animated.event(
+                        [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+                        {
+                            useNativeDriver: false,
+                        }
+                    )}
                 />
-                <Paginator data={NewsData} />
+                <Paginator data={NewsData} scrollX={scrollX} />
             </View>
             <View style={{ height: '55%', marginBottom: 400 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', }}>

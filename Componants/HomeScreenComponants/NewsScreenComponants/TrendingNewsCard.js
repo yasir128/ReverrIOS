@@ -9,6 +9,7 @@ const TrendingNewsCard = (props) => {
                 data={props.data}
                 horizontal
                 pagingEnabled
+                onScroll={props.onScroll}
                 renderItem={({ item }) => (
                     <TouchableOpacity activeOpacity={0.6} style={styles.container}>
                         <ImageBackground style={{ flex: 1, }} source={{ uri: item.image }} >

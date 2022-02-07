@@ -4,18 +4,20 @@ import Ionic from 'react-native-vector-icons/Ionicons';
 import AppColors from '../../../Constaint/AppColors';
 import ProgressCard from '../../../Componants/HomeScreenComponants/ProgressScreenComponants/ProgressCard';
 import MentorListCard from '../../../Componants/HomeScreenComponants/ProgressScreenComponants/MentorListCard';
-const ProgressScreen = () => {
+const ProgressScreen = (props) => {
     return (
         <View style={styles.screen}>
             <View style={styles.DetailsConatainer}>
-                <Text style={styles.wlcm}>Hello, Jatin Khurana</Text>
+                <Text style={styles.wlcm}>Hello,{props.UserName}</Text>
                 <Text style={styles.subtext}>“Success is not final; failure is not fatal: it is the courage to continue that counts.”</Text>
             </View>
             <View style={styles.ProgressCard}>
                 <ProgressCard />
             </View>
             <View style={styles.listCard}>
-                <MentorListCard />
+                <MentorListCard
+                    onPress={props.onPress}
+                />
             </View>
             <View style={{ marginHorizontal: 15, marginTop: 10, }}>
                 <Text style={styles.text}>Article</Text>
@@ -58,7 +60,7 @@ const styles = StyleSheet.create({
     },
     listCard: {
         marginTop: 10,
-        paddingHorizontal: 10
+        paddingHorizontal: 0
     },
     line: {
         width: '100%',

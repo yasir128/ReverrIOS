@@ -1,9 +1,7 @@
 import { View, Text, StyleSheet, useWindowDimensions, Animated } from 'react-native';
 import React, { useRef } from 'react';
 
-const Paginator = ({ data }) => {
-    const scrollX = useRef(new Animated.Value(0)).current;
-
+const Paginator = ({ data, scrollX }) => {
     const { width: windowWidth } = useWindowDimensions();
     return (
         <View style={styles.indicatorContainer}>
@@ -14,14 +12,13 @@ const Paginator = ({ data }) => {
                         windowWidth * imageIndex,
                         windowWidth * (imageIndex + 1)
                     ],
-                    outputRange: [8, 16, 8],
+                    outputRange: [10, 16, 10],
                     extrapolate: "clamp"
                 });
                 return (
                     <Animated.View
                         key={imageIndex}
-                        style={[styles.normalDot, { width }]}
-                    />
+                        style={[styles.normalDot, { width: width }]} />
                 );
             })}
         </View>

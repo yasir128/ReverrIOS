@@ -8,11 +8,17 @@ const Header = (props) => {
         <View>
             <View style={styles.Container}>
                 <TouchableOpacity style={styles.dp} onPress={props.onPress} >
-                    <Image style={{
-                        height: 50,
-                        width: 50,
+                    {props.Dp ? <Image style={{
+                        height: 40,
+                        width: 40,
                         borderRadius: 200
-                    }} source={require("../../assets/Images/dp.png")} />
+                    }} source={require("../../assets/Images/dp.png")} /> :
+                        <Image style={{
+                            height: 40,
+                            width: 40,
+                            borderRadius: 200
+                        }} source={{ uri: props.DpUrl }} />
+                    }
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.calender}>
                     <Icon name='calendar-alt' size={22} color="black" />

@@ -4,9 +4,9 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import AppColors from '../../../Constaint/AppColors';
 import { Data } from '../../../dummy-data/dummyData';
 
-const MentorListCard = () => {
+const MentorListCard = (props) => {
     return (
-        <View>
+        <TouchableOpacity activeOpacity={1} onPress={props.onPress}>
             <View style={styles.Container}>
                 <View style={styles.heading}>
                     <Text style={styles.text}>Popular Today</Text>
@@ -17,7 +17,7 @@ const MentorListCard = () => {
                         data={Data}
                         horizontal
                         renderItem={({ item }) => (
-                            <TouchableOpacity activeOpacity={0.6} style={styles.Card}>
+                            <TouchableOpacity onPress={props.onPress} activeOpacity={0.6} style={styles.Card}>
                                 <Image style={styles.dp} source={{ uri: item.image }} />
                                 <Text style={styles.Name}>{item.name}</Text>
                                 <Text style={styles.skills}>{item.skills}</Text>
@@ -26,7 +26,7 @@ const MentorListCard = () => {
                         } />
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 const styles = StyleSheet.create({
@@ -49,24 +49,23 @@ const styles = StyleSheet.create({
     },
     Card: {
         backgroundColor: AppColors.CardColor,
-        padding: 5,
-        paddingTop: 10,
         marginHorizontal: 5,
         marginVertical: 10,
-        borderRadius: 10,
-        marginBottom: 20,
+        width: 110,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingVertical: 8,
+        borderRadius: 10
 
     },
     dp: {
-        width: 100,
-        height: 100,
+        width: 80,
+        height: 80,
         borderRadius: 10
     },
     Name: {
         color: AppColors.FontsColor,
-        width: '50%',
+        width: '60%',
         fontFamily: "Poppins-Regular",
         fontSize: 14,
         paddingTop: 7
@@ -74,7 +73,7 @@ const styles = StyleSheet.create({
     skills: {
         color: AppColors.FontsColor,
         fontFamily: "Poppins-Regular",
-        fontSize: 11,
+        fontSize: 8,
 
     }
 });

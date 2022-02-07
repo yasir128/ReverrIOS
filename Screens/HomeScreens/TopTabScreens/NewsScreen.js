@@ -26,7 +26,7 @@ const NewsScreen = () => {
                 />
                 <Paginator data={NewsData} scrollX={scrollX} />
             </View>
-            <View style={{ height: '55%', marginBottom: 400 }}>
+            <View style={{ height: '53%', marginBottom: 400 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center', }}>
                     <Text style={styles.heading}>News</Text>
                     <TouchableOpacity style={{ marginStart: 210 }}>

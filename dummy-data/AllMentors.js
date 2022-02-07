@@ -1,4 +1,4 @@
-export const Data = [
+export const AllMentors = [
     {
         id: 1,
         name: "William vetrovs",

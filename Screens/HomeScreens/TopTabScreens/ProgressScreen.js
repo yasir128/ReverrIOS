@@ -24,7 +24,7 @@ const ProgressScreen = () => {
                     <Text style={[styles.text, { fontFamily: "Poppins-Bold", }]}>
                         How to create a start up
                     </Text>
-                    <Ionic name='heart' size={20} color="red" style={{ paddingStart: 50 }} />
+                    <Ionic name='heart' size={20} color="red" style={{ paddingStart: "31%" }} />
                 </View>
                 <Text style={[styles.text, { fontSize: 14, }]}>GPS software boost lets smartphones pinpoint location to within 20 cm
                 </Text>
@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
 
     },
     DetailsConatainer: {
-        marginHorizontal: 20,
-        alignItems: 'center'
+        paddingHorizontal: 50,
+        paddingVertical: 10
 
     },
     wlcm: {
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     text: {
         color: AppColors.FontsColor,
         fontFamily: "Poppins-Regular",
-        fontSize: 18,
+        fontSize: 15,
     }
 });
 

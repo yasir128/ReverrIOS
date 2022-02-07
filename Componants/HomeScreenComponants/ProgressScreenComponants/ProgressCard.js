@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
         flex: 1,
         width: "80%",
         borderRadius: 10,
-        backgroundColor: 'gray'
+        backgroundColor: 'green'
     },
     date: {
         color: AppColors.infoFonts,

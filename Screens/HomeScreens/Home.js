@@ -55,7 +55,9 @@ const Home = () => {
                             DpUrl={dp}
                         />
                         {AllMentors ? (
-                            <MentorsScreen />
+                            <MentorsScreen
+                                onPress={() => { setAllMentors(false) }}
+                            />
 
                         ) : (
                             <View style={{ flex: 1 }}>

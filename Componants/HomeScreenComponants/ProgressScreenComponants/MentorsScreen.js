@@ -25,14 +25,12 @@ const MentorsScreen = (props) => {
                                     <View style={styles.Details}>
                                         <Text style={styles.name}>{item.name}</Text>
                                         <Text style={styles.skill}>{item.skills}</Text>
-
                                     </View>
                                 </ImageBackground>
                             </TouchableOpacity>
                         </View>
                     )}
                 />
-
             </View>
         </View>
     );

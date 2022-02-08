@@ -10,7 +10,7 @@ const MentorListCard = (props) => {
             <View style={styles.Container}>
                 <View style={styles.heading}>
                     <Text style={styles.text}>Popular Today</Text>
-                    <Icon name='arrow-right' size={20} color={AppColors.FontsColor} />
+                    <Icon name='arrow-right' size={20} style={{ marginStart: '50%' }} color={AppColors.FontsColor} />
                 </View>
                 <View>
                     <FlatList
@@ -38,18 +38,17 @@ const styles = StyleSheet.create({
     },
     heading: {
         paddingTop: 5,
-        marginHorizontal: -150,
         flexDirection: 'row',
-        justifyContent: 'space-evenly'
     },
     text: {
         color: AppColors.FontsColor,
         fontFamily: "Poppins-Regular",
-        fontSize: 16
+        fontSize: 16,
+        marginStart: '3%'
     },
     Card: {
         backgroundColor: AppColors.CardColor,
-        marginHorizontal: 5,
+        marginHorizontal: 3,
         marginVertical: 10,
         width: 110,
         justifyContent: 'center',

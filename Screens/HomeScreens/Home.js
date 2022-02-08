@@ -24,6 +24,7 @@ const Home = () => {
     const [Saved, setSaved] = useState(false);
     const [ArticalDetails, setArticalDetails] = useState(true);
     const [defaultDp, setdefaultDp] = useState(true);
+    const [defaultMentors, setdefaultMentors] = useState(true);
     const [AllMentors, setAllMentors] = useState(false);
     const [dp, setdp] = useState();
     const [name, setname] = useState();
@@ -72,8 +73,10 @@ const Home = () => {
         setname(name);
         if (savedUser != undefined) {
             var dpurl = savedUser._data.image
-            setdp(dpurl);
-            setdefaultDp(false)
+            if (dpurl != "") {
+                setdp(dpurl);
+                setdefaultDp(false)
+            }
         }
     };
     GetUser();
@@ -129,12 +132,13 @@ const Home = () => {
                                     article={Article}
                                     save={Saved}
                                 />
-                                <View style={{ flex: 1 }}>
+                                <View style={{ flex: 1, }}>
                                     {Progress ?
                                         <ScrollView showsVerticalScrollIndicator={false}>
                                             <ProgressScreen
                                                 UserName={name}
                                                 qoute={qoute}
+                                                default={defaultMentors}
                                                 author={authors}
                                                 onPress={() => { setAllMentors(true) }}
                                             />

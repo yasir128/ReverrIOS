@@ -25,12 +25,12 @@ const ForgotPassword = () => {
             message: msg
 
         }
-        // emailjs.init("user_FR6AulWQMZry87FBzhKNu");
-        // emailjs.send("service_lfmmz8k", "template_6lqwjap", templateParams).then(res => {
-        //     console.log(res);
-        // }).catch(err => {
-        //     console.log(err);
-        // })
+        emailjs.init("user_FR6AulWQMZry87FBzhKNu");
+        emailjs.send("service_lfmmz8k", "template_6lqwjap", templateParams).then(res => {
+            console.log(res);
+        }).catch(err => {
+            console.log(err);
+        })
         console.log(templateParams, "send email");
 
         return OTP;
@@ -67,7 +67,7 @@ const ForgotPassword = () => {
                                 var password = savedUser._data.password;
                                 var OTP = EmailOtp();
                                 alert("Please check your inbox");
-                                navigation.navigate("Otp", { Otp: OTP, Email: email , Password:password});
+                                navigation.navigate("Otp", { Otp: OTP, Email: email, Password: password });
                                 setemail("");
                             }
 

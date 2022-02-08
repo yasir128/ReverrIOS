@@ -1,9 +1,13 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, FlatList } from 'react-native';
 import React from 'react';
 import Ionic from 'react-native-vector-icons/Ionicons';
 import AppColors from '../../../Constaint/AppColors';
 import ProgressCard from '../../../Componants/HomeScreenComponants/ProgressScreenComponants/ProgressCard';
 import MentorListCard from '../../../Componants/HomeScreenComponants/ProgressScreenComponants/MentorListCard';
+import DefaultProgressCard from '../../../Componants/HomeScreenComponants/ProgressScreenComponants/DefaultProgressCard';
+import ArticalList from '../../../Componants/HomeScreenComponants/ArticalScreenComponants/ArticalList';
+import { ArticalData } from '../../../dummy-data/Artical-Data';
+
 const ProgressScreen = (props) => {
     return (
         <View style={styles.screen}>
@@ -13,25 +17,31 @@ const ProgressScreen = (props) => {
                 <Text style={styles.subtext}>{props.author == "-null" ? "" : props.author}</Text>
             </View>
             <View style={styles.ProgressCard}>
-                <ProgressCard />
+                {props.default ?
+                    <DefaultProgressCard /> :
+                    <ProgressCard />
+                }
             </View>
             <View style={styles.listCard}>
                 <MentorListCard
                     onPress={props.onPress}
                 />
             </View>
-            <View style={{ marginHorizontal: 15, marginTop: 10, }}>
+            <View style={{ marginHorizontal: 15, marginTop: 10 }}>
                 <Text style={styles.text}>Article</Text>
-                <View style={styles.line}></View>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={[styles.text, { fontFamily: "Poppins-Bold", }]}>
-                        How to create a start up
-                    </Text>
-                    <Ionic name='heart' size={20} color="red" style={{ paddingStart: "31%" }} />
-                </View>
-                <Text style={[styles.text, { fontSize: 14, }]}>GPS software boost lets smartphones pinpoint location to within 20 cm
-                </Text>
+                {/* <FlatList
+                    data={ArticalData}
+                    renderItem={({ item }) => (
 
+                        <View>
+                            <Text>{item.title}</Text>
+                        </View>
+
+                    )}
+                /> */}
+                <ArticalList
+                    data={ArticalData}
+                />
             </View>
         </View>
     );
@@ -40,11 +50,10 @@ const ProgressScreen = (props) => {
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-
     },
     DetailsConatainer: {
         paddingHorizontal: 50,
-        paddingVertical: 10
+        paddingVertical: 10,
 
     },
     wlcm: {
@@ -59,9 +68,16 @@ const styles = StyleSheet.create({
         fontSize: 15,
 
     },
+    ProgressCard: {
+        width: '100%',
+        height: 110,
+        marginHorizontal: 5
+
+    },
     listCard: {
         marginTop: 10,
-        paddingHorizontal: 0
+        paddingHorizontal: 0,
+        marginHorizontal: 5
     },
     line: {
         width: '100%',

@@ -7,7 +7,7 @@ const Header = (props) => {
     return (
         <View>
             <View style={styles.Container}>
-                <TouchableOpacity style={styles.dp} onPress={props.onPress} >
+                <TouchableOpacity style={styles.dp} onPress={props.onPressDp} >
                     {props.Dp ? <Image style={{
                         height: 40,
                         width: 40,
@@ -29,10 +29,10 @@ const Header = (props) => {
                         width: 100,
                     }} source={require("../../assets/Images/logo.png")} />
                 </View>
-                <TouchableOpacity style={styles.notification}>
+                <TouchableOpacity onPress={props.onPressNoti} style={styles.notification}>
                     <Icon name='bell' size={22} color="black" />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.chat}>
+                <TouchableOpacity onPress={props.onPressChat} style={styles.chat}>
                     <Ionic name='chatbox-ellipses-outline' size={22} color="black" />
                 </TouchableOpacity>
             </View>
@@ -56,10 +56,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 200,
-        marginStart: 30,
+        marginStart: "8%",
     },
     logo: {
-        marginStart: 20
+        marginStart: "6%"
     },
     notification: {
         backgroundColor: 'white',
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 200,
-        marginStart: 20,
+        marginStart: "8%",
     },
     chat: {
         backgroundColor: 'white',
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 200,
-        marginStart: 30,
+        marginStart: "8%",
     }
 });
 

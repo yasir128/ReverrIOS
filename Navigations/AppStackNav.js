@@ -4,6 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Splash from '../Screens/Splash';
 import BottomTab from './BottomTab';
 import Home from '../Screens/HomeScreens/Home';
+import IndividuaProfile from '../Screens/ProfileScreens/IndividuaProfile';
+import MentorProfile from '../Screens/ProfileScreens/MentorProfile';
 
 
 const StackNavigation = createNativeStackNavigator();
@@ -14,6 +16,10 @@ const AppStackNav = () => {
         <NavigationContainer>
             <StackNavigation.Navigator>
                 <StackNavigation.Screen name='BottomTab' component={BottomTab}
+                    options={{ headerShown: false }} />
+                <StackNavigation.Screen name='Individual' component={IndividuaProfile}
+                    options={{ headerShown: false }} />
+                <StackNavigation.Screen name='MentorProfile' component={MentorProfile}
                     options={{ headerShown: false }} />
             </StackNavigation.Navigator>
         </NavigationContainer>

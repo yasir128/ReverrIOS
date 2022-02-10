@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import Header from '../../Componants/HomeScreenComponants/Header';
 import AppColors from '../../Constaint/AppColors';
+import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../../Navigations/AuthProvider';
 import CustomBtn from '../../Componants/CustomBtn';
 import TopTabBar from '../../Componants/HomeScreenComponants/TopTabBar';
@@ -28,8 +29,12 @@ const Home = () => {
     const [AllMentors, setAllMentors] = useState(false);
     const [dp, setdp] = useState();
     const [name, setname] = useState();
+    const [UserType, setUserType] = useState("MentorProfile") //"Individual","MentorProfile"
     const [qoute, setQoute] = useState("loading...");
     const [authors, setAuthors] = useState("-null");
+
+    const navigation = useNavigation();
+
     var options = {
         method: 'POST',
         url: 'https://motivational-quotes1.p.rapidapi.com/motivation',
@@ -81,16 +86,16 @@ const Home = () => {
     };
     GetUser();
 
-
-
-
     return (
         <View style={styles.screen}>
             {ArticalDetails ?
                 (
                     <View style={{ flex: 1 }}>
                         <Header
-                            onPress={() => { logout(); }}
+                            onPressDp={() => { navigation.navigate(UserType) }}
+                            onPressCalander={() => { logout(); }}
+                            onPressNoti={() => { console.log("Notification") }}
+                            onPressChat={() => { console.log("chat") }}
                             Dp={defaultDp}
                             DpUrl={dp}
                         />
@@ -149,8 +154,7 @@ const Home = () => {
                                             Article ? <ArticleScreen
                                                 ArticalDetails={ArticalDetails}
                                                 onPress={() => { setArticalDetails(false) }}
-                                            /> :
-                                                Saved ? <SavedScreen /> : null
+                                            /> : Saved ? <SavedScreen /> : null
                                     }
                                 </View>
                             </View>)}

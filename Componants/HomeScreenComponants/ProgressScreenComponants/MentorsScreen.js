@@ -11,7 +11,7 @@ const MentorsScreen = (props) => {
         <View style={{ flex: 1, marginTop: "-38%" }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
                 <Backbtn onPress={props.onPress} />
-                <Text style={styles.header}>ALL Mentors</Text>
+                <Text style={styles.header}>Popular Mentors</Text>
             </View>
             <View style={{ marginBottom: 50 }}>
                 <FlatList
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     }, header: {
         color: AppColors.FontsColor,
         fontFamily: "Poppins-Bold",
-        marginStart: "20%",
+        marginStart: "10%",
         fontSize: 20
     }
 });

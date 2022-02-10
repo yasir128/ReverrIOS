@@ -6,68 +6,56 @@ import { Data } from '../../../dummy-data/dummyData';
 
 const MentorListCard = (props) => {
     return (
-        <TouchableOpacity activeOpacity={1} onPress={props.onPress}>
-            <View style={styles.Container}>
-                <View style={styles.heading}>
-                    <Text style={styles.text}>Popular Today</Text>
-                    <Icon name='arrow-right' size={20} style={{ marginStart: '50%' }} color={AppColors.FontsColor} />
-                </View>
-                <View>
-                    <FlatList
-                        data={Data}
-                        horizontal
-                        renderItem={({ item }) => (
-                            <TouchableOpacity onPress={props.onPress} activeOpacity={0.6} style={styles.Card}>
-                                <Image style={styles.dp} source={{ uri: item.image }} />
-                                <Text style={styles.Name}>{item.name}</Text>
-                                <Text style={styles.skills}>{item.skills}</Text>
-                            </TouchableOpacity>
-                        )
-                        } />
-                </View>
+        <TouchableOpacity style={styles.Container} activeOpacity={1} onPress={props.onPress} style={styles.Container}>
+            <View style={{ flexDirection: 'row', borderRadius: 10, alignItems: 'center' }}>
+                <Text style={styles.heading}>Today Popular</Text>
+                <Icon name='arrow-right' style={{ marginStart: '40%' }} size={20} color={AppColors.FontsColor} />
             </View>
+            <FlatList
+                data={Data}
+                horizontal
+                renderItem={({ item }) => (
+                    <View style={styles.Container2}>
+                        <View style={styles.card}>
+                            <Image style={{ width: 70, height: 80, borderRadius: 10 }} source={{ uri: item.image }} />
+                            <Text style={styles.Name}>{item.name}</Text>
+                            <Text style={styles.skills}>{item.skills}</Text>
+                        </View>
+                    </View>
+                )}
+            />
         </TouchableOpacity>
     );
 };
 const styles = StyleSheet.create({
     Container: {
-        width: '100%',
+        flex: 1,
         borderRadius: 10,
-        backgroundColor: AppColors.BtnClr,
-        elevation: 5
+        marginVertical: 5,
+        backgroundColor: AppColors.BtnClr
     },
     heading: {
-        paddingTop: 5,
-        flexDirection: 'row',
-    },
-    text: {
         color: AppColors.FontsColor,
-        fontFamily: "Poppins-Regular",
-        fontSize: 16,
-        marginStart: '3%'
+        fontFamily: 'Poppins-Regular',
+        fontSize: 19,
+        marginStart: '5%'
     },
-    Card: {
+    Container2: {
+        height: "100%",
+    },
+    card: {
+        width: 93,
         backgroundColor: AppColors.CardColor,
-        marginHorizontal: 3,
-        marginVertical: 10,
-        width: 110,
-        justifyContent: 'center',
+        marginHorizontal: 10,
         alignItems: 'center',
-        paddingVertical: 8,
-        borderRadius: 10
-
-    },
-    dp: {
-        width: 80,
-        height: 80,
+        paddingVertical: 10,
         borderRadius: 10
     },
     Name: {
         color: AppColors.FontsColor,
-        width: '60%',
         fontFamily: "Poppins-Regular",
-        fontSize: 14,
-        paddingTop: 7
+        fontSize: 12,
+        paddingHorizontal: 4
     },
     skills: {
         color: AppColors.FontsColor,

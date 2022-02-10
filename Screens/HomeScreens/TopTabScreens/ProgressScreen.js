@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, ScrollView, FlatList } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
 import Ionic from 'react-native-vector-icons/Ionicons';
 import AppColors from '../../../Constaint/AppColors';
@@ -27,22 +27,24 @@ const ProgressScreen = (props) => {
                     onPress={props.onPress}
                 />
             </View>
-            <View style={{ marginHorizontal: 15, marginTop: 10 }}>
-                <Text style={styles.text}>Article</Text>
-                {/* <FlatList
-                    data={ArticalData}
-                    renderItem={({ item }) => (
-
-                        <View>
-                            <Text>{item.title}</Text>
+            <View style={{ height: "100%", paddingHorizontal: '3%' }}>
+                <Text style={[styles.text, { fontSize: 18 }]}>Artical</Text>
+                {ArticalData.map((item) => {
+                    return <TouchableOpacity key={item.id} >
+                        <View style={styles.line}></View>
+                        <View style={styles.title}>
+                            <Text style={styles.text}>{item.title}</Text>
+                            <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center', }}>
+                                <Ionic name='heart' size={20} color="red" />
+                            </TouchableOpacity>
                         </View>
-
-                    )}
-                /> */}
-                <ArticalList
-                    data={ArticalData}
-                />
+                        <View style={styles.description}>
+                            <Text style={styles.desc}>{item.description}</Text>
+                        </View>
+                    </TouchableOpacity>
+                })}
             </View>
+
         </View>
     );
 };
@@ -52,8 +54,9 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     DetailsConatainer: {
-        paddingHorizontal: 50,
-        paddingVertical: 10,
+        paddingHorizontal: "5%",
+        paddingVertical: "2%",
+
 
     },
     wlcm: {
@@ -71,13 +74,17 @@ const styles = StyleSheet.create({
     ProgressCard: {
         width: '100%',
         height: 110,
-        marginHorizontal: 5
+        alignSelf: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: '3%'
+
 
     },
     listCard: {
         marginTop: 10,
-        paddingHorizontal: 0,
-        marginHorizontal: 5
+        paddingHorizontal: '3%',
+        width: '100%',
+        height: 220,
     },
     line: {
         width: '100%',
@@ -88,6 +95,31 @@ const styles = StyleSheet.create({
         color: AppColors.FontsColor,
         fontFamily: "Poppins-Regular",
         fontSize: 15,
+    }, line: {
+        backgroundColor: AppColors.infoFonts,
+        width: '100%',
+        height: 1
+    },
+    title: {
+        paddingTop: 10,
+        paddingStart: 5,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+
+    },
+    text: {
+        color: AppColors.FontsColor,
+        fontFamily: "Poppins-Bold"
+    },
+    description: {
+        paddingBottom: 20,
+        paddingStart: 5
+
+    },
+    desc: {
+        color: AppColors.FontsColor,
+        fontFamily: "Poppins-Regular"
     }
 });
 

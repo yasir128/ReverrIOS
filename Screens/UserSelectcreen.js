@@ -13,7 +13,7 @@ const UserSelectcreen = () => {
     return (
         <View style={styles.screen}>
             <View style={styles.header}>
-                <Backbtn onPress={() => {
+                <Backbtn IconSize={40} onPress={() => {
                     navigation.goBack();
                 }} />
                 <Text style={styles.headertext}>Select Profile</Text>

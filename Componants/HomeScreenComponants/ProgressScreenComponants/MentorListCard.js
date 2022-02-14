@@ -6,7 +6,7 @@ import { Data } from '../../../dummy-data/dummyData';
 
 const MentorListCard = (props) => {
     return (
-        <TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.8} onPress={props.onPress}>
             <View style={styles.Container}>
                 <View style={styles.heading}>
                     <Text style={styles.text}>Today Populars</Text>

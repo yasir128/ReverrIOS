@@ -42,7 +42,7 @@ const ForgotPassword = () => {
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss() }}>
             <View style={styles.screen}>
                 <View style={{ marginTop: 10 }}>
-                    <Backbtn onPress={() => { navigation.goBack() }} />
+                    <Backbtn IconSize={40} onPress={() => { navigation.goBack() }} />
                 </View>
                 <View style={styles.pageInfo}>
                     <Text style={[styles.Text, { fontSize: 24, color: AppColors.FontsColor, marginBottom: 13 }]}>Forget Password</Text>

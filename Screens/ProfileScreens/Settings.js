@@ -16,6 +16,7 @@ const Settings = () => {
         <View style={styles.screen}>
             <View style={styles.header}>
                 <Backbtn
+                    IconSize={40}
                     onPress={() => { navigation.goBack() }}
                 />
                 <Text style={{

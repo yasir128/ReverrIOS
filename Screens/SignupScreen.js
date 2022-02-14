@@ -35,9 +35,9 @@ const SignupScreen = (props) => {
         Password: password,
         Mobile: mobile
     }
-    
+
     //console.log(data)
-    const IsEmpty = async() => {
+    const IsEmpty = async () => {
 
         if (name === "") {
             setnameerror(true);
@@ -59,19 +59,19 @@ const SignupScreen = (props) => {
                                 alert("Password not matched!!")
                             } else {
                                 const savedUser = await firestore().collection('Users').doc(email).get();
-                                if(savedUser._data != undefined){
+                                if (savedUser._data != undefined) {
                                     alert("user already exists with that email");
-                                }else{
+                                } else {
                                     var OTP = EmailOtp();
                                     alert("Please check your inbox");
-                                    navigation.navigate("emailVerify",{OTP:OTP,Email:email,Password:password,Name:name,Mobile:mobile,UserType:UserType});
+                                    navigation.navigate("emailVerify", { OTP: OTP, Email: email, Password: password, Name: name, Mobile: mobile, UserType: UserType });
                                     setname("");
                                     setemail("");
                                     setpassword("");
                                     setConfermPass("");
                                     setmobile("");
                                 }
-                                
+
                             }
                         }
                     }
@@ -80,34 +80,34 @@ const SignupScreen = (props) => {
         }
     };
 
-    const EmailOtp = ()=>{
+    const EmailOtp = () => {
         const OTP = Math.floor((Math.random() * 1000000) + 1);
-        const msg = "Your OTP for verification is "+OTP;
+        const msg = "Your OTP for verification is " + OTP;
 
-        var templateParams ={
-                name:data.Name,
-                email:data.Email,
-                subject:"OTP for account verification",
-                message:msg
-    
+        var templateParams = {
+            name: data.Name,
+            email: data.Email,
+            subject: "OTP for account verification",
+            message: msg
+
         }
         emailjs.init("user_FR6AulWQMZry87FBzhKNu");
-        emailjs.send("service_lfmmz8k","template_6lqwjap",templateParams).then(res=>{
+        emailjs.send("service_lfmmz8k", "template_6lqwjap", templateParams).then(res => {
             console.log(res);
-        }).catch(err=>{
+        }).catch(err => {
             console.log(err);
         })
-        console.log(templateParams,"send email");
-       
+        console.log(templateParams, "send email");
+
         return OTP;
-         
+
     }
 
     return (
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss() }}>
             <View style={styles.screen}>
                 <View style={{ marginTop: 10 }}>
-                    <Backbtn onPress={() => { navigation.goBack() }} />
+                    <Backbtn IconSize={40} onPress={() => { navigation.goBack() }} />
                 </View>
                 <ScrollView>
                     <View style={styles.pageInfo}>

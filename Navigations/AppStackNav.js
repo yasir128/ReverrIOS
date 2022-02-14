@@ -8,6 +8,7 @@ import IndividuaProfile from '../Screens/ProfileScreens/IndividuaProfile';
 import MentorProfile from '../Screens/ProfileScreens/MentorProfile';
 import Settings from '../Screens/ProfileScreens/Settings';
 import ChatList from '../Screens/ChatScreens/ChatList';
+import ChatBox from '../Screens/ChatScreens/ChatBox';
 
 
 const StackNavigation = createNativeStackNavigator();
@@ -26,6 +27,8 @@ const AppStackNav = () => {
                 <StackNavigation.Screen name='Setting' component={Settings}
                     options={{ headerShown: false }} />
                 <StackNavigation.Screen name='Chat' component={ChatList}
+                    options={{ headerShown: false }} />
+                <StackNavigation.Screen name='ChatBox' component={ChatBox}
                     options={{ headerShown: false }} />
             </StackNavigation.Navigator>
         </NavigationContainer>

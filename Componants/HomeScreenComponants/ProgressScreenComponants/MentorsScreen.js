@@ -10,7 +10,7 @@ const MentorsScreen = (props) => {
     return (
         <View style={{ flex: 1, marginTop: "-38%" }}>
             <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}>
-                <Backbtn onPress={props.onPress} />
+                <Backbtn IconSize={40} onPress={props.onPress} />
                 <Text style={styles.header}>Popular Mentors</Text>
             </View>
             <View style={{ marginBottom: 50 }}>

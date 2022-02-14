@@ -20,7 +20,7 @@ const Header = (props) => {
                         }} source={{ uri: props.DpUrl }} />
                     }
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.calender}>
+                <TouchableOpacity onPress={props.onPressCalander} style={styles.calender}>
                     <Icon name='calendar-alt' size={22} color="black" />
                 </TouchableOpacity>
                 <View style={styles.logo}>

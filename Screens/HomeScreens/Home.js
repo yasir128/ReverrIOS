@@ -103,9 +103,9 @@ const Home = () => {
                     <View style={{ flex: 1 }}>
                         <Header
                             onPressDp={() => { navigation.navigate(UserType) }}
-                            onPressCalander={() => { logout(); }}
+                            onPressCalander={() => { logout() }}
                             onPressNoti={() => { console.log("Notification") }}
-                            onPressChat={() => { console.log("chat") }}
+                            onPressChat={() => { navigation.navigate("Chat") }}
                             Dp={defaultDp}
                             DpUrl={dp}
                         />

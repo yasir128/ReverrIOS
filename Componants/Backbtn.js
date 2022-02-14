@@ -7,8 +7,8 @@ import AppColors from '../Constaint/AppColors';
 const Backbtn = (props) => {
     return (
         <View>
-            <TouchableOpacity style={styles.btn} onPress={props.onPress}>
-                <Icon name='angle-left' size={40} color={AppColors.FontsColor} />
+            <TouchableOpacity style={{ ...styles.btn, ...props.style }} onPress={props.onPress}>
+                <Icon name='angle-left' size={props.IconSize} color={AppColors.FontsColor} />
             </TouchableOpacity>
         </View>
     );

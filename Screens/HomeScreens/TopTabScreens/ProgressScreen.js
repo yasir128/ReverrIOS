@@ -18,7 +18,7 @@ const ProgressScreen = (props) => {
             </View>
             <View style={styles.ProgressCard}>
                 {props.default ?
-                    <DefaultProgressCard /> :
+                    <DefaultProgressCard onPress={props.onPress} /> :
                     <ProgressCard />
                 }
             </View>

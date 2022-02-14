@@ -4,9 +4,9 @@ import AppColors from '../../../Constaint/AppColors';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { DiscoverData } from '../../../dummy-data/DiscoverData';
 
-const DefaultProgressCard = () => {
+const DefaultProgressCard = (props) => {
     return (
-        <TouchableOpacity>
+        <TouchableOpacity activeOpacity={0.8} onPress={props.onPress}>
             <View style={styles.Container}>
                 <View style={styles.heading}>
                     <Text style={styles.text}>Discover Mentors</Text>

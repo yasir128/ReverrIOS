@@ -14,13 +14,13 @@ const ResetPassword = (props) => {
     const [Password, setPassword] = useState("");
     const [Password2, setPassword2] = useState("");
 
-    const { login,updatePassword } = useContext(AuthContext);
+    const { login, updatePassword } = useContext(AuthContext);
 
     return (
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss() }}>
             <View style={styles.screen}>
                 <View style={{ marginTop: 10 }}>
-                    <Backbtn onPress={() => { navigation.goBack() }} />
+                    <Backbtn IconSize={40} onPress={() => { navigation.goBack() }} />
                 </View>
                 <View style={styles.pageInfo}>
                     <Text style={[styles.Text, { fontSize: 24, color: AppColors.FontsColor, marginBottom: 13 }]}>Reset Password</Text>
@@ -50,8 +50,8 @@ const ResetPassword = (props) => {
                                         password: Password,
                                     })
                                     .then(() => {
-                                       
-                                        login(EmailID, oldPassword).then(()=>{
+
+                                        login(EmailID, oldPassword).then(() => {
                                             updatePassword(Password);
                                             navigation.replace("Login");
                                         })

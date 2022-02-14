@@ -16,7 +16,7 @@ const OtpScreen = (props) => {
         <TouchableWithoutFeedback onPress={() => { Keyboard.dismiss() }}>
             <View style={styles.screen}>
                 <View style={{ marginTop: 10 }}>
-                    <Backbtn onPress={() => { navigation.goBack() }} />
+                    <Backbtn IconSize={40} onPress={() => { navigation.goBack() }} />
                 </View>
                 <View style={styles.pageInfo}>
                     <Text style={[styles.Text, { fontSize: 24, color: AppColors.FontsColor, marginBottom: 13 }]}>Confirmation</Text>
@@ -38,7 +38,7 @@ const OtpScreen = (props) => {
                             if (Otp != otp) {
                                 alert("wrong otp")
                             } else {
-                                navigation.navigate("Reset", { EmailID: Email , Password: Password});
+                                navigation.navigate("Reset", { EmailID: Email, Password: Password });
                             }
                         }}
                     />

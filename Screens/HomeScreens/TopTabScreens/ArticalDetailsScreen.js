@@ -8,7 +8,7 @@ const ArticalDetailsScreen = (props) => {
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.header}>
-                <Backbtn onPress={props.BackBotton} />
+                <Backbtn IconSize={40} onPress={props.BackBotton} />
                 <Text style={styles.heading}>Article</Text>
             </View>
             <View style={styles.DetailsContainer}>

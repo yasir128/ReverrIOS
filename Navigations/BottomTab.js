@@ -40,7 +40,7 @@ const BottomTab = () => {
                             }} />
                     }
                 }} />
-            <MyTab.Screen name="Mentor" component={MentorScreen}
+            <MyTab.Screen name="MentorTab" component={MentorScreen}
                 options={{
                     headerShown: false,
                     headerStyle: {

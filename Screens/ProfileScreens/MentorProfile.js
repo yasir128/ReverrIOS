@@ -57,8 +57,7 @@ const MentorProfile = () => {
                 <View style={{ height: '5%' }}>
                     <TitleCard
                         firstText='Jatin khurana'
-                        marginStart1='5%'
-                        marginStart2='50%'
+
                     />
                 </View>
                 <View style={{ height: 'auto', marginTop: '10%' }}>
@@ -71,8 +70,7 @@ const MentorProfile = () => {
                     <TitleCard
                         firstText='Industry'
                         secoundText='Finance'
-                        marginStart1='5%'
-                        marginStart2='43%'
+
                     />
                 </View>
                 <View style={{ height: 'auto', marginTop: '10%' }}>

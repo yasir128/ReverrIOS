@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import React from 'react';
 import AppColors from '../../Constaint/AppColors';
 import Backbtn from '../../Componants/Backbtn';
@@ -27,20 +27,18 @@ const IndividuaProfile = () => {
             </View>
             <View style={styles.mainContainer}>
                 <View style={styles.topIcons}>
-                    <View style={{ alignItems: 'center', justifyContent: 'center', }}>
+                    <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', }}>
                         <Icon name='crown' size={20} color={AppColors.FontsColor} />
                         <Text style={styles.text}>Membership</Text>
-                    </View>
-                    <View style={{ alignItems: 'center', justifyContent: 'center', marginStart: '55%' }}>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => { navigation.navigate("Setting") }} style={{ alignItems: 'center', justifyContent: 'center', marginStart: '55%' }}>
                         <Ionic name='settings' size={22} color={AppColors.FontsColor} />
                         <Text style={styles.text}>Setting</Text>
-                    </View>
+                    </TouchableOpacity>
                 </View>
                 <View style={{ height: '5%' }}>
                     <TitleCard
                         firstText='Name'
-                        marginStart1='5%'
-                        marginStart2='50%'
                         secoundText='Fimple'
                     />
                 </View>
@@ -54,8 +52,6 @@ const IndividuaProfile = () => {
                     <TitleCard
                         firstText='Industry'
                         secoundText='Finance'
-                        marginStart1='5%'
-                        marginStart2='43%'
                     />
                 </View>
                 <FoundersCard

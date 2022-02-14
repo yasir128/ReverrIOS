@@ -1,9 +1,13 @@
-const initialstate = 0;
+const initialstate = {
+    Artical: ''
+};
 const GetArtical = (state = initialstate, action) => {
-
     switch (action.type) {
-        case 'SAVEARTICAL': return state + 1
-
+        case 'SAVEARTICAL':
+            const { data } = action.payload;
+            return {
+                Artical: data
+            }
         default:
             return state;
     }

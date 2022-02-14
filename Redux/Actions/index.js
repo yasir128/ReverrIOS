@@ -1,5 +1,6 @@
-export const SaveArtical = () => {
+export const SaveArtical = (data) => {
     return {
-        type: 'SAVEARTICAL'
+        type: 'SAVEARTICAL',
+        payload: data
     }
 };

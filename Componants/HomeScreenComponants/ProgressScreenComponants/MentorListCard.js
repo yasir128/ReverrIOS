@@ -9,7 +9,7 @@ const MentorListCard = (props) => {
         <TouchableOpacity style={styles.Container} activeOpacity={1} onPress={props.onPress} style={styles.Container}>
             <View style={{ flexDirection: 'row', borderRadius: 10, alignItems: 'center' }}>
                 <Text style={styles.heading}>Today Popular</Text>
-                <Icon name='arrow-right' style={{ marginStart: '40%' }} size={20} color={AppColors.FontsColor} />
+                <Icon name='arrow-right' size={20} color={AppColors.FontsColor} />
             </View>
             <FlatList
                 data={Data}
@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
         color: AppColors.FontsColor,
         fontFamily: 'Poppins-Regular',
         fontSize: 19,
+        width: '85%',
         marginStart: '5%'
     },
     Container2: {

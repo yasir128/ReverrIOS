@@ -9,7 +9,7 @@ const DefaultProgressCard = () => {
         <TouchableOpacity activeOpacity={0.7} style={styles.card}>
             <View style={styles.heading}>
                 <Text style={styles.text}>Discover Mentor</Text>
-                <Icon name='arrow-right' style={{ marginStart: '45%' }} size={20} color={AppColors.FontsColor} />
+                <Icon name='arrow-right' size={20} color={AppColors.FontsColor} />
             </View>
             <FlatList
                 horizontal
@@ -44,7 +44,8 @@ const styles = StyleSheet.create({
         color: AppColors.FontsColor,
         fontFamily: "Poppins-Regular",
         fontSize: 16,
-        marginStart: '3%'
+        width: '85%',
+        marginStart: '5%'
     },
     list: {
         paddingHorizontal: 15,

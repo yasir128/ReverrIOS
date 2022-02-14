@@ -1,10 +1,9 @@
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import Header from '../../Componants/HomeScreenComponants/Header';
 import AppColors from '../../Constaint/AppColors';
 import { useNavigation } from '@react-navigation/native';
 import { AuthContext } from '../../Navigations/AuthProvider';
-import CustomBtn from '../../Componants/CustomBtn';
 import TopTabBar from '../../Componants/HomeScreenComponants/TopTabBar';
 import ProgressScreen from './TopTabScreens/ProgressScreen';
 import auth from "@react-native-firebase/auth";
@@ -12,6 +11,8 @@ import NewsScreen from './TopTabScreens/NewsScreen';
 import firestore from '@react-native-firebase/firestore';
 import ArticleScreen from './TopTabScreens/ArticleScreen';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { SaveArtical } from '../../Redux/Actions';
 import SavedScreen from './TopTabScreens/SavedScreen';
 import ArticalDetailsScreen from './TopTabScreens/ArticalDetailsScreen';
 import MentorsScreen from '../../Componants/HomeScreenComponants/ProgressScreenComponants/MentorsScreen';
@@ -29,9 +30,16 @@ const Home = () => {
     const [AllMentors, setAllMentors] = useState(false);
     const [dp, setdp] = useState();
     const [name, setname] = useState();
-    const [UserType, setUserType] = useState("MentorProfile") //"Individual","MentorProfile"
+    const [UserType, setUserType] = useState("") //"Individual","MentorProfile"
     const [qoute, setQoute] = useState("loading...");
     const [authors, setAuthors] = useState("-null");
+
+    const dispatch = useDispatch();
+    const ArticalID = useSelector((state) => { state.GetArtical.Artical });
+
+    dispatch(SaveArtical("dhruv"))
+
+    console.log(ArticalID);
 
     const navigation = useNavigation();
 
@@ -78,6 +86,8 @@ const Home = () => {
         setname(name);
         if (savedUser != undefined) {
             var dpurl = savedUser._data.image
+            var type = savedUser._data.userType
+            setUserType(type);
             if (dpurl != "") {
                 setdp(dpurl);
                 setdefaultDp(false)

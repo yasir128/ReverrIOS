@@ -13,11 +13,11 @@ const FoundersCard = (props) => {
                 renderItem={({ item }) => (
                     <View style={styles.Container}>
                         <Image style={{ height: 40, width: 40, borderRadius: 20, marginStart: '3%', }} source={{ uri: item.image }} />
-                        <View style={{ marginStart: '3%' }}>
+                        <View style={{ marginStart: '3%', width: '70%' }}>
                             <Text style={styles.name}>{item.name}   </Text>
                             <Text style={styles.role}>{item.role}</Text>
                         </View>
-                        <Icon name="logo-linkedin" size={20} color='white' style={{ marginStart: '35%' }} />
+                        <Icon name="logo-linkedin" size={20} color='white' />
                     </View>
                 )}
             />
@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     name: {
         color: AppColors.FontsColor,
         fontFamily: 'Poppins-Regular',
+        width: '100%',
         fontSize: 13
     },
     role: {

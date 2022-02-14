@@ -6,57 +6,63 @@ import { DiscoverData } from '../../../dummy-data/DiscoverData';
 
 const DefaultProgressCard = () => {
     return (
-        <TouchableOpacity activeOpacity={0.7} style={styles.card}>
-            <View style={styles.heading}>
-                <Text style={styles.text}>Discover Mentor</Text>
-                <Icon name='arrow-right' size={20} color={AppColors.FontsColor} />
+        <TouchableOpacity>
+            <View style={styles.Container}>
+                <View style={styles.heading}>
+                    <Text style={styles.text}>Discover Mentors</Text>
+                    <Icon name='arrow-right' size={20} color={AppColors.FontsColor} />
+                </View>
+                <View>
+                    <FlatList
+                        data={DiscoverData}
+                        horizontal
+                        renderItem={({ item }) => (
+                            <TouchableOpacity activeOpacity={0.6} style={styles.Card}>
+                                <Image style={styles.dp} source={{ uri: item.image }} />
+                                <Text style={styles.Name}>{item.name}</Text>
+                            </TouchableOpacity>
+                        )
+                        } />
+                </View>
             </View>
-            <FlatList
-                horizontal
-                data={DiscoverData}
-                renderItem={({ item }) => (
-                    <View style={styles.list}>
-                        <Image style={{ width: 50, height: 50, borderRadius: 10 }} source={{ uri: item.image }} />
-                        <Text style={styles.name}>{item.name}</Text>
-                    </View>
-
-                )}
-
-            />
-
         </TouchableOpacity>
     );
 };
-
 const styles = StyleSheet.create({
-    card: {
-        backgroundColor: AppColors.BtnClr,
-        width: "100%",
-        height: "100%",
+    Container: {
+        width: '100%',
         borderRadius: 10,
-
+        marginBottom: 20,
+        backgroundColor: AppColors.BtnClr,
+        elevation: 5
     },
     heading: {
         paddingTop: 5,
+        marginHorizontal: -100,
         flexDirection: 'row',
+        justifyContent: 'space-evenly'
     },
     text: {
         color: AppColors.FontsColor,
         fontFamily: "Poppins-Regular",
-        fontSize: 16,
-        width: '85%',
-        marginStart: '5%'
+        fontSize: 16
     },
-    list: {
-        paddingHorizontal: 15,
-        justifyContent: 'center',
+    Card: {
+        paddingHorizontal: 20,
         alignItems: 'center'
     },
-    name: {
+    dp: {
+        width: "120%",
+        height: "55%",
+        borderRadius: 10
+    },
+    Name: {
         color: AppColors.FontsColor,
-        fontFamily: 'Poppins-Regular',
-        fontSize: 13
-    }
+        width: '100%',
+        fontFamily: "Poppins-Regular",
+        fontSize: 10,
+        paddingTop: 7
+    },
 });
 
 export default DefaultProgressCard;

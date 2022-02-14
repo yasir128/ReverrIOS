@@ -14,7 +14,7 @@ const ProgressScreen = (props) => {
             <View style={styles.DetailsConatainer}>
                 <Text style={styles.wlcm}>Hello,{props.UserName}</Text>
                 <Text style={styles.subtext}>{props.qoute}</Text>
-                <Text style={styles.subtext}>{props.author == "-null" ? "" : props.author}</Text>
+                <Text style={styles.subtext2}>{props.author == "-null" ? "" : props.author}</Text>
             </View>
             <View style={styles.ProgressCard}>
                 {props.default ?
@@ -71,19 +71,25 @@ const styles = StyleSheet.create({
         fontSize: 15,
 
     },
+    subtext2: {
+        color: AppColors.infoFonts,
+        fontFamily: "Poppins-Regular",
+        fontSize: 15,
+        paddingStart: '55%',
+        marginBottom: 5
+    },
     ProgressCard: {
         width: '100%',
         height: 110,
         alignSelf: 'center',
         justifyContent: 'center',
         paddingHorizontal: '3%'
-
-
     },
     listCard: {
         marginTop: 10,
         paddingHorizontal: '3%',
         width: '100%',
+        marginBottom: "12%",
         height: 220,
     },
     line: {

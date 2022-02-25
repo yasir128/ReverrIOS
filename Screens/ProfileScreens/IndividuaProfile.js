@@ -15,14 +15,16 @@ const IndividuaProfile = () => {
     return (
         <View style={styles.screen}>
             <View style={styles.header}>
-                <Backbtn
-                    IconSize={40}
-                    onPress={() => { navigation.goBack() }}
-                />
+                <View style={{ width: '40%' }}>
+                    <Backbtn
+                        IconSize={40}
+
+                        onPress={() => { navigation.goBack() }}
+                    />
+                </View>
                 <Text style={{
                     color: AppColors.FontsColor,
                     fontFamily: 'Poppins-Regular',
-                    marginStart: '26%',
                     fontSize: 20
                 }}>Profile</Text>
             </View>

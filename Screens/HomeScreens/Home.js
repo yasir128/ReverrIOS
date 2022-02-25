@@ -12,7 +12,7 @@ import firestore from '@react-native-firebase/firestore';
 import ArticleScreen from './TopTabScreens/ArticleScreen';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import { SaveArtical } from '../../Redux/Actions';
+import { setArticles } from '../../Redux/actions'
 import SavedScreen from './TopTabScreens/SavedScreen';
 import ArticalDetailsScreen from './TopTabScreens/ArticalDetailsScreen';
 import MentorsScreen from '../../Componants/HomeScreenComponants/ProgressScreenComponants/MentorsScreen';
@@ -34,12 +34,12 @@ const Home = () => {
     const [qoute, setQoute] = useState("loading...");
     const [authors, setAuthors] = useState("-null");
 
-    const dispatch = useDispatch();
-    const ArticalID = useSelector((state) => { state.GetArtical.Artical });
-
-    dispatch(SaveArtical("dhruv"))
-
-    console.log(ArticalID);
+    /* const dispatch = useDispatch();
+     const ArticalID = useSelector(state => state.articleReducer);
+ 
+     dispatch(setArticles("hello"))
+ 
+     console.log(ArticalID);*/
 
     const navigation = useNavigation();
 

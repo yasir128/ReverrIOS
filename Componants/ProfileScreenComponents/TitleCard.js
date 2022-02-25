@@ -6,9 +6,9 @@ import Icon from 'react-native-vector-icons/FontAwesome5'
 const TitleCard = (props) => {
     return (
         <View style={styles.NameContainer}>
-            <Text style={[styles.text2, { color: AppColors.FontsColor, marginStart: '5%', width: '55%' }]}>{props.firstText}</Text>
-            <Text style={[styles.text2, { color: AppColors.infoFonts, width: '20%' }]}>{props.secoundText}</Text>
-            <Icon name='angle-right' style={{ marginStart: '10%' }} size={25} color={AppColors.infoFonts} />
+            <Text style={[styles.text2, { color: AppColors.FontsColor, marginStart: '5%', width: '65%' }]}>{props.firstText}</Text>
+            <Text style={[styles.text2, { color: AppColors.infoFonts, width: '22%', textAlign: 'center' }]}>{props.secoundText}</Text>
+            <Icon name='angle-right' size={25} color={AppColors.infoFonts} />
         </View>
     )
 };

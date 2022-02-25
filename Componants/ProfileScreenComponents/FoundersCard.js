@@ -17,7 +17,7 @@ const FoundersCard = (props) => {
                             <Text style={styles.name}>{item.name}   </Text>
                             <Text style={styles.role}>{item.role}</Text>
                         </View>
-                        <Icon name="logo-linkedin" size={20} color='white' />
+                        <Icon name="logo-linkedin" size={20} color='blue' />
                     </View>
                 )}
             />

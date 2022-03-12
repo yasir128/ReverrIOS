@@ -1,10 +1,10 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { AuthProvider } from './Navigations/AuthProvider';
-import { Provider } from 'react-redux';
+import { Provider} from 'react-redux';
 import Routes from './Navigations/Routes';
 import AppColors from './Constaint/AppColors';
-import { store } from './Redux/Store';
+import { store } from './Redux/store';
 
 const App = () => {
   return (

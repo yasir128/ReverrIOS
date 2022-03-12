@@ -16,64 +16,41 @@ import Icon2 from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import firestore from '@react-native-firebase/firestore';
 
-const ChatBox = props => {
-  const userData = props.route.params.userData;
+const GroupChatBox = props => {
+  const GroupData = props.route.params.GroupData;
   const [message, setmessage] = useState('');
   const [userEmail, setuserEmail] = useState('');
-  const [Recive, setRecive] = useState();
+  const [AllMessages, setAllMessages] = useState();
   var date = new Date().getDate();
   var month = new Date().getMonth() + 1;
   var year = new Date().getFullYear();
   const navigation = useNavigation();
 
-  const SendMessage = async () => {
+  const GetGroupMessages = async () => {
+    const msg = await firestore().collection('Groups').doc(GroupData.id).get();
+    setAllMessages(msg._data.messages);
+    console.log(AllMessages);
+  };
+
+  const SendMessage = () => {
     const email = auth().currentUser;
     firestore()
-      .collection('Messages')
-      .doc(email.email)
-      .collection('YourMatches')
-      .doc(userData.email)
+      .collection('Groups')
+      .doc(GroupData.id)
       .update({
         messages: firestore.FieldValue.arrayUnion({
-          msg: message,
+          text: message,
           createdAt: date + '-' + month + '-' + year,
           sendBy: email.email,
         }),
       })
       .then(() => {
-        firestore()
-          .collection('Messages')
-          .doc(userData.email)
-          .collection('YourMatches')
-          .doc(email.email)
-          .update({
-            messages: firestore.FieldValue.arrayUnion({
-              msg: message,
-              createdAt: date + '-' + month + '-' + year,
-              sendBy: email.email,
-            }),
-          });
-        setmessage(''), console.log('sent');
+        setmessage('');
       });
   };
-  const ReciveMessage = async () => {
-    const email = await auth().currentUser;
-    var userEmail = email.email;
-    setuserEmail(userEmail);
-    const Allmsg = await firestore()
-      .collection('Messages')
-      .doc(userEmail)
-      .collection('YourMatches')
-      .doc(userData.email)
-      .get();
-    setRecive(Allmsg._data.messages);
 
-    console.log(Recive);
-  };
-  useEffect(() => {
-    ReciveMessage();
-  }, [Recive]);
-  //console.log(userEmail);
+  GetGroupMessages();
+
   return (
     <View style={styles.screen}>
       <View style={styles.AppBar}>
@@ -84,8 +61,8 @@ const ChatBox = props => {
             navigation.goBack();
           }}
         />
-        <Image style={styles.dp} source={{uri: userData.image}} />
-        <Text style={styles.Name}>{userData.name}</Text>
+        {/* <Image style={styles.dp} source={{uri: userData.image}} /> */}
+        <Text style={styles.Name}>{GroupData.name}</Text>
         <TouchableOpacity style={{marginStart: '12%'}}>
           <Icon2
             name="phone-volume"
@@ -132,7 +109,7 @@ const ChatBox = props => {
       </View>
       <View>
         <FlatList
-          data={Recive}
+          data={AllMessages}
           renderItem={({item}) => (
             <View
               style={{width: '100%', justifyContent: 'center', height: 'auto'}}>
@@ -147,7 +124,7 @@ const ChatBox = props => {
                   backgroundColor: item.sendBy == userEmail ? 'gray' : 'gray',
                   marginStart: item.sendBy == userEmail ? '65%' : '2%',
                 }}>
-                {item.msg == '' ? null : item.msg}
+                {item.text == '' ? null : item.text}
               </Text>
             </View>
           )}
@@ -203,4 +180,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ChatBox;
+export default GroupChatBox;

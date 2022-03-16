@@ -13,7 +13,7 @@ import AppColors from '../../Constaint/AppColors';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
-const TrendingMentors = () => {
+const TrendingMentors = props => {
   return (
     <View>
       <View style={styles.container}>
@@ -26,7 +26,7 @@ const TrendingMentors = () => {
           }}>
           Trending
         </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={props.onPress}>
           <Text
             style={{
               color: AppColors.FontsColor,

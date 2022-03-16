@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     overflow: 'hidden',
     borderRadius: 6,
+    height: 40,
     width: '80%',
     backgroundColor: AppColors.inputFieldColor,
     marginStart: '4%',

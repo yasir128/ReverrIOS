@@ -28,7 +28,7 @@ const AppStackNav = () => {
           options={{headerShown: false}}
         />
         <StackNavigation.Screen
-          name="MentorProfile"
+          name="Mentor"
           component={MentorProfile}
           options={{headerShown: false}}
         />

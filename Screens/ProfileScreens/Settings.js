@@ -6,31 +6,30 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import AppColors from '../../Constaint/AppColors';
+import {AuthContext} from '../../Navigations/AuthProvider';
 import Backbtn from '../../Componants/Backbtn';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import storage from '@react-native-firebase/storage';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import Ionic from 'react-native-vector-icons/Ionicons';
+import {ChangeDp} from '../../utils/fireBaseFunctions';
 import TitleCard from '../../Componants/ProfileScreenComponents/TitleCard';
 import {useNavigation} from '@react-navigation/native';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
+
 const Settings = props => {
-  const useremail = props.route.params.email;
+  const {user, logout} = React.useContext(AuthContext);
+  const UserData = props.route.params.data;
+  const [defaultdp, setdefaultdp] = useState(true);
   const navigation = useNavigation();
 
-  console.log(useremail);
+  useEffect(() => {
+    if (UserData.image != '') {
+      setdefaultdp(false);
+    }
+  }, [defaultdp]);
 
-  const StoreImage = async () => {
-    // You can also use as a promise without 'callback':
-    const result = await launchImageLibrary({
-      mediaType: 'mixed',
-    });
-    console.log(result);
-  };
   return (
     <View style={styles.screen}>
       <View style={styles.header}>
@@ -63,20 +62,31 @@ const Settings = props => {
         <TouchableOpacity style={{height: '5%', marginTop: '5%'}}>
           <TitleCard firstText="Contact us" />
         </TouchableOpacity>
-        <TouchableOpacity style={{height: '5%', marginTop: '5%'}}>
+        <TouchableOpacity
+          onPress={() => {
+            logout();
+          }}
+          style={{height: '5%', marginTop: '5%'}}>
           <TitleCard firstText="Logout" />
         </TouchableOpacity>
       </View>
       <View style={styles.dp}>
-        <Image
-          style={{width: '100%', height: '100%'}}
-          source={require('../../assets/Images/profilepic.png')}
-        />
+        {defaultdp ? (
+          <Image
+            style={{width: '100%', height: '100%'}}
+            source={require('../../assets/Images/jatindp.png')}
+          />
+        ) : (
+          <Image
+            style={{width: '100%', height: '100%'}}
+            source={{uri: UserData.image}}
+          />
+        )}
       </View>
       <TouchableOpacity
         style={styles.camera}
         onPress={() => {
-          StoreImage();
+          ChangeDp();
         }}>
         <Icon name="camera" size={15} color="black" />
       </TouchableOpacity>

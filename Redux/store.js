@@ -1,7 +1,8 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk';
-import articleReducer from './reducers';
+import {configureStore} from '@reduxjs/toolkit';
+import ArticalSlice from './appSlice';
 
-const rootReducer = combineReducers({ articleReducer });
-
-export const store = createStore(rootReducer, applyMiddleware(thunk));
+export const store = configureStore({
+  reducer: {
+    ArticalReducer: ArticalSlice,
+  },
+});

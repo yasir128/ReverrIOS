@@ -6,9 +6,7 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState} from 'react';
-import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
+import React, {useState, useEffect} from 'react';
 import AppColors from '../../Constaint/AppColors';
 import Backbtn from '../../Componants/Backbtn';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -16,32 +14,25 @@ import Ionic from 'react-native-vector-icons/Ionicons';
 import TitleCard from '../../Componants/ProfileScreenComponents/TitleCard';
 import AboutCard from '../../Componants/ProfileScreenComponents/AboutCard';
 import {useNavigation} from '@react-navigation/native';
-import FoundersCard from '../../Componants/ProfileScreenComponents/FoundersCard';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
-const MentorProfile = () => {
-  const navigation = useNavigation();
-  const [Email, setEmail] = useState('');
 
-  const GetUser = async () => {
-    const email = await auth().currentUser;
-    var userEmail = email.email;
-    const savedUser = await firestore()
-      .collection('Users')
-      .doc(userEmail)
-      .get();
-    setEmail(userEmail);
-    if (savedUser != undefined) {
-      var dpurl = savedUser._data.image;
-      if (dpurl != '') {
-        setdp(dpurl);
-        setdefaultDp(false);
-      }
+const MentorProfile = props => {
+  const [defaultDp, setdefaultDp] = useState(true);
+  const UserData = props.route.params.Data;
+  const navigation = useNavigation();
+
+  const finddp = () => {
+    if (UserData.image != '') {
+      setdefaultDp(false);
     }
   };
-  GetUser();
-  // console.log(Email);
+
+  useEffect(() => {
+    finddp();
+  }, [defaultDp]);
+
   return (
     <View style={styles.screen}>
       <View style={styles.header}>
@@ -70,7 +61,7 @@ const MentorProfile = () => {
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('Setting', {
-                email: Email,
+                data: UserData,
               });
             }}
             style={{
@@ -83,12 +74,14 @@ const MentorProfile = () => {
           </TouchableOpacity>
         </View>
         <View style={{height: '5%'}}>
-          <TitleCard firstText="Jatin khurana" />
+          <TitleCard firstText={UserData.name.toUpperCase()} />
         </View>
         <View style={{height: 'auto', marginTop: '10%'}}>
           <AboutCard
             title="About"
-            description="Whether you are looking to learn finance, get mentored, or join investing communities, we provide a one-stop solution."
+            description={
+              UserData.about === '' ? 'Enter About YourSelf' : UserData.about
+            }
           />
         </View>
         <View style={{height: '5%'}}>
@@ -133,10 +126,17 @@ const MentorProfile = () => {
         </View>
       </View>
       <View style={styles.dp}>
-        <Image
-          style={{width: '100%', height: '100%'}}
-          source={require('../../assets/Images/jatindp.png')}
-        />
+        {defaultDp ? (
+          <Image
+            style={{width: '100%', height: '100%'}}
+            source={require('../../assets/Images/jatindp.png')}
+          />
+        ) : (
+          <Image
+            style={{width: '100%', height: '100%'}}
+            source={{uri: UserData.image}}
+          />
+        )}
       </View>
     </View>
   );

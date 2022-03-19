@@ -46,7 +46,7 @@ const MentorProfile = props => {
           style={{
             color: AppColors.FontsColor,
             fontFamily: 'Poppins-Regular',
-            marginStart: Width / 3.3,
+            marginStart: Width / 2.3,
             fontSize: 22,
           }}>
           Profile

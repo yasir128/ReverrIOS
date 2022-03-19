@@ -48,7 +48,8 @@ const IndividuaProfile = props => {
           style={{
             color: AppColors.FontsColor,
             fontFamily: 'Poppins-Regular',
-            fontSize: 20,
+            marginStart: Width / 3.3,
+            fontSize: 22,
           }}>
           Profile
         </Text>
@@ -78,7 +79,7 @@ const IndividuaProfile = props => {
         <View style={{height: '5%'}}>
           <TitleCard firstText="Name" secoundText="Fimple" />
         </View>
-        <View style={{height: '17%', marginTop: '10%'}}>
+        <View style={{height: '17%', marginTop: '4%'}}>
           <AboutCard
             title="About"
             description="Whether you are looking to learn finance, get mentored, or join investing communities, we provide a one-stop solution."
@@ -176,7 +177,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 'auto',
     backgroundColor: AppColors.CardColor,
-    marginTop: '3%',
+    marginTop: '2%',
     borderRadius: 10,
   },
   title: {

@@ -8,16 +8,21 @@ import {
   FlatList,
   Dimensions,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import Backbtn from '../../Componants/Backbtn';
 import AppColors from '../../Constaint/AppColors';
+import {useSelector} from 'react-redux';
 import SearchBar from '../../Componants/SearchBar';
 import {AllMentors} from '../../dummy-data/AllMentors';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {GetAllMentors} from '../../utils/fireBaseFunctions';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
+
 const MentorsList = ({onBack, onPress}) => {
+  // const us = useSelector(state => state.ArticalReducer.Users);
+  // console.log(us);
   return (
     <View style={styles.screen}>
       <View style={styles.Header}>

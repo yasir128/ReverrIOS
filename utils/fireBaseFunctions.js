@@ -1,4 +1,7 @@
 import auth from '@react-native-firebase/auth';
+import React from 'react';
+import {setUsers} from '../Redux/appSlice';
+import {useDispatch} from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
@@ -35,4 +38,23 @@ export const ChangeDp = () => {
       console.log(error);
     }
   });
+};
+
+export const GetAllMentors = async () => {
+  //const [Users, setUsers] = React.useState([]);
+
+  const dispatch = useDispatch();
+  const subscriber = await firestore()
+    .collection('Users')
+    .onSnapshot(querySnapshot => {
+      const users = [];
+
+      querySnapshot.forEach(documentSnapshot => {
+        users.push({
+          ...documentSnapshot.data(),
+          key: documentSnapshot.id,
+        });
+      });
+      dispatch(setUsers(users));
+    });
 };

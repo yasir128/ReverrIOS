@@ -10,6 +10,7 @@ import Settings from '../Screens/ProfileScreens/Settings';
 import ChatList from '../Screens/ChatScreens/ChatList';
 import ChatBox from '../Screens/ChatScreens/ChatBox';
 import GroupChatBox from '../Screens/ChatScreens/GroupChatBox';
+import EditProfile from '../Screens/ProfileScreens/EditProfile';
 
 const StackNavigation = createNativeStackNavigator();
 
@@ -50,6 +51,11 @@ const AppStackNav = () => {
         <StackNavigation.Screen
           name="GroupChatBox"
           component={GroupChatBox}
+          options={{headerShown: false}}
+        />
+        <StackNavigation.Screen
+          name="EditProfile"
+          component={EditProfile}
           options={{headerShown: false}}
         />
       </StackNavigation.Navigator>

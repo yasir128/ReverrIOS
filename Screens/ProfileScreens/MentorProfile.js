@@ -46,7 +46,7 @@ const MentorProfile = props => {
           style={{
             color: AppColors.FontsColor,
             fontFamily: 'Poppins-Regular',
-            marginStart: Width / 2.3,
+            marginStart: Width / 3.3,
             fontSize: 22,
           }}>
           Profile
@@ -76,7 +76,7 @@ const MentorProfile = props => {
         <View style={{height: '5%'}}>
           <TitleCard firstText={UserData.name.toUpperCase()} />
         </View>
-        <View style={{height: 'auto', marginTop: '10%'}}>
+        <View style={{height: 'auto', marginTop: '4%'}}>
           <AboutCard
             title="About"
             description={
@@ -84,10 +84,10 @@ const MentorProfile = props => {
             }
           />
         </View>
-        <View style={{height: '5%'}}>
+        <View style={{height: '5%', marginTop: '2%'}}>
           <TitleCard firstText="Industry" secoundText="Finance" />
         </View>
-        <View style={{height: 'auto', marginTop: '10%'}}>
+        <View style={{height: 'auto', marginTop: '4%'}}>
           <AboutCard
             title="Experience"
             description="Product Designer
@@ -116,7 +116,7 @@ const MentorProfile = props => {
             User InterFace Design
           </Text>
         </View>
-        <View style={{height: 'auto', marginTop: '5%'}}>
+        <View style={{height: 'auto', marginTop: '4%'}}>
           <AboutCard
             title="Education"
             description="Birla Institute of Technology and Science, Pilani

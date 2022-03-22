@@ -3,6 +3,7 @@ import {
   Text,
   StyleSheet,
   Image,
+  TextInput,
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
@@ -14,13 +15,21 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import {ChangeDp} from '../../utils/fireBaseFunctions';
 import TitleCard from '../../Componants/ProfileScreenComponents/TitleCard';
 import {useNavigation} from '@react-navigation/native';
+import EditCard from '../../Componants/ProfileScreenComponents/EditCard';
+import CustomBtn from '../../Componants/CustomBtn';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
 
-const Settings = props => {
+const EditProfile = props => {
   const {user, logout} = React.useContext(AuthContext);
-  const UserData = props.route.params.data;
+  const UserData = props.route.params.mydata;
+  const [Name, setName] = useState(UserData.name);
+  const [About, setAbout] = useState(UserData.about);
+  const [Industry, setIndustry] = useState(UserData.industry);
+  const [Experience, setExperience] = useState(UserData.experience);
+  const [Skills, setSkills] = useState(UserData.skills);
+  const [Education, setEducation] = useState(UserData.education);
   const [defaultdp, setdefaultdp] = useState(true);
   const navigation = useNavigation();
 
@@ -43,38 +52,62 @@ const Settings = props => {
           style={{
             color: AppColors.FontsColor,
             fontFamily: 'Poppins-Regular',
-            marginStart: Width / 3.3,
+            marginStart: Width / 4.5,
             fontSize: 22,
           }}>
-          Settings
+          Edit Profile
         </Text>
       </View>
       <View style={styles.mainContainer}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('EditProfile', {
-              mydata: UserData,
-            });
+        <TextInput
+          value={Name}
+          style={styles.name}
+          onChangeText={n => {
+            setName(n);
           }}
-          style={{height: '5%', marginTop: '20%'}}>
-          <TitleCard firstText="Edit profile" />
-        </TouchableOpacity>
-        <TouchableOpacity style={{height: '5%', marginTop: '5%'}}>
-          <TitleCard firstText="Change password" />
-        </TouchableOpacity>
-        <TouchableOpacity style={{height: '5%', marginTop: '5%'}}>
-          <TitleCard firstText="Terms and conditions" />
-        </TouchableOpacity>
-        <TouchableOpacity style={{height: '5%', marginTop: '5%'}}>
-          <TitleCard firstText="Contact us" />
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            logout();
+        />
+        <EditCard
+          Title="About"
+          onChangeText={a => {
+            setAbout(a);
           }}
-          style={{height: '5%', marginTop: '5%'}}>
-          <TitleCard firstText="Logout" />
-        </TouchableOpacity>
+          value={About == '' ? 'Enter About' : About}
+        />
+        <TextInput
+          value={Industry == '' ? 'Enter Your Industry' : Industry}
+          style={[
+            styles.name,
+            {marginTop: Height / 90, color: AppColors.infoFonts},
+          ]}
+          onChangeText={i => {
+            setIndustry(i);
+          }}
+        />
+        <EditCard
+          Title="Experience"
+          onChangeText={e => {
+            setExperience(e);
+          }}
+          value={Experience == '' ? 'Enter Experience' : Experience}
+        />
+        <EditCard
+          Title="Skills"
+          onChangeText={e => {
+            setSkills(e);
+          }}
+          value={Skills == '' ? 'Enter Skills' : Skills}
+        />
+        <EditCard
+          Title="Education"
+          onChangeText={e => {
+            setEducation(e);
+          }}
+          value={Education == '' ? 'Enter Education' : Education}
+        />
+        <CustomBtn
+          Title="Save Changes"
+          style={{backgroundColor: 'blue', marginTop: 20}}
+        />
       </View>
       <View style={styles.dp}>
         {defaultdp ? (
@@ -89,6 +122,13 @@ const Settings = props => {
           />
         )}
       </View>
+      <TouchableOpacity
+        style={styles.camera}
+        onPress={() => {
+          ChangeDp();
+        }}>
+        <Icon name="camera" size={15} color="black" />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -118,12 +158,12 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   dp: {
-    height: Height / 7.5,
-    width: Width / 5.2,
+    height: Height / 8.9,
+    width: Width / 8,
     overflow: 'hidden',
     borderRadius: 200,
     marginStart: '35%',
-    marginTop: '12%',
+    marginTop: '15%',
     position: 'absolute',
     backgroundColor: AppColors.CardColor,
   },
@@ -131,10 +171,21 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: AppColors.infoFonts,
     padding: 5,
-    marginTop: Height / 5.4,
-    marginStart: Width / 1.7,
+    marginTop: Height / 5.2,
+    marginStart: Width / 1.8,
     borderRadius: 20,
+  },
+  name: {
+    backgroundColor: AppColors.CardColor,
+    height: Height / 24,
+    paddingBottom: 4.5,
+    fontFamily: 'Poppins-Regular',
+    color: AppColors.infoFonts,
+    paddingStart: 9,
+    marginTop: Height / 13,
+    borderRadius: 10,
+    width: '99%',
   },
 });
 
-export default Settings;
+export default EditProfile;

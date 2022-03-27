@@ -7,17 +7,16 @@ import {
   StyleSheet,
 } from 'react-native';
 import React from 'react';
-import {AllMentors} from '../../dummy-data/AllMentors';
 import AppColors from '../../Constaint/AppColors';
 import {useNavigation} from '@react-navigation/native';
 
-const MentorsList = () => {
+const MentorsList = props => {
   const navigation = useNavigation();
   return (
     <View>
       <Text style={styles.header}>Mentors</Text>
       <FlatList
-        data={AllMentors}
+        data={props.YourMentors}
         horizontal
         renderItem={({item}) => (
           <TouchableOpacity

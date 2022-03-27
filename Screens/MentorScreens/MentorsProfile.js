@@ -15,9 +15,9 @@ import AppColors from '../../Constaint/AppColors';
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
 const MentorsProfile = props => {
-  const [about, setabout] = useState(true);
-  const [Exp, setExp] = useState(false);
-  const [Plans, setPlans] = useState(false);
+  const [about, setAbout] = useState(true);
+  const [exp, setExp] = useState(false);
+  const [plan, setplan] = useState(false);
   return (
     <View style={styles.screen}>
       <View
@@ -28,7 +28,7 @@ const MentorsProfile = props => {
           justifyContent: 'space-between',
         }}>
         <Backbtn IconSize={40} onPress={props.onBack} />
-        <Icon size={35} name="heart" color="red" />
+        <Icon size={27} name="heart" color="red" style={{marginRight: '3%'}} />
       </View>
       <View style={{backgroundColor: AppColors.inputFieldColor}}>
         <Image
@@ -84,8 +84,8 @@ const MentorsProfile = props => {
       <View style={styles.menu}>
         <TouchableOpacity
           onPress={() => {
-            setabout(true);
-            setPlans(false);
+            setAbout(true);
+            setplan(false);
             setExp(false);
           }}
           activeOpacity={0.7}
@@ -98,28 +98,28 @@ const MentorsProfile = props => {
         <TouchableOpacity
           onPress={() => {
             setExp(true);
-            setabout(false);
-            setPlans(false);
+            setAbout(false);
+            setplan(false);
           }}
           activeOpacity={0.7}
           style={[
             styles.about,
-            {backgroundColor: Exp ? AppColors.FontsColor : null},
+            {backgroundColor: exp ? AppColors.FontsColor : null},
           ]}>
           <Text>Experience</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
-            setPlans(true);
-            setabout(false);
+            setplan(true);
+            setAbout(false);
             setExp(false);
           }}
           activeOpacity={0.7}
           style={[
             styles.about,
-            {backgroundColor: Plans ? AppColors.FontsColor : null},
+            {backgroundColor: plan ? AppColors.FontsColor : null},
           ]}>
-          <Text>Plans</Text>
+          <Text>plan</Text>
         </TouchableOpacity>
       </View>
       {about ? (
@@ -132,18 +132,18 @@ const MentorsProfile = props => {
             pharmaceuticals and healthcare, food and beverages etc.
           </Text>
         </View>
-      ) : Exp ? (
+      ) : exp ? (
         <View style={{paddingHorizontal: 20, paddingVertical: 10}}>
           <Text
             style={{color: AppColors.infoFonts, fontFamily: 'Poppins-Regular'}}>
             Experience
           </Text>
         </View>
-      ) : Plans ? (
+      ) : plan ? (
         <View style={{paddingHorizontal: 20, paddingVertical: 10}}>
           <Text
             style={{color: AppColors.infoFonts, fontFamily: 'Poppins-Regular'}}>
-            Plans
+            plan
           </Text>
         </View>
       ) : null}

@@ -40,21 +40,17 @@ export const ChangeDp = () => {
   });
 };
 
-export const GetAllMentors = async () => {
-  //const [Users, setUsers] = React.useState([]);
-
-  const dispatch = useDispatch();
+export const GetAllMentors = async setFn => {
   const subscriber = await firestore()
     .collection('Users')
     .onSnapshot(querySnapshot => {
       const users = [];
-
       querySnapshot.forEach(documentSnapshot => {
         users.push({
           ...documentSnapshot.data(),
           key: documentSnapshot.id,
         });
       });
-      dispatch(setUsers(users));
+      setFn(users.filter(y => y.userType == 'mentor'));
     });
 };

@@ -8,7 +8,7 @@ import {
   FlatList,
   Dimensions,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Backbtn from '../../Componants/Backbtn';
 import AppColors from '../../Constaint/AppColors';
 import {useSelector} from 'react-redux';
@@ -21,8 +21,11 @@ const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
 
 const MentorsList = ({onBack, onPress}) => {
-  // const us = useSelector(state => state.ArticalReducer.Users);
-  // console.log(us);
+  const [all, setAll] = useState();
+  useEffect(() => {
+    GetAllMentors(setAll);
+  }, []);
+
   return (
     <View style={styles.screen}>
       <View style={styles.Header}>
@@ -40,18 +43,27 @@ const MentorsList = ({onBack, onPress}) => {
       <SearchBar />
       <View>
         <FlatList
-          data={AllMentors}
+          data={all}
           renderItem={({item}) => (
             <TouchableOpacity style={styles.Card} onPress={onPress}>
               <View style={styles.container}>
-                <Image style={styles.Dp} source={{uri: item.image}} />
-                <View style={{marginStart: '2%'}}>
-                  <Text style={styles.Name}>{item.name}</Text>
-                  <Text style={styles.Skills}>{item.skills}</Text>
+                <View style={{marginStart: '2%', flexDirection: 'row'}}>
+                  <Image
+                    style={styles.Dp}
+                    source={
+                      item.image == ''
+                        ? require('../../assets/Images/jatin.png')
+                        : {uri: item.image}
+                    }
+                  />
+                  <View>
+                    <Text style={styles.Name}>{item.name}</Text>
+                    <Text style={styles.Skills}>{item.skills}</Text>
+                  </View>
                 </View>
-                <View style={styles.schedule}>
+                <TouchableOpacity style={styles.schedule}>
                   <Text style={{color: 'black'}}>Schedule</Text>
-                </View>
+                </TouchableOpacity>
               </View>
               <View
                 style={{
@@ -141,7 +153,9 @@ const styles = StyleSheet.create({
   },
   Name: {
     color: AppColors.FontsColor,
-    fontSize: 18,
+    fontSize: 19,
+    width: 200,
+    marginStart: '3%',
     fontFamily: 'Poppins-Regular',
   },
   Skills: {
@@ -151,8 +165,8 @@ const styles = StyleSheet.create({
   },
   schedule: {
     backgroundColor: AppColors.infoFonts,
-    marginStart: '9%',
-    width: 100,
+    marginStart: '1%',
+    width: 80,
     height: 30,
     alignItems: 'center',
     justifyContent: 'center',

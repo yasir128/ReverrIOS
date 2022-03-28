@@ -1,16 +1,16 @@
 import auth from '@react-native-firebase/auth';
 import React from 'react';
-import {setUsers} from '../Redux/appSlice';
-import {useDispatch} from 'react-redux';
 import firestore from '@react-native-firebase/firestore';
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
 
-export const GetUser = async () => {
+export const GetUser = async setData => {
   const udata = await auth().currentUser;
-  var userEmail = udata.email;
-  const savedUser = await firestore().collection('Users').doc(userEmail).get();
-  return savedUser._data;
+  const savedUser = await firestore()
+    .collection('Users')
+    .doc(udata.email)
+    .get();
+  setData(savedUser._data);
 };
 
 export const ChangeDp = () => {

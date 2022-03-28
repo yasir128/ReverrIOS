@@ -8,25 +8,18 @@ const Header = props => {
     <View>
       <View style={styles.Container}>
         <TouchableOpacity style={styles.dp} onPress={props.onPressDp}>
-          {props.Dp ? (
-            <Image
-              style={{
-                height: 40,
-                width: 40,
-                borderRadius: 200,
-              }}
-              source={require('../../assets/Images/dp.png')}
-            />
-          ) : (
-            <Image
-              style={{
-                height: 40,
-                width: 40,
-                borderRadius: 200,
-              }}
-              source={{uri: props.DpUrl}}
-            />
-          )}
+          <Image
+            style={{
+              height: 40,
+              width: 40,
+              borderRadius: 200,
+            }}
+            source={
+              props.DpUrl == ''
+                ? require('../../assets/Images/dp.png')
+                : {uri: props.DpUrl}
+            }
+          />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={props.onPressCalander}

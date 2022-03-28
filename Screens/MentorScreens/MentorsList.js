@@ -11,16 +11,16 @@ import {
 import React, {useState, useEffect} from 'react';
 import Backbtn from '../../Componants/Backbtn';
 import AppColors from '../../Constaint/AppColors';
-import {useSelector} from 'react-redux';
 import SearchBar from '../../Componants/SearchBar';
-import {AllMentors} from '../../dummy-data/AllMentors';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {GetAllMentors} from '../../utils/fireBaseFunctions';
+import {useNavigation} from '@react-navigation/native';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
 
-const MentorsList = ({onBack, onPress}) => {
+const MentorsList = () => {
+  const navigation = useNavigation();
   const [all, setAll] = useState();
   useEffect(() => {
     GetAllMentors(setAll);
@@ -29,7 +29,12 @@ const MentorsList = ({onBack, onPress}) => {
   return (
     <View style={styles.screen}>
       <View style={styles.Header}>
-        <Backbtn IconSize={40} onPress={onBack} />
+        <Backbtn
+          IconSize={40}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
         <Text
           style={{
             color: AppColors.FontsColor,
@@ -45,7 +50,13 @@ const MentorsList = ({onBack, onPress}) => {
         <FlatList
           data={all}
           renderItem={({item}) => (
-            <TouchableOpacity style={styles.Card} onPress={onPress}>
+            <TouchableOpacity
+              style={styles.Card}
+              onPress={() => {
+                navigation.navigate('MentorsProfile', {
+                  profileDetails: item,
+                });
+              }}>
               <View style={styles.container}>
                 <View style={{marginStart: '2%', flexDirection: 'row'}}>
                   <Image
@@ -128,8 +139,8 @@ const MentorsList = ({onBack, onPress}) => {
 };
 const styles = StyleSheet.create({
   screen: {
-    height: Height,
-    width: Width,
+    flex: 1,
+    backgroundColor: AppColors.primarycolor,
   },
   Header: {
     flexDirection: 'row',

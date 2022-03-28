@@ -11,10 +11,12 @@ import React, {useState} from 'react';
 import Backbtn from '../../Componants/Backbtn';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AppColors from '../../Constaint/AppColors';
+import {useNavigation} from '@react-navigation/native';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
-const MentorsProfile = props => {
+const MentorDetails = props => {
+  const navigation = useNavigation();
   const [about, setAbout] = useState(true);
   const [exp, setExp] = useState(false);
   const [plan, setplan] = useState(false);
@@ -27,7 +29,12 @@ const MentorsProfile = props => {
           backgroundColor: AppColors.inputFieldColor,
           justifyContent: 'space-between',
         }}>
-        <Backbtn IconSize={40} onPress={props.onBack} />
+        <Backbtn
+          IconSize={40}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
         <Icon size={27} name="heart" color="red" style={{marginRight: '3%'}} />
       </View>
       <View style={{backgroundColor: AppColors.inputFieldColor}}>
@@ -152,8 +159,8 @@ const MentorsProfile = props => {
 };
 const styles = StyleSheet.create({
   screen: {
-    width: Width,
-    height: Height / 1.28,
+    flex: 1,
+    backgroundColor: AppColors.primarycolor,
   },
   Card: {
     backgroundColor: AppColors.BtnClr,
@@ -207,4 +214,4 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
 });
-export default MentorsProfile;
+export default MentorDetails;

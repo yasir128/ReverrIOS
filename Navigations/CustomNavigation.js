@@ -17,6 +17,7 @@ import EditProfile from '../Screens/ProfileScreens/EditProfile';
 import ArticalDetailsScreen from '../Screens/HomeScreens/TopTabScreens/ArticalDetailsScreen';
 import MentorsList from '../Screens/MentorScreens/MentorsList';
 import MentorDetails from '../Screens/MentorScreens/MentorDetails';
+import CalanderScreen from '../Screens/CalanderScreen/CalanderScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -66,6 +67,11 @@ export const HomeStack = () => {
       <Stack.Screen
         name="ArticalDetails"
         component={ArticalDetailsScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="calander"
+        component={CalanderScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

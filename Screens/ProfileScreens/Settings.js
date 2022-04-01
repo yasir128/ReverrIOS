@@ -56,23 +56,23 @@ const Settings = props => {
               mydata: UserData,
             });
           }}
-          style={{height: '5%', marginTop: '20%'}}>
+          style={{height: '7%', marginTop: '20%'}}>
           <TitleCard firstText="Edit profile" />
         </TouchableOpacity>
-        <TouchableOpacity style={{height: '5%', marginTop: '5%'}}>
+        <TouchableOpacity style={{height: '7%', marginTop: '7%'}}>
           <TitleCard firstText="Change password" />
         </TouchableOpacity>
-        <TouchableOpacity style={{height: '5%', marginTop: '5%'}}>
+        <TouchableOpacity style={{height: '7%', marginTop: '7%'}}>
           <TitleCard firstText="Terms and conditions" />
         </TouchableOpacity>
-        <TouchableOpacity style={{height: '5%', marginTop: '5%'}}>
+        <TouchableOpacity style={{height: '7%', marginTop: '7%'}}>
           <TitleCard firstText="Contact us" />
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             logout();
           }}
-          style={{height: '5%', marginTop: '5%'}}>
+          style={{height: '7%', marginTop: '7%'}}>
           <TitleCard firstText="Logout" />
         </TouchableOpacity>
       </View>
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     backgroundColor: AppColors.BtnClr,
-    height: Height / 1.45,
+    height: Height / 1.65,
     marginVertical: Height / 9.8,
     paddingHorizontal: '2%',
     marginHorizontal: '2.5%',

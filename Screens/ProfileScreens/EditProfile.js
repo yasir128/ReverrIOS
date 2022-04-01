@@ -5,6 +5,7 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  ActivityIndicator,
   Dimensions,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
@@ -29,6 +30,7 @@ const EditProfile = props => {
   const [Industry, setIndustry] = useState(UserData.industry);
   const [Experience, setExperience] = useState(UserData.experience);
   const [Skills, setSkills] = useState(UserData.skills);
+  const [loading, setLoading] = useState(false);
   const [Education, setEducation] = useState(UserData.education);
   const [defaultdp, setdefaultdp] = useState(true);
   const navigation = useNavigation();
@@ -38,6 +40,7 @@ const EditProfile = props => {
       setdefaultdp(false);
     }
   }, [defaultdp]);
+  //console.log(UserData);
 
   return (
     <View style={styles.screen}>
@@ -106,7 +109,7 @@ const EditProfile = props => {
         />
         <CustomBtn
           Title="Save Changes"
-          style={{backgroundColor: 'blue', marginTop: 20}}
+          style={{backgroundColor: 'blue', marginTop: 15}}
         />
       </View>
       <View style={styles.dp}>
@@ -122,10 +125,18 @@ const EditProfile = props => {
           />
         )}
       </View>
+      <ActivityIndicator
+        animating={loading}
+        style={styles.loader}
+        size="large"
+        color="white"
+      />
+
       <TouchableOpacity
         style={styles.camera}
         onPress={() => {
-          ChangeDp();
+          setLoading(true);
+          ChangeDp(loading, setLoading);
         }}>
         <Icon name="camera" size={15} color="black" />
       </TouchableOpacity>
@@ -151,7 +162,7 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     backgroundColor: AppColors.BtnClr,
-    height: Height / 1.45,
+    height: Height / 1.55,
     marginVertical: Height / 9.8,
     paddingHorizontal: '2%',
     marginHorizontal: '2.5%',
@@ -174,6 +185,11 @@ const styles = StyleSheet.create({
     marginTop: Height / 5.2,
     marginStart: Width / 1.8,
     borderRadius: 20,
+  },
+  loader: {
+    position: 'absolute',
+    marginTop: Height / 8.2,
+    marginStart: Width / 2.15,
   },
   name: {
     backgroundColor: AppColors.CardColor,

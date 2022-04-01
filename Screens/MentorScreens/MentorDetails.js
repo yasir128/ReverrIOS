@@ -15,11 +15,15 @@ import {useNavigation} from '@react-navigation/native';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
+
 const MentorDetails = props => {
+  const mentorData = props.route.params.profileDetails;
   const navigation = useNavigation();
   const [about, setAbout] = useState(true);
   const [exp, setExp] = useState(false);
   const [plan, setplan] = useState(false);
+
+  // console.log(mentorData);
   return (
     <View style={styles.screen}>
       <View
@@ -45,11 +49,17 @@ const MentorDetails = props => {
             marginTop: -15,
             alignSelf: 'center',
           }}
-          source={require('../../assets/Images/mdp.png')}
+          source={
+            mentorData.image == ''
+              ? require('../../assets/Images/mdp.png')
+              : {uri: mentorData.image}
+          }
         />
         <View style={styles.Card}>
-          <Text style={styles.Name}>Neetan Sachdeva</Text>
-          <Text style={styles.skill}>Market Research</Text>
+          <Text style={styles.Name}>{mentorData.name}</Text>
+          <Text style={styles.skill}>
+            {mentorData.skills == '' ? 'Not Avilable' : mentorData.skills}
+          </Text>
         </View>
       </View>
       <View style={styles.details}>

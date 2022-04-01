@@ -76,7 +76,7 @@ const MentorProfile = props => {
         <View style={{height: '5%'}}>
           <TitleCard firstText={UserData.name.toUpperCase()} />
         </View>
-        <View style={{height: 'auto', marginTop: '4%'}}>
+        <View style={{height: 'auto', marginTop: '6%'}}>
           <AboutCard
             title="About"
             description={
@@ -84,10 +84,10 @@ const MentorProfile = props => {
             }
           />
         </View>
-        <View style={{height: '5%', marginTop: '2%'}}>
+        <View style={{height: '5%', marginTop: '6%'}}>
           <TitleCard firstText="Industry" secoundText="Finance" />
         </View>
-        <View style={{height: 'auto', marginTop: '4%'}}>
+        <View style={{height: 'auto', marginTop: '6%'}}>
           <AboutCard
             title="Experience"
             description="Product Designer
@@ -111,12 +111,12 @@ const MentorProfile = props => {
           <Text
             style={[
               styles.txt,
-              {marginStart: '9%', marginTop: '2%', marginBottom: '2%'},
+              {marginStart: '9%', marginTop: '6%', marginBottom: '2%'},
             ]}>
             User InterFace Design
           </Text>
         </View>
-        <View style={{height: 'auto', marginTop: '4%'}}>
+        <View style={{height: 'auto', marginTop: '6%'}}>
           <AboutCard
             title="Education"
             description="Birla Institute of Technology and Science, Pilani
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     backgroundColor: AppColors.BtnClr,
-    height: Height / 1.45,
+    height: Height / 1.58,
     marginVertical: Height / 9.8,
     paddingHorizontal: '2%',
     marginHorizontal: '2.5%',

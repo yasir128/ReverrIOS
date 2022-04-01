@@ -13,11 +13,12 @@ export const GetUser = async setData => {
   setData(savedUser._data);
 };
 
-export const ChangeDp = () => {
+export const ChangeDp = (loading, setLoading) => {
   ImagePicker.openPicker({
     cropping: true,
   }).then(image => {
     try {
+      loading;
       const url = image.path;
       const imageURL = url.substring(url.lastIndexOf('/') + 1);
       storage()
@@ -32,6 +33,7 @@ export const ChangeDp = () => {
           await firestore().collection('Users').doc(userEmail).update({
             image: imgURL,
           });
+          setLoading(false);
           alert('changed');
         });
     } catch (error) {
@@ -52,5 +54,26 @@ export const GetAllMentors = async setFn => {
         });
       });
       setFn(users.filter(y => y.userType == 'mentor'));
+    });
+};
+export const UpdateUserData = async (
+  name,
+  about,
+  industry,
+  experience,
+  skills,
+  education,
+) => {
+  const udata = await auth().currentUser;
+  const savedUser = await firestore()
+    .collection('Users')
+    .doc(udata.email)
+    .update({
+      name: name,
+      about: about,
+      industry: industry,
+      experience: experience,
+      skills: skills,
+      education: education,
     });
 };

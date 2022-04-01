@@ -21,14 +21,15 @@ const AppNav = () => {
     <NavigationContainer>
       <MyTab.Navigator>
         <MyTab.Screen
-          name="HomeStack"
+          name="HomeTab"
           component={HomeStack}
           options={{
             headerShown: false,
             tabBarLabel: 'Home',
             tabBarLabelStyle: {
-              marginBottom: 10,
+              marginBottom: 7,
               fontFamily: 'Poppins-Bold',
+              fontSize: 12,
             },
             tabBarActiveBackgroundColor: AppColors.BtnClr,
             tabBarLabelPosition: 'below-icon',
@@ -42,7 +43,7 @@ const AppNav = () => {
               return (
                 <Icon
                   name="home"
-                  size={30}
+                  size={35}
                   color={tabinfo.focused ? '#40BFFF' : 'gray'}
                   style={{
                     marginTop: 10,
@@ -69,41 +70,9 @@ const AppNav = () => {
             },
             tabBarLabel: 'Mentor',
             tabBarLabelStyle: {
-              marginBottom: 10,
+              marginBottom: 7,
               fontFamily: 'Poppins-Bold',
-            },
-            tabBarActiveBackgroundColor: AppColors.BtnClr,
-            tabBarLabelPosition: 'below-icon',
-            tabBarActiveTintColor: AppColors.FontsColor,
-            tabBarInactiveTintColor: 'gray',
-            tabBarStyle: {
-              height: 70,
-              backgroundColor: AppColors.BtnClr,
-            },
-            tabBarIcon: tabinfo => {
-              return (
-                <Icon
-                  name="psychology"
-                  size={30}
-                  color={tabinfo.focused ? '#40BFFF' : 'gray'}
-                  style={{
-                    marginTop: 10,
-                  }}
-                />
-              );
-            },
-          }}
-        />
-        <MyTab.Screen
-          name="VibeStack"
-          component={VibeStack}
-          options={{
-            headerShown: false,
-            headerTintColor: 'blue',
-            tabBarLabel: 'Vibe',
-            tabBarLabelStyle: {
-              marginBottom: 10,
-              fontFamily: 'Poppins-Bold',
+              fontSize: 12,
             },
             tabBarActiveBackgroundColor: AppColors.BtnClr,
             tabBarLabelPosition: 'below-icon',
@@ -116,9 +85,9 @@ const AppNav = () => {
             tabBarIcon: tabinfo => {
               return (
                 <Icon2
-                  name="handshake"
-                  size={25}
-                  color={tabinfo.focused ? '#40BFFF' : 'gray'}
+                  name="user-cog"
+                  size={32}
+                  color={tabinfo.focused ? '#40BFFF' : '#A6A6A6'}
                   style={{
                     marginTop: 10,
                   }}
@@ -128,14 +97,16 @@ const AppNav = () => {
           }}
         />
         <MyTab.Screen
-          name="RoomStack"
-          component={RoomStack}
+          name="FundingTab"
+          component={VibeStack}
           options={{
             headerShown: false,
-            tabBarLabel: 'Room',
+            headerTintColor: 'blue',
+            tabBarLabel: 'Funding',
             tabBarLabelStyle: {
-              marginBottom: 10,
+              marginBottom: 7,
               fontFamily: 'Poppins-Bold',
+              fontSize: 12,
             },
             tabBarActiveBackgroundColor: AppColors.BtnClr,
             tabBarLabelPosition: 'below-icon',
@@ -147,10 +118,10 @@ const AppNav = () => {
             },
             tabBarIcon: tabinfo => {
               return (
-                <Ionic
-                  name="person-outline"
-                  size={25}
-                  color={tabinfo.focused ? '#40BFFF' : 'gray'}
+                <Icon2
+                  name="users"
+                  size={30}
+                  color={tabinfo.focused ? '#40BFFF' : '#A6A6A6'}
                   style={{
                     marginTop: 10,
                   }}
@@ -160,14 +131,15 @@ const AppNav = () => {
           }}
         />
         <MyTab.Screen
-          name="LearnStack"
+          name="LearnTab"
           component={LearnStack}
           options={{
             headerShown: false,
             tabBarLabel: 'Learn',
             tabBarLabelStyle: {
-              marginBottom: 10,
+              marginBottom: 7,
               fontFamily: 'Poppins-Bold',
+              fontSize: 12.4,
             },
             tabBarActiveBackgroundColor: AppColors.BtnClr,
             tabBarLabelPosition: 'below-icon',
@@ -179,10 +151,10 @@ const AppNav = () => {
             },
             tabBarIcon: tabinfo => {
               return (
-                <Ionic
-                  name="person-outline"
-                  size={25}
-                  color={tabinfo.focused ? '#40BFFF' : 'gray'}
+                <Icon2
+                  name="graduation-cap"
+                  size={30}
+                  color={tabinfo.focused ? '#40BFFF' : '#A6A6A6'}
                   style={{
                     marginTop: 10,
                   }}

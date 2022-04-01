@@ -7,7 +7,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   HomeStack,
   MentorStack,
-  VibeStack,
+  FundingStack,
   RoomStack,
   LearnStack,
 } from './CustomNavigation';
@@ -98,7 +98,7 @@ const AppNav = () => {
         />
         <MyTab.Screen
           name="FundingTab"
-          component={VibeStack}
+          component={FundingStack}
           options={{
             headerShown: false,
             headerTintColor: 'blue',

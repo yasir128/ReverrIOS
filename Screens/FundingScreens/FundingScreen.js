@@ -1,12 +1,12 @@
 import {View, Text} from 'react-native';
 import React from 'react';
 
-const VibeScreen = () => {
+const FundingScreen = () => {
   return (
     <View>
-      <Text></Text>
+      <Text>sdbufjjh</Text>
     </View>
   );
 };
 
-export default VibeScreen;
+export default FundingScreen;

@@ -23,8 +23,8 @@ import HomeCard from '../../Componants/HomeScreenComponants/HomeCard';
 const Height = Dimensions.get('screen').height;
 const Width = Dimensions.get('screen').width;
 const Home = () => {
-  const [News, setNews] = useState(false);
-  const [Article, setArticle] = useState(false);
+  const [news, setNews] = useState(false);
+  const [article, setArticle] = useState(true);
   const [AllData, setAllData] = useState();
   const [qoute, setQoute] = useState('loading...');
   const [authors, setAuthors] = useState('-null');
@@ -54,18 +54,38 @@ const Home = () => {
         }}
         DpUrl={''}
       />
-      <View style={styles.wlcmConatiner}>
-        <View>
-          <Text style={styles.welcmTxt}>Hii,Dhruv</Text>
-          <Text style={styles.subText}>
-            Today is a good day to learn something new !
-          </Text>
+      <ScrollView
+        onScroll={() => {
+          navigation.navigate('Artical');
+        }}>
+        <View style={styles.wlcmConatiner}>
+          <View>
+            <Text style={styles.welcmTxt}>Hii,Dhruv</Text>
+            <Text style={styles.subText}>
+              Today is a good day to learn something new !
+            </Text>
+          </View>
+          <View style={styles.vector}>
+            <Image source={require('../../assets/Images/HomeVector.png')} />
+          </View>
         </View>
-        <View style={styles.vector}>
-          <Image source={require('../../assets/Images/HomeVector.png')} />
+        <HomeCard />
+        <View style={styles.menu}>
+          <TopTabBar
+            news={news}
+            article={article}
+            onPressNews={() => {
+              setNews(true);
+              setArticle(false);
+            }}
+            onPressArticle={() => {
+              setArticle(true);
+              setNews(false);
+            }}
+          />
         </View>
-      </View>
-      <HomeCard />
+        {article ? <ArticleScreen /> : news ? <NewsScreen /> : null}
+      </ScrollView>
     </View>
   );
 };
@@ -92,6 +112,10 @@ const styles = StyleSheet.create({
   vector: {
     position: 'absolute',
     marginStart: Width / 2,
+  },
+  menu: {
+    alignItems: 'center',
+    marginTop: '4%',
   },
 });
 

@@ -6,18 +6,7 @@ const TopTabBar = props => {
   return (
     <View style={styles.Container}>
       <TouchableOpacity
-        onPress={props.onPressNews}
-        style={[
-          styles.Progress,
-          {
-            backgroundColor: props.news
-              ? AppColors.ActiveColor
-              : AppColors.BtnClr,
-          },
-        ]}>
-        <Text style={styles.text}>News</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
+        activeOpacity={1}
         onPress={props.onPressArticle}
         style={[
           styles.Progress,
@@ -29,6 +18,19 @@ const TopTabBar = props => {
         ]}>
         <Text style={styles.text}>Article</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        activeOpacity={1}
+        onPress={props.onPressNews}
+        style={[
+          styles.Progress,
+          {
+            backgroundColor: props.news
+              ? AppColors.ActiveColor
+              : AppColors.BtnClr,
+          },
+        ]}>
+        <Text style={styles.text}>News</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -36,26 +38,24 @@ const TopTabBar = props => {
 const styles = StyleSheet.create({
   Container: {
     backgroundColor: AppColors.BtnClr,
-    height: 40,
-    marginTop: -135,
+    height: 30,
     alignItems: 'center',
     flexDirection: 'row',
-    paddingHorizontal: 5,
-    width: '100%',
-    borderRadius: 15,
+    width: '40%',
+    overflow: 'hidden',
+    borderRadius: 10,
   },
   Progress: {
-    height: 25,
-    width: '22.5%',
-    borderRadius: 10,
+    height: '100%',
+    width: '50%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginHorizontal: 5,
     backgroundColor: AppColors.ActiveColor,
   },
   text: {
     color: AppColors.FontsColor,
-    fontFamily: 'Poppins-Regular',
+    fontSize: 16,
+    fontFamily: 'Poppins-SemiBold',
   },
 });
 

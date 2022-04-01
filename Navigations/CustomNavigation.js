@@ -4,7 +4,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../Screens/HomeScreens/Home';
 import MentorScreen from '../Screens/MentorScreens/MentorScreen';
-import VibeScreen from '../Screens/VibeScreens/VibeScreen';
 import RoomScreen from '../Screens/RoomScreens/RoomScreen';
 import LearnScreen from '../Screens/LearnScreens/LearnScreen';
 import IndividuaProfile from '../Screens/ProfileScreens/IndividuaProfile';
@@ -16,9 +15,10 @@ import GroupChatBox from '../Screens/ChatScreens/GroupChatBox';
 import EditProfile from '../Screens/ProfileScreens/EditProfile';
 import ArticalDetailsScreen from '../Screens/HomeScreens/TopTabScreens/ArticalDetailsScreen';
 import MentorsList from '../Screens/MentorScreens/MentorsList';
+import ArticleScreen from '../Screens/HomeScreens/TopTabScreens/ArticleScreen';
 import MentorDetails from '../Screens/MentorScreens/MentorDetails';
 import CalanderScreen from '../Screens/CalanderScreen/CalanderScreen';
-
+import FundingScreen from '../Screens/FundingScreens/FundingScreen';
 const Stack = createNativeStackNavigator();
 
 export const HomeStack = () => {
@@ -74,6 +74,11 @@ export const HomeStack = () => {
         component={CalanderScreen}
         options={{headerShown: false}}
       />
+      <Stack.Screen
+        name="Artical"
+        component={ArticleScreen}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };
@@ -98,23 +103,12 @@ export const MentorStack = () => {
     </Stack.Navigator>
   );
 };
-export const VibeStack = () => {
+export const FundingStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Vibe"
-        component={VibeScreen}
-        options={{headerShown: false}}
-      />
-    </Stack.Navigator>
-  );
-};
-export const RoomStack = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Room"
-        component={RoomScreen}
+        name="FundingScreen"
+        component={FundingScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

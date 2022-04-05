@@ -3,7 +3,6 @@ import {
   StyleSheet,
   Text,
   ScrollView,
-  FlatList,
   Dimensions,
   Image,
 } from 'react-native';
@@ -16,9 +15,9 @@ import NewsScreen from './TopTabScreens/NewsScreen';
 import ArticleScreen from './TopTabScreens/ArticleScreen';
 import {homeScreenQuotes} from '../../utils/basicsFunctions';
 import {GetUser} from '../../utils/fireBaseFunctions';
-import {cardData} from '../../dummy-data/defaultHomeCardData';
-import {AllMentors} from '../../dummy-data/AllMentors';
 import HomeCard from '../../Componants/HomeScreenComponants/HomeCard';
+import CalanderScreen from '../CalanderScreen/CalanderScreen';
+import ModelView from '../../Componants/ModelView';
 
 const Height = Dimensions.get('screen').height;
 const Width = Dimensions.get('screen').width;
@@ -27,6 +26,7 @@ const Home = () => {
   const [article, setArticle] = useState(true);
   const [AllData, setAllData] = useState();
   const [qoute, setQoute] = useState('loading...');
+  const [modelVisible, setModelVisible] = useState(false);
   const [authors, setAuthors] = useState('-null');
 
   const navigation = useNavigation();
@@ -44,7 +44,7 @@ const Home = () => {
           navigation.navigate(AllData.userType, {Data: AllData});
         }}
         onPressCalander={() => {
-          navigation.navigate('calander');
+          setModelVisible(true);
         }}
         onPressNoti={() => {
           console.log('Notification');
@@ -54,10 +54,18 @@ const Home = () => {
         }}
         DpUrl={''}
       />
-      <ScrollView
-        onScroll={() => {
-          navigation.navigate('Artical');
+      <ModelView
+        ShowModal={modelVisible}
+        onCloseModal={() => {
+          setModelVisible(false);
         }}>
+        <CalanderScreen
+          onClose={() => {
+            setModelVisible(false);
+          }}
+        />
+      </ModelView>
+      <ScrollView>
         <View style={styles.wlcmConatiner}>
           <View>
             <Text style={styles.welcmTxt}>Hii,Dhruv</Text>
@@ -83,8 +91,9 @@ const Home = () => {
               setNews(false);
             }}
           />
+          <View />
+          {article ? <ArticleScreen /> : news ? <NewsScreen /> : null}
         </View>
-        {article ? <ArticleScreen /> : news ? <NewsScreen /> : null}
       </ScrollView>
     </View>
   );

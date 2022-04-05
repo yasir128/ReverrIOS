@@ -4,7 +4,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from '../Screens/HomeScreens/Home';
 import MentorScreen from '../Screens/MentorScreens/MentorScreen';
-import RoomScreen from '../Screens/RoomScreens/RoomScreen';
 import LearnScreen from '../Screens/LearnScreens/LearnScreen';
 import IndividuaProfile from '../Screens/ProfileScreens/IndividuaProfile';
 import Settings from '../Screens/ProfileScreens/Settings';
@@ -67,11 +66,6 @@ export const HomeStack = () => {
       <Stack.Screen
         name="ArticalDetails"
         component={ArticalDetailsScreen}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="calander"
-        component={CalanderScreen}
         options={{headerShown: false}}
       />
       <Stack.Screen

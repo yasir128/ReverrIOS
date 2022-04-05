@@ -15,6 +15,7 @@ import AppColors from '../../Constaint/AppColors';
 import {courseData} from '../../dummy-data/courseData';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon2 from 'react-native-vector-icons/AntDesign';
+import LinearGradient from 'react-native-linear-gradient';
 import CustomBtn from '../CustomBtn';
 
 const Height = Dimensions.get('screen').height;
@@ -64,7 +65,11 @@ const HomeCard = () => {
         showsHorizontalScrollIndicator={false}
         horizontal
         renderItem={({item}) => (
-          <View style={styles.Card}>
+          <LinearGradient
+            colors={[AppColors.primarycolor, '#012437']}
+            start={{x: 0.4, y: 1.3}}
+            end={{x: 1, y: 0.5}}
+            style={styles.Card}>
             <Text style={styles.heading}>{item.heading}</Text>
             <View
               style={{
@@ -157,7 +162,7 @@ const HomeCard = () => {
                 />
               )}
             </View>
-          </View>
+          </LinearGradient>
         )}
       />
     </View>
@@ -168,6 +173,7 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.CardColor,
     marginHorizontal: Width / 30,
     width: Width / 1.08,
+    elevation: 8,
     borderRadius: 10,
   },
   CardContainer: {
@@ -194,6 +200,10 @@ const styles = StyleSheet.create({
     width: Width / 7,
     height: Height / 14,
     borderRadius: 40,
+  },
+  bg: {
+    width: '100%',
+    height: '100%',
   },
   name: {
     marginTop: 10,

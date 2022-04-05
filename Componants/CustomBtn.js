@@ -28,8 +28,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   txt: {
-    fontFamily: 'Poppins-Regular',
-    color: AppColors.FontsColor,
+    fontFamily: 'Poppins-SemiBold',
+    color: AppColors.buttonFont,
     fontSize: 18,
   },
 });

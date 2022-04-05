@@ -31,13 +31,13 @@ const AppNav = () => {
               fontFamily: 'Poppins-Bold',
               fontSize: 12,
             },
-            tabBarActiveBackgroundColor: AppColors.BtnClr,
+            tabBarActiveBackgroundColor: AppColors.bottomBg,
             tabBarLabelPosition: 'below-icon',
             tabBarActiveTintColor: AppColors.FontsColor,
             tabBarInactiveTintColor: 'gray',
             tabBarStyle: {
               height: 70,
-              backgroundColor: AppColors.BtnClr,
+              backgroundColor: AppColors.bottomBg,
             },
             tabBarIcon: tabinfo => {
               return (
@@ -74,13 +74,13 @@ const AppNav = () => {
               fontFamily: 'Poppins-Bold',
               fontSize: 12,
             },
-            tabBarActiveBackgroundColor: AppColors.BtnClr,
+            tabBarActiveBackgroundColor: AppColors.bottomBg,
             tabBarLabelPosition: 'below-icon',
             tabBarActiveTintColor: AppColors.FontsColor,
             tabBarInactiveTintColor: 'gray',
             tabBarStyle: {
               height: 70,
-              backgroundColor: AppColors.BtnClr,
+              backgroundColor: AppColors.bottomBg,
             },
             tabBarIcon: tabinfo => {
               return (
@@ -108,13 +108,13 @@ const AppNav = () => {
               fontFamily: 'Poppins-Bold',
               fontSize: 12,
             },
-            tabBarActiveBackgroundColor: AppColors.BtnClr,
+            tabBarActiveBackgroundColor: AppColors.bottomBg,
             tabBarLabelPosition: 'below-icon',
             tabBarActiveTintColor: AppColors.FontsColor,
             tabBarInactiveTintColor: 'gray',
             tabBarStyle: {
               height: 70,
-              backgroundColor: AppColors.BtnClr,
+              backgroundColor: AppColors.bottomBg,
             },
             tabBarIcon: tabinfo => {
               return (
@@ -141,13 +141,13 @@ const AppNav = () => {
               fontFamily: 'Poppins-Bold',
               fontSize: 12.4,
             },
-            tabBarActiveBackgroundColor: AppColors.BtnClr,
+            tabBarActiveBackgroundColor: AppColors.bottomBg,
             tabBarLabelPosition: 'below-icon',
             tabBarActiveTintColor: AppColors.FontsColor,
             tabBarInactiveTintColor: 'gray',
             tabBarStyle: {
               height: 70,
-              backgroundColor: AppColors.BtnClr,
+              backgroundColor: AppColors.bottomBg,
             },
             tabBarIcon: tabinfo => {
               return (

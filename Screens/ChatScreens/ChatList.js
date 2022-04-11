@@ -6,38 +6,38 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import AppColors from '../../Constaint/AppColors';
 import SearchBar from '../../Componants/ChatScreenComponents/SearchBar';
 import Backbtn from '../../Componants/Backbtn';
 import {useNavigation} from '@react-navigation/native';
 import {AllMentors} from '../../dummy-data/AllMentors';
 import MentorsList from '../../Componants/ChatScreenComponents/MentorsList';
-import {GetUser} from '../../utils/fireBaseFunctions';
+import {GetUser,GetChatList} from '../../utils/fireBaseFunctions';
 import HeaderLayout from '../HomeScreens/HeaderLayout';
 import LinearGradient from 'react-native-linear-gradient';
+import firestore from '@react-native-firebase/firestore';
+import { ChatContext, UserContext } from '../../App';
+
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
 
 const ChatList = () => {
   const navigation = useNavigation();
-  const [UserData, setUserData] = useState();
-  const [mentors, setMentors] = useState();
-  useEffect(() => {
-    GetUser(setUserData);
-    setMentors(UserData && UserData.mentors);
-  }, [UserData]);
-  // console.log(mentors);
+  const {state, dispatch} = useContext(UserContext);
+  const {chatstate, chatdispatch} = useContext(ChatContext);
+
   return (
     <HeaderLayout>
       <View style={styles.screen}>
         <Text style={styles.headerText}>Message</Text>
         <Text style={[styles.headerText, {fontSize: 14}]}>Mentors</Text>
+        
         <View style={{flexDirection: 'row', marginTop: '3%'}}>
-          {mentors !== undefined &&
-            mentors.length > 0 &&
-            mentors.map(item => (
+          {chatstate !== undefined &&
+            chatstate.length > 0 &&
+            chatstate.map(item => (
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate('ChatBox', {

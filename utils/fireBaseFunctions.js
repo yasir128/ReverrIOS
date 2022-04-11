@@ -56,6 +56,50 @@ export const GetAllMentors = async setFn => {
       setFn(users.filter(y => y.userType == 'mentor'));
     });
 };
+
+// export const GetChatList = async list => {
+//   if(list+"s"!="s"){
+//     var array = [];
+//     list.forEach(async(user)=>{
+//       const savedUser = await firestore()
+//         .collection('Users')
+//         .doc(user)
+//         .get();
+//       array.push(savedUser._data);
+//     })
+//     console.log("shoing")
+//     console.log(array);
+//     // return array;
+//   }else{
+//     console.log("empty")
+//   }
+// };
+
+// export const getChatList = async (list)=>{
+ 
+//   if(list+"s"!="s"){
+//     try{
+//       var array = []; 
+//       list.forEach(user=>{
+//         const savedUser = await firestore()
+//         .collection('Users')
+//         .doc(user)
+//         .get().then(()=>console.log(savedUser._data))
+//       })
+    
+//       return array;
+//     }
+//     catch(err){
+//       console.log(err);
+//     }
+//   }
+//   else{
+//     console.log("empty");
+//   }
+ 
+// };
+
+
 export const UpdateUserData = async (
   name,
   about,

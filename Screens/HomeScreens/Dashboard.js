@@ -6,14 +6,14 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import HomeCard from '../../Componants/HomeScreenComponants/HomeCard';
 import TopTabBar from '../../Componants/HomeScreenComponants/TopTabBar';
 import ArticleScreen from './TopTabScreens/ArticleScreen';
 import NewsScreen from './TopTabScreens/NewsScreen';
 import AppColors from '../../Constaint/AppColors';
 import HeaderLayout from './HeaderLayout';
-import {GetUser} from '../../utils/fireBaseFunctions';
+import { UserContext } from '../../App';
 
 const Height = Dimensions.get('screen').height;
 const Width = Dimensions.get('screen').width;
@@ -21,17 +21,14 @@ const Width = Dimensions.get('screen').width;
 const Dashboard = props => {
   const [news, setNews] = useState(false);
   const [article, setArticle] = useState(true);
-  const [allData, setAllData] = useState();
+  const {state, dispatch} = useContext(UserContext);
 
-  useEffect(() => {
-    GetUser(setAllData);
-  }, []);
   return (
     <HeaderLayout>
       <ScrollView>
         <View style={styles.wlcmConatiner}>
           <View>
-            <Text style={styles.welcmTxt}>Hii,{allData && allData.name}</Text>
+            <Text style={styles.welcmTxt}>Hii,{state&&state.name}</Text>
             <Text style={styles.subText}>
               Today is a good day to learn something new !
             </Text>

@@ -1,5 +1,12 @@
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import AppColors from '../../Constaint/AppColors';
 import SearchBar from '../../Componants/ChatScreenComponents/SearchBar';
 import Backbtn from '../../Componants/Backbtn';
@@ -7,40 +14,60 @@ import {useNavigation} from '@react-navigation/native';
 import {AllMentors} from '../../dummy-data/AllMentors';
 import MentorsList from '../../Componants/ChatScreenComponents/MentorsList';
 import {GetUser} from '../../utils/fireBaseFunctions';
+import HeaderLayout from '../HomeScreens/HeaderLayout';
+import LinearGradient from 'react-native-linear-gradient';
+
+const Width = Dimensions.get('screen').width;
+const Height = Dimensions.get('screen').height;
 
 const ChatList = () => {
   const navigation = useNavigation();
-  const [Matches, setMatches] = useState(true);
-  const [Network, setNetwork] = useState(false);
   const [UserData, setUserData] = useState();
-
-  //   GetUser().then(e => {
-  //     setUserData(e);
-  //   });
-
-  // console.log(UserData.mentors);
+  const [mentors, setMentors] = useState();
+  useEffect(() => {
+    GetUser(setUserData);
+    setMentors(UserData && UserData.mentors);
+  }, [UserData]);
+  // console.log(mentors);
   return (
-    <View style={styles.screen}>
-      <View style={styles.AppBar}>
-        <Backbtn
-          IconSize={40}
-          onPress={() => {
-            navigation.goBack();
-          }}
-        />
+    <HeaderLayout>
+      <View style={styles.screen}>
         <Text style={styles.headerText}>Message</Text>
-      </View>
-      <SearchBar />
-      <View style={styles.Mentors}>
-        {/* {UserData.mentors === [] ? (
-          <TouchableOpacity>
-            <Text>Find Mentors</Text>
+        <Text style={[styles.headerText, {fontSize: 14}]}>Mentors</Text>
+        <View style={{flexDirection: 'row', marginTop: '3%'}}>
+          {mentors !== undefined &&
+            mentors.length > 0 &&
+            mentors.map(item => (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('ChatBox', {
+                    userData: item,
+                  });
+                }}
+                activeOpacity={0.7}>
+                <LinearGradient
+                  colors={[AppColors.primarycolor, '#012437']}
+                  start={{x: 0.4, y: 1.3}}
+                  end={{x: 1, y: 0.5}}
+                  style={styles.card}>
+                  <Image style={styles.mentorDp} source={{uri: item.image}} />
+                  <Text style={styles.name}>{item.name}</Text>
+                  <Text style={styles.skill}>{item.skills}</Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            ))}
+        </View>
+        <LinearGradient
+          style={styles.menu}
+          colors={[AppColors.primarycolor, '#012437']}
+          start={{x: -0.3, y: 1.8}}
+          end={{x: 1, y: 1.5}}>
+          <TouchableOpacity style={styles.chat}>
+            <Text style={styles.btntxt}>Chats</Text>
           </TouchableOpacity>
-        ) : (
-          <MentorsList YourMentors={AllMentors} />
-        )} */}
+        </LinearGradient>
       </View>
-    </View>
+    </HeaderLayout>
   );
 };
 
@@ -56,13 +83,58 @@ const styles = StyleSheet.create({
   headerText: {
     width: '100%',
     alignSelf: 'center',
-    paddingStart: '24%',
+    paddingStart: '4%',
     color: AppColors.FontsColor,
     fontFamily: 'Poppins-Regular',
     fontSize: 20,
   },
   Mentors: {
     marginTop: '2%',
+  },
+  mentorDp: {
+    width: Width / 4.5,
+    height: Height / 11,
+    borderRadius: 6,
+  },
+  name: {
+    marginTop: '4%',
+    fontFamily: 'Poppins-Regular',
+    color: AppColors.FontsColor,
+  },
+  skill: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 10,
+    marginTop: -5,
+    color: AppColors.CardColor,
+  },
+  card: {
+    marginStart: '6%',
+    paddingHorizontal: 6,
+    paddingTop: 13,
+    alignItems: 'center',
+    borderRadius: 6,
+  },
+  menu: {
+    marginTop: '5%',
+    width: '95%',
+    marginStart: '3%',
+    elevation: 5,
+    borderRadius: 8,
+    marginEnd: '3%',
+    height: 40,
+  },
+  chat: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '75%',
+    borderRadius: 6,
+    marginVertical: 5,
+    backgroundColor: AppColors.ActiveColor,
+    marginHorizontal: Width / 2.7,
+  },
+  btntxt: {
+    color: AppColors.FontsColor,
+    fontFamily: 'Poppins-Regular',
   },
 });
 

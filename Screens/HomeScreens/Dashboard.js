@@ -1,74 +1,37 @@
 import {
   View,
-  StyleSheet,
   Text,
-  ScrollView,
   Dimensions,
+  StyleSheet,
+  ScrollView,
   Image,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
-import Header from '../../Componants/HomeScreenComponants/Header';
-import AppColors from '../../Constaint/AppColors';
-import {useNavigation} from '@react-navigation/native';
-import TopTabBar from '../../Componants/HomeScreenComponants/TopTabBar';
-import NewsScreen from './TopTabScreens/NewsScreen';
-import ArticleScreen from './TopTabScreens/ArticleScreen';
-import {homeScreenQuotes} from '../../utils/basicsFunctions';
-import {GetUser} from '../../utils/fireBaseFunctions';
 import HomeCard from '../../Componants/HomeScreenComponants/HomeCard';
-import CalanderScreen from '../CalanderScreen/CalanderScreen';
-import ModelView from '../../Componants/ModelView';
+import TopTabBar from '../../Componants/HomeScreenComponants/TopTabBar';
+import ArticleScreen from './TopTabScreens/ArticleScreen';
+import NewsScreen from './TopTabScreens/NewsScreen';
+import AppColors from '../../Constaint/AppColors';
+import HeaderLayout from './HeaderLayout';
+import {GetUser} from '../../utils/fireBaseFunctions';
 
 const Height = Dimensions.get('screen').height;
 const Width = Dimensions.get('screen').width;
-const Home = () => {
+
+const Dashboard = props => {
   const [news, setNews] = useState(false);
   const [article, setArticle] = useState(true);
-  const [AllData, setAllData] = useState();
-  const [qoute, setQoute] = useState('loading...');
-  const [modelVisible, setModelVisible] = useState(false);
-  const [authors, setAuthors] = useState('-null');
-
-  const navigation = useNavigation();
+  const [allData, setAllData] = useState();
 
   useEffect(() => {
-    homeScreenQuotes(setQoute, setAuthors);
     GetUser(setAllData);
-    // console.log(AllData.image);
-  }, [qoute]);
-
+  }, []);
   return (
-    <View style={styles.screen}>
-      <Header
-        onPressDp={() => {
-          navigation.navigate(AllData.userType, {Data: AllData});
-        }}
-        onPressCalander={() => {
-          setModelVisible(true);
-        }}
-        onPressNoti={() => {
-          console.log('Notification');
-        }}
-        onPressChat={() => {
-          navigation.navigate('Chat');
-        }}
-        DpUrl={''}
-      />
-      <ModelView
-        ShowModal={modelVisible}
-        onCloseModal={() => {
-          setModelVisible(false);
-        }}>
-        <CalanderScreen
-          onClose={() => {
-            setModelVisible(false);
-          }}
-        />
-      </ModelView>
+    <HeaderLayout>
       <ScrollView>
         <View style={styles.wlcmConatiner}>
           <View>
-            <Text style={styles.welcmTxt}>Hii,Dhruv</Text>
+            <Text style={styles.welcmTxt}>Hii,{allData && allData.name}</Text>
             <Text style={styles.subText}>
               Today is a good day to learn something new !
             </Text>
@@ -95,15 +58,11 @@ const Home = () => {
           {article ? <ArticleScreen /> : news ? <NewsScreen /> : null}
         </View>
       </ScrollView>
-    </View>
+    </HeaderLayout>
   );
 };
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    backgroundColor: AppColors.primarycolor,
-  },
   wlcmConatiner: {
     paddingTop: Height / 25,
     paddingStart: Width / 13,
@@ -120,6 +79,7 @@ const styles = StyleSheet.create({
   },
   vector: {
     position: 'absolute',
+    height: Height / 4,
     marginStart: Width / 2,
   },
   menu: {
@@ -128,4 +88,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default Dashboard;

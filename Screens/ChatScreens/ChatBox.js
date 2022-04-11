@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   FlatList,
   TextInput,
+  Dimensions,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
 import AppColors from '../../Constaint/AppColors';
@@ -15,6 +16,10 @@ import {useNavigation} from '@react-navigation/native';
 import Icon2 from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import firestore from '@react-native-firebase/firestore';
+import LinearGradient from 'react-native-linear-gradient';
+
+const Width = Dimensions.get('screen').width;
+const Height = Dimensions.get('screen').height;
 
 const ChatBox = props => {
   const userData = props.route.params.userData;
@@ -75,8 +80,16 @@ const ChatBox = props => {
   }, [Recive]);
   //console.log(userEmail);
   return (
-    <View style={styles.screen}>
-      <View style={styles.AppBar}>
+    <LinearGradient
+      style={styles.screen}
+      colors={[AppColors.infoFonts, '#012437']}
+      start={{x: 0.2, y: 1.1}}
+      end={{x: 1.3, y: 0.6}}>
+      <LinearGradient
+        style={styles.AppBar}
+        colors={[AppColors.infoFonts, AppColors.CardColor]}
+        start={{x: -0, y: 1.3}}
+        end={{x: 1, y: 0.5}}>
         <Backbtn
           style={styles.backbtn}
           IconSize={25}
@@ -86,7 +99,7 @@ const ChatBox = props => {
         />
         <Image style={styles.dp} source={{uri: userData.image}} />
         <Text style={styles.Name}>{userData.name}</Text>
-        <TouchableOpacity style={{marginStart: '12%'}}>
+        <TouchableOpacity>
           <Icon2
             name="phone-volume"
             size={20}
@@ -97,7 +110,8 @@ const ChatBox = props => {
         <TouchableOpacity style={{marginStart: '12%'}}>
           <Icon2 name="ellipsis-v" size={20} color={AppColors.FontsColor} />
         </TouchableOpacity>
-      </View>
+      </LinearGradient>
+
       <View style={styles.MessageInput}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <TextInput
@@ -135,7 +149,11 @@ const ChatBox = props => {
           data={Recive}
           renderItem={({item}) => (
             <View
-              style={{width: '100%', justifyContent: 'center', height: 'auto'}}>
+              style={{
+                width: '100%',
+                justifyContent: 'center',
+                height: 'auto',
+              }}>
               <Text
                 style={{
                   color: item.sendBy == userEmail ? 'red' : 'yellow',
@@ -153,7 +171,7 @@ const ChatBox = props => {
           )}
         />
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 
@@ -179,9 +197,10 @@ const styles = StyleSheet.create({
     height: 30,
   },
   Name: {
+    width: Width / 2,
     color: AppColors.FontsColor,
-    fontFamily: 'Poppins-Regular',
-    marginStart: '3%',
+    fontFamily: 'Poppins-Bold',
+    marginStart: '6%',
   },
   MessageInput: {
     bottom: 5,

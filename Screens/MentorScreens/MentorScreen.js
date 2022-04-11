@@ -10,9 +10,9 @@ import React, {useState} from 'react';
 import AppColors from '../../Constaint/AppColors';
 import SearchBar from '../../Componants/SearchBar';
 import WeeksMentors from '../../Componants/MentorScreenComponents/WeeksMentors';
-import TrendingMentors from '../../Componants/MentorScreenComponents/TrendingMentors';
 import MentorsCategories from '../../Componants/MentorScreenComponents/MentorsCategories';
 import {useNavigation} from '@react-navigation/native';
+import HeaderLayout from '../HomeScreens/HeaderLayout';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
@@ -21,20 +21,14 @@ const MentorScreen = () => {
   const navigation = useNavigation();
 
   return (
-    <ScrollView style={styles.screen}>
+    <HeaderLayout>
       <View>
-        <Text style={styles.Text1}>Find best</Text>
-        <Text style={styles.Text2}>mentor</Text>
+        <Text style={styles.Text1}>Find the best mentor</Text>
       </View>
       <SearchBar />
-      <TrendingMentors
-        onPress={() => {
-          navigation.navigate('List');
-        }}
-      />
       <WeeksMentors />
       <MentorsCategories />
-    </ScrollView>
+    </HeaderLayout>
   );
 };
 const styles = StyleSheet.create({

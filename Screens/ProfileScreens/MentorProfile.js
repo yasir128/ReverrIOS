@@ -14,6 +14,7 @@ import Ionic from 'react-native-vector-icons/Ionicons';
 import TitleCard from '../../Componants/ProfileScreenComponents/TitleCard';
 import AboutCard from '../../Componants/ProfileScreenComponents/AboutCard';
 import {useNavigation} from '@react-navigation/native';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
@@ -37,7 +38,7 @@ const MentorProfile = props => {
     <View style={styles.screen}>
       <View style={styles.header}>
         <Backbtn
-          IconSize={40}
+          IconSize={28}
           onPress={() => {
             navigation.goBack();
           }}
@@ -52,7 +53,11 @@ const MentorProfile = props => {
           Profile
         </Text>
       </View>
-      <View style={styles.mainContainer}>
+      <LinearGradient
+        colors={[AppColors.primarycolor, '#012437']}
+        start={{x: 0.4, y: 1.3}}
+        end={{x: 1, y: 0.5}}
+        style={styles.mainContainer}>
         <View style={styles.topIcons}>
           <View style={{alignItems: 'center', justifyContent: 'center'}}>
             <Icon name="crown" size={20} color={AppColors.FontsColor} />
@@ -124,7 +129,7 @@ const MentorProfile = props => {
                         "
           />
         </View>
-      </View>
+      </LinearGradient>
       <View style={styles.dp}>
         {defaultDp ? (
           <Image
@@ -167,14 +172,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   dp: {
-    height: Height / 7.5,
-    width: Width / 5.2,
+    height: Height / 8.2,
+    width: Width / 9.2,
     overflow: 'hidden',
     borderRadius: 200,
     marginStart: '35%',
     marginTop: '12%',
     position: 'absolute',
-    backgroundColor: AppColors.CardColor,
   },
   topIcons: {
     flexDirection: 'row',

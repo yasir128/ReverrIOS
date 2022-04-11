@@ -3,6 +3,7 @@ import {
   Text,
   StyleSheet,
   Image,
+  ScrollView,
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
@@ -11,10 +12,7 @@ import AppColors from '../../Constaint/AppColors';
 import Backbtn from '../../Componants/Backbtn';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Ionic from 'react-native-vector-icons/Ionicons';
-import TitleCard from '../../Componants/ProfileScreenComponents/TitleCard';
-import AboutCard from '../../Componants/ProfileScreenComponents/AboutCard';
 import {useNavigation} from '@react-navigation/native';
-import FoundersCard from '../../Componants/ProfileScreenComponents/FoundersCard';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
@@ -34,11 +32,11 @@ const IndividuaProfile = props => {
     finddp();
   }, [defaultDp]);
   return (
-    <View style={styles.screen}>
+    <ScrollView style={styles.screen}>
       <View style={styles.header}>
         <View style={{width: '40%'}}>
           <Backbtn
-            IconSize={40}
+            IconSize={30}
             onPress={() => {
               navigation.goBack();
             }}
@@ -48,7 +46,7 @@ const IndividuaProfile = props => {
           style={{
             color: AppColors.FontsColor,
             fontFamily: 'Poppins-Regular',
-            marginStart: Width / 3.3,
+            marginStart: Width / 30,
             fontSize: 22,
           }}>
           Profile
@@ -58,7 +56,7 @@ const IndividuaProfile = props => {
         <View style={styles.topIcons}>
           <TouchableOpacity
             style={{alignItems: 'center', justifyContent: 'center'}}>
-            <Icon name="crown" size={20} color={AppColors.FontsColor} />
+            <Icon name="star" size={25} color={AppColors.ActiveColor} />
             <Text style={styles.text}>Membership</Text>
           </TouchableOpacity>
           <TouchableOpacity
@@ -72,44 +70,78 @@ const IndividuaProfile = props => {
               justifyContent: 'center',
               marginStart: Width / 1.83,
             }}>
-            <Ionic name="settings" size={22} color={AppColors.FontsColor} />
+            <Ionic
+              name="settings-outline"
+              size={28}
+              color={AppColors.ActiveColor}
+            />
             <Text style={styles.text}>Setting</Text>
           </TouchableOpacity>
         </View>
         <View style={{height: '5%'}}>
-          <TitleCard firstText="Name" secoundText="Fimple" />
+          <Text style={[styles.text, {alignSelf: 'center', fontSize: 17}]}>
+            {UserData && UserData.name}
+          </Text>
         </View>
-        <View style={{height: '17%', marginTop: '4%'}}>
-          <AboutCard
-            title="About"
-            description="Whether you are looking to learn finance, get mentored, or join investing communities, we provide a one-stop solution."
-          />
+        <View
+          style={{
+            height: '17%',
+            marginTop: '2%',
+            borderBottomColor: AppColors.FontsColor,
+            borderBottomWidth: 1,
+          }}>
+          <Text style={[styles.text, {fontSize: 18}]}>About</Text>
+          <Text style={styles.about}>
+            Whether you are looking to learn finance, get mentored, or join
+            investing communities, we provide a one-stop solution.
+          </Text>
         </View>
-        <View style={{height: '5%'}}>
-          <TitleCard firstText="Industry" secoundText="Finance" />
+        <View
+          style={{
+            height: '9%',
+            flexDirection: 'row',
+            marginTop: '2%',
+            alignItems: 'center',
+            paddingBottom: '4%',
+            justifyContent: 'space-between',
+            borderBottomColor: AppColors.FontsColor,
+            borderBottomWidth: 1,
+          }}>
+          <Text style={[styles.text, {fontSize: 18}]}>Industry</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+            }}>
+            <Text style={[styles.text, {fontSize: 18, paddingRight: '5%'}]}>
+              finance
+            </Text>
+            <Icon
+              name="angle-right"
+              size={25}
+              color={AppColors.FontsColor}
+              style={{paddingRight: '2%', marginTop: '3%'}}
+            />
+          </View>
         </View>
-        <FoundersCard title="Founders" />
         <View style={styles.CompanyDetails}>
-          <Text style={styles.title}>Company Details</Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              marginTop: '3%',
-              justifyContent: 'space-around',
-            }}>
-            <Text style={styles.txt}>Operation</Text>
-            <Text style={styles.txt}>Members</Text>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              marginTop: '5%',
-              marginBottom: '8%',
-              justifyContent: 'space-around',
-            }}>
-            <Text style={styles.txt}>Stage</Text>
-            <Text style={styles.txt}>Location</Text>
-          </View>
+          <Text style={[styles.text, {fontSize: 18}]}>Experience</Text>
+          <Text style={[styles.txt, {width: Width / 2}]}>
+            Product Designer -InnerBuddha Internship Dates EmployedJan 2021 –
+            Aug 2021 Duration-8 mos LocationBengaluru, Karnataka, India{' '}
+          </Text>
+        </View>
+        <View style={[styles.CompanyDetails, {height: Height / 9}]}>
+          <Text style={[styles.text, {fontSize: 18}]}>Skills</Text>
+          <Text style={[styles.txt, {width: Width / 2}]}>
+            Design Research Rapid Prototyping User Interface Design
+          </Text>
+        </View>
+        <View style={[styles.CompanyDetails, {height: Height / 9}]}>
+          <Text style={[styles.text, {fontSize: 18}]}>Education</Text>
+          <Text style={[styles.txt, {width: Width / 2}]}>
+            Design Research Rapid Prototyping User Interface Design
+          </Text>
         </View>
       </View>
       <View style={styles.dp}>
@@ -125,7 +157,7 @@ const IndividuaProfile = props => {
           />
         )}
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -146,7 +178,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
   mainContainer: {
-    backgroundColor: AppColors.BtnClr,
     height: Height / 1.45,
     marginVertical: Height / 9.8,
     paddingHorizontal: '2%',
@@ -165,31 +196,34 @@ const styles = StyleSheet.create({
   },
   topIcons: {
     flexDirection: 'row',
-    paddingTop: '5%',
-    marginHorizontal: '5%',
+    paddingTop: '2%',
+    marginHorizontal: '1%',
   },
   text: {
     color: AppColors.FontsColor,
+    marginTop: Height / 82,
     fontFamily: 'Poppins-Regular',
-    fontSize: 10,
+    fontSize: 13,
   },
   CompanyDetails: {
     width: '100%',
-    height: 'auto',
-    backgroundColor: AppColors.CardColor,
+    height: Height / 7,
     marginTop: '2%',
-    borderRadius: 10,
+    borderBottomColor: AppColors.FontsColor,
+    borderBottomWidth: 1,
   },
   title: {
     color: AppColors.FontsColor,
     fontFamily: 'Poppins-Regular',
-    marginStart: '3%',
     marginTop: '2%',
   },
   txt: {
     color: AppColors.infoFonts,
     fontFamily: 'Poppins-Regular',
     fontSize: 10,
+  },
+  about: {
+    color: AppColors.infoFonts,
   },
 });
 

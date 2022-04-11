@@ -23,22 +23,22 @@ const Header = props => {
         />
       </TouchableOpacity>
       <TouchableOpacity onPress={props.onPressCalander} style={styles.calender}>
-        <Icon name="calendar-alt" size={22} color="black" />
+        <Icon name="calendar-alt" size={28} color="white" />
       </TouchableOpacity>
       <View style={styles.logo}>
         <Image
           style={{
-            height: 100,
-            width: 100,
+            height: 90,
+            width: 90,
           }}
           source={require('../../assets/Images/logo.png')}
         />
       </View>
       <TouchableOpacity onPress={props.onPressNoti} style={styles.notification}>
-        <Icon name="bell" size={22} color="black" />
+        <Icon name="bell" size={28} color="white" />
       </TouchableOpacity>
       <TouchableOpacity onPress={props.onPressChat} style={styles.chat}>
-        <Ionic name="chatbox-ellipses-outline" size={22} color="black" />
+        <Ionic name="chatbox-ellipses-outline" size={28} color="white" />
       </TouchableOpacity>
     </View>
   );
@@ -53,35 +53,23 @@ const styles = StyleSheet.create({
     marginStart: 10,
   },
   calender: {
-    backgroundColor: 'white',
-    height: 30,
-    width: 30,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 200,
-    marginStart: '8%',
+    marginStart: '11%',
   },
   logo: {
     marginStart: '6%',
     backgroundColor: AppColors.primarycolor,
   },
   notification: {
-    backgroundColor: 'white',
-    height: 30,
-    width: 30,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 200,
-    marginStart: '8%',
+    marginStart: '11%',
   },
   chat: {
-    backgroundColor: 'white',
-    height: 30,
-    width: 30,
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 200,
-    marginStart: '8%',
+    marginStart: '11%',
   },
 });
 

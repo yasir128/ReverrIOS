@@ -21,12 +21,13 @@ const Backbtn = props => {
 
 const styles = StyleSheet.create({
   btn: {
-    backgroundColor: AppColors.BtnClr,
+    backgroundColor: AppColors.CardColor,
     borderRadius: 200,
     justifyContent: 'center',
     alignItems: 'center',
     marginStart: 10,
-    width: 40,
+    width: 30,
+    height: 30,
   },
 });
 

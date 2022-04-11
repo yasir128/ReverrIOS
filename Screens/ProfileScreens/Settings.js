@@ -34,7 +34,7 @@ const Settings = props => {
     <View style={styles.screen}>
       <View style={styles.header}>
         <Backbtn
-          IconSize={40}
+          IconSize={30}
           onPress={() => {
             navigation.goBack();
           }}
@@ -50,13 +50,16 @@ const Settings = props => {
         </Text>
       </View>
       <View style={styles.mainContainer}>
+        <TouchableOpacity style={{height: '7%', marginTop: '25%'}}>
+          <TitleCard firstText="Saved" />
+        </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
             navigation.navigate('EditProfile', {
               mydata: UserData,
             });
           }}
-          style={{height: '7%', marginTop: '20%'}}>
+          style={{height: '7%', marginTop: '7%'}}>
           <TitleCard firstText="Edit profile" />
         </TouchableOpacity>
         <TouchableOpacity style={{height: '7%', marginTop: '7%'}}>
@@ -110,7 +113,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
   mainContainer: {
-    backgroundColor: AppColors.BtnClr,
     height: Height / 1.65,
     marginVertical: Height / 9.8,
     paddingHorizontal: '2%',

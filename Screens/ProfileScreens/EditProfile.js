@@ -46,7 +46,7 @@ const EditProfile = props => {
     <View style={styles.screen}>
       <View style={styles.header}>
         <Backbtn
-          IconSize={40}
+          IconSize={30}
           onPress={() => {
             navigation.goBack();
           }}
@@ -161,7 +161,6 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
   mainContainer: {
-    backgroundColor: AppColors.BtnClr,
     height: Height / 1.55,
     marginVertical: Height / 9.8,
     paddingHorizontal: '2%',

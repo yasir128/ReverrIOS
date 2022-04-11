@@ -2,7 +2,6 @@ import {View, Text} from 'react-native';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Home from '../Screens/HomeScreens/Home';
 import MentorScreen from '../Screens/MentorScreens/MentorScreen';
 import LearnScreen from '../Screens/LearnScreens/LearnScreen';
 import IndividuaProfile from '../Screens/ProfileScreens/IndividuaProfile';
@@ -16,16 +15,17 @@ import ArticalDetailsScreen from '../Screens/HomeScreens/TopTabScreens/ArticalDe
 import MentorsList from '../Screens/MentorScreens/MentorsList';
 import ArticleScreen from '../Screens/HomeScreens/TopTabScreens/ArticleScreen';
 import MentorDetails from '../Screens/MentorScreens/MentorDetails';
-import CalanderScreen from '../Screens/CalanderScreen/CalanderScreen';
 import FundingScreen from '../Screens/FundingScreens/FundingScreen';
+import Dashboard from '../Screens/HomeScreens/Dashboard';
+import ApplyFunding from '../Screens/FundingScreens/ApplyFunding';
 const Stack = createNativeStackNavigator();
 
 export const HomeStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
-        component={Home}
+        name="DashBoard"
+        component={Dashboard}
         options={{headerShown: false}}
       />
       <Stack.Screen
@@ -103,6 +103,11 @@ export const FundingStack = () => {
       <Stack.Screen
         name="FundingScreen"
         component={FundingScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Apply"
+        component={ApplyFunding}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

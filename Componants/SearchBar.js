@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
 const SearchBar = () => {
   return (
-    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+    <View style={{flexDirection: 'row', alignItems: 'center', marginTop: '1%'}}>
       <View style={styles.container}>
         <TextInput style={styles.input} placeholder="Search" />
         <Icon name="search" size={25} color={AppColors.FontsColor} />

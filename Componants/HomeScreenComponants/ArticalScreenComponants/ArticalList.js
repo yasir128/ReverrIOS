@@ -7,7 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 const ArticalList = props => {
   const naigation = useNavigation();
   return (
-    <View>
+    <View style={{marginTop: '5%'}}>
       <FlatList
         data={props.data}
         showsVerticalScrollIndicator={false}

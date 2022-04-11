@@ -2,10 +2,15 @@ import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 import AppColors from '../../Constaint/AppColors';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import LinearGradient from 'react-native-linear-gradient';
 
 const TitleCard = props => {
   return (
-    <View style={styles.NameContainer}>
+    <LinearGradient
+      colors={[AppColors.primarycolor, '#012437']}
+      start={{x: -0.2, y: 1}}
+      end={{x: 1, y: 0}}
+      style={styles.NameContainer}>
       <Text
         style={[
           styles.text2,
@@ -20,8 +25,8 @@ const TitleCard = props => {
         ]}>
         {props.secoundText}
       </Text>
-      <Icon name="angle-right" size={25} color={AppColors.infoFonts} />
-    </View>
+      <Icon name="angle-right" size={25} color={AppColors.FontsColor} />
+    </LinearGradient>
   );
 };
 const styles = StyleSheet.create({

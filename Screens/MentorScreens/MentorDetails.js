@@ -12,6 +12,7 @@ import Backbtn from '../../Componants/Backbtn';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AppColors from '../../Constaint/AppColors';
 import {useNavigation} from '@react-navigation/native';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
@@ -30,23 +31,21 @@ const MentorDetails = props => {
         style={{
           flexDirection: 'row',
           paddingTop: 5,
-          backgroundColor: AppColors.inputFieldColor,
           justifyContent: 'space-between',
         }}>
         <Backbtn
-          IconSize={40}
+          IconSize={30}
           onPress={() => {
             navigation.goBack();
           }}
         />
         <Icon size={27} name="heart" color="red" style={{marginRight: '3%'}} />
       </View>
-      <View style={{backgroundColor: AppColors.inputFieldColor}}>
+      <View style={styles.dp}>
         <Image
           style={{
-            width: '95%',
-            height: 280,
-            marginTop: -15,
+            width: 250,
+            height: 250,
             alignSelf: 'center',
           }}
           source={
@@ -55,17 +54,24 @@ const MentorDetails = props => {
               : {uri: mentorData.image}
           }
         />
-        <View style={styles.Card}>
-          <Text style={styles.Name}>{mentorData.name}</Text>
-          <Text style={styles.skill}>
-            {mentorData.skills == '' ? 'Not Avilable' : mentorData.skills}
-          </Text>
-        </View>
       </View>
+      <LinearGradient
+        colors={[AppColors.primarycolor, '#012437']}
+        start={{x: 0, y: 1.3}}
+        end={{x: 1, y: 0.5}}
+        style={styles.Card}>
+        <Text style={styles.Name}>{mentorData.name}</Text>
+        <Text style={styles.skill}>
+          {mentorData.skills == '' ? 'Not Avilable' : mentorData.skills}
+        </Text>
+      </LinearGradient>
+
       <View style={styles.details}>
-        <View
+        <LinearGradient
+          colors={[AppColors.primarycolor, '#012437']}
+          start={{x: 0, y: 1.3}}
+          end={{x: 1, y: 0.5}}
           style={{
-            backgroundColor: AppColors.BtnClr,
             paddingHorizontal: 16,
             paddingVertical: 6,
             borderRadius: 6,
@@ -73,10 +79,12 @@ const MentorDetails = props => {
           }}>
           <Text style={styles.txt1}>Industry</Text>
           <Text style={styles.txt2}>Fintech</Text>
-        </View>
-        <View
+        </LinearGradient>
+        <LinearGradient
+          colors={[AppColors.primarycolor, '#012437']}
+          start={{x: 0, y: 1.3}}
+          end={{x: 1, y: 0.5}}
           style={{
-            backgroundColor: AppColors.BtnClr,
             paddingHorizontal: 16,
             paddingVertical: 6,
             marginStart: 10,
@@ -85,10 +93,12 @@ const MentorDetails = props => {
           }}>
           <Text style={styles.txt1}>Appoinment</Text>
           <Text style={styles.txt2}>$1000/Hr</Text>
-        </View>
-        <View
+        </LinearGradient>
+        <LinearGradient
+          colors={[AppColors.primarycolor, '#012437']}
+          start={{x: 0, y: 1.3}}
+          end={{x: 1, y: 0.5}}
           style={{
-            backgroundColor: AppColors.BtnClr,
             paddingHorizontal: 16,
             paddingVertical: 6,
             marginStart: 10,
@@ -96,9 +106,13 @@ const MentorDetails = props => {
             marginTop: Height / 13,
           }}>
           <Text style={styles.txt1}>Rating</Text>
-        </View>
+        </LinearGradient>
       </View>
-      <View style={styles.menu}>
+      <LinearGradient
+        colors={[AppColors.primarycolor, '#012437']}
+        start={{x: 0, y: 1.3}}
+        end={{x: 1, y: 0.5}}
+        style={styles.menu}>
         <TouchableOpacity
           onPress={() => {
             setAbout(true);
@@ -110,7 +124,9 @@ const MentorDetails = props => {
             styles.about,
             {backgroundColor: about ? AppColors.FontsColor : null},
           ]}>
-          <Text>About</Text>
+          <Text style={{color: about ? 'black' : AppColors.FontsColor}}>
+            About
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
@@ -123,7 +139,9 @@ const MentorDetails = props => {
             styles.about,
             {backgroundColor: exp ? AppColors.FontsColor : null},
           ]}>
-          <Text>Experience</Text>
+          <Text style={{color: exp ? 'black' : AppColors.FontsColor}}>
+            Experience
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => {
@@ -136,9 +154,11 @@ const MentorDetails = props => {
             styles.about,
             {backgroundColor: plan ? AppColors.FontsColor : null},
           ]}>
-          <Text>plan</Text>
+          <Text style={{color: plan ? 'black' : AppColors.FontsColor}}>
+            plan
+          </Text>
         </TouchableOpacity>
-      </View>
+      </LinearGradient>
       {about ? (
         <View style={{paddingHorizontal: 20, paddingVertical: 10}}>
           <Text
@@ -173,20 +193,25 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.primarycolor,
   },
   Card: {
-    backgroundColor: AppColors.BtnClr,
-    height: Height / 8,
     position: 'absolute',
     borderRadius: 40,
     alignItems: 'center',
-    width: Width / 1.1,
-    marginTop: Height / 4,
-    marginStart: Width / 22,
+    paddingHorizontal: '25%',
+    paddingVertical: '1%',
+    top: '40%',
+    alignSelf: 'center',
+  },
+  dp: {
+    backgroundColor: AppColors.infoFonts,
+    borderRadius: 300,
+    width: Width / 1.4,
+    alignSelf: 'center',
+    height: Height / 3,
   },
   Name: {
     color: AppColors.FontsColor,
     fontFamily: 'Poppins-Regular',
     fontSize: 26,
-    marginTop: 10,
   },
   skill: {
     color: AppColors.FontsColor,

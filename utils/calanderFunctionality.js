@@ -23,7 +23,7 @@ function getCalender(month, year) {
     'Saturday',
   ];
   var dayarr = [' S', ' M', ' T', ' W', 'Th', ' F', 'Sa'];
-  var Tdays = new Date(year, month + 1, 0).getDate(); //total days in the current month
+  var Tdays = new Date(year, month + 2, 0).getDate(); //total days in the current month
   var dt = new Date(year, month, 1);
   var startDay = dt.getDay(); //starting index of the month
   var outputD = [];
@@ -50,11 +50,11 @@ function getCalender(month, year) {
   return calender;
 }
 
-export const ShowCalander = (setmonth, setyear, setdaysname) => {
+export const ShowCalander = (setmonth, setyear, setdaate) => {
   var date = new Date();
   var month = date.getMonth();
   var year = date.getFullYear();
-  var calender = getCalender(month, year);
+  var calender = getCalender(month + 2, year);
 
   {
     //printing calender
@@ -94,14 +94,15 @@ export const ShowCalander = (setmonth, setyear, setdaysname) => {
       outputday.push(dayarr[i]); //printing days
     }
     //console.log(outputday);
-    setdaysname(outputday);
+    // setdaysname(dayarr);
 
     var output = [];
     for (var i = 0; i < calender.length; i++) {
       for (var j = 0; j < 7; j++) {
         output[j] = calender[i][j];
       }
-      //  console.log(output.join(' ')); //printing dates
+      //console.log(calender); //printing dates
+      setdaate(calender);
       output = [];
     }
   }

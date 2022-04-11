@@ -15,126 +15,121 @@ import SearchBar from '../../Componants/SearchBar';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {GetAllMentors} from '../../utils/fireBaseFunctions';
 import {useNavigation} from '@react-navigation/native';
+import HeaderLayout from '../HomeScreens/HeaderLayout';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
 
-const MentorsList = () => {
+const MentorsList = props => {
   const navigation = useNavigation();
+  const mentorData = props.route.params.mentorData;
   const [all, setAll] = useState();
+  const [listColumn, setListColumn] = useState(2);
   useEffect(() => {
     GetAllMentors(setAll);
   }, []);
 
   return (
-    <View style={styles.screen}>
-      <View style={styles.Header}>
-        <Backbtn
-          IconSize={40}
-          onPress={() => {
-            navigation.goBack();
-          }}
-        />
-        <Text
-          style={{
-            color: AppColors.FontsColor,
-            fontSize: 22,
-            marginStart: Width / 4,
-            fontFamily: 'Poppins-Regular',
-          }}>
-          Mentors
-        </Text>
-      </View>
-      <SearchBar />
-      <View>
-        <FlatList
-          data={all}
-          renderItem={({item}) => (
-            <TouchableOpacity
-              style={styles.Card}
-              onPress={() => {
-                navigation.navigate('MentorsProfile', {
-                  profileDetails: item,
-                });
-              }}>
-              <View style={styles.container}>
-                <View style={{marginStart: '2%', flexDirection: 'row'}}>
+    <HeaderLayout>
+      <View style={styles.screen}>
+        <LinearGradient
+          colors={[AppColors.primarycolor, '#012437']}
+          start={{x: 0, y: 1.3}}
+          end={{x: 1, y: 0.5}}
+          style={styles.Header}>
+          <Text
+            style={{
+              fontFamily: 'Poppins-Bold',
+              color: AppColors.FontsColor,
+              fontSize: 17,
+            }}>
+            {mentorData && mentorData.name}
+          </Text>
+        </LinearGradient>
+        <View>
+          <FlatList
+            data={all}
+            numColumns={2}
+            renderItem={({item}) => (
+              <LinearGradient
+                colors={[AppColors.primarycolor, '#012437']}
+                start={{x: 0.4, y: 1.3}}
+                end={{x: 1, y: 0.5}}
+                style={styles.Card}>
+                <TouchableOpacity
+                  style={{alignItems: 'center'}}
+                  onPress={() => {
+                    navigation.navigate('MentorsProfile', {
+                      profileDetails: item,
+                    });
+                  }}>
                   <Image
                     style={styles.Dp}
-                    source={
-                      item.image == ''
-                        ? require('../../assets/Images/jatin.png')
-                        : {uri: item.image}
-                    }
+                    source={require('../../assets/Images/jatindp.png')}
                   />
-                  <View>
+                  <View style={{alignItems: 'center'}}>
                     <Text style={styles.Name}>{item.name}</Text>
                     <Text style={styles.Skills}>{item.skills}</Text>
                   </View>
-                </View>
-                <TouchableOpacity style={styles.schedule}>
-                  <Text style={{color: 'black'}}>Schedule</Text>
+                  <View style={styles.rating}>
+                    <Icon name="star" size={12} color={AppColors.infoFonts} />
+                    <Icon
+                      name="star"
+                      size={12}
+                      style={{marginStart: '3%'}}
+                      color={AppColors.infoFonts}
+                    />
+                    <Icon
+                      name="star"
+                      size={12}
+                      style={{marginStart: '3%'}}
+                      color={AppColors.infoFonts}
+                    />
+                    <Icon
+                      name="star"
+                      size={12}
+                      style={{marginStart: '3%'}}
+                      color={AppColors.infoFonts}
+                    />
+                    <Icon
+                      name="star"
+                      size={12}
+                      style={{marginStart: '3%'}}
+                      color={AppColors.infoFonts}
+                    />
+                    <Text
+                      style={{
+                        color: AppColors.ActiveColor,
+                        marginStart: '5%',
+                      }}>
+                      76 Review
+                    </Text>
+                  </View>
+                  <TouchableOpacity style={styles.schedule}>
+                    <Text
+                      style={{
+                        color: AppColors.FontsColor,
+                        fontFamily: 'Poppins-Bold',
+                        marginEnd: '13%',
+                      }}>
+                      Schedule
+                    </Text>
+                    <Text
+                      style={{
+                        color: AppColors.FontsColor,
+                        fontFamily: 'Poppins-Regular',
+                      }}>
+                      $1000/Hr
+                    </Text>
+                  </TouchableOpacity>
                 </TouchableOpacity>
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  marginStart: '10%',
-                  alignItems: 'center',
-                }}>
-                <Icon
-                  name="star"
-                  size={10}
-                  color="white"
-                  style={{marginStart: 5}}
-                />
-                <Icon
-                  name="star"
-                  size={10}
-                  color="white"
-                  style={{marginStart: 5}}
-                />
-                <Icon
-                  name="star"
-                  size={10}
-                  color="white"
-                  style={{marginStart: 5}}
-                />
-                <Icon
-                  name="star"
-                  size={10}
-                  color="white"
-                  style={{marginStart: 5}}
-                />
-                <Icon
-                  name="star"
-                  size={10}
-                  color="white"
-                  style={{marginStart: 5}}
-                />
-                <Text style={{fontSize: 12, marginStart: 10, color: 'blue'}}>
-                  76 Reviews
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 12,
-                    marginStart: 10,
-                    color: AppColors.infoFonts,
-                  }}>
-                  • 15 Years Experience
-                </Text>
-                <Icon
-                  name="heart"
-                  size={15}
-                  color={AppColors.infoFonts}
-                  style={{marginStart: 15}}
-                />
-              </View>
-            </TouchableOpacity>
-          )}
-        />
+              </LinearGradient>
+            )}
+          />
+        </View>
       </View>
-    </View>
+    </HeaderLayout>
   );
 };
 const styles = StyleSheet.create({
@@ -143,20 +138,24 @@ const styles = StyleSheet.create({
     backgroundColor: AppColors.primarycolor,
   },
   Header: {
-    flexDirection: 'row',
+    height: Height / 12,
+    marginHorizontal: '5%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10,
     marginBottom: '2%',
   },
   Card: {
-    backgroundColor: AppColors.CardColor,
     marginVertical: 10,
-    marginHorizontal: '4%',
+    width: Width / 2.18,
+    marginHorizontal: '2%',
     borderRadius: 10,
-    paddingVertical: 10,
-    paddingStart: 10,
+    paddingVertical: 5,
+    alignItems: 'center',
   },
   Dp: {
-    width: 60,
-    height: 60,
+    width: 80,
+    height: 80,
     borderRadius: 80,
   },
   container: {
@@ -164,9 +163,8 @@ const styles = StyleSheet.create({
   },
   Name: {
     color: AppColors.FontsColor,
-    fontSize: 19,
-    width: 200,
-    marginStart: '3%',
+    fontSize: 13,
+    marginTop: '4%',
     fontFamily: 'Poppins-Regular',
   },
   Skills: {
@@ -175,13 +173,18 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
   },
   schedule: {
-    backgroundColor: AppColors.infoFonts,
-    marginStart: '1%',
-    width: 80,
-    height: 30,
+    paddingHorizontal: Width / 50,
+    paddingVertical: 5,
+    marginVertical: '5%',
+    flexDirection: 'row',
+    borderColor: AppColors.FontsColor,
+    borderWidth: 2,
     alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 16,
+    borderRadius: 15,
+  },
+  rating: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });
 export default MentorsList;

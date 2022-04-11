@@ -10,12 +10,15 @@ import {
 import React, {useState} from 'react';
 import {MentorsCategory} from '../../dummy-data/MentorsCategoriesData';
 import AppColors from '../../Constaint/AppColors';
+import LinearGradient from 'react-native-linear-gradient';
+import {useNavigation} from '@react-navigation/native';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
 
 const MentorsCategories = () => {
   const [clmn, setclmn] = useState(2);
+  const navigation = useNavigation();
   return (
     <View>
       <View style={styles.container}>
@@ -42,17 +45,28 @@ const MentorsCategories = () => {
         data={MentorsCategory}
         numColumns={clmn}
         renderItem={({item}) => (
-          <TouchableOpacity activeOpacity={0.6} style={styles.Card}>
-            <Image style={styles.dp} source={{uri: item.image}} />
-            <Text
-              style={{
-                marginStart: '6%',
-                color: AppColors.FontsColor,
-                fontFamily: 'Poppins-Regular',
-              }}>
-              {item.name}
-            </Text>
-          </TouchableOpacity>
+          <LinearGradient
+            colors={[AppColors.primarycolor, '#012437']}
+            start={{x: 0.4, y: 1.3}}
+            end={{x: 1, y: 0.5}}
+            style={styles.Card}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('List', {mentorData: item});
+              }}
+              activeOpacity={0.6}
+              style={styles.Card}>
+              <Image style={styles.dp} source={{uri: item.image}} />
+              <Text
+                style={{
+                  marginStart: '6%',
+                  color: AppColors.FontsColor,
+                  fontFamily: 'Poppins-Regular',
+                }}>
+                {item.name}
+              </Text>
+            </TouchableOpacity>
+          </LinearGradient>
         )}
       />
     </View>
@@ -60,12 +74,12 @@ const MentorsCategories = () => {
 };
 const styles = StyleSheet.create({
   Card: {
-    backgroundColor: AppColors.CardColor,
     width: Width / 2.23,
+    flex: 1,
     marginHorizontal: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 10,
+    marginVertical: 6,
     borderRadius: 5,
   },
   dp: {
@@ -78,7 +92,7 @@ const styles = StyleSheet.create({
     width: '50%',
     fontFamily: 'Poppins-Regular',
     fontSize: 14,
-    paddingTop: 7,
+    paddingTop: 5,
   },
   skills: {
     color: AppColors.FontsColor,
@@ -87,6 +101,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flexDirection: 'row',
+
     justifyContent: 'center',
     alignItems: 'center',
   },

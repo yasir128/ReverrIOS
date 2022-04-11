@@ -41,9 +41,9 @@ const HomeCard = () => {
   //           p.current.scrollToIndex({index: 1});
   //           setTimeout(() => {
   //             p.current.scrollToIndex({index: 0});
-  //             // setTimeout(() => {
-  //             //   AutoScroll();
-  //             // }, 2000);
+  //             setTimeout(() => {
+  //               AutoScroll();
+  //             }, 2000);
   //           }, 3000);
   //         }, 3000);
   //       }, 3000);
@@ -177,6 +177,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   CardContainer: {
+    height: Height / 3.2,
     paddingStart: Width / 108,
     marginTop: Height / 11,
   },

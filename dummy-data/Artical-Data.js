@@ -22,15 +22,15 @@ export const ArticalData = [
   },
   {
     id: 4,
-    title: 'Space',
-    description: 'Milky Way shakes: The cosmic collisions that made our galaxy',
+    title: 'Techonology',
+    description:
+      'GPS software boost lets smartphones pinpoint location to within 20 cm',
     Read: '',
   },
   {
     id: 5,
-    title: 'Techonology',
-    description:
-      'GPS software boost lets smartphones pinpoint location to within 20 cm',
+    title: 'Space',
+    description: 'Milky Way shakes: The cosmic collisions that made our galaxy',
     Read: '',
   },
 ];

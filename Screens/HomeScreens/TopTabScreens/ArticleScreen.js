@@ -1,42 +1,33 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Dimensions, ScrollView} from 'react-native';
 import React, {useState} from 'react';
 import HeaderCard from '../../../Componants/HomeScreenComponants/ArticalScreenComponants/HeaderCard';
 import ArticalList from '../../../Componants/HomeScreenComponants/ArticalScreenComponants/ArticalList';
 import {ArticalData} from '../../../dummy-data/Artical-Data';
 
+const Height = Dimensions.get('window').height;
+const Width = Dimensions.get('window').width;
+
+console.log(Height);
+
 const ArticleScreen = props => {
   return (
     <View style={styles.screen}>
-      <View style={{flex: 1}}>
-        <View style={styles.HeaderContainer}>
-          <HeaderCard />
-        </View>
-        <View style={styles.ListContainer}>
-          <ArticalList data={ArticalData} />
-        </View>
+      <View style={styles.ListContainer}>
+        <ArticalList data={ArticalData} />
       </View>
     </View>
   );
 };
 const styles = StyleSheet.create({
   screen: {
-    flex: 1,
-  },
-  HeaderContainer: {
-    alignItems: 'center',
-    height: '35%',
-    width: '98%',
-    marginVertical: 10,
-    marginHorizontal: 3.5,
-    overflow: 'hidden',
-    borderRadius: 20,
+    height: Height > 684 ? Height / 1.32 : Height / 1.41,
   },
   ListContainer: {
     paddingHorizontal: 20,
-    paddingBottom: '10%',
+    marginTop: Height > 684 ? 20 : 10,
+
     width: '100%',
-    height: '58%',
-    marginTop: 20,
+    height: Height > 684 ? '100%' : '100%',
   },
 });
 

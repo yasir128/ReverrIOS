@@ -1,13 +1,24 @@
-import {View, Text, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  StyleSheet,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 import React from 'react';
 import Ionic from 'react-native-vector-icons/Ionicons';
 import AppColors from '../../../Constaint/AppColors';
 import {useNavigation} from '@react-navigation/native';
+const Height = Dimensions.get('window').height;
+const Width = Dimensions.get('window').width;
 
 const ArticalList = props => {
+  console.log(Height);
   const naigation = useNavigation();
   return (
-    <View style={{marginTop: '5%'}}>
+    <View style={{marginTop: '2%'}}>
       <FlatList
         data={props.data}
         showsVerticalScrollIndicator={false}
@@ -42,7 +53,7 @@ const styles = StyleSheet.create({
     height: 1,
   },
   title: {
-    paddingTop: 10,
+    paddingTop: Height > 684 ? 20 : 7,
     paddingStart: 5,
     flexDirection: 'row',
     justifyContent: 'space-between',

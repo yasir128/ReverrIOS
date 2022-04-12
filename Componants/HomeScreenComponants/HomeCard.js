@@ -18,11 +18,10 @@ import Icon2 from 'react-native-vector-icons/AntDesign';
 import LinearGradient from 'react-native-linear-gradient';
 import CustomBtn from '../CustomBtn';
 
-const Height = Dimensions.get('screen').height;
-const Width = Dimensions.get('screen').width;
+const Height = Dimensions.get('window').height;
+const Width = Dimensions.get('window').width;
 
 const HomeCard = () => {
-  const scrollX = useRef(new Animated.Value(0)).current;
   const p = useRef(4);
 
   // setTimeout(() => {
@@ -56,12 +55,6 @@ const HomeCard = () => {
         data={cardData}
         ref={p}
         pagingEnabled
-        onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {x: scrollX}}}],
-          {
-            useNativeDriver: false,
-          },
-        )}
         showsHorizontalScrollIndicator={false}
         horizontal
         renderItem={({item}) => (

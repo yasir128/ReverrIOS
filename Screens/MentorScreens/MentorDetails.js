@@ -13,6 +13,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import AppColors from '../../Constaint/AppColors';
 import {useNavigation} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
+import CustomBtn from '../../Componants/CustomBtn';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
@@ -184,6 +185,7 @@ const MentorDetails = props => {
           </Text>
         </View>
       ) : null}
+      <CustomBtn Title="Schedule" style={styles.btn} />
     </View>
   );
 };
@@ -247,6 +249,9 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     marginStart: 10,
     paddingVertical: 5,
+  },
+  btn: {
+    paddingHorizontal: '35%',
   },
 });
 export default MentorDetails;

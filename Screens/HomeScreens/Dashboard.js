@@ -15,8 +15,8 @@ import AppColors from '../../Constaint/AppColors';
 import HeaderLayout from './HeaderLayout';
 import {GetUser} from '../../utils/fireBaseFunctions';
 
-const Height = Dimensions.get('screen').height;
-const Width = Dimensions.get('screen').width;
+const Height = Dimensions.get('window').height;
+const Width = Dimensions.get('window').width;
 
 const Dashboard = props => {
   const [news, setNews] = useState(false);
@@ -26,6 +26,7 @@ const Dashboard = props => {
   useEffect(() => {
     GetUser(setAllData);
   }, []);
+  console.log(Width);
   return (
     <HeaderLayout>
       <ScrollView>
@@ -36,8 +37,11 @@ const Dashboard = props => {
               Today is a good day to learn something new !
             </Text>
           </View>
-          <View style={styles.vector}>
-            <Image source={require('../../assets/Images/HomeVector.png')} />
+          <View style={styles.vectorContainer}>
+            <Image
+              style={styles.vector}
+              source={require('../../assets/Images/HomeVector.png')}
+            />
           </View>
         </View>
         <HomeCard />
@@ -77,10 +81,16 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     width: Width / 2,
   },
-  vector: {
+  vectorContainer: {
     position: 'absolute',
-    height: Height / 4,
-    marginStart: Width / 2,
+    zIndex: 2,
+    width: 180,
+    height: Height > 684 ? Height / 4 : Height / 4,
+    marginStart: Width / 1.6,
+  },
+  vector: {
+    height: Height > 684 ? '100%' : 175,
+    width: 160,
   },
   menu: {
     alignItems: 'center',

@@ -18,6 +18,7 @@ import MentorDetails from '../Screens/MentorScreens/MentorDetails';
 import FundingScreen from '../Screens/FundingScreens/FundingScreen';
 import Dashboard from '../Screens/HomeScreens/Dashboard';
 import ApplyFunding from '../Screens/FundingScreens/ApplyFunding';
+import Plans from '../Screens/MentorScreens/Plans';
 const Stack = createNativeStackNavigator();
 
 export const HomeStack = () => {
@@ -92,6 +93,11 @@ export const MentorStack = () => {
       <Stack.Screen
         name="MentorsProfile"
         component={MentorDetails}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Plans"
+        component={Plans}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

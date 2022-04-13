@@ -1,28 +1,24 @@
 import {View, StyleSheet} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import Header from '../../Componants/HomeScreenComponants/Header';
 import AppColors from '../../Constaint/AppColors';
 import {useNavigation} from '@react-navigation/native';
 import {GetUser} from '../../utils/fireBaseFunctions';
 import CalanderScreen from '../CalanderScreen/CalanderScreen';
 import ModelView from '../../Componants/ModelView';
+import {UserContext} from '../../App';
 
 const HeaderLayout = props => {
-  const [AllData, setAllData] = useState();
-  const [qoute, setQoute] = useState('loading...');
+  const {state, dispatch} = useContext(UserContext);
   const [modelVisible, setModelVisible] = useState(false);
 
   const navigation = useNavigation();
-
-  useEffect(() => {
-    GetUser(setAllData);
-  }, [qoute]);
 
   return (
     <View style={styles.screen}>
       <Header
         onPressDp={() => {
-          navigation.navigate(AllData && AllData.userType, {Data: AllData});
+          navigation.navigate(state && state.userType, {Data: state});
         }}
         onPressCalander={() => {
           setModelVisible(true);
@@ -33,7 +29,7 @@ const HeaderLayout = props => {
         onPressChat={() => {
           navigation.navigate('Chat');
         }}
-        DpUrl={AllData && AllData.image}
+        DpUrl={state && state.image}
       />
       <ModelView
         ShowModal={modelVisible}

@@ -13,7 +13,7 @@ import ArticleScreen from './TopTabScreens/ArticleScreen';
 import NewsScreen from './TopTabScreens/NewsScreen';
 import AppColors from '../../Constaint/AppColors';
 import HeaderLayout from './HeaderLayout';
-import { UserContext } from '../../App';
+import {UserContext} from '../../App';
 
 const Height = Dimensions.get('window').height;
 const Width = Dimensions.get('window').width;
@@ -23,19 +23,16 @@ const Dashboard = props => {
   const [article, setArticle] = useState(true);
   const {state, dispatch} = useContext(UserContext);
 
-<<<<<<< HEAD
-  useEffect(() => {
-    GetUser(setAllData);
-  }, []);
-  console.log(Width);
-=======
->>>>>>> 11dea775c576ff65f612c00b1cd72424d1fa52d2
+  // useEffect(() => {
+  //   GetUser(setAllData);
+  // }, []);
+
   return (
     <HeaderLayout>
       <ScrollView>
         <View style={styles.wlcmConatiner}>
           <View>
-            <Text style={styles.welcmTxt}>Hii,{state&&state.name}</Text>
+            <Text style={styles.welcmTxt}>Hii,{state && state.name}</Text>
             <Text style={styles.subText}>
               Today is a good day to learn something new !
             </Text>

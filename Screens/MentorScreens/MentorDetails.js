@@ -185,7 +185,13 @@ const MentorDetails = props => {
           </Text>
         </View>
       ) : null}
-      <CustomBtn Title="Schedule" style={styles.btn} />
+      <CustomBtn
+        Title="Schedule"
+        style={styles.btn}
+        onPress={() => {
+          navigation.navigate('Plans');
+        }}
+      />
     </View>
   );
 };
@@ -196,9 +202,9 @@ const styles = StyleSheet.create({
   },
   Card: {
     position: 'absolute',
-    borderRadius: 40,
+    borderRadius: 20,
     alignItems: 'center',
-    paddingHorizontal: '25%',
+    paddingHorizontal: '10%',
     paddingVertical: '1%',
     top: '40%',
     alignSelf: 'center',
@@ -214,6 +220,8 @@ const styles = StyleSheet.create({
     color: AppColors.FontsColor,
     fontFamily: 'Poppins-Regular',
     fontSize: 26,
+
+    // backgroundColor: 'red',
   },
   skill: {
     color: AppColors.FontsColor,

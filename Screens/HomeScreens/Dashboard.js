@@ -23,13 +23,6 @@ const Dashboard = props => {
   const [article, setArticle] = useState(true);
   const {state, dispatch} = useContext(UserContext);
 
-<<<<<<< HEAD
-=======
-  // useEffect(() => {
-  //   GetUser(setAllData);
-  // }, []);
->>>>>>> 2ba72f44f90ff875f19ac7d06e45b4ab1f663c5e
-
   return (
     <HeaderLayout>
       <ScrollView>

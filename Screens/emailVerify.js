@@ -14,6 +14,7 @@ import Backbtn from '../Componants/Backbtn';
 import CustomBtn from '../Componants/CustomBtn';
 import firestore from '@react-native-firebase/firestore';
 import {AuthContext} from '../Navigations/AuthProvider';
+import { UserContext, ChatContext } from '../App';
 
 const emailVerify = props => {
   const navigation = useNavigation();
@@ -31,12 +32,56 @@ const emailVerify = props => {
     password: Password,
     mobile: Mobile,
   };
+  const {state,dispatch} = useContext(UserContext)
+  const {chatstate, chatdispatch} = useContext(ChatContext);
+  async function loadChatUser (list){
+      console.log(list);
+      list.forEach(async(user)=>{
+      const User = await firestore().collection('Users').doc(user).get();
+      chatdispatch({type:"UPDATE", payload:User._data});
+      })     
+  }
+  async function setUser (document){
+    document.userType=="Mentor"?loadChatUser(document.clients):loadChatUser(document.mentors);
+    dispatch({type:"USER",payload:document})
+  }
+
   const {register} = useContext(AuthContext);
   const signup = async () => {
     if (UserType === 'Individual') {
+
+      const document = {
+        ...data,
+        image: 'https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Images%2FDefaultdp.png?alt=media&token=eaf853bf-3c60-42df-9c8b-d4ebf5a1a2a6',
+        membership: 'none',
+        liked: [],
+        likes: [],
+        matched: [],
+        TotalLikes: 20,
+        Totalhandshakes: 1,
+        notification: [],
+        mentors: [],
+        about: '',
+        education: {
+          type: '',
+          school: '',
+        },
+        skills: [],
+        industry: '',
+        designation: '',
+        linkedin: '',
+        experience: {
+          position: '',
+          company: '',
+          tenure: '',
+        },
+        lookingFor: [],
+      };
+
       await firestore()
         .collection('Users')
         .doc(Email)
+<<<<<<< HEAD
         .set({
           ...data,
           image:
@@ -65,13 +110,40 @@ const emailVerify = props => {
           },
           lookingFor: [],
         })
+=======
+        .set(document)
+>>>>>>> 0a4a28b81e36bab20bb5dd9f11688f920fe6e18e
         .then(() => {
           register(Email, Password);
+          setUser(document);
         });
     } else if (UserType === 'Startup') {
+      const document = {
+        ...data,
+        image: 'https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Images%2FDefaultdp.png?alt=media&token=eaf853bf-3c60-42df-9c8b-d4ebf5a1a2a6',
+        membership: 'none',
+        liked: [],
+        likes: [],
+        matched: [],
+        TotalLikes: 20,
+        Totalhandshakes: 1,
+        notification: [],
+        mentors: [],
+        about: '',
+        industry: '',
+        designation: '',
+        linkedin: '',
+        lookingFor: [],
+        founders: [],
+        website: '',
+        operationsFrom: '',
+        memeberNo: 'none',
+        stage: '',
+      };
       await firestore()
         .collection('Users')
         .doc(Email)
+<<<<<<< HEAD
         .set({
           ...data,
           image:
@@ -95,13 +167,34 @@ const emailVerify = props => {
           memeberNo: 'none',
           stage: '',
         })
+=======
+        .set(document)
+>>>>>>> 0a4a28b81e36bab20bb5dd9f11688f920fe6e18e
         .then(() => {
           register(Email, Password);
+          setUser(document)
         });
     } else if (UserType === 'Mentor') {
+
+      const document = {
+        ...data,
+        image: 'https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Images%2FDefaultdp.png?alt=media&token=eaf853bf-3c60-42df-9c8b-d4ebf5a1a2a6',
+        notification: [],
+        clients: [],
+        about: '',
+        industry: '',
+        linkedin: '',
+        experience: '',
+        reviews: [],
+        rating: 0,
+        totalRating: 0,
+        plans: [],
+      };
+
       await firestore()
         .collection('Users')
         .doc(Email)
+<<<<<<< HEAD
         .set({
           ...data,
           image:
@@ -117,8 +210,12 @@ const emailVerify = props => {
           totalRating: 0,
           plans: [],
         })
+=======
+        .set(document)
+>>>>>>> 0a4a28b81e36bab20bb5dd9f11688f920fe6e18e
         .then(() => {
           register(Email, Password);
+          setUser(document);
         });
     }
   };

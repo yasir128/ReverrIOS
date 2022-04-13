@@ -168,7 +168,7 @@ const SignupScreen = props => {
               value={email}
               error={emailerror}
               onChangeText={e => {
-                setemail(e);
+                setemail(e.toLowerCase());
                 if (e != '') {
                   setemailerror(false);
                 }

@@ -8,7 +8,7 @@ import {
   TextInput,
   Dimensions,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import AppColors from '../../Constaint/AppColors';
 import Backbtn from '../../Componants/Backbtn';
 import auth from '@react-native-firebase/auth';
@@ -17,12 +17,16 @@ import Icon2 from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import firestore from '@react-native-firebase/firestore';
 import LinearGradient from 'react-native-linear-gradient';
+import ShortUniqueId from 'short-unique-id'
+import { UserContext } from '../../App';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
 
 const ChatBox = props => {
+  const {state, dispatch} = useContext(UserContext);
   const userData = props.route.params.userData;
+  console.log(userData);
   const [message, setmessage] = useState('');
   const [userEmail, setuserEmail] = useState('');
   const [Recive, setRecive] = useState();
@@ -30,6 +34,53 @@ const ChatBox = props => {
   var month = new Date().getMonth() + 1;
   var year = new Date().getFullYear();
   const navigation = useNavigation();
+
+  const MakeCall = async ()=>{
+
+    const udata = await firestore().collection('Users').doc(state.email).get();
+    const meeting = udata._data.meeting;
+
+    if(meeting!=undefined&&meeting.host!=""){
+      return JoinCall();
+    }
+
+    const uid = new ShortUniqueId();
+    const channelName = uid(12);
+    const host = true;
+
+    const data= {
+      meeting:{
+        channelName:channelName,
+        host:state.email,
+      }
+    }
+
+    await firestore().collection('Users').doc(state.email).update(data);
+    await firestore().collection('Users').doc(userData.email).update(data);
+
+    dispatch({type:"MEETING",payload:data})
+
+    navigation.navigate('videoCall', {
+      token: await gettoken(channelName,host),
+      userData:userData
+    });
+  }
+
+  const JoinCall  = async()=>{
+    const data = await firestore().collection('Users').doc(state.email).get();
+    const meeting = data._data.meeting;
+
+    dispatch({type:"MEETING",payload:data._data})
+
+    const channelName = meeting.channelName;
+    const host = meeting.host==state.email?true:false;
+
+    navigation.navigate('videoCall', {
+      token: await gettoken(channelName,host),
+      userData:userData
+    });
+  }
+
 
   const SendMessage = async () => {
     const email = auth().currentUser;
@@ -75,6 +126,26 @@ const ChatBox = props => {
 
     console.log(Recive);
   };
+  var token;
+
+  async function postData(url,data){
+    const response = await fetch(url,{method:'POST',body:JSON.stringify(data.channelName,data.host)});
+    return response.json();
+  }
+
+  const gettoken = async(channelName, host)=>{
+    var data ={
+      channelName,
+      host
+    }
+   token =  await postData("https://us-central1-reverr-25fb3.cloudfunctions.net/accessToken",data)
+    .then(data=>{
+      return data.token;
+    });
+    console.log(token)
+      return token;
+  }
+
   useEffect(() => {
     ReciveMessage();
   }, [Recive]);
@@ -99,7 +170,8 @@ const ChatBox = props => {
         />
         <Image style={styles.dp} source={{uri: userData.image}} />
         <Text style={styles.Name}>{userData.name}</Text>
-        <TouchableOpacity>
+        <TouchableOpacity 
+          onPress={MakeCall}>
           <Icon2
             name="phone-volume"
             size={20}

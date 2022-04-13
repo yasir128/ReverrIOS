@@ -44,8 +44,10 @@ const HomeCard = () => {
   //     flatListRef.current?.scrollToIndex({index: 0});
   //   }
   // };
+
   // //auto scroll initiater after every 3 seconds
   // let value = setTimeout(nextPage, 3000);
+
 
   return (
     <View style={styles.CardContainer}>
@@ -57,6 +59,12 @@ const HomeCard = () => {
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         horizontal
+        // onMomentumScrollEnd={(event) => {
+        //   const index = Math.floor(
+        //       event.nativeEvent.contentOffset.x /
+        //           event.nativeEvent.layoutMeasurement.width
+        //   );
+        // }}
         renderItem={({item}) => (
           <LinearGradient
             colors={[AppColors.primarycolor, '#012437']}

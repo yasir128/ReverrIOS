@@ -29,5 +29,11 @@ export const reducer =(state,action)=>{
       dob:action.payload.dob
     }
   }
+  if(action.type==="MEETING"){
+    return{
+      ...state,
+      meeting:action.payload.meeting
+    }
+  }
   return state
 }

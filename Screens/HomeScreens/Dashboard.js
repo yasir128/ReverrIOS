@@ -23,16 +23,12 @@ const Dashboard = props => {
   const [article, setArticle] = useState(true);
   const {state, dispatch} = useContext(UserContext);
 
-  // useEffect(() => {
-  //   GetUser(setAllData);
-  // }, []);
-
   return (
     <HeaderLayout>
       <ScrollView>
         <View style={styles.wlcmConatiner}>
           <View>
-            <Text style={styles.welcmTxt}>Hii,{state && state.name}</Text>
+            <Text style={styles.welcmTxt}>Hi {state&&state.name}</Text>
             <Text style={styles.subText}>
               Today is a good day to learn something new !
             </Text>
@@ -72,6 +68,7 @@ const styles = StyleSheet.create({
     paddingStart: Width / 13,
   },
   welcmTxt: {
+    textTransform: 'capitalize',
     color: 'white',
     fontSize: 22,
     fontFamily: 'Poppins-Bold',

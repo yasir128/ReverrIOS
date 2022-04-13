@@ -78,8 +78,8 @@ const IndividuaProfile = props => {
             <Text style={styles.text}>Setting</Text>
           </TouchableOpacity>
         </View>
-        <View style={{height: '5%'}}>
-          <Text style={[styles.text, {alignSelf: 'center', fontSize: 17}]}>
+        <View style={{height: '7%'}}>
+          <Text style={[styles.text, {width:'100%', textAlign:'center', marginLeft:10, fontSize: 18, textTransform:"capitalize"}]}>
             {UserData && UserData.name}
           </Text>
         </View>

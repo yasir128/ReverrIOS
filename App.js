@@ -26,14 +26,19 @@ const Routing = ()=>{
   }
   useEffect(()=>{
     async function getUser (){
-      const udata = await auth().currentUser;
-      const savedUser = await firestore()
-        .collection('Users')
-        .doc(udata.email)
-        .get();
+      try{
+        const udata = await auth().currentUser;
+        const savedUser = await firestore()
+          .collection('Users')
+          .doc(udata.email)
+          .get();
 
-      savedUser._data.userType=="Mentor"?loadChatUser(savedUser._data.clients):loadChatUser(savedUser._data.mentors);
-      dispatch({type:"USER",payload:savedUser._data})
+        savedUser._data.userType=="Mentor"?loadChatUser(savedUser._data.clients):loadChatUser(savedUser._data.mentors);
+        dispatch({type:"USER",payload:savedUser._data})
+      }
+      catch(err){
+        console.log(err);
+      }
     }
  
     getUser();

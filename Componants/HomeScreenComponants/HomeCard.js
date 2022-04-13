@@ -49,6 +49,8 @@ const HomeCard = () => {
   //     }, 3000);
   //   }, 3000);
   // };
+
+
   return (
     <View style={styles.CardContainer}>
       <FlatList
@@ -57,6 +59,12 @@ const HomeCard = () => {
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         horizontal
+        // onMomentumScrollEnd={(event) => {
+        //   const index = Math.floor(
+        //       event.nativeEvent.contentOffset.x /
+        //           event.nativeEvent.layoutMeasurement.width
+        //   );
+        // }}
         renderItem={({item}) => (
           <LinearGradient
             colors={[AppColors.primarycolor, '#012437']}

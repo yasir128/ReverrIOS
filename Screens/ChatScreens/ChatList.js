@@ -31,12 +31,12 @@ const ChatList = () => {
   return (
     <HeaderLayout>
       <View style={styles.screen}>
-        <Text style={styles.headerText}>Message</Text>
-        <Text style={[styles.headerText, {fontSize: 14}]}>Mentors</Text>
+        {/* <Text style={styles.headerText}>Message</Text> */}
+        <Text style={[styles.headerText]}>{state&&state.userType=="Mentor"?"Learners":"Mentors"}</Text>
         
         <View style={{flexDirection: 'row', marginTop: '3%'}}>
           {chatstate !== undefined &&
-            chatstate.length > 0 &&
+            chatstate.length > 0 ?(
             chatstate.map(item => (
               <TouchableOpacity
                 onPress={() => {
@@ -55,7 +55,10 @@ const ChatList = () => {
                   <Text style={styles.skill}>{item.skills}</Text>
                 </LinearGradient>
               </TouchableOpacity>
-            ))}
+            ))):
+            (
+              <Text style={{color:"white", textAlign:"center", width:"100%", fontSize:18}}>You don't have any mentors cuurently 😐</Text>
+              )}
         </View>
         <LinearGradient
           style={styles.menu}

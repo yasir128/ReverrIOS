@@ -4,7 +4,9 @@ import AppColors from '../Constaint/AppColors';
 import InputField from '../Componants/InputField';
 import CustomBtn from '../Componants/CustomBtn';
 import { useNavigation } from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
 import { AuthContext } from '../Navigations/AuthProvider';
+import { UserContext, ChatContext } from '../App';
 
 const LoginScreen = () => {
 
@@ -15,6 +17,16 @@ const LoginScreen = () => {
     const [password, setPassword] = useState("");
     const { login } = useContext(AuthContext);
     const navigation = useNavigation();
+    const {state,dispatch} = useContext(UserContext)
+    const {chatstate, chatdispatch} = useContext(ChatContext);
+    async function loadChatUser (list){
+        console.log(list);
+        list.forEach(async(user)=>{
+        const User = await firestore().collection('Users').doc(user).get();
+        chatdispatch({type:"UPDATE", payload:User._data});
+        })  
+        
+    }
 
     const IsEmpty = () => {
 
@@ -25,6 +37,17 @@ const LoginScreen = () => {
                 setpasserror(true);
             } else {
                 login(email, password);
+                async function getUser (){
+                    const savedUser = await firestore()
+                      .collection('Users')
+                      .doc(email)
+                      .get();
+                    console.log(savedUser);
+                    savedUser._data.userType=="Mentor"?loadChatUser(savedUser._data.clients):loadChatUser(savedUser._data.mentors);
+                    dispatch({type:"USER",payload:savedUser._data})
+                  }
+               
+                  getUser();
             }
         }
     }

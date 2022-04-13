@@ -1,7 +1,16 @@
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import React from 'react';
 import AppColors from '../Constaint/AppColors';
 import LinearGradient from 'react-native-linear-gradient';
+
+const Height = Dimensions.get('window').height;
+const Width = Dimensions.get('window').width;
 
 const CustomBtn = props => {
   return (
@@ -25,8 +34,8 @@ const styles = StyleSheet.create({
   },
   Btn: {
     borderRadius: 6,
-    paddingHorizontal: '40%',
-    paddingVertical: '4%',
+    width: Width / 1.1,
+    paddingVertical: Height > 684 ? '3%' : '2%',
     justifyContent: 'center',
     alignItems: 'center',
   },

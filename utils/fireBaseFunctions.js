@@ -76,17 +76,17 @@ export const GetAllMentors = async setFn => {
 // };
 
 // export const getChatList = async (list)=>{
- 
+
 //   if(list+"s"!="s"){
 //     try{
-//       var array = []; 
+//       var array = [];
 //       list.forEach(user=>{
 //         const savedUser = await firestore()
 //         .collection('Users')
 //         .doc(user)
 //         .get().then(()=>console.log(savedUser._data))
 //       })
-    
+
 //       return array;
 //     }
 //     catch(err){
@@ -96,9 +96,8 @@ export const GetAllMentors = async setFn => {
 //   else{
 //     console.log("empty");
 //   }
- 
-// };
 
+// };
 
 export const UpdateUserData = async (
   name,

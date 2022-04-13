@@ -5,10 +5,11 @@ import {
   FlatList,
   Dimensions,
   Animated,
+  TouchableOpacity,
   ImageBackground,
   Image,
 } from 'react-native';
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {cardData} from '../../dummy-data/defaultHomeCardData';
 import {AllMentors} from '../../dummy-data/AllMentors';
 import AppColors from '../../Constaint/AppColors';
@@ -22,40 +23,41 @@ const Height = Dimensions.get('window').height;
 const Width = Dimensions.get('window').width;
 
 const HomeCard = () => {
-  const p = useRef(4);
-
-  // setTimeout(() => {
-  //   AutoScroll();
-  // }, 3000);
-
-  // const AutoScroll = () => {
-  //   p.current.scrollToIndex({index: 1});
-  //   setTimeout(() => {
-  //     p.current.scrollToIndex({index: 2});
-  //     setTimeout(() => {
-  //       p.current.scrollToIndex({index: 3});
-  //       setTimeout(() => {
-  //         p.current.scrollToIndex({index: 2});
-  //         setTimeout(() => {
-  //           p.current.scrollToIndex({index: 1});
-  //           setTimeout(() => {
-  //             p.current.scrollToIndex({index: 0});
-  //             setTimeout(() => {
-  //               AutoScroll();
-  //             }, 2000);
-  //           }, 3000);
-  //         }, 3000);
-  //       }, 3000);
-  //     }, 3000);
-  //   }, 3000);
+  // const [index, setIndex] = useState(0);
+  // // this function gives the index of current page
+  // const onViewRef = useRef(({changed}) => {
+  //   setIndex(changed[0].item.id);
+  // });
+  // //it helps the above funtion in getting proper index
+  // const viewConfigRef = useRef({viewAreaCoveragePercentThreshold: 50});
+  // //aded ref to flatlist to chaange index
+  // const flatListRef = useRef(null);
+  // //function to move to next page
+  // let nextPage = () => {
+  //   if (index === 0) {
+  //     flatListRef.current?.scrollToIndex({index: 1});
+  //   } else if (index === 1) {
+  //     flatListRef.current?.scrollToIndex({index: 2});
+  //   } else if (index === 2) {
+  //     flatListRef.current?.scrollToIndex({index: 3});
+  //   } else {
+  //     flatListRef.current?.scrollToIndex({index: 0});
+  //   }
   // };
+<<<<<<< HEAD
 
+=======
+  // //auto scroll initiater after every 3 seconds
+  // let value = setTimeout(nextPage, 3000);
+>>>>>>> 2ba72f44f90ff875f19ac7d06e45b4ab1f663c5e
 
   return (
     <View style={styles.CardContainer}>
       <FlatList
         data={cardData}
-        ref={p}
+        // ref={flatListRef}
+        // onViewableItemsChanged={onViewRef.current}
+        // viewabilityConfig={viewConfigRef.current}
         pagingEnabled
         showsHorizontalScrollIndicator={false}
         horizontal
@@ -93,14 +95,19 @@ const HomeCard = () => {
                 />
               ) : null}
             </View>
-            <View style={{flexDirection: 'row', marginTop: Width / 28}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                marginTop: Width / 50,
+              }}>
               {item.id == 0 ? (
                 AllMentors.map(item2 => (
-                  <View
+                  <TouchableOpacity
                     key={item2.id}
                     style={{
                       marginStart: Width / 35,
                       marginBottom: 5,
+
                       alignItems: 'center',
                     }}>
                     <Image
@@ -109,52 +116,55 @@ const HomeCard = () => {
                     />
                     <Text style={styles.name}>{item2.name}</Text>
                     <Text style={styles.skill}>{item2.skills}</Text>
-                  </View>
+                  </TouchableOpacity>
                 ))
               ) : item.id == 1 ? (
                 courseData.map(item3 => (
-                  <ImageBackground
-                    key={item3.id}
-                    style={styles.courseimage}
-                    source={{uri: item3.image}}>
-                    <View
-                      style={{
-                        width: '100%',
-                        height: '100%',
-                        backgroundColor: 'rgba(0, 0, 0, 0.4)',
-                      }}>
-                      <Text style={styles.title}>{item3.title}</Text>
+                  <TouchableOpacity key={item3.id}>
+                    <ImageBackground
+                      key={item3.id}
+                      style={styles.courseimage}
+                      source={{uri: item3.image}}>
                       <View
-                        style={[
-                          styles.overlay,
-                          {
-                            backgroundColor:
-                              item3.id == 2 ? 'rgba(0, 0, 0, 0.5)' : '',
-                          },
-                        ]}>
-                        {item3.id == 2 ? (
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                        }}>
+                        <Text style={styles.title}>{item3.title}</Text>
+                        <View
+                          style={[
+                            styles.overlay,
+                            {
+                              backgroundColor:
+                                item3.id == 2 ? 'rgba(0, 0, 0, 0.5)' : '',
+                            },
+                          ]}>
+                          {item3.id == 2 ? (
+                            <Icon
+                              name="lock"
+                              size={25}
+                              style={{
+                                alignSelf: 'center',
+                                marginTop: '50%',
+                              }}
+                              color={AppColors.FontsColor}
+                            />
+                          ) : null}
                           <Icon
-                            name="lock"
+                            name="arrow-right"
                             size={25}
                             style={{
-                              alignSelf: 'center',
-                              marginTop: '50%',
+                              marginTop:
+                                item3.id == 2 ? Height / 70 : Height / 7.5,
+                              marginStart: Width / 30,
                             }}
                             color={AppColors.FontsColor}
                           />
-                        ) : null}
-                        <Icon
-                          name="arrow-right"
-                          size={25}
-                          style={{
-                            marginTop: item3.id == 2 ? Height / 45 : Height / 9,
-                            marginStart: Width / 30,
-                          }}
-                          color={AppColors.FontsColor}
-                        />
+                        </View>
                       </View>
-                    </View>
-                  </ImageBackground>
+                    </ImageBackground>
+                  </TouchableOpacity>
                 ))
               ) : (
                 <CustomBtn
@@ -188,7 +198,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     width: Width / 1.6,
     marginStart: Width / 19,
-    marginTop: Height / 24,
+    marginTop: Height / 35,
   },
   subheading: {
     color: AppColors.FontsColor,
@@ -199,7 +209,7 @@ const styles = StyleSheet.create({
     marginTop: Height / 74,
   },
   mentorDp: {
-    width: Width / 7,
+    width: Height > 684 ? Width / 7 : Width / 8,
     height: Height / 14,
     borderRadius: 40,
   },
@@ -208,7 +218,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   name: {
-    marginTop: 10,
+    marginTop: 5,
     color: AppColors.FontsColor,
     fontFamily: 'Poppins-SemiBold',
     fontSize: 12,
@@ -243,7 +253,7 @@ const styles = StyleSheet.create({
   button: {
     width: Width / 1.2,
     height: Height / 16,
-    marginTop: Height / 28,
+    marginTop: Height / 20,
     marginStart: Width / 20,
   },
 });

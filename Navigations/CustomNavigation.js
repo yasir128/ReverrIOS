@@ -1,6 +1,4 @@
-import {View, Text} from 'react-native';
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import MentorScreen from '../Screens/MentorScreens/MentorScreen';
 import LearnScreen from '../Screens/LearnScreens/LearnScreen';
@@ -19,7 +17,11 @@ import FundingScreen from '../Screens/FundingScreens/FundingScreen';
 import Dashboard from '../Screens/HomeScreens/Dashboard';
 import ApplyFunding from '../Screens/FundingScreens/ApplyFunding';
 import Plans from '../Screens/MentorScreens/Plans';
+<<<<<<< HEAD
 import {VideoCall} from '../Screens/videocall/videoCall';
+=======
+import PlansDetails from '../Screens/MentorScreens/PlansDetails';
+>>>>>>> 2ba72f44f90ff875f19ac7d06e45b4ab1f663c5e
 const Stack = createNativeStackNavigator();
 
 export const HomeStack = () => {
@@ -104,6 +106,11 @@ export const MentorStack = () => {
       <Stack.Screen
         name="Plans"
         component={Plans}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="PlanDetails"
+        component={PlansDetails}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

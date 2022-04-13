@@ -19,7 +19,7 @@ const CustomBtn = props => {
         <LinearGradient
           colors={[AppColors.primarycolor, '#012437']}
           start={{x: 0, y: 1.3}}
-          end={{x: 0, y: 0.5}}
+          end={{x: 0.3, y: 0.5}}
           style={{...styles.Btn, ...props.style}}>
           <Text style={styles.txt}>{props.Title}</Text>
         </LinearGradient>
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   Btn: {
-    borderRadius: 6,
+    borderRadius: 20,
     width: Width / 1.1,
     paddingVertical: Height > 684 ? '3%' : '2%',
     justifyContent: 'center',

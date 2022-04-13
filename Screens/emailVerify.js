@@ -39,7 +39,8 @@ const emailVerify = props => {
         .doc(Email)
         .set({
           ...data,
-          image: '',
+          image:
+            'https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Images%2FDefaultdp.png?alt=media&token=eaf853bf-3c60-42df-9c8b-d4ebf5a1a2a6s',
           membership: 'none',
           liked: [],
           likes: [],
@@ -73,7 +74,8 @@ const emailVerify = props => {
         .doc(Email)
         .set({
           ...data,
-          image: '',
+          image:
+            'https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Images%2FDefaultdp.png?alt=media&token=eaf853bf-3c60-42df-9c8b-d4ebf5a1a2a6s',
           membership: 'none',
           liked: [],
           likes: [],
@@ -102,7 +104,8 @@ const emailVerify = props => {
         .doc(Email)
         .set({
           ...data,
-          image: '',
+          image:
+            'https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Images%2FDefaultdp.png?alt=media&token=eaf853bf-3c60-42df-9c8b-d4ebf5a1a2a6s',
           notification: [],
           clients: [],
           about: '',

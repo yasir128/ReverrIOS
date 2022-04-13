@@ -18,19 +18,8 @@ const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
 
 const IndividuaProfile = props => {
-  const [defaultDp, setdefaultDp] = useState(true);
   const UserData = props.route.params.Data;
   const navigation = useNavigation();
-
-  const finddp = () => {
-    if (UserData.image != '') {
-      setdefaultDp(false);
-    }
-  };
-
-  useEffect(() => {
-    finddp();
-  }, [defaultDp]);
   return (
     <ScrollView style={styles.screen}>
       <View style={styles.header}>
@@ -55,6 +44,9 @@ const IndividuaProfile = props => {
       <View style={styles.mainContainer}>
         <View style={styles.topIcons}>
           <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('Subscription');
+            }}
             style={{alignItems: 'center', justifyContent: 'center'}}>
             <Icon name="star" size={25} color={AppColors.ActiveColor} />
             <Text style={styles.text}>Membership</Text>
@@ -78,7 +70,7 @@ const IndividuaProfile = props => {
             <Text style={styles.text}>Setting</Text>
           </TouchableOpacity>
         </View>
-        <View style={{height: '5%'}}>
+        <View style={{height: '8%'}}>
           <Text style={[styles.text, {alignSelf: 'center', fontSize: 17}]}>
             {UserData && UserData.name}
           </Text>
@@ -145,17 +137,10 @@ const IndividuaProfile = props => {
         </View>
       </View>
       <View style={styles.dp}>
-        {defaultDp ? (
-          <Image
-            style={{width: '100%', height: '100%'}}
-            source={require('../../assets/Images/jatindp.png')}
-          />
-        ) : (
-          <Image
-            style={{width: '100%', height: '100%'}}
-            source={{uri: UserData.image}}
-          />
-        )}
+        <Image
+          style={{width: '100%', height: '100%'}}
+          source={{uri: UserData.image}}
+        />
       </View>
     </ScrollView>
   );
@@ -185,8 +170,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   dp: {
-    height: Height / 7.5,
-    width: Width / 5.2,
+    height: Height / 7,
+    width: Width / 6.2,
     overflow: 'hidden',
     borderRadius: 200,
     marginStart: '35%',

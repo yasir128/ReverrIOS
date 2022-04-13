@@ -21,6 +21,7 @@ const ArticalList = props => {
     <View style={{marginTop: '2%'}}>
       <FlatList
         data={props.data}
+        nestedScrollEnabled={true}
         showsVerticalScrollIndicator={false}
         renderItem={({item}) => (
           <TouchableOpacity

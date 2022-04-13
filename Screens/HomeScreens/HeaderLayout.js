@@ -3,7 +3,6 @@ import React, {useState, useEffect, useContext} from 'react';
 import Header from '../../Componants/HomeScreenComponants/Header';
 import AppColors from '../../Constaint/AppColors';
 import {useNavigation} from '@react-navigation/native';
-import {GetUser} from '../../utils/fireBaseFunctions';
 import CalanderScreen from '../CalanderScreen/CalanderScreen';
 import ModelView from '../../Componants/ModelView';
 import {UserContext} from '../../App';
@@ -13,7 +12,7 @@ const HeaderLayout = props => {
   const [modelVisible, setModelVisible] = useState(false);
 
   const navigation = useNavigation();
-
+  //console.log(state.image);
   return (
     <View style={styles.screen}>
       <Header

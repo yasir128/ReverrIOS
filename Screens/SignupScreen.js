@@ -125,7 +125,7 @@ const SignupScreen = props => {
       <View style={styles.screen}>
         <View style={{marginTop: 10}}>
           <Backbtn
-            IconSize={40}
+            IconSize={30}
             onPress={() => {
               navigation.goBack();
             }}
@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
   signuplink: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 40,
+    marginTop: '7%',
     justifyContent: 'center',
   },
 });

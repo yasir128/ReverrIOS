@@ -18,6 +18,7 @@ import Dashboard from '../Screens/HomeScreens/Dashboard';
 import ApplyFunding from '../Screens/FundingScreens/ApplyFunding';
 import Plans from '../Screens/MentorScreens/Plans';
 import PlansDetails from '../Screens/MentorScreens/PlansDetails';
+import Subscription from '../Screens/SubscriptionScreen/Subscription';
 const Stack = createNativeStackNavigator();
 
 export const HomeStack = () => {
@@ -73,6 +74,11 @@ export const HomeStack = () => {
         component={ArticleScreen}
         options={{headerShown: false}}
       />
+      <Stack.Screen
+        name="Subscription"
+        component={Subscription}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };
@@ -80,7 +86,7 @@ export const MentorStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Mentor"
+        name="FindMentor"
         component={MentorScreen}
         options={{headerShown: false}}
       />

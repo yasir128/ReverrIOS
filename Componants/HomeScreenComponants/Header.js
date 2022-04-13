@@ -5,6 +5,7 @@ import Ionic from 'react-native-vector-icons/Ionicons';
 import AppColors from '../../Constaint/AppColors';
 
 const Header = props => {
+  console.log(props.DpUrl);
   return (
     <View style={styles.Container}>
       <TouchableOpacity style={styles.dp} onPress={props.onPressDp}>
@@ -15,11 +16,7 @@ const Header = props => {
             backgroundColor: AppColors.primarycolor,
             borderRadius: 200,
           }}
-          source={
-            props.DpUrl === ''
-              ? require('../../assets/Images/dp.png')
-              : {uri: props.DpUrl}
-          }
+          source={{uri: props.DpUrl}}
         />
       </TouchableOpacity>
       <TouchableOpacity onPress={props.onPressCalander} style={styles.calender}>

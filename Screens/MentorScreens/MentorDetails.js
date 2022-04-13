@@ -40,7 +40,7 @@ const MentorDetails = props => {
             navigation.goBack();
           }}
         />
-        <Icon size={27} name="heart" color="red" style={{marginRight: '3%'}} />
+        <Icon size={27} name="heart" color="red" style={{marginRight: '8%'}} />
       </View>
       <View style={styles.dp}>
         <Image

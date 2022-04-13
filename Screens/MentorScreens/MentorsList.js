@@ -106,23 +106,6 @@ const MentorsList = props => {
                       76 Review
                     </Text>
                   </View>
-                  <TouchableOpacity style={styles.schedule}>
-                    <Text
-                      style={{
-                        color: AppColors.FontsColor,
-                        fontFamily: 'Poppins-Bold',
-                        marginEnd: '13%',
-                      }}>
-                      Schedule
-                    </Text>
-                    <Text
-                      style={{
-                        color: AppColors.FontsColor,
-                        fontFamily: 'Poppins-Regular',
-                      }}>
-                      $1000/Hr
-                    </Text>
-                  </TouchableOpacity>
                 </TouchableOpacity>
               </LinearGradient>
             )}

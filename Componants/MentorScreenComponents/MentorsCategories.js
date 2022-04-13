@@ -41,34 +41,37 @@ const MentorsCategories = () => {
           </Text>
         </TouchableOpacity>
       </View>
-      <FlatList
-        data={MentorsCategory}
-        numColumns={clmn}
-        renderItem={({item}) => (
-          <LinearGradient
-            colors={[AppColors.primarycolor, '#012437']}
-            start={{x: 0.4, y: 1.3}}
-            end={{x: 1, y: 0.5}}
-            style={styles.Card}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('List', {mentorData: item});
-              }}
-              activeOpacity={0.6}
+      <View>
+        <FlatList
+          data={MentorsCategory}
+          nestedScrollEnabled={true}
+          numColumns={clmn}
+          renderItem={({item}) => (
+            <LinearGradient
+              colors={[AppColors.primarycolor, '#012437']}
+              start={{x: 0.4, y: 1.3}}
+              end={{x: 1, y: 0.5}}
               style={styles.Card}>
-              <Image style={styles.dp} source={{uri: item.image}} />
-              <Text
-                style={{
-                  marginStart: '6%',
-                  color: AppColors.FontsColor,
-                  fontFamily: 'Poppins-Regular',
-                }}>
-                {item.name}
-              </Text>
-            </TouchableOpacity>
-          </LinearGradient>
-        )}
-      />
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('List', {mentorData: item});
+                }}
+                activeOpacity={0.6}
+                style={styles.Card}>
+                <Image style={styles.dp} source={{uri: item.image}} />
+                <Text
+                  style={{
+                    marginStart: '6%',
+                    color: AppColors.FontsColor,
+                    fontFamily: 'Poppins-Regular',
+                  }}>
+                  {item.name}
+                </Text>
+              </TouchableOpacity>
+            </LinearGradient>
+          )}
+        />
+      </View>
     </View>
   );
 };
@@ -83,8 +86,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   dp: {
-    width: 50,
-    height: 50,
+    width: Width / 6,
+    height: Height / 16,
     borderRadius: 5,
   },
   Name: {

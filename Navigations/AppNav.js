@@ -29,24 +29,24 @@ const AppNav = () => {
             tabBarLabelStyle: {
               marginBottom: 7,
               fontFamily: 'Poppins-Bold',
-              fontSize: 12,
+              fontSize: 10,
             },
             tabBarActiveBackgroundColor: AppColors.bottomBg,
             tabBarLabelPosition: 'below-icon',
             tabBarActiveTintColor: AppColors.FontsColor,
             tabBarInactiveTintColor: 'gray',
             tabBarStyle: {
-              height: 70,
+              height: 60,
               backgroundColor: AppColors.bottomBg,
             },
             tabBarIcon: tabinfo => {
               return (
                 <Icon
                   name="home"
-                  size={35}
+                  size={30}
                   color={tabinfo.focused ? '#40BFFF' : 'gray'}
                   style={{
-                    marginTop: 10,
+                    marginTop: 5,
                   }}
                 />
               );
@@ -72,24 +72,24 @@ const AppNav = () => {
             tabBarLabelStyle: {
               marginBottom: 7,
               fontFamily: 'Poppins-Bold',
-              fontSize: 12,
+              fontSize: 10,
             },
             tabBarActiveBackgroundColor: AppColors.bottomBg,
             tabBarLabelPosition: 'below-icon',
             tabBarActiveTintColor: AppColors.FontsColor,
             tabBarInactiveTintColor: 'gray',
             tabBarStyle: {
-              height: 70,
+              height: 60,
               backgroundColor: AppColors.bottomBg,
             },
             tabBarIcon: tabinfo => {
               return (
                 <Icon2
                   name="user-cog"
-                  size={32}
+                  size={25}
                   color={tabinfo.focused ? '#40BFFF' : '#A6A6A6'}
                   style={{
-                    marginTop: 10,
+                    marginTop: 5,
                   }}
                 />
               );
@@ -106,24 +106,24 @@ const AppNav = () => {
             tabBarLabelStyle: {
               marginBottom: 7,
               fontFamily: 'Poppins-Bold',
-              fontSize: 12,
+              fontSize: 10,
             },
             tabBarActiveBackgroundColor: AppColors.bottomBg,
             tabBarLabelPosition: 'below-icon',
             tabBarActiveTintColor: AppColors.FontsColor,
             tabBarInactiveTintColor: 'gray',
             tabBarStyle: {
-              height: 70,
+              height: 60,
               backgroundColor: AppColors.bottomBg,
             },
             tabBarIcon: tabinfo => {
               return (
                 <Icon2
                   name="users"
-                  size={30}
+                  size={28}
                   color={tabinfo.focused ? '#40BFFF' : '#A6A6A6'}
                   style={{
-                    marginTop: 10,
+                    marginTop: 5,
                   }}
                 />
               );
@@ -139,24 +139,24 @@ const AppNav = () => {
             tabBarLabelStyle: {
               marginBottom: 7,
               fontFamily: 'Poppins-Bold',
-              fontSize: 12.4,
+              fontSize: 10,
             },
             tabBarActiveBackgroundColor: AppColors.bottomBg,
             tabBarLabelPosition: 'below-icon',
             tabBarActiveTintColor: AppColors.FontsColor,
             tabBarInactiveTintColor: 'gray',
             tabBarStyle: {
-              height: 70,
+              height: 60,
               backgroundColor: AppColors.bottomBg,
             },
             tabBarIcon: tabinfo => {
               return (
                 <Icon2
                   name="graduation-cap"
-                  size={30}
+                  size={28}
                   color={tabinfo.focused ? '#40BFFF' : '#A6A6A6'}
                   style={{
-                    marginTop: 10,
+                    marginTop: 5,
                   }}
                 />
               );

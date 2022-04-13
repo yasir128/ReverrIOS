@@ -1,7 +1,10 @@
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity ,Dimensions} from 'react-native';
 import React from 'react';
 import AppColors from '../Constaint/AppColors';
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+const Height = Dimensions.get("window").height
+const Width = Dimensions.get("window").width
 
 
 const InputField = (props) => {
@@ -31,13 +34,13 @@ const InputField = (props) => {
 const styles = StyleSheet.create({
     screen: {
         alignItems: 'center',
-        marginBottom: 20
+        marginBottom: Height/25
 
     },
     box: {
         backgroundColor: AppColors.inputFieldColor,
         width: '90%',
-        borderRadius: 15,
+        borderRadius: 10,
         alignItems: 'center',
         flexDirection: 'row'
     },

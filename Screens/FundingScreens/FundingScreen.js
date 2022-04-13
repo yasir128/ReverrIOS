@@ -1,15 +1,28 @@
-import {View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  Dimensions,
+} from 'react-native';
 import React from 'react';
 import AppColors from '../../Constaint/AppColors';
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
+import CustomBtn from '../../Componants/CustomBtn';
+
+const Width = Dimensions.get('screen').width;
+const Height = Dimensions.get('screen').height;
 
 const FundingScreen = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.screen}>
-      <Image source={require('../../assets/Images/funding.png')} />
-
+      <Image
+        style={styles.img}
+        source={require('../../assets/Images/funding.png')}
+      />
       <LinearGradient
         colors={[AppColors.primarycolor, '#012437']}
         start={{x: 0, y: 1.3}}
@@ -23,19 +36,13 @@ const FundingScreen = () => {
           pharmaceuticals and healthcare, food and beverages etc.
         </Text>
       </LinearGradient>
-      <TouchableOpacity
-        activeOpacity={0.7}
+      <CustomBtn
+        style={styles.button}
+        Title="Apply For Funding"
         onPress={() => {
           navigation.navigate('Apply');
-        }}>
-        <LinearGradient
-          colors={[AppColors.primarycolor, '#012437']}
-          start={{x: 0, y: 1.3}}
-          end={{x: 0, y: 0.5}}
-          style={styles.button}>
-          <Text style={styles.title}>Apply for Funding</Text>
-        </LinearGradient>
-      </TouchableOpacity>
+        }}
+      />
     </View>
   );
 };
@@ -43,11 +50,16 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
     backgroundColor: AppColors.primarycolor,
+    alignItems: 'center',
   },
   title: {
     color: AppColors.FontsColor,
     fontFamily: 'Poppins-Bold',
     fontSize: 18,
+  },
+  img: {
+    width: Width / 1.2,
+    height: Height / 2.1,
   },
   card: {
     paddingVertical: '1%',
@@ -61,7 +73,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
   },
   button: {
-    paddingVertical: '6%',
+    paddingVertical: '3%',
     paddingHorizontal: '2%',
     alignItems: 'center',
     marginHorizontal: '2%',

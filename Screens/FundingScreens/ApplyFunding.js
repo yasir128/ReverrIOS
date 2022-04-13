@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   },
   title: {
     color: AppColors.FontsColor,
-    marginTop: '8%',
+    marginTop: '4%',
     fontFamily: 'Poppins-Regular',
     fontSize: 18,
   },

@@ -13,12 +13,11 @@ import Backbtn from '../../Componants/Backbtn';
 import {useNavigation} from '@react-navigation/native';
 import {AllMentors} from '../../dummy-data/AllMentors';
 import MentorsList from '../../Componants/ChatScreenComponents/MentorsList';
-import {GetUser,GetChatList} from '../../utils/fireBaseFunctions';
+import {GetUser, GetChatList} from '../../utils/fireBaseFunctions';
 import HeaderLayout from '../HomeScreens/HeaderLayout';
 import LinearGradient from 'react-native-linear-gradient';
 import firestore from '@react-native-firebase/firestore';
-import { ChatContext, UserContext } from '../../App';
-
+import {ChatContext, UserContext} from '../../App';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
@@ -27,13 +26,14 @@ const ChatList = () => {
   const navigation = useNavigation();
   const {state, dispatch} = useContext(UserContext);
   const {chatstate, chatdispatch} = useContext(ChatContext);
+  console.log(chatstate);
 
   return (
     <HeaderLayout>
       <View style={styles.screen}>
         <Text style={styles.headerText}>Message</Text>
         <Text style={[styles.headerText, {fontSize: 14}]}>Mentors</Text>
-        
+
         <View style={{flexDirection: 'row', marginTop: '3%'}}>
           {chatstate !== undefined &&
             chatstate.length > 0 &&

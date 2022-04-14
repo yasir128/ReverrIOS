@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import AppColors from '../../Constaint/AppColors';
 import Backbtn from '../../Componants/Backbtn';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -22,8 +22,7 @@ const IndividuaProfile = props => {
   const navigation = useNavigation();
   const {state,dispatch} = useContext(UserContext);
 
-
-  return (
+  return state&&(
     <ScrollView style={styles.screen}>
       <View style={styles.header}>
         <View style={{width: '40%'}}>
@@ -47,6 +46,9 @@ const IndividuaProfile = props => {
       <View style={styles.mainContainer}>
         <View style={styles.topIcons}>
           <TouchableOpacity
+             onPress={() => {
+              navigation.navigate('Subscription');
+            }}
             style={{alignItems: 'center', justifyContent: 'center'}}>
             <Icon name="star" size={25} color={AppColors.ActiveColor} />
             <Text style={styles.text}>Membership</Text>
@@ -70,7 +72,7 @@ const IndividuaProfile = props => {
         </View>
         <View style={{height: '7%'}}>
           <Text style={[styles.text, {width:'100%', textAlign:'center', marginLeft:10, fontSize: 18, textTransform:"capitalize"}]}>
-            {state && state.name}
+            {state.name}
           </Text>
         </View>
         <View
@@ -82,7 +84,7 @@ const IndividuaProfile = props => {
           }}>
           <Text style={[styles.text, {fontSize: 18}]}>About</Text>
           <Text style={styles.about}>
-            {state &&state.about}
+            {state.about}
           </Text>
         </View>
         <View
@@ -103,7 +105,7 @@ const IndividuaProfile = props => {
               alignItems: 'center',
             }}>
             <Text style={[styles.text, {fontSize: 18, paddingRight: '5%'}]}>
-            {state &&state.industry}
+            {state.industry}
             </Text>
             <Icon
               name="angle-right"
@@ -116,25 +118,19 @@ const IndividuaProfile = props => {
         <View style={styles.CompanyDetails}>
           <Text style={[styles.text, {fontSize: 18}]}>Experience</Text>
           <Text style={[styles.txt, {width: Width / 2}]}>
-          {state && state.experience>0 && state.experience.map(ex=>{
-            ex
-          })}
+          {state.experience.length>0 && state.experience.map(ex=> ex)}
           </Text>
         </View>
         <View style={[styles.CompanyDetails, {height: Height / 9}]}>
           <Text style={[styles.text, {fontSize: 18}]}>Skills</Text>
           <Text style={[styles.txt, {width: Width / 2}]}>
-          {state && state.skills>0 && state.skills.map(ex=>{
-            ex
-          })}
+          {state.skills.map(sk=>sk)}
           </Text>
         </View>
         <View style={[styles.CompanyDetails, {height: Height / 9}]}>
           <Text style={[styles.text, {fontSize: 18}]}>Education</Text>
           <Text style={[styles.txt, {width: Width / 2}]}>
-          {state && state.education>0 && state.education.map(ex=>{
-            ex
-          })}
+          {state.education.map(ed=>ed)}
           </Text>
         </View>
       </View>
@@ -142,7 +138,7 @@ const IndividuaProfile = props => {
         
         <Image
           style={{width: '100%', height: '100%'}}
-          source={{uri: state&&state.image}}
+          source={{uri: state.image}}
         />
        
       </View>
@@ -196,7 +192,7 @@ const styles = StyleSheet.create({
   },
   CompanyDetails: {
     width: '100%',
-    height: Height / 7,
+    height: Height / 6.5,
     marginTop: '2%',
     borderBottomColor: AppColors.FontsColor,
     borderBottomWidth: 1,
@@ -209,7 +205,7 @@ const styles = StyleSheet.create({
   txt: {
     color: AppColors.infoFonts,
     fontFamily: 'Poppins-Regular',
-    fontSize: 10,
+    fontSize: 12,
   },
   about: {
     color: AppColors.infoFonts,

@@ -40,6 +40,7 @@ const ChatList = () => {
             chatstate.length > 0 ?(
             chatstate.map(item => (
               <TouchableOpacity
+                key={item.email}
                 onPress={() => {
                   navigation.navigate('ChatBox', {
                     userData: item,

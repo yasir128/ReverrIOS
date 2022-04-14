@@ -13,7 +13,7 @@ export const GetUser = async setData => {
   setData(savedUser._data);
 };
 
-export const ChangeDp = (loading, setLoading) => {
+export const ChangeDp = (loading, setLoading,dispatch) => {
   ImagePicker.openPicker({
     cropping: true,
   }).then(image => {
@@ -30,11 +30,12 @@ export const ChangeDp = (loading, setLoading) => {
           var imgURL = await storage()
             .ref('Images/' + imageURL)
             .getDownloadURL();
+          dispatch({type:"UPDATEPHOTO",payload:imgURL});
           await firestore().collection('Users').doc(userEmail).update({
             image: imgURL,
           });
+
           setLoading(false);
-          alert('changed');
         });
     } catch (error) {
       console.log(error);

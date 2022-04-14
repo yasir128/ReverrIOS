@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
   Dimensions,
 } from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import AppColors from '../../Constaint/AppColors';
 import {AuthContext} from '../../Navigations/AuthProvider';
 import Backbtn from '../../Componants/Backbtn';
@@ -18,30 +18,58 @@ import TitleCard from '../../Componants/ProfileScreenComponents/TitleCard';
 import {useNavigation} from '@react-navigation/native';
 import EditCard from '../../Componants/ProfileScreenComponents/EditCard';
 import CustomBtn from '../../Componants/CustomBtn';
+import { UserContext } from '../../App';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
 
-const EditProfile = props => {
+const EditProfile = () => {
+  const {state,dispatch} = useContext(UserContext);
   const {user, logout} = React.useContext(AuthContext);
-  const UserData = props.route.params.mydata;
-  const [Name, setName] = useState(UserData.name);
-  const [About, setAbout] = useState(UserData.about);
-  const [Industry, setIndustry] = useState(UserData.industry);
-  const [Experience, setExperience] = useState(UserData.experience);
-  const [Skills, setSkills] = useState(UserData.skills);
+
+  const [Name, setName] = useState(state&&state.name);
+  const [About, setAbout] = useState(state&&state.about);
+  const [Industry, setIndustry] = useState(state&&state.industry);
+  const [Experience, setExperience] = useState(state&&state.experience);
+  const [Skills, setSkills] = useState(state&&state.skills);
   const [loading, setLoading] = useState(false);
-  const [Education, setEducation] = useState(UserData.education);
-  const [defaultdp, setdefaultdp] = useState(true);
+  const [Education, setEducation] = useState(state&&state.education);
+  
   const navigation = useNavigation();
 
-  useEffect(() => {
-    if (UserData.image != '') {
-      setdefaultdp(false);
-    }
-  }, [defaultdp]);
+
   //console.log(UserData);
 
+  const saveChanges = ()=>{
+    // if(Name!=UserData.name){
+  
+    // } 
+    // if(About!=UserData.about){
+      
+    // }
+    // if(Industry!=UserData.industry){
+      
+    // }
+    // if(Experience!=UserData.experience){
+      
+    // }
+    // if(Skills!=UserData.skills){
+      
+    // }
+    // if(Education!=UserData.education){
+      
+    // }
+    const data = {
+      name:Name,
+      experience:Experience,
+      skills:Skills,
+      about:About,
+      industry:Industry,
+      education:Education
+    }
+
+    dispatch({type:"UPDATE",payload:data});
+  }
   return (
     <View style={styles.screen}>
       <View style={styles.header}>
@@ -109,21 +137,17 @@ const EditProfile = props => {
         />
         <CustomBtn
           Title="Save Changes"
+          onPress={()=>saveChanges()}
           style={{backgroundColor: 'blue', marginTop: 15}}
         />
       </View>
       <View style={styles.dp}>
-        {defaultdp ? (
+        
           <Image
             style={{width: '100%', height: '100%'}}
-            source={require('../../assets/Images/jatindp.png')}
+            source={{uri: state&&state.image}}
           />
-        ) : (
-          <Image
-            style={{width: '100%', height: '100%'}}
-            source={{uri: UserData.image}}
-          />
-        )}
+       
       </View>
       <ActivityIndicator
         animating={loading}

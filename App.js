@@ -29,20 +29,7 @@ const Routing = () => {
       chatdispatch({type: 'UPDATE', payload: User._data});
     });
   }
-<<<<<<< HEAD
-  useEffect(() => {
-    async function getUser() {
-      const udata = await auth().currentUser;
-      const savedUser = await firestore()
-        .collection('Users')
-        .doc(udata.email)
-        .get();
-      // console.log(savedUser);
-      savedUser._data.userType == 'Mentor'
-        ? loadChatUser(savedUser._data.clients)
-        : loadChatUser(savedUser._data.mentors);
-      dispatch({type: 'USER', payload: savedUser._data});
-=======
+
   useEffect(()=>{
     async function getUser (){
       try{
@@ -58,7 +45,6 @@ const Routing = () => {
       catch(err){
         console.log(err);
       }
->>>>>>> 0a4a28b81e36bab20bb5dd9f11688f920fe6e18e
     }
 
     getUser();
@@ -85,4 +71,5 @@ const App = () => {
     </Provider>
   );
 };
+  
 export default App;

@@ -21,11 +21,9 @@ import Plans from '../Screens/MentorScreens/Plans';
 import {VideoCall} from '../Screens/videocall/videoCall';
 
 import PlansDetails from '../Screens/MentorScreens/PlansDetails';
-<<<<<<< HEAD
-import Subscription from '../Screens/SubscriptionScreen/Subscription';
-=======
 
->>>>>>> 0a4a28b81e36bab20bb5dd9f11688f920fe6e18e
+import Subscription from '../Screens/SubscriptionScreen/Subscription';
+
 const Stack = createNativeStackNavigator();
 
 export const HomeStack = () => {

@@ -11,8 +11,12 @@ export const reducer =(state,action)=>{
   if(action.type==="UPDATE"){
     return {
       ...state,
-      followers:action.payload.followers,
-      following:action.payload.following
+     name:action.payload.name,
+     about:action.payload.about,
+     experience:action.payload.experience,
+     education:action.payload.education,
+     industry:action.payload.industry,
+     skills:action.payload.skills
     }
   }
   if(action.type==="UPDATEPHOTO"){

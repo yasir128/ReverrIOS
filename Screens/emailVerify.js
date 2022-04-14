@@ -81,38 +81,7 @@ const emailVerify = props => {
       await firestore()
         .collection('Users')
         .doc(Email)
-<<<<<<< HEAD
-        .set({
-          ...data,
-          image:
-            'https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Images%2FDefaultdp.png?alt=media&token=eaf853bf-3c60-42df-9c8b-d4ebf5a1a2a6s',
-          membership: 'none',
-          liked: [],
-          likes: [],
-          matched: [],
-          TotalLikes: 20,
-          Totalhandshakes: 1,
-          notification: [],
-          mentors: [],
-          about: '',
-          education: {
-            type: '',
-            school: '',
-          },
-          skills: [],
-          industry: '',
-          designation: '',
-          linkedin: '',
-          experience: {
-            position: '',
-            company: '',
-            tenure: '',
-          },
-          lookingFor: [],
-        })
-=======
         .set(document)
->>>>>>> 0a4a28b81e36bab20bb5dd9f11688f920fe6e18e
         .then(() => {
           register(Email, Password);
           setUser(document);
@@ -143,33 +112,7 @@ const emailVerify = props => {
       await firestore()
         .collection('Users')
         .doc(Email)
-<<<<<<< HEAD
-        .set({
-          ...data,
-          image:
-            'https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Images%2FDefaultdp.png?alt=media&token=eaf853bf-3c60-42df-9c8b-d4ebf5a1a2a6s',
-          membership: 'none',
-          liked: [],
-          likes: [],
-          matched: [],
-          TotalLikes: 20,
-          Totalhandshakes: 1,
-          notification: [],
-          mentors: [],
-          about: '',
-          industry: '',
-          designation: '',
-          linkedin: '',
-          lookingFor: [],
-          founders: [],
-          website: '',
-          operationsFrom: '',
-          memeberNo: 'none',
-          stage: '',
-        })
-=======
         .set(document)
->>>>>>> 0a4a28b81e36bab20bb5dd9f11688f920fe6e18e
         .then(() => {
           register(Email, Password);
           setUser(document)
@@ -194,25 +137,7 @@ const emailVerify = props => {
       await firestore()
         .collection('Users')
         .doc(Email)
-<<<<<<< HEAD
-        .set({
-          ...data,
-          image:
-            'https://firebasestorage.googleapis.com/v0/b/reverr-25fb3.appspot.com/o/Images%2FDefaultdp.png?alt=media&token=eaf853bf-3c60-42df-9c8b-d4ebf5a1a2a6s',
-          notification: [],
-          clients: [],
-          about: '',
-          industry: '',
-          linkedin: '',
-          experience: '',
-          reviews: [],
-          rating: 0,
-          totalRating: 0,
-          plans: [],
-        })
-=======
         .set(document)
->>>>>>> 0a4a28b81e36bab20bb5dd9f11688f920fe6e18e
         .then(() => {
           register(Email, Password);
           setUser(document);

@@ -23,26 +23,27 @@ const Routing = () => {
   const {state, dispatch} = useContext(UserContext);
   const {chatstate, chatdispatch} = useContext(ChatContext);
   async function loadChatUser(list) {
-    console.log(list);
+    // console.log(list);
     list.forEach(async user => {
       const User = await firestore().collection('Users').doc(user).get();
       chatdispatch({type: 'UPDATE', payload: User._data});
     });
   }
 
-  useEffect(()=>{
-    async function getUser (){
-      try{
+  useEffect(() => {
+    async function getUser() {
+      try {
         const udata = await auth().currentUser;
         const savedUser = await firestore()
           .collection('Users')
           .doc(udata.email)
           .get();
 
-        savedUser._data.userType=="Mentor"?loadChatUser(savedUser._data.clients):loadChatUser(savedUser._data.mentors);
-        dispatch({type:"USER",payload:savedUser._data})
-      }
-      catch(err){
+        savedUser._data.userType == 'Mentor'
+          ? loadChatUser(savedUser._data.clients)
+          : loadChatUser(savedUser._data.mentors);
+        dispatch({type: 'USER', payload: savedUser._data});
+      } catch (err) {
         console.log(err);
       }
     }
@@ -71,5 +72,5 @@ const App = () => {
     </Provider>
   );
 };
-  
+
 export default App;

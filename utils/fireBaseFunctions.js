@@ -4,8 +4,12 @@ import firestore from '@react-native-firebase/firestore';
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
 
+var date = new Date().getDate();
+var month = new Date().getMonth() + 1;
+var year = new Date().getFullYear();
+
 export const GetUser = async setData => {
-  const udata = await auth().currentUser;
+  const udata = await auth().currentcUser;
   const savedUser = await firestore()
     .collection('Users')
     .doc(udata.email)
@@ -13,7 +17,7 @@ export const GetUser = async setData => {
   setData(savedUser._data);
 };
 
-export const ChangeDp = (loading, setLoading,dispatch) => {
+export const ChangeDp = (loading, setLoading, dispatch) => {
   ImagePicker.openPicker({
     cropping: true,
   }).then(image => {
@@ -25,12 +29,12 @@ export const ChangeDp = (loading, setLoading,dispatch) => {
         .ref('Images/' + imageURL)
         .putFile(url)
         .then(async () => {
-          const udata = await auth().currentUser;
+          const udata = await auth().currentcUser;
           var userEmail = udata.email;
           var imgURL = await storage()
             .ref('Images/' + imageURL)
             .getDownloadURL();
-          dispatch({type:"UPDATEPHOTO",payload:imgURL});
+          dispatch({type: 'UPDATEPHOTO', payload: imgURL});
           await firestore().collection('Users').doc(userEmail).update({
             image: imgURL,
           });
@@ -38,7 +42,8 @@ export const ChangeDp = (loading, setLoading,dispatch) => {
           setLoading(false);
         });
     } catch (error) {
-      console.log(error);
+      setLoading(false);
+      alert('Cancel');
     }
   });
 };
@@ -99,25 +104,85 @@ export const GetAllMentors = async setFn => {
 //   }
 
 // };
-
-export const UpdateUserData = async (
-  name,
-  about,
-  industry,
-  experience,
-  skills,
-  education,
-) => {
-  const udata = await auth().currentUser;
-  const savedUser = await firestore()
-    .collection('Users')
-    .doc(udata.email)
-    .update({
-      name: name,
-      about: about,
-      industry: industry,
-      experience: experience,
-      skills: skills,
-      education: education,
+export const CreateMessagePath = async (currentcUser, sendTo) => {
+  firestore()
+    .collection('Messages')
+    .doc(currentcUser.email)
+    .collection(
+      currentcUser && currentcUser.userType == 'Mentor'
+        ? 'YourClients'
+        : 'YourMentors',
+    )
+    .doc(sendTo.email)
+    .set({messages: []})
+    .then(() => {
+      firestore()
+        .collection('Messages')
+        .doc(sendTo.email)
+        .collection(
+          sendTo && sendTo.userType == 'Mentor' ? 'YourClients' : 'YourMentors',
+        )
+        .doc(currentcUser.email)
+        .set({messages: []});
     });
+};
+
+export const SendMessage = (currentcUser, sendTo, message) => {
+  firestore()
+    .collection('Messages')
+    .doc(currentcUser.email)
+    .collection(
+      currentcUser && currentcUser.userType == 'Mentor'
+        ? 'YourClients'
+        : 'YourMentors',
+    )
+    .doc(sendTo.email)
+    .update({
+      messages: firestore.FieldValue.arrayUnion({
+        msg: message,
+        createdAt: date + '-' + month + '-' + year,
+        sendBy: currentcUser.email,
+      }),
+    })
+    .then(() => {
+      firestore()
+        .collection('Messages')
+        .doc(sendTo.email)
+        .collection(
+          sendTo && sendTo.userType == 'Mentor' ? 'YourClients' : 'YourMentors',
+        )
+        .doc(currentcUser.email)
+        .update({
+          messages: firestore.FieldValue.arrayUnion({
+            msg: message,
+            createdAt: date + '-' + month + '-' + year,
+            sendBy: currentcUser.email,
+          }),
+        });
+    });
+};
+export const ReciveMessage = async (currentcUser, sendTo, setmsg) => {
+  const Allmsg = await firestore()
+    .collection('Messages')
+    .doc(currentcUser.email)
+    .collection(
+      currentcUser && currentcUser.userType == 'Mentor'
+        ? 'YourClients'
+        : 'YourMentors',
+    )
+    .doc(sendTo.email)
+    .get();
+  setmsg(Allmsg._data.messages);
+
+  //console.log(userEmail);
+  // setuserEmail(userEmail);
+  // const Allmsg = await firestore()
+  //   .collection('Messages')
+  //   .doc(userEmail)
+  //   .collection('YourMatches')
+  //   .doc(sendTo.email)
+  //   .get();
+  // setRecive(Allmsg._data.messages);
+
+  // console.log(Recive);
 };

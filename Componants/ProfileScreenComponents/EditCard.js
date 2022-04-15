@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   Card: {
     backgroundColor: AppColors.CardColor,
     borderRadius: 10,
-    paddingVertical: 10,
+    marginBottom: '2%',
     marginTop: Height / 90,
   },
 });

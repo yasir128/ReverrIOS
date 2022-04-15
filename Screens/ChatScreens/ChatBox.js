@@ -17,8 +17,9 @@ import Icon2 from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import firestore from '@react-native-firebase/firestore';
 import LinearGradient from 'react-native-linear-gradient';
-import ShortUniqueId from 'short-unique-id'
-import { UserContext } from '../../App';
+import ShortUniqueId from 'short-unique-id';
+import {UserContext} from '../../App';
+import {ReciveMessage, SendMessage} from '../../utils/fireBaseFunctions';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
@@ -26,130 +27,84 @@ const Height = Dimensions.get('screen').height;
 const ChatBox = props => {
   const {state, dispatch} = useContext(UserContext);
   const userData = props.route.params.userData;
-  console.log(userData);
+  //console.log();
   const [message, setmessage] = useState('');
   const [userEmail, setuserEmail] = useState('');
   const [Recive, setRecive] = useState();
-  var date = new Date().getDate();
-  var month = new Date().getMonth() + 1;
-  var year = new Date().getFullYear();
   const navigation = useNavigation();
 
-  const MakeCall = async ()=>{
-
+  const MakeCall = async () => {
     const udata = await firestore().collection('Users').doc(state.email).get();
     const meeting = udata._data.meeting;
 
-    if(meeting!=undefined&&meeting.host!=""){
+    if (meeting != undefined && meeting.host != '') {
       return JoinCall();
     }
-
     const uid = new ShortUniqueId();
     const channelName = uid(12);
     const host = true;
 
-    const data= {
-      meeting:{
-        channelName:channelName,
-        host:state.email,
-      }
-    }
+    const data = {
+      meeting: {
+        channelName: channelName,
+        host: state.email,
+      },
+    };
 
     await firestore().collection('Users').doc(state.email).update(data);
     await firestore().collection('Users').doc(userData.email).update(data);
 
-    dispatch({type:"MEETING",payload:data})
+    dispatch({type: 'MEETING', payload: data});
 
     navigation.navigate('videoCall', {
-      token: await gettoken(channelName,host),
-      userData:userData
+      token: await gettoken(channelName, host),
+      userData: userData,
     });
-  }
+  };
 
-  const JoinCall  = async()=>{
+  const JoinCall = async () => {
     const data = await firestore().collection('Users').doc(state.email).get();
     const meeting = data._data.meeting;
 
-    dispatch({type:"MEETING",payload:data._data})
+    dispatch({type: 'MEETING', payload: data._data});
 
     const channelName = meeting.channelName;
-    const host = meeting.host==state.email?true:false;
+    const host = meeting.host == state.email ? true : false;
 
     navigation.navigate('videoCall', {
-      token: await gettoken(channelName,host),
-      userData:userData
+      token: await gettoken(channelName, host),
+      userData: userData,
     });
-  }
-
-
-  const SendMessage = async () => {
-    const email = auth().currentUser;
-    firestore()
-      .collection('Messages')
-      .doc(email.email)
-      .collection('YourMatches')
-      .doc(userData.email)
-      .update({
-        messages: firestore.FieldValue.arrayUnion({
-          msg: message,
-          createdAt: date + '-' + month + '-' + year,
-          sendBy: email.email,
-        }),
-      })
-      .then(() => {
-        firestore()
-          .collection('Messages')
-          .doc(userData.email)
-          .collection('YourMatches')
-          .doc(email.email)
-          .update({
-            messages: firestore.FieldValue.arrayUnion({
-              msg: message,
-              createdAt: date + '-' + month + '-' + year,
-              sendBy: email.email,
-            }),
-          });
-        setmessage(''), console.log('sent');
-      });
-  };
-  const ReciveMessage = async () => {
-    const email = await auth().currentUser;
-    var userEmail = email.email;
-    setuserEmail(userEmail);
-    const Allmsg = await firestore()
-      .collection('Messages')
-      .doc(userEmail)
-      .collection('YourMatches')
-      .doc(userData.email)
-      .get();
-    setRecive(Allmsg._data.messages);
-
-    console.log(Recive);
   };
   var token;
 
-  async function postData(url,data){
-    const response = await fetch(url,{method:'POST',body:JSON.stringify(data.channelName,data.host)});
+  async function postData(url, data) {
+    const response = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(data.channelName, data.host),
+    });
     return response.json();
   }
 
-  const gettoken = async(channelName, host)=>{
-    var data ={
+  const gettoken = async (channelName, host) => {
+    var data = {
       channelName,
-      host
-    }
-   token =  await postData("https://us-central1-reverr-25fb3.cloudfunctions.net/accessToken",data)
-    .then(data=>{
+      host,
+    };
+    token = await postData(
+      'https://us-central1-reverr-25fb3.cloudfunctions.net/accessToken',
+      data,
+    ).then(data => {
       return data.token;
     });
-    console.log(token)
-      return token;
-  }
+    console.log(token);
+    return token;
+  };
 
   useEffect(() => {
-    ReciveMessage();
+    ReciveMessage(state, userData, setRecive);
   }, [Recive]);
-  //console.log(userEmail);
+  // console.log(Recive, 'msg');
   return (
     <LinearGradient
       style={styles.screen}
@@ -169,9 +124,8 @@ const ChatBox = props => {
           }}
         />
         <Image style={styles.dp} source={{uri: userData.image}} />
-        <Text style={styles.Name}>{userData.name}</Text>
-        <TouchableOpacity 
-          onPress={MakeCall}>
+        <Text style={styles.Name}>{userData && userData.name}</Text>
+        <TouchableOpacity onPress={MakeCall}>
           <Icon2
             name="phone-volume"
             size={20}
@@ -200,8 +154,8 @@ const ChatBox = props => {
               borderRadius: 5,
             }}
             onPress={() => {
-              SendMessage();
-              //    console.log(userData.email);
+              SendMessage(state, userData, message);
+              setmessage('');
             }}>
             <Icon name="send" color={AppColors.FontsColor} size={25} />
           </TouchableOpacity>
@@ -228,17 +182,18 @@ const ChatBox = props => {
               }}>
               <Text
                 style={{
-                  color: item.sendBy == userEmail ? 'red' : 'yellow',
+                  color: item.sendBy == userData.email ? 'red' : 'yellow',
                   width: '30%',
                   justifyContent: 'center',
-                  borderRadius: 5,
+                  borderRadius: 15,
                   padding: 10,
                   marginTop: '2%',
-                  backgroundColor: item.sendBy == userEmail ? 'gray' : 'gray',
-                  marginStart: item.sendBy == userEmail ? '65%' : '2%',
+                  backgroundColor: AppColors.CardColor,
+                  marginStart: item.sendBy == userData.email ? '65%' : '2%',
                 }}>
                 {item.msg == '' ? null : item.msg}
               </Text>
+              <Text style={{paddingStart: '2%'}}>{item.createdAt}</Text>
             </View>
           )}
         />

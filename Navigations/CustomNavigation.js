@@ -4,7 +4,6 @@ import MentorScreen from '../Screens/MentorScreens/MentorScreen';
 import LearnScreen from '../Screens/LearnScreens/LearnScreen';
 import IndividuaProfile from '../Screens/ProfileScreens/IndividuaProfile';
 import Settings from '../Screens/ProfileScreens/Settings';
-import MentorProfile from '../Screens/ProfileScreens/MentorProfile';
 import ChatList from '../Screens/ChatScreens/ChatList';
 import ChatBox from '../Screens/ChatScreens/ChatBox';
 import GroupChatBox from '../Screens/ChatScreens/GroupChatBox';

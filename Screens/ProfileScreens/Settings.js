@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import {ChangeDp} from '../../utils/fireBaseFunctions';
 import TitleCard from '../../Componants/ProfileScreenComponents/TitleCard';
 import {useNavigation} from '@react-navigation/native';
-import { UserContext } from '../../App';
+import {UserContext} from '../../App';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
@@ -23,9 +23,7 @@ const Settings = props => {
   const {user, logout} = React.useContext(AuthContext);
   const [defaultdp, setdefaultdp] = useState(true);
   const navigation = useNavigation();
-  const {state,dispatch} = useContext(UserContext);
-
-
+  const {state, dispatch} = useContext(UserContext);
 
   return (
     <View style={styles.screen}>
@@ -47,7 +45,11 @@ const Settings = props => {
         </Text>
       </View>
       <View style={styles.mainContainer}>
-        <TouchableOpacity style={{height: '7%', marginTop: '25%'}}>
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate('Saved');
+          }}
+          style={{height: '7%', marginTop: '25%'}}>
           <TitleCard firstText="Saved" />
         </TouchableOpacity>
         <TouchableOpacity
@@ -75,12 +77,10 @@ const Settings = props => {
         </TouchableOpacity>
       </View>
       <View style={styles.dp}>
-        
-          <Image
-            style={{width: '100%', height: '100%'}}
-            source={{uri: state&&state.image}}
-          />
-  
+        <Image
+          style={{width: '100%', height: '100%'}}
+          source={{uri: state && state.image}}
+        />
       </View>
     </View>
   );

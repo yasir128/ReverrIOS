@@ -20,6 +20,8 @@ import {VideoCall} from '../Screens/videocall/videoCall';
 import PlansDetails from '../Screens/MentorScreens/PlansDetails';
 import Subscription from '../Screens/SubscriptionScreen/Subscription';
 import ViewIndividuaProfile from '../Screens/ProfileScreens/ViewProfile';
+import SavedScreen from '../Screens/ProfileScreens/SavedScreen';
+import Notification from '../Screens/Notification';
 
 const Stack = createNativeStackNavigator();
 
@@ -84,6 +86,16 @@ export const HomeStack = () => {
       <Stack.Screen
         name="Subscription"
         component={Subscription}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Saved"
+        component={SavedScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="notification"
+        component={Notification}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

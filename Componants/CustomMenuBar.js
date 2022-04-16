@@ -16,6 +16,7 @@ const CustomMenuBar = ({
   Item1,
   Item2,
   active1,
+  itemStyle,
   active2,
   ClickOnItem1,
   ClickOnItem2,
@@ -40,6 +41,7 @@ const CustomMenuBar = ({
           style={[
             styles.text,
             {backgroundColor: active2 ? AppColors.ActiveColor : null},
+            itemStyle,
           ]}>
           {Item2}
         </Text>

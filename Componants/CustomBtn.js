@@ -21,7 +21,7 @@ const CustomBtn = props => {
           start={{x: 0, y: 1.3}}
           end={{x: 0.3, y: 0.5}}
           style={{...styles.Btn, ...props.style}}>
-          <Text style={styles.txt}>{props.Title}</Text>
+          <Text style={{...styles.txt, ...props.TextStyle}}>{props.Title}</Text>
         </LinearGradient>
       </TouchableOpacity>
     </View>

@@ -16,12 +16,10 @@ import FundingScreen from '../Screens/FundingScreens/FundingScreen';
 import Dashboard from '../Screens/HomeScreens/Dashboard';
 import ApplyFunding from '../Screens/FundingScreens/ApplyFunding';
 import Plans from '../Screens/MentorScreens/Plans';
-
 import {VideoCall} from '../Screens/videocall/videoCall';
-
 import PlansDetails from '../Screens/MentorScreens/PlansDetails';
-
 import Subscription from '../Screens/SubscriptionScreen/Subscription';
+import ViewIndividuaProfile from '../Screens/ProfileScreens/ViewProfile';
 
 const Stack = createNativeStackNavigator();
 
@@ -39,8 +37,8 @@ export const HomeStack = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="Mentor"
-        component={MentorProfile}
+        name="ViewIndividual"
+        component={ViewIndividuaProfile}
         options={{headerShown: false}}
       />
       <Stack.Screen

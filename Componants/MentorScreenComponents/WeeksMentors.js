@@ -11,6 +11,7 @@ import React from 'react';
 import {Data} from '../../dummy-data/dummyData';
 import AppColors from '../../Constaint/AppColors';
 import LinearGradient from 'react-native-linear-gradient';
+import CustomCard from '../CustomCard';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
@@ -42,17 +43,22 @@ const WeeksMentors = () => {
         data={Data}
         horizontal
         renderItem={({item}) => (
-          <LinearGradient
-            colors={[AppColors.primarycolor, '#012437']}
-            start={{x: 0.4, y: 1.3}}
-            end={{x: 1, y: 0.5}}
-            style={styles.Card}>
-            <TouchableOpacity activeOpacity={0.6}>
-              <Image style={styles.dp} source={{uri: item.image}} />
-              <Text style={styles.Name}>{item.name}</Text>
-              <Text style={styles.skills}>{item.skills}</Text>
-            </TouchableOpacity>
-          </LinearGradient>
+          <CustomCard
+            image={item.image}
+            name={item.name}
+            skills={item.skills}
+          />
+          // <LinearGradient
+          //   colors={[AppColors.primarycolor, '#012437']}
+          //   start={{x: 0.4, y: 1.3}}
+          //   end={{x: 1, y: 0.5}}
+          //   style={styles.Card}>
+          //   <TouchableOpacity activeOpacity={0.6}>
+          //     <Image style={styles.dp} source={{uri: item.image}} />
+          //     <Text style={styles.Name}>{item.name}</Text>
+          //     <Text style={styles.skills}>{item.skills}</Text>
+          //   </TouchableOpacity>
+          // </LinearGradient>
         )}
       />
     </View>

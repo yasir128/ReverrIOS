@@ -17,13 +17,17 @@ const HeaderLayout = props => {
     <View style={styles.screen}>
       <Header
         onPressDp={() => {
-          navigation.navigate(state && state.userType, {Data: state});
+          navigation.navigate(
+            state && state.userType === 'Mentor'
+              ? 'MentorProfile'
+              : 'Individual',
+          );
         }}
         onPressCalander={() => {
           setModelVisible(true);
         }}
         onPressNoti={() => {
-          console.log('Notification');
+          navigation.navigate('notification');
         }}
         onPressChat={() => {
           navigation.navigate('Chat');

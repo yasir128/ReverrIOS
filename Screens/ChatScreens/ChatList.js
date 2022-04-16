@@ -40,6 +40,49 @@ const ChatList = () => {
               <TouchableOpacity
                 key={item.email}
                 onPress={() => {
+                  navigation.navigate('ViewIndividual', {
+                    userData: item,
+                  });
+                }}
+                activeOpacity={0.7}>
+                <LinearGradient
+                  colors={[AppColors.primarycolor, '#012437']}
+                  start={{x: 0.4, y: 1.3}}
+                  end={{x: 1, y: 0.5}}
+                  style={styles.card}>
+                  <Image style={styles.mentorDp} source={{uri: item.image}} />
+                  <Text style={styles.name}>{item.name}</Text>
+                  <Text style={styles.skill}>{item.industry}</Text>
+                </LinearGradient>
+              </TouchableOpacity>
+            ))
+          ) : (
+            <Text
+              style={{
+                color: 'white',
+                textAlign: 'center',
+                width: '100%',
+                fontSize: 18,
+              }}>
+              You don't have any mentors curently 😐
+            </Text>
+          )}
+        </View>
+        <LinearGradient
+          style={styles.menu}
+          colors={[AppColors.primarycolor, '#012437']}
+          start={{x: -0.3, y: 1.8}}
+          end={{x: 1, y: 1.5}}>
+          <TouchableOpacity style={styles.chat}>
+            <Text style={styles.btntxt}>Chats</Text>
+          </TouchableOpacity>
+        </LinearGradient>
+        <View style={{flexDirection: 'row', marginTop: '3%'}}>
+          {chatstate !== undefined && chatstate.length > 0 ? (
+            chatstate.map(item => (
+              <TouchableOpacity
+                key={item.email}
+                onPress={() => {
                   CreateMessagePath(state, item);
                   alert('path created');
                   navigation.navigate('ChatBox', {
@@ -54,7 +97,7 @@ const ChatList = () => {
                   style={styles.card}>
                   <Image style={styles.mentorDp} source={{uri: item.image}} />
                   <Text style={styles.name}>{item.name}</Text>
-                  <Text style={styles.skill}>{item.skills}</Text>
+                  <Text style={styles.skill}>{item.industry}</Text>
                 </LinearGradient>
               </TouchableOpacity>
             ))
@@ -66,19 +109,10 @@ const ChatList = () => {
                 width: '100%',
                 fontSize: 18,
               }}>
-              You don't have any mentors cuurently 😐
+              You don't have any mentors curently 😐
             </Text>
           )}
         </View>
-        <LinearGradient
-          style={styles.menu}
-          colors={[AppColors.primarycolor, '#012437']}
-          start={{x: -0.3, y: 1.8}}
-          end={{x: 1, y: 1.5}}>
-          <TouchableOpacity style={styles.chat}>
-            <Text style={styles.btntxt}>Chats</Text>
-          </TouchableOpacity>
-        </LinearGradient>
       </View>
     </HeaderLayout>
   );

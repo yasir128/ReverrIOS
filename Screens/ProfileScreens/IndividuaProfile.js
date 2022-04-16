@@ -128,22 +128,25 @@ const IndividuaProfile = props => {
           <View style={styles.CompanyDetails}>
             <Text style={[styles.text, {fontSize: 18}]}>Experience</Text>
             <Text style={[styles.txt, {width: Width / 2}]}>
-              {state.experience.length > 0 && state.experience.map(ex => ex)}
+              {state.experience &&
+                state.experience.length > 0 &&
+                state.experience.map(ex => ex)}
             </Text>
           </View>
           <View style={[styles.CompanyDetails, {height: Height / 9}]}>
             <Text style={[styles.text, {fontSize: 18}]}>Skills</Text>
             <Text style={[styles.txt, {width: Width / 2}]}>
-              {state && state.skills.map(sk => sk)}
+              {state.skills &&
+                state.skills.length > 0 &&
+                state.skills.map(sk => sk)}
             </Text>
           </View>
           <View style={[styles.CompanyDetails]}>
             <Text style={[styles.text, {fontSize: 18}]}>Education</Text>
             <Text style={[styles.txt]}>
-              asfhkjdhfkhljasl;jfph asfhkjdhfkhljasl;jfph asfhkjdhfkhljasl;jfph
-              asfhkjdhfkhljasl;jfph asfhkjdhfkhljasl;jfph asfhkjdhfkhljasl;jfph
-              asfhkjdhfkhljasl;jfph asfhkjdhfkhljasl;jfph
-              {state && state.education.map(ed => ed)}
+              {state.education &&
+                state.education.length > 0 &&
+                state.education.map(ed => ed)}
             </Text>
           </View>
         </View>

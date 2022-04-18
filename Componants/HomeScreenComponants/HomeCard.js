@@ -167,7 +167,7 @@ const HomeCard = () => {
               ) : (
                 <TouchableOpacity style={styles.button}>
                   <Text style={styles.btntxt}>
-                    {item.id == 2 ? 'Get funded' : 'Enter room'}
+                    {item.id == 2 ? 'Get funded' : 'Coming soon!'}
                   </Text>
                 </TouchableOpacity>
               )}

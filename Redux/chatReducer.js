@@ -8,7 +8,6 @@ export const chatreducer =(state,action)=>{
     return null
   }
   if(action.type==="UPDATE"){
-    console.log("Chat data added ")
     return [
       ...state,
       action.payload

@@ -38,9 +38,16 @@ const LoginScreen = () => {
       console.log(list);
       list.forEach(async(user)=>{
       const User = await firestore().collection('Users').doc(user).get();
+      delete User._data.password;
       chatdispatch({type:"UPDATE", payload:User._data});
       })  
       
+  }
+  async function loadsavedarticle(articles){
+    articles.map(async(id)=>{
+      const res = await firestore().collection('Blogs').doc(id).get();
+      savedarticledispatch({type:"UPDATE",payload:res.data()});
+    })
   }
   const IsEmpty = () => {
 
@@ -56,7 +63,7 @@ const LoginScreen = () => {
                     .collection('Users')
                     .doc(email)
                     .get();
-                  console.log(savedUser);
+                  loadsavedarticle(savedUser._data.savedArticles);
                   savedUser._data.userType=="Mentor"?loadChatUser(savedUser._data.clients):loadChatUser(savedUser._data.mentors);
                   dispatch({type:"USER",payload:savedUser._data})
                 }

@@ -38,6 +38,7 @@ const emailVerify = props => {
       console.log(list);
       list.forEach(async(user)=>{
       const User = await firestore().collection('Users').doc(user).get();
+      delete User._data.password;
       chatdispatch({type:"UPDATE", payload:User._data});
       })     
   }
@@ -76,6 +77,10 @@ const emailVerify = props => {
           tenure: '',
         },
         lookingFor: [],
+        savedArticles:[],
+        savedBooks:[],
+        savedCourses:[],
+        savedMentors:[]
       };
 
       await firestore()
@@ -108,6 +113,10 @@ const emailVerify = props => {
         operationsFrom: '',
         memeberNo: 'none',
         stage: '',
+        savedArticles:[],
+        savedBooks:[],
+        savedCourses:[],
+        savedMentors:[]
       };
       await firestore()
         .collection('Users')

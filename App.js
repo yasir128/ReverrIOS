@@ -14,24 +14,33 @@ import {store} from './Redux/store';
 import {reducer, intialState} from './Redux/userReducer';
 import {chatreducer, chatintialState} from './Redux/chatReducer';
 import {articlereducer, articleintialState} from './Redux/articlereducer';
+import {savedarticlereducer,savedarticleintialState} from './Redux/savedarticlereducer';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 
 export const UserContext = createContext();
 export const ChatContext = createContext();
 export const ArticleContext = createContext();
+export const SavedArticleContext = createContext();
 
 const Routing = () => {
   const {state, dispatch} = useContext(UserContext);
   const {chatstate, chatdispatch} = useContext(ChatContext);
   const {articlestate, articledispatch} = useContext(ArticleContext);
+  const {savedarticlestate,savedarticledispatch} = useContext(SavedArticleContext);
   async function loadChatUser(list) {
-    // console.log(list);
     list.forEach(async user => {
-      console.log(user);
       const User = await firestore().collection('Users').doc(user).get();
+      delete User._data.password;
       chatdispatch({type: 'UPDATE', payload: User._data});
     });
+  }
+
+  async function loadsavedarticle(articles){
+    articles.map(async(id)=>{
+      const res = await firestore().collection('Blogs').doc(id).get();
+      savedarticledispatch({type:"UPDATE",payload:res.data()});
+    })
   }
 
   useEffect(() => {
@@ -48,10 +57,13 @@ const Routing = () => {
           : loadChatUser(savedUser._data.mentors);
 
         dispatch({type: 'USER', payload: savedUser._data});
+        loadsavedarticle(savedUser._data.savedArticles);
       } catch (err) {
         console.log(err);
       }
     }
+
+
 
     async function getArticles() {
       await firestore()
@@ -62,11 +74,13 @@ const Routing = () => {
             articledispatch({type: 'UPDATE', payload: doc.data()});
           });
         });
+
     }
 
     getArticles();
 
     getUser();
+
   }, []);
   return <Routes />;
 };
@@ -74,10 +88,9 @@ const Routing = () => {
 const App = () => {
   const [state, dispatch] = useReducer(reducer, intialState);
   const [chatstate, chatdispatch] = useReducer(chatreducer, chatintialState);
-  const [articlestate, articledispatch] = useReducer(
-    articlereducer,
-    articleintialState,
-  );
+  const [articlestate, articledispatch] = useReducer(articlereducer, articleintialState);
+  const [savedarticlestate, savedarticledispatch] = useReducer(savedarticlereducer, savedarticleintialState);
+
   return (
     <Provider store={store} style={{flex: 1}}>
       <StatusBar
@@ -88,7 +101,9 @@ const App = () => {
         <UserContext.Provider value={{state, dispatch}}>
           <ChatContext.Provider value={{chatstate, chatdispatch}}>
             <ArticleContext.Provider value={{articlestate, articledispatch}}>
-              <Routing />
+              <SavedArticleContext.Provider value={{savedarticlestate,savedarticledispatch}}>
+                <Routing />
+            </SavedArticleContext.Provider>
             </ArticleContext.Provider>
           </ChatContext.Provider>
         </UserContext.Provider>

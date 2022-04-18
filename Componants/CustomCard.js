@@ -15,7 +15,7 @@ const Height = Dimensions.get('screen').height;
 
 const CustomCard = props => {
   return (
-    <TouchableOpacity key={props.key} onPress={props.onPress}>
+    <TouchableOpacity key={props.email+'i'} onPress={props.onPress}>
       <LinearGradient
         colors={[AppColors.primarycolor, '#012437']}
         start={{x: 0.4, y: 1.3}}

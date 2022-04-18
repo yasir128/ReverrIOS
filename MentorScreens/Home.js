@@ -34,7 +34,7 @@ const Home = () => {
               style={{
                 color: upcoming ? AppColors.ActiveColor : AppColors.FontsColor,
               }}>
-              Upacoming
+              Upcoming
             </Text>
           </TouchableOpacity>
           <TouchableOpacity

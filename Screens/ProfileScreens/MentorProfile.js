@@ -22,6 +22,7 @@ const MentorProfile = props => {
   const [defaultDp, setdefaultDp] = useState(true);
   const {state, dispatch} = useContext(UserContext);
   const navigation = useNavigation();
+
   return (
     state && (
       <ScrollView style={styles.screen}>
@@ -41,6 +42,7 @@ const MentorProfile = props => {
               marginStart: Width / 30,
               fontSize: 22,
             }}>
+
             Profile
           </Text>
         </View>

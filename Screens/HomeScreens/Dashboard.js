@@ -13,6 +13,7 @@ import ArticleScreen from './TopTabScreens/ArticleScreen';
 import NewsScreen from './TopTabScreens/NewsScreen';
 import AppColors from '../../Constaint/AppColors';
 import HeaderLayout from './HeaderLayout';
+import Splash from '../Splash';
 import {UserContext} from '../../App';
 
 const Height = Dimensions.get('window').height;
@@ -23,7 +24,7 @@ const Dashboard = props => {
   const [article, setArticle] = useState(true);
   const {state, dispatch} = useContext(UserContext);
 
-  return (
+  return state?(
     <HeaderLayout>
       <ScrollView>
         <View style={styles.wlcmConatiner}>
@@ -59,7 +60,16 @@ const Dashboard = props => {
         </View>
       </ScrollView>
     </HeaderLayout>
-  );
+  ):(
+    <View style={styles.Screen}>
+        <View style={styles.container}>
+            <Image style={styles.Logo} source={require("../../assets/Images/logo.png")} />
+            <View style={styles.textContainer}>
+                <Text style={styles.logoText}>Reverr</Text>
+            </View>
+        </View>
+    </View>
+);
 };
 
 const styles = StyleSheet.create({
@@ -93,6 +103,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: '4%',
   },
+  Screen: {
+    flex: 1,
+    backgroundColor: AppColors.primarycolor
+},
+container: {
+    alignItems: 'center'
+},
+Logo: {
+    marginTop: 100
+},
+logoText: {
+    color: 'gray',
+    fontFamily: "Poppins-Bold",
+    fontSize: 35,
+},
+textContainer: {
+    position: 'absolute',
+    marginTop: 320
+
+}
 });
 
 export default Dashboard;

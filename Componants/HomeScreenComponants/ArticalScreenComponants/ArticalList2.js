@@ -11,16 +11,16 @@ import React, {useContext} from 'react';
 import Ionic from 'react-native-vector-icons/Ionicons';
 import AppColors from '../../../Constaint/AppColors';
 import {useNavigation} from '@react-navigation/native';
-import {ArticleContext, UserContext, SavedArticleContext} from '../../../App';
+import {SavedArticleContext, UserContext} from '../../../App';
 import {SaveArticle, RemoveArticle} from '../../../utils/fireBaseFunctions';
 const Height = Dimensions.get('window').height;
 const Width = Dimensions.get('window').width;
 
-const ArticalList = props => {
+const ArticalList2 = props => {
   const {state, dispatch} = useContext(UserContext);
-  const {articlestate, articledispatch} = useContext(ArticleContext);
   const {savedarticlestate, savedarticledispatch} =
     useContext(SavedArticleContext);
+
   function saveArticle(item) {
     if (state.savedArticles.includes(item.id)) {
       dispatch({type: 'REMOVEARTICLE', payload: item.id});
@@ -36,7 +36,7 @@ const ArticalList = props => {
   return (
     <View style={{marginTop: '2%'}}>
       <FlatList
-        data={articlestate && articlestate}
+        data={savedarticlestate && savedarticlestate}
         nestedScrollEnabled={true}
         showsVerticalScrollIndicator={false}
         renderItem={({item}) => (
@@ -55,7 +55,7 @@ const ArticalList = props => {
                 <Ionic
                   name="heart"
                   size={20}
-                  // color={state.savedArticles.includes(item.id)?"red":"grey"}
+                  // color={state.savedArticles.includes(item.id) ? 'red' : 'grey'}
                 />
               </TouchableOpacity>
             </View>
@@ -95,4 +95,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ArticalList;
+export default ArticalList2;

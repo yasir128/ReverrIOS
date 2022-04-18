@@ -11,6 +11,7 @@ import EditProfile from '../Screens/ProfileScreens/EditProfile';
 import ArticalDetailsScreen from '../Screens/HomeScreens/TopTabScreens/ArticalDetailsScreen';
 import MentorsList from '../Screens/MentorScreens/MentorsList';
 import ArticleScreen from '../Screens/HomeScreens/TopTabScreens/ArticleScreen';
+import ArticleScreen2 from '../Screens/HomeScreens/TopTabScreens/ArticleScreen2';
 import MentorDetails from '../Screens/MentorScreens/MentorDetails';
 import FundingScreen from '../Screens/FundingScreens/FundingScreen';
 import Dashboard from '../Screens/HomeScreens/Dashboard';
@@ -81,6 +82,11 @@ export const HomeStack = () => {
       <Stack.Screen
         name="Artical"
         component={ArticleScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Artical2"
+        component={ArticleScreen2}
         options={{headerShown: false}}
       />
       <Stack.Screen

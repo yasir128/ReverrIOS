@@ -8,7 +8,6 @@ export const articlereducer = (state, action) => {
     return null;
   }
   if (action.type === 'UPDATE') {
-    console.log('article data added ' + action.payload);
     return [...state, action.payload];
   }
   return state;

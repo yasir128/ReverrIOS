@@ -128,6 +128,7 @@ const IndividuaProfile = props => {
           <View style={styles.CompanyDetails}>
             <Text style={[styles.text, {fontSize: 18}]}>Experience</Text>
             <Text style={[styles.txt, {width: Width / 2}]}>
+
               {state.experience &&
                 state.experience.length > 0 &&
                 state.experience.map(ex => ex)}

@@ -11,6 +11,7 @@ import React from 'react';
 import Backbtn from '../../../Componants/Backbtn';
 import AppColors from '../../../Constaint/AppColors';
 import {useNavigation} from '@react-navigation/native';
+import Ionic from 'react-native-vector-icons/Ionicons';
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
@@ -28,21 +29,34 @@ const ArticalDetailsScreen = props => {
             uri: articaldetails && articaldetails.image,
           }}>
           <View style={styles.overlay}>
-            <View style={{marginTop: '5%'}}>
+            <View
+              style={{
+                marginTop: '5%',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
               <Backbtn
                 IconSize={30}
                 onPress={() => {
                   navigation.goBack();
                 }}
               />
+              <TouchableOpacity activeOpacity={0.7}>
+                <Ionic
+                  name="heart"
+                  size={30}
+                  // color={state.savedArticles.includes(item.id)?"red":"grey"}
+                />
+              </TouchableOpacity>
             </View>
             <Text style={styles.title}>{articaldetails.heading}</Text>
-            <Text style={styles.author}>Auther:{articaldetails.author}</Text>
           </View>
         </ImageBackground>
       </View>
       <ScrollView style={styles.body}>
         <Text style={styles.text}>{articaldetails.body}</Text>
+        <Text style={styles.author}>By {articaldetails.author}</Text>
       </ScrollView>
     </View>
   );
@@ -72,6 +86,7 @@ const styles = StyleSheet.create({
   author: {
     color: AppColors.FontsColor,
     fontFamily: 'Poppins-Regular',
+    marginBottom: '5%',
   },
   body: {
     paddingHorizontal: '8%',

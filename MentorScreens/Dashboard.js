@@ -8,13 +8,13 @@ import {
   ScrollView,
   Image,
 } from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import HeaderLayout from '../Screens/HomeScreens/HeaderLayout';
 import AppColors from '../Constaint/AppColors';
 import {Trending} from '../dummy-data/TrendingMentorsData';
 import LinearGradient from 'react-native-linear-gradient';
 import CustomCard from '../Componants/CustomCard';
-import App from '../App';
+import {ChatContext} from '../App';
 import CustomMenuBar from '../Componants/CustomMenuBar';
 
 const Width = Dimensions.get('screen').width;
@@ -22,29 +22,42 @@ const Height = Dimensions.get('screen').height;
 
 const Dashboard = () => {
   const learner = Trending;
+  const {chatstate, chatdispatch} = useContext(ChatContext);
   return (
     <HeaderLayout>
       <View>
         <Text style={styles.header}>Dashboard</Text>
         <Text style={styles.listHeader}>Learner</Text>
-        <View style={{alignItems: 'center'}}>
+        <View style={{paddingStart: '5%'}}>
           <FlatList
-            data={learner}
+            data={chatstate}
             horizontal
             renderItem={({item}, index) => (
               <CustomCard
                 key={index}
                 image={item.image}
                 name={item.name}
-                skills={item.skills}
+                skills={item.industry}
               />
             )}
           />
-          <CustomMenuBar
-            Item1="Chat"
-            active1={true}
-            itemStyle={styles.itemStyle}
-          />
+        </View>
+        <View>
+          <LinearGradient
+            colors={[AppColors.primarycolor, '#012437']}
+            start={{x: -0.7, y: 1.3}}
+            end={{x: 1, y: 0.5}}
+            style={styles.Container}>
+            <TouchableOpacity>
+              <Text
+                style={[
+                  styles.text,
+                  {backgroundColor: true ? AppColors.ActiveColor : null},
+                ]}>
+                Payments
+              </Text>
+            </TouchableOpacity>
+          </LinearGradient>
         </View>
       </View>
     </HeaderLayout>
@@ -86,6 +99,24 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     paddingHorizontal: 4,
     fontSize: 9,
+  },
+  Container: {
+    width: '95%',
+    height: Height / 20,
+    flexDirection: 'row',
+    paddingHorizontal: '15%',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+    marginTop: '3%',
+  },
+  text: {
+    color: AppColors.FontsColor,
+    paddingVertical: '1.08%',
+    fontFamily: 'Poppins-Regular',
+    paddingHorizontal: '10%',
+    borderRadius: 5,
   },
 });
 export default Dashboard;

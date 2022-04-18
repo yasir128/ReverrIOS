@@ -186,3 +186,21 @@ export const ReciveMessage = async (currentcUser, sendTo, setmsg) => {
 
   // console.log(Recive);
 };
+
+export const SaveArticle = async (item , email, articles)=>{
+  console.log(email);
+  const res = await firestore()
+    .collection('Users')
+    .doc(email)
+    .update({savedArticles:[...articles,item.id]});
+  console.log(res);
+}
+
+export const RemoveArticle = async (item, email, articles)=>{
+  console.log(email);
+  const res = await firestore()
+    .collection('Users')
+    .doc(email)
+    .update({savedArticles:[...articles.filter(arti=>arti!=item.id)]});
+  console.log(res);
+}

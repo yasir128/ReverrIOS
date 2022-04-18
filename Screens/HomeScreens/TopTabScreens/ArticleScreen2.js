@@ -1,7 +1,8 @@
 import {View, Text, StyleSheet, Dimensions, ScrollView} from 'react-native';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import HeaderCard from '../../../Componants/HomeScreenComponants/ArticalScreenComponants/HeaderCard';
-import ArticalList from '../../../Componants/HomeScreenComponants/ArticalScreenComponants/ArticalList';
+import ArticalList2 from '../../../Componants/HomeScreenComponants/ArticalScreenComponants/ArticalList2';
+import { SavedArticleContext } from '../../../App';
 
 
 const Height = Dimensions.get('window').height;
@@ -9,18 +10,22 @@ const Width = Dimensions.get('window').width;
 
 console.log(Height);
 
-const ArticleScreen = props => {
+const ArticleScreen2 = props => {
+  const {savedarticlestate,savedarticledispatch} = useContext(SavedArticleContext);
+
   return (
     <View style={styles.screen}>
       <View style={styles.ListContainer}>
-        <ArticalList  />
+        <ArticalList2 data={savedarticlestate} />
       </View>
     </View>
   );
 };
 const styles = StyleSheet.create({
   screen: {
-    height: Height > 684 ? Height / 1.32 : Height / 1.41,
+    display:'flex',
+    flex:1,
+    backgroundColor:'black',
   },
   ListContainer: {
     paddingHorizontal: 20,
@@ -31,4 +36,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ArticleScreen;
+export default ArticleScreen2;

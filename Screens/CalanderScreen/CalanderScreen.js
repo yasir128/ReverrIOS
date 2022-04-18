@@ -71,6 +71,7 @@ function getCalender(month, year) {
 }
 
 const CalanderScreen = props => {
+
   var montharr = [
     'January',
     'February',
@@ -206,6 +207,7 @@ const CalanderScreen = props => {
             </View>
           )}
         />
+        
       </View>
       <View
         style={{

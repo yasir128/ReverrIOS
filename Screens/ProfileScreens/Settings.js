@@ -16,6 +16,7 @@ import TitleCard from '../../Componants/ProfileScreenComponents/TitleCard';
 import {useNavigation} from '@react-navigation/native';
 import {UserContext} from '../../App';
 
+
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
 
@@ -24,6 +25,12 @@ const Settings = props => {
   const [defaultdp, setdefaultdp] = useState(true);
   const navigation = useNavigation();
   const {state, dispatch} = useContext(UserContext);
+
+ function savedScreen(){
+  
+    navigation.navigate('Saved');
+    
+  }
 
   return (
     <View style={styles.screen}>
@@ -47,7 +54,7 @@ const Settings = props => {
       <View style={styles.mainContainer}>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate('Saved');
+            savedScreen()
           }}
           style={{height: '7%', marginTop: '25%'}}>
           <TitleCard firstText="Saved" />

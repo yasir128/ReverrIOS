@@ -9,6 +9,7 @@ import EditProfile from '../Screens/ProfileScreens/EditProfile';
 import Notifications from '../MentorScreens/Notifications';
 import ChatList from '../Screens/ChatScreens/ChatList';
 import ChatBox from '../Screens/ChatScreens/ChatBox';
+import ViewIndividuaProfile from '../Screens/ProfileScreens/ViewProfile';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,16 +21,7 @@ export const MentorHomeStack = () => {
         component={Home}
         options={{headerShown: false}}
       />
-      <Stack.Screen
-        name="MentorProfile"
-        component={MentorProfile}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="EditProfile"
-        component={EditProfile}
-        options={{headerShown: false}}
-      />
+
       <Stack.Screen
         name="notification"
         component={Notifications}
@@ -43,6 +35,11 @@ export const MentorHomeStack = () => {
       <Stack.Screen
         name="ChatBox"
         component={ChatBox}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ViewIndividual"
+        component={ViewIndividuaProfile}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
@@ -76,6 +73,21 @@ export const MentorProfileStack = () => {
       <Stack.Screen
         name="Profile"
         component={Profile}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="MentorProfile"
+        component={Profile}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Settings"
+        component={Settings}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

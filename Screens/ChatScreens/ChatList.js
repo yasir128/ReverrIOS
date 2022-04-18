@@ -12,7 +12,8 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import {useNavigation} from '@react-navigation/native';
 import HeaderLayout from '../HomeScreens/HeaderLayout';
 import LinearGradient from 'react-native-linear-gradient';
-import App, {ChatContext, UserContext} from '../../App';
+
+import {ChatContext, UserContext} from '../../App';
 import {CreateMessagePath} from '../../utils/fireBaseFunctions';
 import CustomCard from '../../Componants/CustomCard';
 
@@ -33,6 +34,7 @@ const ChatList = () => {
           {state && state.userType == 'Mentor' ? 'Learners' : 'Mentors'}
         </Text>
 
+
         <View style={{flexDirection: 'row', marginTop: '1%'}}>
           {chatstate !== undefined && chatstate.length > 0 ? (
             chatstate.map(item => (
@@ -42,9 +44,10 @@ const ChatList = () => {
                     userData: item,
                   });
                 }}
+                email={item.email}
                 image={item.image}
                 name={item.name}
-                skills={item.skills}
+                skills={item.industry}
               />
             ))
           ) : (
@@ -105,6 +108,7 @@ const ChatList = () => {
               You don't have any mentors curently 😐
             </Text>
           )}
+
           <TouchableOpacity style={styles.add}>
             <Icon name="plus-circle" size={62} color={AppColors.infoFonts} />
           </TouchableOpacity>

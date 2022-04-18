@@ -54,8 +54,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: '5%',
   },
   btntxt: {
-    color: AppColors.infoFonts,
-    fontFamily: 'Poppins-thin',
+    color: AppColors.FontsColor,
+    fontFamily: 'Poppins-Light',
+    fontSize: 16,
   },
 });
 export default Notifications;

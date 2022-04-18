@@ -7,20 +7,22 @@ import {
   ScrollView,
   ImageBackground,
 } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import Backbtn from '../../../Componants/Backbtn';
 import AppColors from '../../../Constaint/AppColors';
 import {useNavigation} from '@react-navigation/native';
 import Ionic from 'react-native-vector-icons/Ionicons';
+import { UserContext } from '../../../App';
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
-const ArticalDetailsScreen = props => {
+const ArticalDetailsScreen = props => { 
+  const {state, dispatch} = useContext(UserContext);
   const navigation = useNavigation();
   const articaldetails = props.route.params.articalData;
-  console.log(articaldetails);
-  return (
+  // console.log(articaldetails);
+  return state&&(
     <View style={{flex: 1, backgroundColor: AppColors.primarycolor}}>
       <View style={styles.header}>
         <ImageBackground
@@ -46,7 +48,7 @@ const ArticalDetailsScreen = props => {
                 <Ionic
                   name="heart"
                   size={30}
-                  // color={state.savedArticles.includes(item.id)?"red":"grey"}
+                  color={state.savedArticles.includes(articaldetails.id)?"red":"grey"}
                 />
               </TouchableOpacity>
             </View>

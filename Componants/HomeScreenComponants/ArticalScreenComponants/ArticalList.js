@@ -55,7 +55,7 @@ const ArticalList = props => {
                 <Ionic
                   name="heart"
                   size={20}
-                  // color={state.savedArticles.includes(item.id)?"red":"grey"}
+                  color={state.savedArticles.includes(item.id)?"red":"grey"}
                 />
               </TouchableOpacity>
             </View>

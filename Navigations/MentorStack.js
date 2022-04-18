@@ -42,6 +42,21 @@ export const MentorHomeStack = () => {
         component={ViewIndividuaProfile}
         options={{headerShown: false}}
       />
+      <Stack.Screen
+        name="MentorProfile"
+        component={Profile}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="Settings"
+        component={Settings}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };

@@ -19,7 +19,7 @@ const Height = Dimensions.get('window').height;
 const Width = Dimensions.get('window').width;
 
 import firestore from '@react-native-firebase/firestore';
-import { UserContext, ChatContext } from '../App';
+import { UserContext, ChatContext , SavedArticleContext } from '../App';
 
 
 const LoginScreen = () => {
@@ -33,6 +33,7 @@ const LoginScreen = () => {
   const navigation = useNavigation();
   const {state,dispatch} = useContext(UserContext)
   const {chatstate, chatdispatch} = useContext(ChatContext);
+  const {savedarticlestate, savedarticledispatch} = useContext(SavedArticleContext);
 
   async function loadChatUser (list){
       console.log(list);
@@ -58,7 +59,7 @@ const LoginScreen = () => {
               setpasserror(true);
           } else {
               login(email, password);
-              async function getUser (){
+              async function getUser (email){
                   const savedUser = await firestore()
                     .collection('Users')
                     .doc(email)
@@ -68,7 +69,7 @@ const LoginScreen = () => {
                   dispatch({type:"USER",payload:savedUser._data})
                 }
               
-                getUser();
+                getUser(email);
           }
       }
 

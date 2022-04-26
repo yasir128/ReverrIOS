@@ -23,6 +23,8 @@ import Subscription from '../Screens/SubscriptionScreen/Subscription';
 import ViewIndividuaProfile from '../Screens/ProfileScreens/ViewProfile';
 import SavedScreen from '../Screens/ProfileScreens/SavedScreen';
 import Notification from '../Screens/Notification';
+import NewsDetailScreen from '../Screens/HomeScreens/TopTabScreens/NewsDetailsScreen';
+import Webview from '../Screens/WebView';
 
 const Stack = createNativeStackNavigator();
 
@@ -73,6 +75,16 @@ export const HomeStack = () => {
         name="EditProfile"
         component={EditProfile}
         options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="NewsDetails"
+        component={NewsDetailScreen}
+        options={{headerShown:false}}
+      />
+      <Stack.Screen
+        name="Webview"
+        component={Webview}
+        options={{headerShown:false}}
       />
       <Stack.Screen
         name="ArticalDetails"

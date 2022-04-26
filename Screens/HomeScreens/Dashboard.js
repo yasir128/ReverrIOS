@@ -26,7 +26,7 @@ const Dashboard = props => {
 
   return state?(
     <HeaderLayout>
-      <ScrollView>
+      <ScrollView >
         <View style={styles.wlcmConatiner}>
           <View>
             <Text style={styles.welcmTxt}>Hi {state&&state.name}</Text>

@@ -22,6 +22,7 @@ const SwipeCard = props => {
         horizontal
         pagingEnabled
         onScroll={props.onScroll}
+<<<<<<< HEAD:Componants/SwipeCard.js
         renderItem={({item}) => (
           <TouchableOpacity
             activeOpacity={0.6}
@@ -52,6 +53,29 @@ const SwipeCard = props => {
             </ImageBackground>
           </TouchableOpacity>
         )}
+=======
+        renderItem={({item,index}) =>{
+          if(item.image&&index<7){
+            return (
+              <TouchableOpacity activeOpacity={0.6} style={styles.container}>
+                <ImageBackground style={{flex: 1}} source={{uri:item.image.thumbnail.contentUrl}}>
+                  <View style={styles.title}>
+                    <Text
+                      style={{
+                        color: AppColors.FontsColor,
+                        fontFamily: 'Poppins-Regular',
+                      }}>
+                      {item.name}
+                    </Text>
+                  </View>
+                </ImageBackground>
+              </TouchableOpacity>
+            )
+          }else{
+            console.log("no image");
+          }
+        } }
+>>>>>>> 6466a390998e355e4e5c0a558bad83f859cedc7a:Componants/HomeScreenComponants/NewsScreenComponants/TrendingNewsCard.js
       />
     </View>
   );

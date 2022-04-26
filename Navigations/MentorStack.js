@@ -10,6 +10,7 @@ import Notifications from '../MentorScreens/Notifications';
 import ChatList from '../Screens/ChatScreens/ChatList';
 import ChatBox from '../Screens/ChatScreens/ChatBox';
 import ViewIndividuaProfile from '../Screens/ProfileScreens/ViewProfile';
+import {VideoCall} from '../Screens/videocall/videoCall';
 
 const Stack = createNativeStackNavigator();
 
@@ -25,6 +26,11 @@ export const MentorHomeStack = () => {
       <Stack.Screen
         name="notification"
         component={Notifications}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="videoCall"
+        component={VideoCall}
         options={{headerShown: false}}
       />
       <Stack.Screen

@@ -29,7 +29,6 @@ export const VideoCall = (props)=>{
         setvc(false);
     }
 
-    console.log("vc ka token "+token)
     const [vc,setvc] = useState(true)
     return vc?(
         <AgoraUiKit

@@ -5,13 +5,28 @@ import {
   useWindowDimensions,
   Animated,
 } from 'react-native';
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 
 const Paginator = ({data, scrollX}) => {
   const {width: windowWidth} = useWindowDimensions();
+  console.log("data paginator");
+  console.log(data[0].category);
+
+  var list=[];
+
+  useEffect(()=>{
+    data.map(item=>{
+      if(item.image){
+        list.push(item);
+        console.log(list);
+      }
+    });
+  },[])
+
+  
   return (
     <View style={styles.indicatorContainer}>
-      {data.map((image, imageIndex) => {
+      {list.map((image, imageIndex) => {
         const width = scrollX.interpolate({
           inputRange: [
             windowWidth * (imageIndex - 1),

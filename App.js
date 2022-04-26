@@ -14,17 +14,21 @@ import {store} from './Redux/store';
 import {reducer, intialState} from './Redux/userReducer';
 import {chatreducer, chatintialState} from './Redux/chatReducer';
 import {articlereducer, articleintialState} from './Redux/articlereducer';
+import { newsreducer,newsintialState } from './Redux/newsReducer';
 import {savedarticlereducer,savedarticleintialState} from './Redux/savedarticlereducer';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
+import axios from 'axios';
 
 export const UserContext = createContext();
+export const NewsContext = createContext();
 export const ChatContext = createContext();
 export const ArticleContext = createContext();
 export const SavedArticleContext = createContext();
 
 const Routing = () => {
   const {state, dispatch} = useContext(UserContext);
+  const {newsstate, newsdispatch} = useContext(NewsContext);
   const {chatstate, chatdispatch} = useContext(ChatContext);
   const {articlestate, articledispatch} = useContext(ArticleContext);
   const {savedarticlestate,savedarticledispatch} = useContext(SavedArticleContext);
@@ -42,6 +46,16 @@ const Routing = () => {
       savedarticledispatch({type:"UPDATE",payload:res.data()});
     })
   }
+
+  const options = {
+    method: 'GET',
+    url: 'https://api.bing.microsoft.com/v7.0/news/search',
+    params: {q: 'startup',safeSearch: 'Off', textFormat: 'Raw'},
+    headers: {
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key':'bd03e8f8f29b46479ee4c2004280308f'
+    }
+  }; 
 
   useEffect(() => {
     async function getUser() {
@@ -77,6 +91,18 @@ const Routing = () => {
 
     }
 
+    async function getNews(){
+      try{
+        const response = await axios.request(options);
+        newsdispatch({type:"SET", payload:response.data.value});
+      }catch(err){
+        console.log(err);
+      }
+
+    }
+
+    getNews();
+
     getArticles();
 
     getUser();
@@ -90,6 +116,7 @@ const App = () => {
   const [chatstate, chatdispatch] = useReducer(chatreducer, chatintialState);
   const [articlestate, articledispatch] = useReducer(articlereducer, articleintialState);
   const [savedarticlestate, savedarticledispatch] = useReducer(savedarticlereducer, savedarticleintialState);
+  const [newsstate, newsdispatch] = useReducer(newsreducer, newsintialState);
 
   return (
     <Provider store={store} style={{flex: 1}}>
@@ -102,7 +129,9 @@ const App = () => {
           <ChatContext.Provider value={{chatstate, chatdispatch}}>
             <ArticleContext.Provider value={{articlestate, articledispatch}}>
               <SavedArticleContext.Provider value={{savedarticlestate,savedarticledispatch}}>
-                <Routing />
+                <NewsContext.Provider value={{newsstate,newsdispatch}}>
+                  <Routing />
+                </NewsContext.Provider>
             </SavedArticleContext.Provider>
             </ArticleContext.Provider>
           </ChatContext.Provider>

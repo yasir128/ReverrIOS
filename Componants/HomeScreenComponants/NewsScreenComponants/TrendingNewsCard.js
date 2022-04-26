@@ -21,21 +21,27 @@ const TrendingNewsCard = props => {
         horizontal
         pagingEnabled
         onScroll={props.onScroll}
-        renderItem={({item}) => (
-          <TouchableOpacity activeOpacity={0.6} style={styles.container}>
-            <ImageBackground style={{flex: 1}} source={{uri: item.image}}>
-              <View style={styles.title}>
-                <Text
-                  style={{
-                    color: AppColors.FontsColor,
-                    fontFamily: 'Poppins-Regular',
-                  }}>
-                  {item.title}
-                </Text>
-              </View>
-            </ImageBackground>
-          </TouchableOpacity>
-        )}
+        renderItem={({item,index}) =>{
+          if(item.image&&index<7){
+            return (
+              <TouchableOpacity activeOpacity={0.6} style={styles.container}>
+                <ImageBackground style={{flex: 1}} source={{uri:item.image.thumbnail.contentUrl}}>
+                  <View style={styles.title}>
+                    <Text
+                      style={{
+                        color: AppColors.FontsColor,
+                        fontFamily: 'Poppins-Regular',
+                      }}>
+                      {item.name}
+                    </Text>
+                  </View>
+                </ImageBackground>
+              </TouchableOpacity>
+            )
+          }else{
+            console.log("no image");
+          }
+        } }
       />
     </View>
   );

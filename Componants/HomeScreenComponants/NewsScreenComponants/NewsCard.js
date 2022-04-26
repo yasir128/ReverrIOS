@@ -9,33 +9,43 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import AppColors from '../../../Constaint/AppColors';
+import {useNavigation} from '@react-navigation/native';
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
 const NewsCard = props => {
+  const navigation = useNavigation();
   const [clmn, setclmn] = useState(2);
-  return (
+  return props.data&&(
     <View style={{height: '100%', paddingBottom: 50}}>
       <FlatList
         data={props.data}
         nestedScrollEnabled={true}
         numColumns={clmn}
-        renderItem={({item}) => (
-          <TouchableOpacity activeOpacity={0.6} style={styles.NewsContainer}>
-            <ImageBackground style={{flex: 1}} source={{uri: item.image}}>
-              <View style={styles.title}>
-                <Text
-                  style={{
-                    color: AppColors.FontsColor,
-                    fontFamily: 'Poppins-Regular',
-                  }}>
-                  {item.title}
-                </Text>
-              </View>
-            </ImageBackground>
-          </TouchableOpacity>
-        )}
+        renderItem={({item}) => {
+          if(item.image){
+            return(
+              <TouchableOpacity activeOpacity={0.6} style={styles.NewsContainer} onPress={()=>{
+                navigation.navigate('NewsDetails',{
+                  articalData: item,
+                })
+              }}>
+                <ImageBackground style={{flex: 1}} source={{uri:item.image.thumbnail.contentUrl}}>
+                  <View style={styles.title}>
+                    <Text
+                      style={{
+                        color: AppColors.FontsColor,
+                        fontFamily: 'Poppins-Regular',
+                      }}>
+                      {item.name}
+                    </Text>
+                  </View>
+                </ImageBackground>
+              </TouchableOpacity>
+            )
+          }
+        }}
       />
     </View>
   );

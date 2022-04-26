@@ -7,26 +7,42 @@ import {
   Dimensions,
   ScrollView,
 } from 'react-native';
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useRef, useContext} from 'react';
 import AppColors from '../../../Constaint/AppColors';
 import {NewsData} from '../../../dummy-data/Dummy_News';
 import TrendingNewsCard from '../../../Componants/HomeScreenComponants/NewsScreenComponants/TrendingNewsCard';
 import NewsCard from '../../../Componants/HomeScreenComponants/NewsScreenComponants/NewsCard';
 import Paginator from '../../../Componants/HomeScreenComponants/NewsScreenComponants/Paginator';
+import { NewsContext } from '../../../App';
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
 const NewsScreen = () => {
+
+  // const options = {
+  //   method: 'GET',
+  //   url: 'https://api.bing.microsoft.com/v7.0/news/search',
+  //   params: {q: 'startup',mkt: 'en-IN',freshness: 'Day',safeSearch: 'Off', textFormat: 'Raw'},
+  //   headers: {
+  //       'Content-Type': 'application/json',
+  //       'Ocp-Apim-Subscription-Key':'bd03e8f8f29b46479ee4c2004280308f'
+  //   }
+  // }; 
+
+  const {newsstate,newsdispatch} = useContext(NewsContext);
+
+  console.log(newsstate[0].category);
   const scrollX = useRef(new Animated.Value(0)).current;
   return (
+    
     <View style={styles.screen}>
       <View>
         <View>
           <Text style={styles.heading}>Trending</Text>
         </View>
         <TrendingNewsCard
-          data={NewsData}
+          data={newsstate}
           onScroll={Animated.event(
             [{nativeEvent: {contentOffset: {x: scrollX}}}],
             {
@@ -34,12 +50,12 @@ const NewsScreen = () => {
             },
           )}
         />
-        <Paginator data={NewsData} scrollX={scrollX} />
+        <Paginator data={newsstate} scrollX={scrollX} />
         <View style={{height: Height > 684 ? Height / 2.38 : Height / 2.4}}>
           <View>
             <Text style={styles.news}>News</Text>
           </View>
-          <NewsCard data={NewsData} />
+          <NewsCard data={newsstate} />
         </View>
       </View>
     </View>

@@ -161,7 +161,12 @@ const MentorDetails = props => {
         </TouchableOpacity>
       </LinearGradient>
       {about ? (
-        <View style={{paddingHorizontal: 20, paddingVertical: 10}}>
+        <View
+          style={{
+            paddingHorizontal: 20,
+            paddingVertical: 10,
+            height: Height / 6.4,
+          }}>
           <Text
             style={{color: AppColors.infoFonts, fontFamily: 'Poppins-Regular'}}>
             Market Research Mentor is the terminal where all industrial,
@@ -171,14 +176,24 @@ const MentorDetails = props => {
           </Text>
         </View>
       ) : exp ? (
-        <View style={{paddingHorizontal: 20, paddingVertical: 10}}>
+        <View
+          style={{
+            paddingHorizontal: 20,
+            paddingVertical: 10,
+            height: Height / 6.4,
+          }}>
           <Text
             style={{color: AppColors.infoFonts, fontFamily: 'Poppins-Regular'}}>
             Experience
           </Text>
         </View>
       ) : plan ? (
-        <View style={{paddingHorizontal: 20, paddingVertical: 10}}>
+        <View
+          style={{
+            paddingHorizontal: 20,
+            paddingVertical: 10,
+            height: Height / 6.4,
+          }}>
           <Text
             style={{color: AppColors.infoFonts, fontFamily: 'Poppins-Regular'}}>
             plan
@@ -259,7 +274,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
   },
   btn: {
-    paddingHorizontal: '35%',
+    paddingHorizontal: '25%',
   },
 });
 export default MentorDetails;

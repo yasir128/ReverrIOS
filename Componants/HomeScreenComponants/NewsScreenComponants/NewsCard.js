@@ -17,37 +17,44 @@ const Height = Dimensions.get('window').height;
 const NewsCard = props => {
   const navigation = useNavigation();
   const [clmn, setclmn] = useState(2);
-  return props.data&&(
-    <View style={{height: '100%', paddingBottom: 50}}>
-      <FlatList
-        data={props.data}
-        nestedScrollEnabled={true}
-        numColumns={clmn}
-        renderItem={({item}) => {
-          if(item.image){
-            return(
-              <TouchableOpacity activeOpacity={0.6} style={styles.NewsContainer} onPress={()=>{
-                navigation.navigate('NewsDetails',{
-                  articalData: item,
-                })
-              }}>
-                <ImageBackground style={{flex: 1}} source={{uri:item.image.thumbnail.contentUrl}}>
-                  <View style={styles.title}>
-                    <Text
-                      style={{
-                        color: AppColors.FontsColor,
-                        fontFamily: 'Poppins-Regular',
-                      }}>
-                      {item.name}
-                    </Text>
-                  </View>
-                </ImageBackground>
-              </TouchableOpacity>
-            )
-          }
-        }}
-      />
-    </View>
+  return (
+    props.data && (
+      <View style={{height: '100%', paddingBottom: 50}}>
+        <FlatList
+          data={props.data}
+          nestedScrollEnabled={true}
+          numColumns={clmn}
+          renderItem={({item}) => {
+            if (item.image) {
+              return (
+                <TouchableOpacity
+                  activeOpacity={0.6}
+                  style={styles.NewsContainer}
+                  onPress={() => {
+                    navigation.navigate('NewsDetails', {
+                      articalData: item,
+                    });
+                  }}>
+                  <ImageBackground
+                    style={{flex: 1}}
+                    source={{uri: item.image.thumbnail.contentUrl}}>
+                    <View style={styles.title}>
+                      <Text
+                        style={{
+                          color: AppColors.FontsColor,
+                          fontFamily: 'Poppins-Regular',
+                        }}>
+                        {item.name}
+                      </Text>
+                    </View>
+                  </ImageBackground>
+                </TouchableOpacity>
+              );
+            }
+          }}
+        />
+      </View>
+    )
   );
 };
 const styles = StyleSheet.create({

@@ -35,7 +35,6 @@ const ArticalList = props => {
   const naigation = useNavigation();
   return (
     <View style={{marginTop: '2%'}}>
-<<<<<<< HEAD
       <FlatList
         data={articlestate && articlestate}
         nestedScrollEnabled={true}
@@ -66,38 +65,6 @@ const ArticalList = props => {
           </TouchableOpacity>
         )}
       />
-=======
-      <ScrollView  contentContainerStyle={{ flexGrow: 1 }} style={{flex:1}}>
-     {articlestate&& articlestate.map(item=>{
-       return (
-        <TouchableOpacity
-          key={item.id}
-          onPress={() => {
-            naigation.navigate('ArticalDetails', {
-              articalData: item,
-            });
-          }}>
-          <View style={styles.line}></View>
-          <View style={styles.title}>
-            <Text style={styles.text}>{item.heading}</Text>
-            <TouchableOpacity
-              onPress={() => saveArticle(item)}
-              style={{justifyContent: 'center', alignItems: 'center'}}>
-              <Ionic
-                name="heart"
-                size={20}
-                color={state.savedArticles.includes(item.id)?"red":"grey"}
-              />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.description}>
-            <Text style={styles.desc}>{item.body.substring(0, 100)}...</Text>
-          </View>
-        </TouchableOpacity>
-      )
-     })}
-     </ScrollView>
->>>>>>> 6466a390998e355e4e5c0a558bad83f859cedc7a
     </View>
   );
 };

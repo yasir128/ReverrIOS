@@ -9,21 +9,19 @@ import React, {useEffect, useRef} from 'react';
 
 const Paginator = ({data, scrollX}) => {
   const {width: windowWidth} = useWindowDimensions();
-  console.log("data paginator");
-  console.log(data[0].category);
 
-  var list=[];
+  var list = [];
 
-  useEffect(()=>{
-    data.map(item=>{
-      if(item.image){
-        list.push(item);
-        console.log(list);
-      }
-    });
-  },[])
+  useEffect(() => {
+    data &&
+      data.map(item => {
+        if (item.image) {
+          list.push(item);
+          console.log(list);
+        }
+      });
+  }, []);
 
-  
   return (
     <View style={styles.indicatorContainer}>
       {list.map((image, imageIndex) => {

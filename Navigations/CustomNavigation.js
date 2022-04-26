@@ -79,12 +79,12 @@ export const HomeStack = () => {
       <Stack.Screen
         name="NewsDetails"
         component={NewsDetailScreen}
-        options={{headerShown:false}}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="Webview"
         component={Webview}
-        options={{headerShown:false}}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="ArticalDetails"

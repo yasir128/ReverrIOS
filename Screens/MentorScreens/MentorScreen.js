@@ -13,6 +13,7 @@ import WeeksMentors from '../../Componants/MentorScreenComponents/WeeksMentors';
 import MentorsCategories from '../../Componants/MentorScreenComponents/MentorsCategories';
 import {useNavigation} from '@react-navigation/native';
 import HeaderLayout from '../HomeScreens/HeaderLayout';
+import MentorsList from './MentorsList';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
@@ -27,7 +28,8 @@ const MentorScreen = () => {
       </View>
       <SearchBar />
       <WeeksMentors />
-      <MentorsCategories />
+      {/*  <MentorsCategories /> */}
+      <MentorsList />
     </HeaderLayout>
   );
 };

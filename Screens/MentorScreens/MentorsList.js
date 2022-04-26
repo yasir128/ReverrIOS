@@ -23,7 +23,7 @@ const Height = Dimensions.get('screen').height;
 
 const MentorsList = props => {
   const navigation = useNavigation();
-  const mentorData = props.route.params.mentorData;
+  // const mentorData = props.route.params.mentorData;
   const [all, setAll] = useState();
   const [listColumn, setListColumn] = useState(2);
   useEffect(() => {
@@ -31,93 +31,103 @@ const MentorsList = props => {
   }, []);
 
   return (
-    <HeaderLayout>
-      <View style={styles.screen}>
-        <LinearGradient
-          colors={[AppColors.primarycolor, '#012437']}
-          start={{x: 0, y: 1.3}}
-          end={{x: 1, y: 0.5}}
-          style={styles.Header}>
-          <Text
-            style={{
-              fontFamily: 'Poppins-Bold',
-              color: AppColors.FontsColor,
-              fontSize: 17,
-            }}>
-            {mentorData && mentorData.name}
-          </Text>
-        </LinearGradient>
-        <View>
-          <FlatList
-            data={all}
-            numColumns={2}
-            renderItem={({item}) => (
-              <LinearGradient
-                colors={[AppColors.primarycolor, '#012437']}
-                start={{x: 0.4, y: 1.3}}
-                end={{x: 1, y: 0.5}}
-                style={styles.Card}>
-                <TouchableOpacity
-                  style={{alignItems: 'center'}}
-                  onPress={() => {
-                    navigation.navigate('MentorsProfile', {
-                      profileDetails: item,
-                    });
-                  }}>
-                  <Image
-                    style={styles.Dp}
-                    source={require('../../assets/Images/jatindp.png')}
+    //<HeaderLayout>
+    <View style={styles.screen}>
+      {/*  <LinearGradient
+        colors={[AppColors.primarycolor, '#012437']}
+        start={{x: 0, y: 1.3}}
+        end={{x: 1, y: 0.5}}
+        style={styles.Header}>
+        <Text
+          style={{
+            fontFamily: 'Poppins-Bold',
+            color: AppColors.FontsColor,
+            fontSize: 17,
+          }}>
+          Mentors
+        </Text>
+      </LinearGradient> */}
+      <Text
+        style={{
+          fontFamily: 'Poppins-Bold',
+          color: AppColors.FontsColor,
+          fontSize: 17,
+          marginStart: '5%',
+        }}>
+        Mentors
+      </Text>
+      <View>
+        <FlatList
+          data={all}
+          numColumns={2}
+          renderItem={({item}) => (
+            <LinearGradient
+              colors={[AppColors.primarycolor, '#012437']}
+              start={{x: 0.4, y: 1.3}}
+              end={{x: 1, y: 0.5}}
+              style={styles.Card}>
+              <TouchableOpacity
+                style={{alignItems: 'center'}}
+                onPress={() => {
+                  navigation.navigate('MentorsProfile', {
+                    profileDetails: item,
+                  });
+                }}>
+                <Image
+                  style={styles.Dp}
+                  source={require('../../assets/Images/jatindp.png')}
+                />
+                <View style={{alignItems: 'center'}}>
+                  <Text style={styles.Name}>{item.name}</Text>
+                  <Text style={styles.Skills}>{item.skills}</Text>
+                </View>
+                <View style={styles.rating}>
+                  <Icon name="star" size={12} color={AppColors.infoFonts} />
+                  <Icon
+                    name="star"
+                    size={12}
+                    style={{marginStart: '3%'}}
+                    color={AppColors.infoFonts}
                   />
-                  <View style={{alignItems: 'center'}}>
-                    <Text style={styles.Name}>{item.name}</Text>
-                    <Text style={styles.Skills}>{item.skills}</Text>
-                  </View>
-                  <View style={styles.rating}>
-                    <Icon name="star" size={12} color={AppColors.infoFonts} />
-                    <Icon
-                      name="star"
-                      size={12}
-                      style={{marginStart: '3%'}}
-                      color={AppColors.infoFonts}
-                    />
-                    <Icon
-                      name="star"
-                      size={12}
-                      style={{marginStart: '3%'}}
-                      color={AppColors.infoFonts}
-                    />
-                    <Icon
-                      name="star"
-                      size={12}
-                      style={{marginStart: '3%'}}
-                      color={AppColors.infoFonts}
-                    />
-                    <Icon
-                      name="star"
-                      size={12}
-                      style={{marginStart: '3%'}}
-                      color={AppColors.infoFonts}
-                    />
-                    <Text
-                      style={{
-                        color: AppColors.ActiveColor,
-                        marginStart: '5%',
-                      }}>
-                      76 Review
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </LinearGradient>
-            )}
-          />
-        </View>
+                  <Icon
+                    name="star"
+                    size={12}
+                    style={{marginStart: '3%'}}
+                    color={AppColors.infoFonts}
+                  />
+                  <Icon
+                    name="star"
+                    size={12}
+                    style={{marginStart: '3%'}}
+                    color={AppColors.infoFonts}
+                  />
+                  <Icon
+                    name="star"
+                    size={12}
+                    style={{marginStart: '3%'}}
+                    color={AppColors.infoFonts}
+                  />
+                  <Text
+                    style={{
+                      color: AppColors.ActiveColor,
+                      marginStart: '5%',
+                    }}>
+                    76 Review
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </LinearGradient>
+          )}
+        />
       </View>
-    </HeaderLayout>
+    </View>
+    // </HeaderLayout>
   );
 };
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
+    marginTop: '6%',
     backgroundColor: AppColors.primarycolor,
   },
   Header: {

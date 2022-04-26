@@ -10,9 +10,10 @@ import {
 import React, {useEffect, useState, useRef} from 'react';
 import AppColors from '../../../Constaint/AppColors';
 import {NewsData} from '../../../dummy-data/Dummy_News';
-import TrendingNewsCard from '../../../Componants/HomeScreenComponants/NewsScreenComponants/TrendingNewsCard';
+import TrendingNewsCard from '../../../Componants/SwipeCard';
 import NewsCard from '../../../Componants/HomeScreenComponants/NewsScreenComponants/NewsCard';
 import Paginator from '../../../Componants/HomeScreenComponants/NewsScreenComponants/Paginator';
+import SwipeCard from '../../../Componants/SwipeCard';
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
@@ -25,7 +26,7 @@ const NewsScreen = () => {
         <View>
           <Text style={styles.heading}>Trending</Text>
         </View>
-        <TrendingNewsCard
+        <SwipeCard
           data={NewsData}
           onScroll={Animated.event(
             [{nativeEvent: {contentOffset: {x: scrollX}}}],

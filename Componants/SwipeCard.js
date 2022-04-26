@@ -8,29 +8,45 @@ import {
   ImageBackground,
 } from 'react-native';
 import React from 'react';
-import AppColors from '../../../Constaint/AppColors';
+import AppColors from '../Constaint/AppColors';
+import {smallString} from '../utils/helper';
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
-const TrendingNewsCard = props => {
+const SwipeCard = props => {
   return (
-    <View style={{alignItems: 'center', marginTop: '2%', paddingBottom: '5%'}}>
+    <View>
       <FlatList
         data={props.data}
         horizontal
         pagingEnabled
         onScroll={props.onScroll}
         renderItem={({item}) => (
-          <TouchableOpacity activeOpacity={0.6} style={styles.container}>
+          <TouchableOpacity
+            activeOpacity={0.6}
+            style={{...styles.container, ...props.style}}>
             <ImageBackground style={{flex: 1}} source={{uri: item.image}}>
-              <View style={styles.title}>
+              <View style={{...styles.title, ...props.overlay}}>
                 <Text
                   style={{
-                    color: AppColors.FontsColor,
-                    fontFamily: 'Poppins-Regular',
+                    ...{
+                      color: AppColors.FontsColor,
+                      fontFamily: 'Poppins-Bold',
+                    },
+                    ...props.title,
                   }}>
                   {item.title}
+                </Text>
+                <Text
+                  style={{
+                    ...{
+                      color: AppColors.BtnClr,
+                      fontFamily: 'Poppins-Regular',
+                    },
+                    ...props.description,
+                  }}>
+                  {smallString(item.description, 130)}
                 </Text>
               </View>
             </ImageBackground>
@@ -43,9 +59,10 @@ const TrendingNewsCard = props => {
 
 const styles = StyleSheet.create({
   container: {
-    marginStart: 10,
+    marginStart: 15,
+    marginVertical: '2%',
     marginEnd: 10,
-    width: Width / 1.2,
+    width: Width / 1.1,
     height: Height > 684 ? Height / 4 : Height / 5,
     overflow: 'hidden',
     borderRadius: 20,
@@ -56,9 +73,9 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '40%',
     paddingVertical: 5,
-    alignItems: 'center',
+    paddingHorizontal: '3%',
     top: Height > 684 ? 145 : 90,
   },
 });
 
-export default TrendingNewsCard;
+export default SwipeCard;

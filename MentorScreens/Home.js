@@ -9,6 +9,7 @@ import React, {useContext, useState} from 'react';
 import HeaderLayout from '../Screens/HomeScreens/HeaderLayout';
 import {UserContext} from '../App';
 import AppColors from '../Constaint/AppColors';
+import HomeCard from './HomeCard';
 
 const Height = Dimensions.get('window').height;
 const Width = Dimensions.get('window').width;
@@ -51,6 +52,7 @@ const Home = () => {
             </Text>
           </TouchableOpacity>
         </View>
+        <HomeCard />
       </View>
     </HeaderLayout>
   );

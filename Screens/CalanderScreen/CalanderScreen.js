@@ -71,7 +71,6 @@ function getCalender(month, year) {
 }
 
 const CalanderScreen = props => {
-
   var montharr = [
     'January',
     'February',
@@ -157,57 +156,56 @@ const CalanderScreen = props => {
           data={calender[0]}
           horizontal
           renderItem={({item}) => (
-            <View key={item} style={styles.daysName}>
+            <TouchableOpacity key={item} style={styles.daysName}>
               <Text style={styles.text}>{item}</Text>
-            </View>
+            </TouchableOpacity>
           )}
         />
         <FlatList
           data={calender[1]}
           horizontal
           renderItem={({item}) => (
-            <View key={item} style={styles.daysName}>
+            <TouchableOpacity key={item} style={styles.daysName}>
               <Text style={styles.text}>{item}</Text>
-            </View>
+            </TouchableOpacity>
           )}
         />
         <FlatList
           data={calender[2]}
           horizontal
           renderItem={({item}) => (
-            <View key={item} style={styles.daysName}>
+            <TouchableOpacity key={item} style={styles.daysName}>
               <Text style={styles.text}>{item}</Text>
-            </View>
+            </TouchableOpacity>
           )}
         />
         <FlatList
           data={calender[3]}
           horizontal
           renderItem={({item}) => (
-            <View key={item} style={styles.daysName}>
+            <TouchableOpacity key={item} style={styles.daysName}>
               <Text style={styles.text}>{item}</Text>
-            </View>
+            </TouchableOpacity>
           )}
         />
         <FlatList
           data={calender[4] && calender[4]}
           horizontal
           renderItem={({item}) => (
-            <View key={item} style={styles.daysName}>
+            <TouchableOpacity key={item} style={styles.daysName}>
               <Text style={styles.text}>{item}</Text>
-            </View>
+            </TouchableOpacity>
           )}
         />
         <FlatList
           data={calender[5] && calender[5]}
           horizontal
           renderItem={({item}) => (
-            <View key={item} style={styles.daysName}>
+            <TouchableOpacity key={item} style={styles.daysName}>
               <Text style={styles.text}>{item}</Text>
-            </View>
+            </TouchableOpacity>
           )}
         />
-        
       </View>
       <View
         style={{

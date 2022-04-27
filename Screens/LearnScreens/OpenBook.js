@@ -65,18 +65,16 @@ const OpenBook = props => {
         <View style={styles.progressContainer}>
           <View style={[styles.complete, {width: 90}]}></View>
         </View>
-        <Icon2
-          style={{marginStart: '5%'}}
-          name="bookmark-outline"
-          size={28}
-          color={AppColors.ActiveColor}
-        />
-        <Icon2
-          style={{marginStart: '5%'}}
-          name="heart-outline"
-          size={28}
-          color={AppColors.ActiveColor}
-        />
+        <TouchableOpacity style={{marginStart: '5%'}}>
+          <Icon2
+            name="bookmark-outline"
+            size={28}
+            color={AppColors.ActiveColor}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity style={{marginStart: '5%'}}>
+          <Icon2 name="heart-outline" size={28} color={AppColors.ActiveColor} />
+        </TouchableOpacity>
       </View>
     </View>
   );

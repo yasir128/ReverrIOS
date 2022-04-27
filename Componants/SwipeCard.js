@@ -10,21 +10,28 @@ import {
 import React from 'react';
 import AppColors from '../Constaint/AppColors';
 import {smallString} from '../utils/helper';
+import {useNavigation} from '@react-navigation/native';
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
 const SwipeCard = props => {
+  const navigation = useNavigation();
   return (
     <View>
       <FlatList
         data={props.data}
         horizontal
-        pagingEnabled
+        pagingEnabled={props.pagingEnabled}
         onScroll={props.onScroll}
         renderItem={({item}) => (
           <TouchableOpacity
             activeOpacity={0.6}
+            onPress={() => {
+              navigation.navigate(props.navigationName, {
+                CourseDetails: item,
+              });
+            }}
             style={{...styles.container, ...props.style}}>
             <ImageBackground style={{flex: 1}} source={{uri: item.image}}>
               <View style={{...styles.title, ...props.overlay}}>
@@ -46,7 +53,7 @@ const SwipeCard = props => {
                     },
                     ...props.description,
                   }}>
-                  {smallString(item.description, 130)}
+                  {smallString(item.description, props.maxString)}
                 </Text>
               </View>
             </ImageBackground>

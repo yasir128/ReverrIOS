@@ -25,6 +25,9 @@ import SavedScreen from '../Screens/ProfileScreens/SavedScreen';
 import Notification from '../Screens/Notification';
 import NewsDetailScreen from '../Screens/HomeScreens/TopTabScreens/NewsDetailsScreen';
 import Webview from '../Screens/WebView';
+import StartCourse from '../Screens/LearnScreens/StartCourse';
+import OpenBook from '../Screens/LearnScreens/OpenBook';
+import ReadingInstruction from '../Screens/LearnScreens/ReadingInstruction';
 
 const Stack = createNativeStackNavigator();
 
@@ -172,6 +175,21 @@ export const LearnStack = () => {
       <Stack.Screen
         name="Learn"
         component={LearnScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="StartCourse"
+        component={StartCourse}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="instruction"
+        component={ReadingInstruction}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="openBook"
+        component={OpenBook}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

@@ -23,8 +23,11 @@ const LearnScreen = () => {
       <ScrollView>
         <SwipeCard
           data={courseData}
+          maxString={130}
+          pagingEnabled={true}
           overlay={styles.overlay}
           title={styles.title}
+          navigationName="StartCourse"
           description={styles.desc}
         />
         <View style={styles.Btn}>
@@ -108,8 +111,14 @@ const LearnScreen = () => {
           </Text>
           <SwipeCard
             data={courseData}
+            pagingEnabled={false}
+            maxString={30}
             style={styles.popularCard}
-            overlay={{top: 30}}
+            overlay={{
+              top: 70,
+              backgroundColor: 'rgba(0, 0, 0, 0.6)',
+              height: '100%',
+            }}
           />
         </View>
       </ScrollView>
@@ -118,7 +127,7 @@ const LearnScreen = () => {
 };
 const styles = StyleSheet.create({
   overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.2)',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
     top: Height > 684 ? 60 : 90,
     height: '100%',
   },

@@ -6,7 +6,7 @@ import {
   Dimensions,
   FlatList,
 } from 'react-native';
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import AppColors from '../../Constaint/AppColors';
 import Backbtn from '../../Componants/Backbtn';
 import Icon2 from 'react-native-vector-icons/Ionicons';
@@ -19,10 +19,21 @@ const OpenBook = props => {
   const bookData = props.route.params.BookData;
   //  console.log(bookData);
   const pagesRef = useRef();
-  const Next = index => pagesRef.current.scrollToIndex({index: index + 1});
-  const Preious = index => pagesRef.current.scrollToIndex({index: index - 1});
+  const [currIndex, setCurrIndex] = useState(0);
+  const [progress, setProgress] = useState('10%');
+  const Next = index => {
+    setCurrIndex(index+1);
+    setProgress((((currIndex+2)/7)*100)+"%");
+    pagesRef.current.scrollToIndex({index: index + 1})
+  };
+  const Preious = index => {
+    setCurrIndex(index-1);
+    setProgress((((currIndex)/7)*100)+"%");
+    pagesRef.current.scrollToIndex({index: index - 1})
+  };
   const navigation = useNavigation();
   return (
+    
     <View style={styles.screen}>
       <Backbtn
         IconSize={30}
@@ -36,7 +47,10 @@ const OpenBook = props => {
           horizontal
           ref={pagesRef}
           pagingEnabled
-          renderItem={({item, index}) => (
+          renderItem={({item, index}) => {
+            
+            return (
+            
             <View style={styles.pageContainer}>
               <View style={styles.overlay}>
                 <TouchableOpacity
@@ -55,15 +69,33 @@ const OpenBook = props => {
                   style={styles.next}></TouchableOpacity>
               </View>
               <View style={styles.page}>
-                <Text>{item.content}</Text>
+              {item.type=='TEXT'?
+              ( 
+                <>
+                <Text>{item.title}</Text>
+                <Text>{item.body}</Text>
+                </>
+              ):(
+                <>
+                <Text>{item.question}</Text>
+                <Text>A. {item.option[0]}</Text>
+                <Text>B. {item.option[1]}</Text>
+                <Text>C. {item.option[2]}</Text>
+                <Text>D. {item.option[3]}</Text>
+                <Text>{item.ans}</Text>
+                </>
+              )
+              }
               </View>
             </View>
-          )}
+          )
+          }
+        }
         />
       )}
       <View style={styles.StatusContainer}>
         <View style={styles.progressContainer}>
-          <View style={[styles.complete, {width: 90}]}></View>
+          <View style={[styles.complete, {width: progress}]}></View>
         </View>
         <TouchableOpacity style={{marginStart: '5%'}}>
           <Icon2

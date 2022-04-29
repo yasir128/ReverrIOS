@@ -28,7 +28,7 @@ const SwipeCard = props => {
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => {
-              navigation.navigate(props.navigationName, {
+              navigation.navigate('StartCourse', {
                 CourseDetails: item,
               });
             }}
@@ -43,9 +43,9 @@ const SwipeCard = props => {
                     },
                     ...props.title,
                   }}>
-                  {item.title}
+                  {item.name}
                 </Text>
-                <Text
+                {/* <Text
                   style={{
                     ...{
                       color: AppColors.BtnClr,
@@ -54,7 +54,7 @@ const SwipeCard = props => {
                     ...props.description,
                   }}>
                   {smallString(item.description, props.maxString)}
-                </Text>
+                </Text> */}
               </View>
             </ImageBackground>
           </TouchableOpacity>

@@ -20,7 +20,6 @@ const Height = Dimensions.get('window').height;
 const StartCourse = props => {
   const courseData = props.route.params.CourseDetails;
   const navigation = useNavigation();
-  console.log(courseData);
   return (
     <View style={styles.screen}>
       <ImageBackground
@@ -46,7 +45,7 @@ const StartCourse = props => {
               fontFamily: 'Poppins-SemiBold',
               fontSize: 16,
             }}>
-            {courseData.title}
+            {courseData.name}
           </Text>
         </View>
       </ImageBackground>
@@ -68,14 +67,14 @@ const StartCourse = props => {
       <Text style={styles.txt}>3 Chapters remaining</Text>
       <ScrollView style={styles.ChapterContainer}>
         <FlatList
-          data={courseData.book}
+          data={courseData.chapter}
           renderItem={({item, index}) => (
             <View key={index} style={styles.ChapterCard}>
               <View
                 style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <View>
-                  <Text style={styles.chapter}>Chapter - {item.chapter}</Text>
-                  <Text>{item.chapterTitle}</Text>
+                  <Text style={styles.chapter}>Chapter - {index+1}</Text>
+                  <Text>{item.name}</Text>
                 </View>
                 <TouchableOpacity
                   onPress={() => {

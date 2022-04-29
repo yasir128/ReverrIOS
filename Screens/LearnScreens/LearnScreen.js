@@ -6,23 +6,24 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import HeaderLayout from '../HomeScreens/HeaderLayout';
 import SwipeCard from '../../Componants/SwipeCard';
 import {courseData} from '../../dummy-data/courseData';
 import AppColors from '../../Constaint/AppColors';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import App from '../../App';
+import { CourseContext } from '../../App';
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
 const LearnScreen = () => {
+  const {coursestate,coursedispatch} = useContext(CourseContext);
   return (
     <HeaderLayout>
       <ScrollView>
         <SwipeCard
-          data={courseData}
+          data={coursestate}
           maxString={130}
           pagingEnabled={true}
           overlay={styles.overlay}
@@ -110,7 +111,7 @@ const LearnScreen = () => {
             Popular now{' '}
           </Text>
           <SwipeCard
-            data={courseData}
+            data={coursestate}
             pagingEnabled={false}
             maxString={30}
             style={styles.popularCard}

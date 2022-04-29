@@ -9,7 +9,7 @@ const ReadingInstruction = props => {
   const navigation = useNavigation();
   setTimeout(() => {
     navigation.replace('openBook', {
-      BookData: bookData.page,
+      BookData: bookData.slide,
     });
   }, 1000);
   return (

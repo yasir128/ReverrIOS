@@ -15,6 +15,7 @@ import {reducer, intialState} from './Redux/userReducer';
 import {chatreducer, chatintialState} from './Redux/chatReducer';
 import {articlereducer, articleintialState} from './Redux/articlereducer';
 import { newsreducer,newsintialState } from './Redux/newsReducer';
+import { courseintialState, coursereducer } from './Redux/coursereducer';
 import {savedarticlereducer,savedarticleintialState} from './Redux/savedarticlereducer';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
@@ -25,6 +26,7 @@ export const NewsContext = createContext();
 export const ChatContext = createContext();
 export const ArticleContext = createContext();
 export const SavedArticleContext = createContext();
+export const CourseContext = createContext();
 
 const Routing = () => {
   const {state, dispatch} = useContext(UserContext);
@@ -32,6 +34,7 @@ const Routing = () => {
   const {chatstate, chatdispatch} = useContext(ChatContext);
   const {articlestate, articledispatch} = useContext(ArticleContext);
   const {savedarticlestate,savedarticledispatch} = useContext(SavedArticleContext);
+  const {coursestate, coursedispatch} = useContext(CourseContext);
   async function loadChatUser(list) {
     list.forEach(async user => {
       const User = await firestore().collection('Users').doc(user).get();
@@ -101,6 +104,19 @@ const Routing = () => {
 
     }
 
+    async function getCourse(){
+      await firestore()
+      .collection('Courses')
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          coursedispatch({type: 'UPDATE', payload: doc.data()});
+        });
+      });
+    }
+
+    getCourse();
+
     getNews();
 
     getArticles();
@@ -117,6 +133,7 @@ const App = () => {
   const [articlestate, articledispatch] = useReducer(articlereducer, articleintialState);
   const [savedarticlestate, savedarticledispatch] = useReducer(savedarticlereducer, savedarticleintialState);
   const [newsstate, newsdispatch] = useReducer(newsreducer, newsintialState);
+  const [coursestate, coursedispatch] = useReducer(coursereducer, courseintialState);
 
   return (
     <Provider store={store} style={{flex: 1}}>
@@ -130,9 +147,11 @@ const App = () => {
             <ArticleContext.Provider value={{articlestate, articledispatch}}>
               <SavedArticleContext.Provider value={{savedarticlestate,savedarticledispatch}}>
                 <NewsContext.Provider value={{newsstate,newsdispatch}}>
-                  <Routing />
+                  <CourseContext.Provider value={{coursestate, coursedispatch}}>
+                    <Routing />
+                  </CourseContext.Provider>
                 </NewsContext.Provider>
-            </SavedArticleContext.Provider>
+              </SavedArticleContext.Provider>
             </ArticleContext.Provider>
           </ChatContext.Provider>
         </UserContext.Provider>

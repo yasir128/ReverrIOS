@@ -22,18 +22,17 @@ const OpenBook = props => {
   const [currIndex, setCurrIndex] = useState(0);
   const [progress, setProgress] = useState('10%');
   const Next = index => {
-    setCurrIndex(index+1);
-    setProgress((((currIndex+2)/7)*100)+"%");
-    pagesRef.current.scrollToIndex({index: index + 1})
+    setCurrIndex(index + 1);
+    setProgress(((currIndex + 2) / 7) * 100 + '%');
+    pagesRef.current.scrollToIndex({index: index + 1});
   };
   const Preious = index => {
-    setCurrIndex(index-1);
-    setProgress((((currIndex)/7)*100)+"%");
-    pagesRef.current.scrollToIndex({index: index - 1})
+    setCurrIndex(index - 1);
+    setProgress((currIndex / 7) * 100 + '%');
+    pagesRef.current.scrollToIndex({index: index - 1});
   };
   const navigation = useNavigation();
   return (
-    
     <View style={styles.screen}>
       <Backbtn
         IconSize={30}
@@ -48,64 +47,64 @@ const OpenBook = props => {
           ref={pagesRef}
           pagingEnabled
           renderItem={({item, index}) => {
-            
             return (
-            
-            <View style={styles.pageContainer}>
-              <View style={styles.overlay}>
-                <TouchableOpacity
-                  onPress={() => {
-                    if (index > 0) {
-                      Preious(index);
-                    }
-                  }}
-                  style={styles.previous}></TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => {
-                    if (index < bookData.length - 1) {
-                      Next(index);
-                    }
-                  }}
-                  style={styles.next}></TouchableOpacity>
+              <View style={styles.pageContainer}>
+                <View style={styles.overlay}>
+                  <TouchableOpacity
+                    onPress={() => {
+                      if (index > 0) {
+                        Preious(index);
+                      }
+                    }}
+                    style={styles.previous}></TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      if (index < bookData.length - 1) {
+                        Next(index);
+                      }
+                    }}
+                    style={styles.next}></TouchableOpacity>
+                </View>
+                <View style={styles.page}>
+                  {item.type == 'TEXT' ? (
+                    <>
+                      <Text style={styles.title}>{item.title}</Text>
+                      <Text style={styles.body}>{item.body}</Text>
+                    </>
+                  ) : (
+                    <>
+                      <Text style={styles.question}>{item.question}</Text>
+                      <TouchableOpacity>
+                        <Text>A. {item.option[0]}</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity>
+                        <Text>B. {item.option[1]}</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity>
+                        <Text>C. {item.option[2]}</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity>
+                        <Text>D. {item.option[3]}</Text>
+                      </TouchableOpacity>
+                      <Text>{item.ans}</Text>
+                    </>
+                  )}
+                </View>
               </View>
-              <View style={styles.page}>
-              {item.type=='TEXT'?
-              ( 
-                <>
-                <Text>{item.title}</Text>
-                <Text>{item.body}</Text>
-                </>
-              ):(
-                <>
-                <Text>{item.question}</Text>
-                <Text>A. {item.option[0]}</Text>
-                <Text>B. {item.option[1]}</Text>
-                <Text>C. {item.option[2]}</Text>
-                <Text>D. {item.option[3]}</Text>
-                <Text>{item.ans}</Text>
-                </>
-              )
-              }
-              </View>
-            </View>
-          )
-          }
-        }
+            );
+          }}
         />
       )}
       <View style={styles.StatusContainer}>
         <View style={styles.progressContainer}>
           <View style={[styles.complete, {width: progress}]}></View>
         </View>
-        <TouchableOpacity style={{marginStart: '5%'}}>
+        <TouchableOpacity style={{marginStart: '12%'}}>
           <Icon2
             name="bookmark-outline"
             size={28}
             color={AppColors.ActiveColor}
           />
-        </TouchableOpacity>
-        <TouchableOpacity style={{marginStart: '5%'}}>
-          <Icon2 name="heart-outline" size={28} color={AppColors.ActiveColor} />
         </TouchableOpacity>
       </View>
     </View>
@@ -160,6 +159,25 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: AppColors.ActiveColor,
     borderRadius: 20,
+  },
+  title: {
+    fontFamily: 'Poppins-Bold',
+    color: AppColors.primarycolor,
+    fontSize: 22,
+    alignSelf: 'center',
+  },
+  body: {
+    marginTop: '10%',
+    fontFamily: 'Poppins-Regular',
+    color: AppColors.infoFonts,
+    paddingHorizontal: '4%',
+    fontSize: 16,
+    alignSelf: 'center',
+  },
+  question: {
+    fontFamily: 'Poppins-Bold',
+    color: AppColors.primarycolor,
+    fontSize: 22,
   },
 });
 export default OpenBook;

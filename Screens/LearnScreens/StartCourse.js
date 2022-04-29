@@ -34,10 +34,10 @@ const StartCourse = props => {
         <View
           style={{
             backgroundColor: 'rgba(0, 0, 0, 0.6)',
-            justifyContent: 'center',
             alignItems: 'center',
             paddingVertical: '3%',
-            top: Height / 4.8,
+            top: 160,
+            height: '100%',
           }}>
           <Text
             style={{
@@ -69,11 +69,18 @@ const StartCourse = props => {
         <FlatList
           data={courseData.chapter}
           renderItem={({item, index}) => (
-            <View key={index} style={styles.ChapterCard}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('instruction', {
+                  BookData: item,
+                });
+              }}
+              key={index}
+              style={styles.ChapterCard}>
               <View
                 style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <View>
-                  <Text style={styles.chapter}>Chapter - {index+1}</Text>
+                  <Text style={styles.chapter}>Chapter - {index + 1}</Text>
                   <Text>{item.name}</Text>
                 </View>
                 <TouchableOpacity
@@ -93,15 +100,7 @@ const StartCourse = props => {
                   />
                 </TouchableOpacity>
               </View>
-              <View style={styles.progressContainer}>
-                <View
-                  style={{
-                    height: '100%',
-                    backgroundColor: AppColors.ActiveColor,
-                    width: item.complete,
-                  }}></View>
-              </View>
-            </View>
+            </TouchableOpacity>
           )}
         />
       </ScrollView>
@@ -146,12 +145,13 @@ const styles = StyleSheet.create({
   },
   ChapterContainer: {
     paddingHorizontal: '5%',
+    paddingVertical: '3%',
   },
   ChapterCard: {
     backgroundColor: AppColors.BtnClr,
     borderRadius: 18,
     marginVertical: '2%',
-    paddingVertical: '2%',
+    paddingVertical: '4%',
     paddingHorizontal: '5%',
   },
   chapter: {

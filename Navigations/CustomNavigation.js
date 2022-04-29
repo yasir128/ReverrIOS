@@ -28,6 +28,8 @@ import Webview from '../Screens/WebView';
 import StartCourse from '../Screens/LearnScreens/StartCourse';
 import OpenBook from '../Screens/LearnScreens/OpenBook';
 import ReadingInstruction from '../Screens/LearnScreens/ReadingInstruction';
+import Room from '../Screens/RoomScreens/Room';
+import CreatePost from '../Screens/RoomScreens/CreatePost';
 
 const Stack = createNativeStackNavigator();
 
@@ -164,6 +166,22 @@ export const FundingStack = () => {
       <Stack.Screen
         name="Apply"
         component={ApplyFunding}
+        options={{headerShown: false}}
+      />
+    </Stack.Navigator>
+  );
+};
+export const RoomStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Room"
+        component={Room}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="CreatePost"
+        component={CreatePost}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

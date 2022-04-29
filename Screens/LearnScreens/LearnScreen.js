@@ -6,19 +6,19 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import HeaderLayout from '../HomeScreens/HeaderLayout';
 import SwipeCard from '../../Componants/SwipeCard';
 import {courseData} from '../../dummy-data/courseData';
 import AppColors from '../../Constaint/AppColors';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { CourseContext } from '../../App';
+import {CourseContext} from '../../App';
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
 const LearnScreen = () => {
-  const {coursestate,coursedispatch} = useContext(CourseContext);
+  const {coursestate, coursedispatch} = useContext(CourseContext);
   return (
     <HeaderLayout>
       <ScrollView>
@@ -116,7 +116,8 @@ const LearnScreen = () => {
             maxString={30}
             style={styles.popularCard}
             overlay={{
-              top: 70,
+              top: 150,
+              alignItems: 'center',
               backgroundColor: 'rgba(0, 0, 0, 0.6)',
               height: '100%',
             }}
@@ -129,7 +130,8 @@ const LearnScreen = () => {
 const styles = StyleSheet.create({
   overlay: {
     backgroundColor: 'rgba(0, 0, 0, 0.6)',
-    top: Height > 684 ? 60 : 90,
+    top: Height > 684 ? 140 : 90,
+    alignItems: 'center',
     height: '100%',
   },
   title: {

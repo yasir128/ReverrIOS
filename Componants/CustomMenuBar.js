@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
   Container: {
     width: '95%',
     height: Height / 20,
+    alignSelf: 'center',
     flexDirection: 'row',
     paddingHorizontal: '15%',
     justifyContent: 'center',

@@ -9,6 +9,7 @@ import {
   MentorStack,
   FundingStack,
   LearnStack,
+  RoomStack,
 } from './CustomNavigation';
 import AppColors from '../Constaint/AppColors';
 import {NavigationContainer} from '@react-navigation/native';
@@ -102,6 +103,40 @@ const LearnerNav = () => {
             headerShown: false,
             headerTintColor: 'blue',
             tabBarLabel: 'Funding',
+            tabBarLabelStyle: {
+              marginBottom: 7,
+              fontFamily: 'Poppins-Bold',
+              fontSize: 10,
+            },
+            tabBarActiveBackgroundColor: AppColors.bottomBg,
+            tabBarLabelPosition: 'below-icon',
+            tabBarActiveTintColor: AppColors.FontsColor,
+            tabBarInactiveTintColor: 'gray',
+            tabBarStyle: {
+              height: 60,
+              backgroundColor: AppColors.bottomBg,
+            },
+            tabBarIcon: tabinfo => {
+              return (
+                <Icon2
+                  name="rupee-sign"
+                  size={28}
+                  color={tabinfo.focused ? '#40BFFF' : '#A6A6A6'}
+                  style={{
+                    marginTop: 5,
+                  }}
+                />
+              );
+            },
+          }}
+        />
+        <MyTab.Screen
+          name="RoomTab"
+          component={RoomStack}
+          options={{
+            headerShown: false,
+            headerTintColor: 'blue',
+            tabBarLabel: 'Room',
             tabBarLabelStyle: {
               marginBottom: 7,
               fontFamily: 'Poppins-Bold',

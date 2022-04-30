@@ -47,44 +47,6 @@ const Room = () => {
           Room
         </Text>
       </View>
-      <View style={styles.btnContainer}>
-        <TouchableOpacity>
-          <LinearGradient
-            colors={[AppColors.primarycolor, '#012437']}
-            start={{x: 0, y: 1.3}}
-            end={{x: 1, y: 0.5}}
-            style={styles.btn}>
-            <Icon name="users" size={20} color={AppColors.infoFonts} />
-            <Text
-              style={{
-                color: AppColors.FontsColor,
-                fontFamily: 'Poppins-Regular',
-                fontSize: 12,
-                left: 10,
-              }}>
-              Join a Group Session
-            </Text>
-          </LinearGradient>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <LinearGradient
-            colors={[AppColors.primarycolor, '#012437']}
-            start={{x: 0, y: 1.3}}
-            end={{x: 1, y: 0.5}}
-            style={styles.btn}>
-            <Icon name="people-arrows" size={20} color={AppColors.infoFonts} />
-            <Text
-              style={{
-                color: AppColors.FontsColor,
-                fontFamily: 'Poppins-Regular',
-                fontSize: 12,
-                left: 10,
-              }}>
-              Join a 1 V 1 Session
-            </Text>
-          </LinearGradient>
-        </TouchableOpacity>
-      </View>
       <CustomMenuBar
         Item1="Featured"
         Item2="Discussion"

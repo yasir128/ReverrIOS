@@ -19,7 +19,7 @@ export const GetUser = async setData => {
 
 export const ChangeDp = (loading, setLoading, dispatch) => {
   ImagePicker.openPicker({
-    cropping: true,
+    mediaType: 'photo',
   }).then(image => {
     try {
       loading;
@@ -48,6 +48,108 @@ export const ChangeDp = (loading, setLoading, dispatch) => {
   });
 };
 
+export const AddGalleryImage = () => {
+  ImagePicker.openPicker({
+    mediaType: 'photo',
+  }).then(image => {
+    try {
+      const url = image.path;
+      const imageURL = url.substring(url.lastIndexOf('/') + 1);
+      storage()
+        .ref('Images/' + imageURL)
+        .putFile(url)
+        .then(async () => {
+          var imgURL = await storage()
+            .ref('Images/' + imageURL)
+            .getDownloadURL();
+          console.log(imgURL);
+          /*  dispatch({type: 'UPDATEPHOTO', payload: imgURL});
+          await firestore().collection('Users').doc(userEmail).update({
+            image: imgURL,
+          }); */
+        });
+    } catch (error) {
+      alert('Cancel');
+    }
+  });
+};
+export const AddCameraImage = () => {
+  ImagePicker.openCamera({
+    mediaType: 'photo',
+  }).then(image => {
+    try {
+      const url = image.path;
+      const imageURL = url.substring(url.lastIndexOf('/') + 1);
+      storage()
+        .ref('Images/' + imageURL)
+        .putFile(url)
+        .then(async () => {
+          var imgURL = await storage()
+            .ref('Images/' + imageURL)
+            .getDownloadURL();
+          console.log(imgURL);
+          /*  dispatch({type: 'UPDATEPHOTO', payload: imgURL});
+          await firestore().collection('Users').doc(userEmail).update({
+            image: imgURL,
+          }); */
+        });
+    } catch (error) {
+      alert('Cancel');
+    }
+  });
+};
+
+export const AddGalleryVideo = () => {
+  ImagePicker.openPicker({
+    mediaType: 'video',
+  }).then(image => {
+    try {
+      const url = image.path;
+      const imageURL = url.substring(url.lastIndexOf('/') + 1);
+      storage()
+        .ref('Images/' + imageURL)
+        .putFile(url)
+        .then(async () => {
+          var imgURL = await storage()
+            .ref('Images/' + imageURL)
+            .getDownloadURL();
+          console.log(imgURL);
+          /*  dispatch({type: 'UPDATEPHOTO', payload: imgURL});
+          await firestore().collection('Users').doc(userEmail).update({
+            image: imgURL,
+          }); */
+        });
+    } catch (error) {
+      alert('Cancel');
+    }
+  });
+};
+export const AddCameraVideo = () => {
+  ImagePicker.openCamera({
+    mediaType: 'video',
+  }).then(image => {
+    try {
+      const url = image.path;
+      const imageURL = url.substring(url.lastIndexOf('/') + 1);
+      storage()
+        .ref('Images/' + imageURL)
+        .putFile(url)
+        .then(async () => {
+          var imgURL = await storage()
+            .ref('Images/' + imageURL)
+            .getDownloadURL();
+          console.log(imgURL);
+          /*  dispatch({type: 'UPDATEPHOTO', payload: imgURL});
+          await firestore().collection('Users').doc(userEmail).update({
+            image: imgURL,
+          }); */
+        });
+    } catch (error) {
+      alert('Cancel');
+    }
+  });
+};
+
 export const GetAllMentors = async setFn => {
   const subscriber = await firestore()
     .collection('Users')
@@ -62,48 +164,6 @@ export const GetAllMentors = async setFn => {
       setFn(users.filter(y => y.userType == 'mentor'));
     });
 };
-
-// export const GetChatList = async list => {
-//   if(list+"s"!="s"){
-//     var array = [];
-//     list.forEach(async(user)=>{
-//       const savedUser = await firestore()
-//         .collection('Users')
-//         .doc(user)
-//         .get();
-//       array.push(savedUser._data);
-//     })
-//     console.log("shoing")
-//     console.log(array);
-//     // return array;
-//   }else{
-//     console.log("empty")
-//   }
-// };
-
-// export const getChatList = async (list)=>{
-
-//   if(list+"s"!="s"){
-//     try{
-//       var array = [];
-//       list.forEach(user=>{
-//         const savedUser = await firestore()
-//         .collection('Users')
-//         .doc(user)
-//         .get().then(()=>console.log(savedUser._data))
-//       })
-
-//       return array;
-//     }
-//     catch(err){
-//       console.log(err);
-//     }
-//   }
-//   else{
-//     console.log("empty");
-//   }
-
-// };
 export const CreateMessagePath = async (currentcUser, sendTo) => {
   firestore()
     .collection('Messages')
@@ -173,34 +233,22 @@ export const ReciveMessage = async (currentcUser, sendTo, setmsg) => {
     .doc(sendTo.email)
     .get();
   setmsg(Allmsg._data.messages);
-
-  //console.log(userEmail);
-  // setuserEmail(userEmail);
-  // const Allmsg = await firestore()
-  //   .collection('Messages')
-  //   .doc(userEmail)
-  //   .collection('YourMatches')
-  //   .doc(sendTo.email)
-  //   .get();
-  // setRecive(Allmsg._data.messages);
-
-  // console.log(Recive);
 };
 
-export const SaveArticle = async (item , email, articles)=>{
+export const SaveArticle = async (item, email, articles) => {
   console.log(email);
   const res = await firestore()
     .collection('Users')
     .doc(email)
-    .update({savedArticles:[...articles,item.id]});
+    .update({savedArticles: [...articles, item.id]});
   console.log(res);
-}
+};
 
-export const RemoveArticle = async (item, email, articles)=>{
+export const RemoveArticle = async (item, email, articles) => {
   console.log(email);
   const res = await firestore()
     .collection('Users')
     .doc(email)
-    .update({savedArticles:[...articles.filter(arti=>arti!=item.id)]});
+    .update({savedArticles: [...articles.filter(arti => arti != item.id)]});
   console.log(res);
-}
+};

@@ -11,17 +11,24 @@ import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import AppColors from '../../Constaint/AppColors';
-import App from '../../App';
 import CustomBtn from '../../Componants/CustomBtn';
 import LinearGradient from 'react-native-linear-gradient';
 import ModelView from '../../Componants/ModelView';
 import {useNavigation} from '@react-navigation/native';
+import {
+  AddCameraImage,
+  AddCameraVideo,
+  AddGalleryImage,
+  AddGalleryVideo,
+} from '../../utils/fireBaseFunctions';
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
 const CreatePost = () => {
-  const [bottomSlid, setBottomSlid] = useState(true);
+  const [poupop, setPoupop] = useState(false);
+  const [image, setImage] = useState(false);
+  const [video, setVideo] = useState(false);
   const navigation = useNavigation();
   return (
     <View style={styles.screen}>
@@ -62,103 +69,105 @@ const CreatePost = () => {
             numberOfLines={8}
             maxLength={150}
           />
-        </View>
-        <ModelView ShowModal={bottomSlid}>
-          <LinearGradient
-            colors={[AppColors.primarycolor, '#012437']}
-            start={{x: 1.5, y: 1.3}}
-            end={{x: 0, y: 0.5}}
-            style={styles.BottomPoupop}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingHorizontal: '5%',
+              marginTop: '50%',
+            }}>
             <TouchableOpacity
-              onPress={() => setBottomSlid(false)}
-              style={{
-                height: 5,
-                backgroundColor: AppColors.FontsColor,
-                marginHorizontal: '25%',
-                marginTop: '2%',
-                borderRadius: 10,
-              }}></TouchableOpacity>
-            <View style={{justifyContent: 'center', marginTop: '7%'}}>
+              onPress={() => {
+                setPoupop(true);
+                setImage(true);
+                setVideo(false);
+              }}>
+              <Icon name="camera" size={27} color={AppColors.FontsColor} />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{marginStart: '5%'}}
+              onPress={() => {
+                setPoupop(true);
+                setVideo(true);
+                setImage(false);
+              }}>
+              <Icon name="video" size={27} color={AppColors.FontsColor} />
+            </TouchableOpacity>
+            <TouchableOpacity style={{marginStart: '5%'}}>
+              <Icon2
+                name="stats-chart"
+                size={27}
+                color={AppColors.FontsColor}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity style={{marginStart: '5%'}}>
+              <Icon2
+                name="alert-circle"
+                size={27}
+                color={AppColors.FontsColor}
+              />
+            </TouchableOpacity>
+          </View>
+          <ModelView
+            ShowModal={poupop}
+            onRequestClose={() => {
+              setPoupop(false);
+            }}>
+            <LinearGradient
+              colors={[AppColors.primarycolor, '#012437']}
+              start={{x: -0.7, y: 1.3}}
+              end={{x: 1, y: 0.5}}
+              style={styles.BottomPoupop}>
               <TouchableOpacity
+                onPress={() => {
+                  setPoupop(false);
+                }}
+                style={{marginStart: Width / 1.1, paddingVertical: '3%'}}>
+                <Icon name="times" size={26} color={AppColors.FontsColor} />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  if (image) {
+                    AddCameraImage();
+                  }
+                  if (video) {
+                    AddCameraVideo();
+                  }
+                }}
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
-                  paddingHorizontal: '6%',
-                  paddingVertical: '5%',
+                  paddingHorizontal: '8%',
+                  marginTop: '5%',
                 }}>
-                <Icon name="camera" size={22} color={AppColors.FontsColor} />
-                <Text
-                  style={{
-                    color: AppColors.BtnClr,
-                    fontFamily: 'Poppins-Regular',
-                    marginStart: '2%',
-                  }}>
-                  Add a photo
+                <Icon name="camera" color={AppColors.FontsColor} size={25} />
+                <Text style={[styles.name, {marginStart: '5%'}]}>
+                  Open Camera
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
+                onPress={() => {
+                  if (image) {
+                    AddGalleryImage();
+                  }
+                  if (video) {
+                    AddGalleryVideo();
+                  }
+                }}
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
-                  paddingHorizontal: '6%',
-                  marginTop: '3%',
+                  paddingHorizontal: '8%',
+                  marginTop: '6%',
                 }}>
-                <Icon name="video" size={22} color={AppColors.FontsColor} />
-                <Text
-                  style={{
-                    color: AppColors.BtnClr,
-                    fontFamily: 'Poppins-Regular',
-                    marginStart: '2%',
-                  }}>
-                  Take a video
+                <Icon name="images" color={AppColors.FontsColor} size={25} />
+                <Text style={[styles.name, {marginStart: '5%'}]}>
+                  Select From Gallary
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  paddingHorizontal: '6%',
-                  paddingVertical: '5%',
-                  marginTop: '3%',
-                }}>
-                <Icon2
-                  name="stats-chart"
-                  size={22}
-                  color={AppColors.FontsColor}
-                />
-                <Text
-                  style={{
-                    color: AppColors.BtnClr,
-                    fontFamily: 'Poppins-Regular',
-                    marginStart: '2%',
-                  }}>
-                  Create a poll
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  paddingHorizontal: '6%',
-                  marginTop: '3%',
-                }}>
-                <Icon2
-                  name="alert-circle"
-                  size={22}
-                  color={AppColors.FontsColor}
-                />
-                <Text
-                  style={{
-                    color: AppColors.BtnClr,
-                    fontFamily: 'Poppins-Regular',
-                    marginStart: '2%',
-                  }}>
-                  Find an expert
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </LinearGradient>
-        </ModelView>
+            </LinearGradient>
+          </ModelView>
+        </View>
       </View>
     </View>
   );
@@ -195,7 +204,7 @@ const styles = StyleSheet.create({
   },
   card: {
     width: '100%',
-    height: '100%',
+    height: '85%',
     borderRadius: 12,
     backgroundColor: AppColors.CardColor,
   },
@@ -221,6 +230,7 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     marginHorizontal: '5%',
     fontSize: 20,
+    paddingLeft: 12,
     height: 250,
     paddingRight: 10,
     lineHeight: 23,
@@ -228,7 +238,7 @@ const styles = StyleSheet.create({
   },
   BottomPoupop: {
     width: '100%',
-    height: Height / 2.5,
+    height: Height / 3.5,
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     position: 'absolute',

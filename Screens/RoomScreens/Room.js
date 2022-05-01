@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Dimensions,
   ScrollView,
+  ImageBackground,
   Image,
   TouchableOpacity,
 } from 'react-native';
@@ -18,7 +19,6 @@ import CustomMenuBar from '../../Componants/CustomMenuBar';
 import {postData} from '../../dummy-data/postData';
 import CreatePostButton from '../../Componants/LearnComponents/CreatePostButton';
 import {smallString} from '../../utils/helper';
-import CustomModal from './CustomModal';
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
@@ -26,7 +26,8 @@ const Height = Dimensions.get('window').height;
 const Room = () => {
   const [features, setFeatures] = useState(true);
   const [subs, setSubs] = useState(false);
-  let popupRef = React.createRef();
+  const [seeMore, setSeeMore] = useState(false);
+  const [poupop, setPoupop] = useState(false);
   const navigation = useNavigation();
   return (
     <View style={styles.screen}>
@@ -79,7 +80,7 @@ const Room = () => {
                     <Text style={styles.company}>{item.creatorCompany}</Text>
                   </View>
                 </View>
-                <TouchableOpacity /* onPress={() => popupRef.onOpenModal()} */>
+                <TouchableOpacity onPress={() => setPoupop(true)}>
                   <Icon2
                     name="ellipsis-vertical"
                     size={22}
@@ -88,62 +89,91 @@ const Room = () => {
                 </TouchableOpacity>
               </View>
               <View style={styles.postContainer}>
-                {item.image != '' ? (
-                  <Image style={styles.image} source={{uri: item.image}} />
-                ) : null}
-                {item.details != '' || item.details.length > 300 ? (
+                {item.image !== '' ? (
                   <View>
-                    <Text style={styles.details}>
-                      {smallString(item.details, 82)}
-                    </Text>
-                    <TouchableOpacity>
-                      <Text style={{color: AppColors.BtnClr}}>Read More</Text>
-                    </TouchableOpacity>
+                    {item.details !== '' ? (
+                      <View>
+                        {seeMore ? (
+                          <View style={[styles.image, {overflow: 'hidden'}]}>
+                            <ImageBackground
+                              style={{width: '100%', height: '100%'}}
+                              source={{uri: item.image}}>
+                              <View style={{paddingHorizontal: '5%'}}>
+                                <Text style={styles.details}>
+                                  {item.details}
+                                </Text>
+                                <TouchableOpacity
+                                  onPress={() => {
+                                    setSeeMore(false);
+                                  }}>
+                                  <Text style={styles.company}>Hide</Text>
+                                </TouchableOpacity>
+                              </View>
+                            </ImageBackground>
+                          </View>
+                        ) : (
+                          <View>
+                            <Image
+                              style={styles.image}
+                              source={{uri: item.image}}
+                            />
+                            <View>
+                              <Text style={styles.details}>
+                                {smallString(item.details, 100)}
+                              </Text>
+                              <TouchableOpacity
+                                onPress={() => {
+                                  setSeeMore(true);
+                                }}>
+                                <Text style={styles.company}>See More</Text>
+                              </TouchableOpacity>
+                            </View>
+                          </View>
+                        )}
+                      </View>
+                    ) : (
+                      <Image style={styles.image} source={{uri: item.image}} />
+                    )}
                   </View>
                 ) : (
-                  <Text style={styles.details}>{item.details}</Text>
+                  <View>
+                    <Text style={styles.details}>{item.details}</Text>
+                  </View>
                 )}
               </View>
               <View style={styles.IconContainer}>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Icon name="heart" size={29} color={AppColors.FontsColor} />
+                  <TouchableOpacity>
+                    <Icon name="heart" size={22} color={AppColors.FontsColor} />
+                  </TouchableOpacity>
                   <Text style={[styles.name, {marginStart: '8%'}]}>
                     {item.likes}
                   </Text>
                 </View>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Icon name="comment" size={29} color={AppColors.FontsColor} />
+                  <TouchableOpacity>
+                    <Icon
+                      name="comment"
+                      size={22}
+                      color={AppColors.FontsColor}
+                    />
+                  </TouchableOpacity>
                   <Text style={[styles.name, {marginStart: '8%'}]}>
                     {item.comments}
                   </Text>
                 </View>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Icon
-                    name="share-square"
-                    size={29}
-                    color={AppColors.FontsColor}
-                  />
+                  <TouchableOpacity>
+                    <Icon
+                      name="share-square"
+                      size={22}
+                      color={AppColors.FontsColor}
+                    />
+                  </TouchableOpacity>
                   <Text style={[styles.name, {marginStart: '8%'}]}>
                     {item.share}
                   </Text>
                 </View>
-                {/* <CustomModal
-                  ref={target => (popupRef = target)}
-                  height={38}
-                  onTouchOutside={() => popupRef.onCloseModal()}>
-                  <TouchableOpacity>
-                    <Text style={styles.modalText}>Add Members</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Text style={styles.modalText}>Delete Group</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Text style={styles.modalText}>View Members</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Text style={styles.modalText}>Privacy Policy</Text>
-                  </TouchableOpacity>
-                </CustomModal> */}
               </View>
             </LinearGradient>
           ))}

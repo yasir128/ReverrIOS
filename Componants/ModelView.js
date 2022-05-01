@@ -10,7 +10,7 @@ const ModelView = props => {
       onRequestClose={props.onCloseModal}>
       <TouchableOpacity
         activeOpacity={1}
-        style={{backgroundColor: 'rgba(0000, 0, 0, 0.0)', flex: 1}}>
+        style={{backgroundColor: 'rgba(0000, 0, 0, 0)', flex: 1}}>
         {props.children}
       </TouchableOpacity>
     </Modal>

@@ -4,11 +4,10 @@ import {
   StyleSheet,
   Dimensions,
   ScrollView,
-  ImageBackground,
   Image,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import AppColors from '../../Constaint/AppColors';
 import Backbtn from '../../Componants/Backbtn';
 import {useNavigation} from '@react-navigation/native';
@@ -19,16 +18,165 @@ import CustomMenuBar from '../../Componants/CustomMenuBar';
 import {postData} from '../../dummy-data/postData';
 import CreatePostButton from '../../Componants/LearnComponents/CreatePostButton';
 import {smallString} from '../../utils/helper';
+import CustomModal from './CustomModal';
+import firestore from '@react-native-firebase/firestore';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
 const Room = () => {
+  const [posts, setPosts] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [deleted, setDeleted] = useState(false);
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const fetchPosts = async () => {
+    try {
+      const list = [];
+      await firestore()
+        .collection('Posts')
+        .orderBy('createdat', 'desc')
+        .get()
+        .then((querySnapshot) => {
+          // console.log('Total Posts: ', querySnapshot.size);
+
+          querySnapshot.forEach((doc) => {
+            let post = doc.data();
+            post.id = doc.id;
+            if (post.postedby) {
+              post.postedby.get()
+              .then(res => { 
+                let response = res.data() 
+                delete response.password;
+                post.postedby = response; 
+                if(post.comments.length > 0){
+                  post.comments.forEach((comment)=>{
+                    comment.commentedby.get()
+                    .then(res => { 
+                      let commentor = res.data() 
+                      delete commentor.password;
+                      comment.commentedby = commentor;
+                    })
+                    .catch(err=> console.log(err));
+                  })
+                }
+                console.log(post);
+                list.push(post);
+                setPosts(list);
+                if (loading) {
+                  setLoading(false);
+                }
+                // console.log('Posts: ', posts);
+                // console.log("lists :", list)
+              })
+              .catch(err => console.error(err));
+            } 
+            else {
+                list.push(post);  
+                setPosts(list);
+                if (loading) {
+                  setLoading(false);
+                }
+                // console.log('Posts: ', posts);
+              }
+          });
+        });
+
+
+
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    fetchPosts();
+    setDeleted(false);
+  }, [deleted]);
+
+  const handleDelete = (postId) => {
+    Alert.alert(
+      'Delete post',
+      'Are you sure?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed!'),
+          style: 'cancel',
+        },
+        {
+          text: 'Confirm',
+          onPress: () => deletePost(postId),
+        },
+      ],
+      {cancelable: false},
+    );
+  };
+
+  const deletePost = (postId) => {
+    console.log('Current Post Id: ', postId);
+
+    firestore()
+      .collection('Posts')
+      .doc(postId)
+      .get()
+      .then((documentSnapshot) => {
+        if (documentSnapshot.exists) {
+          const {image} = documentSnapshot.data();
+
+          if (image != null) {
+            const storageRef = storage().refFromURL(image);
+            const imageRef = storage().ref(storageRef.fullPath);
+
+            imageRef
+              .delete()
+              .then(() => {
+                console.log(`${image} has been deleted successfully.`);
+                deleteFirestoreData(postId);
+              })
+              .catch((e) => {
+                console.log('Error while deleting the image. ', e);
+              });
+            // If the post image is not available
+          } else {
+            deleteFirestoreData(postId);
+          }
+        }
+      });
+  };
+
+  const deleteFirestoreData = (postId) => {
+    firestore()
+      .collection('Posts')
+      .doc(postId)
+      .delete()
+      .then(() => {
+        Alert.alert(
+          'Post deleted!',
+          'Your post has been deleted successfully!',
+        );
+        setDeleted(true);
+      })
+      .catch((e) => console.log('Error deleting posst.', e));
+  };
+
   const [features, setFeatures] = useState(true);
   const [subs, setSubs] = useState(false);
-  const [seeMore, setSeeMore] = useState(false);
-  const [poupop, setPoupop] = useState(false);
+  let popupRef = React.createRef();
   const navigation = useNavigation();
+
+  if (loading){
+    return(
+     <View>
+       <Text>loading...</Text>
+     </View>
+    );
+  }
+  else{
   return (
     <View style={styles.screen}>
       <View style={styles.header}>
@@ -45,9 +193,47 @@ const Room = () => {
             fontFamily: 'Poppins-SemiBold',
             fontSize: 21,
           }}>
-          Room
+          Room {loading==false && console.log('postsss feed:',posts[0])}
         </Text>
       </View>
+      {/* <View style={styles.btnContainer}>
+        <TouchableOpacity>
+          <LinearGradient
+            colors={[AppColors.primarycolor, '#012437']}
+            start={{x: 0, y: 1.3}}
+            end={{x: 1, y: 0.5}}
+            style={styles.btn}>
+            <Icon name="users" size={20} color={AppColors.infoFonts} />
+            <Text
+              style={{
+                color: AppColors.FontsColor,
+                fontFamily: 'Poppins-Regular',
+                fontSize: 12,
+                left: 10,
+              }}>
+              Join a Group Session
+            </Text>
+          </LinearGradient>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <LinearGradient
+            colors={[AppColors.primarycolor, '#012437']}
+            start={{x: 0, y: 1.3}}
+            end={{x: 1, y: 0.5}}
+            style={styles.btn}>
+            <Icon name="people-arrows" size={20} color={AppColors.infoFonts} />
+            <Text
+              style={{
+                color: AppColors.FontsColor,
+                fontFamily: 'Poppins-Regular',
+                fontSize: 12,
+                left: 10,
+              }}>
+              Join a 1 V 1 Session
+            </Text>
+          </LinearGradient>
+        </TouchableOpacity>
+      </View> */}
       <CustomMenuBar
         Item1="Featured"
         Item2="Discussion"
@@ -63,9 +249,8 @@ const Room = () => {
         }}
       />
       <ScrollView style={{marginTop: '5%'}}>
-        {postData &&
-          postData.length > 0 &&
-          postData.map((item, index) => (
+        {posts &&
+          posts.map((item, index) => (
             <LinearGradient
               key={index}
               colors={[AppColors.primarycolor, '#012437']}
@@ -74,13 +259,13 @@ const Room = () => {
               style={styles.postCard}>
               <View style={styles.creatorDetails}>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <Image style={styles.dp} source={{uri: item.dp}} />
+                  <Image style={styles.dp} source={{uri: item.postedby.image}} />
                   <View style={{marginStart: '3%'}}>
-                    <Text style={styles.name}>{item.postCreator}</Text>
-                    <Text style={styles.company}>{item.creatorCompany}</Text>
+                    <Text style={styles.name}>{item.postedby.name}</Text>
+                    <Text style={styles.company}>{item.postedby.designation}</Text>
                   </View>
                 </View>
-                <TouchableOpacity onPress={() => setPoupop(true)}>
+                <TouchableOpacity /* onPress={() => popupRef.onOpenModal()} */>
                   <Icon2
                     name="ellipsis-vertical"
                     size={22}
@@ -89,91 +274,62 @@ const Room = () => {
                 </TouchableOpacity>
               </View>
               <View style={styles.postContainer}>
-                {item.image !== '' ? (
+                {item.image != ''&&item.image !=undefined ? (
+                  <Image style={styles.image} source={{uri: item.image}} />
+                ) : null}
+                {item.text != '' || item.text.length > 300 ? (
                   <View>
-                    {item.details !== '' ? (
-                      <View>
-                        {seeMore ? (
-                          <View style={[styles.image, {overflow: 'hidden'}]}>
-                            <ImageBackground
-                              style={{width: '100%', height: '100%'}}
-                              source={{uri: item.image}}>
-                              <View style={{paddingHorizontal: '5%'}}>
-                                <Text style={styles.details}>
-                                  {item.details}
-                                </Text>
-                                <TouchableOpacity
-                                  onPress={() => {
-                                    setSeeMore(false);
-                                  }}>
-                                  <Text style={styles.company}>Hide</Text>
-                                </TouchableOpacity>
-                              </View>
-                            </ImageBackground>
-                          </View>
-                        ) : (
-                          <View>
-                            <Image
-                              style={styles.image}
-                              source={{uri: item.image}}
-                            />
-                            <View>
-                              <Text style={styles.details}>
-                                {smallString(item.details, 100)}
-                              </Text>
-                              <TouchableOpacity
-                                onPress={() => {
-                                  setSeeMore(true);
-                                }}>
-                                <Text style={styles.company}>See More</Text>
-                              </TouchableOpacity>
-                            </View>
-                          </View>
-                        )}
-                      </View>
-                    ) : (
-                      <Image style={styles.image} source={{uri: item.image}} />
-                    )}
+                    <Text style={styles.details}>
+                      {smallString(item.text, 82)}
+                    </Text>
+                    <TouchableOpacity>
+                      <Text style={{color: AppColors.BtnClr}}>Read More</Text>
+                    </TouchableOpacity>
                   </View>
                 ) : (
-                  <View>
-                    <Text style={styles.details}>{item.details}</Text>
-                  </View>
+                  <Text style={styles.details}>{item.text}</Text>
                 )}
               </View>
               <View style={styles.IconContainer}>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <TouchableOpacity>
-                    <Icon name="heart" size={22} color={AppColors.FontsColor} />
-                  </TouchableOpacity>
+                  <Icon name="heart" size={29} color={AppColors.FontsColor} />
                   <Text style={[styles.name, {marginStart: '8%'}]}>
                     {item.likes}
                   </Text>
                 </View>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <TouchableOpacity>
-                    <Icon
-                      name="comment"
-                      size={22}
-                      color={AppColors.FontsColor}
-                    />
-                  </TouchableOpacity>
+                  <Icon name="comment" size={29} color={AppColors.FontsColor} />
                   <Text style={[styles.name, {marginStart: '8%'}]}>
                     {item.comments}
                   </Text>
                 </View>
                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <TouchableOpacity>
-                    <Icon
-                      name="share-square"
-                      size={22}
-                      color={AppColors.FontsColor}
-                    />
-                  </TouchableOpacity>
-                  <Text style={[styles.name, {marginStart: '8%'}]}>
+                  <Icon
+                    name="share-square"
+                    size={29}
+                    color={AppColors.FontsColor}
+                  />
+                  {/* <Text style={[styles.name, {marginStart: '8%'}]}>
                     {item.share}
-                  </Text>
+                  </Text> */}
                 </View>
+                {/* <CustomModal
+                  ref={target => (popupRef = target)}
+                  height={38}
+                  onTouchOutside={() => popupRef.onCloseModal()}>
+                  <TouchableOpacity>
+                    <Text style={styles.modalText}>Add Members</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Text style={styles.modalText}>Delete Group</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Text style={styles.modalText}>View Members</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Text style={styles.modalText}>Privacy Policy</Text>
+                  </TouchableOpacity>
+                </CustomModal> */}
               </View>
             </LinearGradient>
           ))}
@@ -186,6 +342,7 @@ const Room = () => {
       />
     </View>
   );
+  }
 };
 const styles = StyleSheet.create({
   screen: {

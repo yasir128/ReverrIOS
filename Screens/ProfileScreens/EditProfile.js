@@ -231,7 +231,7 @@ const EditProfile = () => {
       <CustomBtn
         Title="Save Changes"
         onPress={() => saveChanges()}
-        style={{backgroundColor: 'blue', marginTop: 15}}
+        style={{marginTop: '5%'}}
       />
       <View style={styles.dp}>
         <Image
@@ -245,7 +245,6 @@ const EditProfile = () => {
         size="large"
         color="white"
       />
-
       <TouchableOpacity
         style={styles.camera}
         onPress={() => {
@@ -277,7 +276,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     display: 'flex',
     flex: 1,
-    marginTop: '30%',
+    marginTop: '25%',
   },
   dp: {
     height: Height / 8.9,

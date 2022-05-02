@@ -7,7 +7,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState ,useContext} from 'react';
 import AppColors from '../../Constaint/AppColors';
 import Backbtn from '../../Componants/Backbtn';
 import {useNavigation} from '@react-navigation/native';
@@ -21,14 +21,28 @@ import {smallString} from '../../utils/helper';
 import CustomModal from './CustomModal';
 import firestore from '@react-native-firebase/firestore';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import {UserContext} from '../../App';
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
+
+const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+function generateString(length) {
+    let result = ' ';
+    const charactersLength = characters.length;
+    for ( let i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result;
+}
 
 const Room = () => {
   const [posts, setPosts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
+  const {state,dispatch} = useContext(UserContext);
 
   useEffect(() => {
     fetchPosts();
@@ -163,6 +177,72 @@ const Room = () => {
       })
       .catch((e) => console.log('Error deleting posst.', e));
   };
+
+  const likePost = async (postId,post)=>{
+    var list =[];
+
+    if(post.likes.includes(state.email)){
+      list = post.likes.filter(like=>like!=state.email);
+    }else{
+      list = [...post.likes, state.email];
+    }
+
+    console.log(list);
+
+    try{
+    await firestore()
+      .collection('Posts')
+      .doc(postId)
+      .update({likes:list})
+    }
+    catch(err){
+      console.log(err);
+    }
+    
+  }
+
+  const commentPost = async (postId,post,text)=>{
+    var list =[];
+
+    var comment = {
+      commentedby: `/Users/${state.email}`,
+      commentid: generateString(8),
+      text
+    }
+
+    list = [...post.comments, comment];
+    console.log(list);
+
+    try{
+    await firestore()
+      .collection('Posts')
+      .doc(postId)
+      .update({comments:list})
+    }
+    catch(err){
+      console.log(err);
+    }
+    
+  }
+
+  const deleteCommentPost = async (postId,post,commentid)=>{
+    var list =[];
+
+    list = post.comments.filter(comment=>comment.commentid!=commentid);
+
+    console.log(list);
+
+    try{
+    await firestore()
+      .collection('Posts')
+      .doc(postId)
+      .update({comments:list})
+    }
+    catch(err){
+      console.log(err);
+    }
+    
+  }
 
   const [features, setFeatures] = useState(true);
   const [subs, setSubs] = useState(false);

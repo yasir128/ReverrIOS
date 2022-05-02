@@ -7,7 +7,7 @@ import {
   TextInput,
   Dimensions,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import AppColors from '../../Constaint/AppColors';
@@ -21,15 +21,46 @@ import {
   AddGalleryImage,
   AddGalleryVideo,
 } from '../../utils/fireBaseFunctions';
+import { UserContext } from '../../App';
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
 const CreatePost = () => {
+  const {state,dispatch} = useContext(UserContext);
   const [poupop, setPoupop] = useState(false);
   const [image, setImage] = useState(false);
   const [video, setVideo] = useState(false);
   const navigation = useNavigation();
+
+  const submitPost = async (text) => {
+    const imageUrl = await uploadImage();
+    console.log('Image Url: ', imageUrl);
+    var post = {
+      postedby:`/Users/${state.email}`,
+      text,
+      image:imageUrl,
+      comments:[],
+      likes:[],
+      createdat:firestore.Timestamp.fromDate(new Date())
+    }
+    console.log('Post: ', post);
+
+    await firestore()
+    .collection('Posts')
+    .add(post)
+    .then(() => {
+      console.log('Post Added!');
+      Alert.alert(
+        'Post published!',
+        'Your post has been published Successfully!',
+      );
+    })
+    .catch((error) => {
+      console.log('Something went wrong with added post to firestore.', error);
+    });
+  }
+
   return (
     <View style={styles.screen}>
       <View style={styles.header}>

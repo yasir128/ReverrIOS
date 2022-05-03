@@ -23,13 +23,7 @@ import {smallString} from '../../utils/helper';
 import CustomModal from './CustomModal';
 import firestore from '@react-native-firebase/firestore';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-<<<<<<< HEAD
 import {UserContext} from '../../App';
-=======
-import {TextInput} from 'react-native-gesture-handler';
-import {UserContext} from '../../App';
-
->>>>>>> 1ce23776a87e2dc359d5118f80ba9ed0a9ee414e
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
@@ -41,11 +35,7 @@ const Room = () => {
   const [subs, setSubs] = useState(false);
   const [writeComments, setWriteComments] = useState(false);
   const navigation = useNavigation();
-<<<<<<< HEAD
   const {state, dispatch} = useContext(UserContext);
-=======
-  const {state,dispatch} = useContext(UserContext);
->>>>>>> 1ce23776a87e2dc359d5118f80ba9ed0a9ee414e
 
   useEffect(() => {
     fetchPosts();
@@ -58,53 +48,51 @@ const Room = () => {
         .collection('Posts')
         .orderBy('createdat', 'desc')
         .get()
-        .then((querySnapshot) => {
+        .then(querySnapshot => {
           // console.log('Total Posts: ', querySnapshot.size);
 
-          querySnapshot.forEach((doc) => {
+          querySnapshot.forEach(doc => {
             let post = doc.data();
             post.id = doc.id;
             if (post.postedby) {
-              post.postedby.get()
-              .then(res => { 
-                let response = res.data() 
-                delete response.password;
-                post.postedby = response; 
-                if(post.comments.length > 0){
-                  post.comments.forEach((comment)=>{
-                    comment.commentedby.get()
-                    .then(res => { 
-                      let commentor = res.data() 
-                      delete commentor.password;
-                      comment.commentedby = commentor;
-                    })
-                    .catch(err=> console.log(err));
-                  })
-                }
-                console.log(post);
-                list.push(post);
-                setPosts(list);
-                if (loading) {
-                  setLoading(false);
-                }
-                // console.log('Posts: ', posts);
-                // console.log("lists :", list)
-              })
-              .catch(err => console.error(err));
-            } 
-            else {
-                list.push(post);  
-                setPosts(list);
-                if (loading) {
-                  setLoading(false);
-                }
-                // console.log('Posts: ', posts);
+              post.postedby
+                .get()
+                .then(res => {
+                  let response = res.data();
+                  delete response.password;
+                  post.postedby = response;
+                  if (post.comments.length > 0) {
+                    post.comments.forEach(comment => {
+                      comment.commentedby
+                        .get()
+                        .then(res => {
+                          let commentor = res.data();
+                          delete commentor.password;
+                          comment.commentedby = commentor;
+                        })
+                        .catch(err => console.log(err));
+                    });
+                  }
+                  console.log(post);
+                  list.push(post);
+                  setPosts(list);
+                  if (loading) {
+                    setLoading(false);
+                  }
+                  // console.log('Posts: ', posts);
+                  // console.log("lists :", list)
+                })
+                .catch(err => console.error(err));
+            } else {
+              list.push(post);
+              setPosts(list);
+              if (loading) {
+                setLoading(false);
               }
+              // console.log('Posts: ', posts);
+            }
           });
         });
-
-
-
     } catch (e) {
       console.log(e);
     }
@@ -115,7 +103,7 @@ const Room = () => {
     setDeleted(false);
   }, [deleted]);
 
-  const handleDelete = (postId) => {
+  const handleDelete = postId => {
     Alert.alert(
       'Delete post',
       'Are you sure?',
@@ -134,14 +122,14 @@ const Room = () => {
     );
   };
 
-  const deletePost = (postId) => {
+  const deletePost = postId => {
     console.log('Current Post Id: ', postId);
 
     firestore()
       .collection('Posts')
       .doc(postId)
       .get()
-      .then((documentSnapshot) => {
+      .then(documentSnapshot => {
         if (documentSnapshot.exists) {
           const {image} = documentSnapshot.data();
 
@@ -155,7 +143,7 @@ const Room = () => {
                 console.log(`${image} has been deleted successfully.`);
                 deleteFirestoreData(postId);
               })
-              .catch((e) => {
+              .catch(e => {
                 console.log('Error while deleting the image. ', e);
               });
             // If the post image is not available
@@ -166,7 +154,7 @@ const Room = () => {
       });
   };
 
-  const deleteFirestoreData = (postId) => {
+  const deleteFirestoreData = postId => {
     firestore()
       .collection('Posts')
       .doc(postId)
@@ -178,30 +166,20 @@ const Room = () => {
         );
         setDeleted(true);
       })
-      .catch((e) => console.log('Error deleting posst.', e));
+      .catch(e => console.log('Error deleting posst.', e));
   };
 
-<<<<<<< HEAD
   const likePost = async (postId, post) => {
     var list = [];
 
     if (post.likes.includes(state.email)) {
       list = post.likes.filter(like => like != state.email);
     } else {
-=======
-  const likePost = async (postId,post)=>{
-    var list =[];
-
-    if(post.likes.includes(state.email)){
-      list = post.likes.filter(like=>like!=state.email);
-    }else{
->>>>>>> 1ce23776a87e2dc359d5118f80ba9ed0a9ee414e
       list = [...post.likes, state.email];
     }
 
     console.log(list);
 
-<<<<<<< HEAD
     try {
       await firestore().collection('Posts').doc(postId).update({likes: list});
     } catch (err) {
@@ -211,38 +189,16 @@ const Room = () => {
 
   const commentPost = async (postId, post, text) => {
     var list = [];
-=======
-    try{
-    await firestore()
-      .collection('Posts')
-      .doc(postId)
-      .update({likes:list})
-    }
-    catch(err){
-      console.log(err);
-    }
-    
-  }
-
-  const commentPost = async (postId,post,text)=>{
-    var list =[];
->>>>>>> 1ce23776a87e2dc359d5118f80ba9ed0a9ee414e
 
     var comment = {
       commentedby: `/Users/${state.email}`,
       commentid: generateString(8),
-<<<<<<< HEAD
       text,
     };
-=======
-      text
-    }
->>>>>>> 1ce23776a87e2dc359d5118f80ba9ed0a9ee414e
 
     list = [...post.comments, comment];
     console.log(list);
 
-<<<<<<< HEAD
     try {
       await firestore()
         .collection('Posts')
@@ -270,38 +226,6 @@ const Room = () => {
     }
   };
 
-=======
-    try{
-    await firestore()
-      .collection('Posts')
-      .doc(postId)
-      .update({comments:list})
-    }
-    catch(err){
-      console.log(err);
-    }
-    
-  }
-
-  const deleteCommentPost = async (postId,post,commentid)=>{
-    var list =[];
-
-    list = post.comments.filter(comment=>comment.commentid!=commentid);
-
-    console.log(list);
-
-    try{
-    await firestore()
-      .collection('Posts')
-      .doc(postId)
-      .update({comments:list})
-    }
-    catch(err){
-      console.log(err);
-    }
-    
-  }
->>>>>>> 1ce23776a87e2dc359d5118f80ba9ed0a9ee414e
   if (loading) {
     return (
       <View>

@@ -21,18 +21,27 @@ import {
   AddGalleryImage,
   AddGalleryVideo,
 } from '../../utils/fireBaseFunctions';
+<<<<<<< HEAD
 import {UserContext} from '../../App';
+=======
+import { UserContext } from '../../App';
+>>>>>>> 1ce23776a87e2dc359d5118f80ba9ed0a9ee414e
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
 const CreatePost = () => {
+<<<<<<< HEAD
   const {state, dispatch} = useContext(UserContext);
+=======
+  const {state,dispatch} = useContext(UserContext);
+>>>>>>> 1ce23776a87e2dc359d5118f80ba9ed0a9ee414e
   const [poupop, setPoupop] = useState(false);
   const [image, setImage] = useState(false);
   const [video, setVideo] = useState(false);
   const navigation = useNavigation();
 
+<<<<<<< HEAD
   const submitPost = async text => {
     const imageUrl = await uploadImage();
     console.log('Image Url: ', imageUrl);
@@ -63,6 +72,36 @@ const CreatePost = () => {
         );
       });
   };
+=======
+  const submitPost = async (text) => {
+    const imageUrl = await uploadImage();
+    console.log('Image Url: ', imageUrl);
+    var post = {
+      postedby:`/Users/${state.email}`,
+      text,
+      image:imageUrl,
+      comments:[],
+      likes:[],
+      createdat:firestore.Timestamp.fromDate(new Date())
+    }
+    console.log('Post: ', post);
+
+    await firestore()
+    .collection('Posts')
+    .add(post)
+    .then(() => {
+      console.log('Post Added!');
+      Alert.alert(
+        'Post published!',
+        'Your post has been published Successfully!',
+      );
+    })
+    .catch((error) => {
+      console.log('Something went wrong with added post to firestore.', error);
+    });
+  }
+
+>>>>>>> 1ce23776a87e2dc359d5118f80ba9ed0a9ee414e
   return (
     <View style={styles.screen}>
       <View style={styles.header}>

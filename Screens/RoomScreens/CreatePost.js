@@ -6,6 +6,7 @@ import {
   Image,
   TextInput,
   Dimensions,
+  Alert
 } from 'react-native';
 import React, {useState, useContext} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -15,6 +16,7 @@ import CustomBtn from '../../Componants/CustomBtn';
 import LinearGradient from 'react-native-linear-gradient';
 import ModelView from '../../Componants/ModelView';
 import {useNavigation} from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
 import {
   AddCameraImage,
   AddCameraVideo,
@@ -29,15 +31,15 @@ const Height = Dimensions.get('window').height;
 const CreatePost = () => {
   const {state, dispatch} = useContext(UserContext);
   const [poupop, setPoupop] = useState(false);
+  const [text, setText] = useState('');
   const [image, setImage] = useState(false);
   const [video, setVideo] = useState(false);
+  const [imageUrl, setImageUrl] = useState('');
   const navigation = useNavigation();
 
-  const submitPost = async text => {
-    const imageUrl = await uploadImage();
-    console.log('Image Url: ', imageUrl);
+  const submitPost = async () => {
     var post = {
-      postedby: `/Users/${state.email}`,
+      postedby: firestore().collection('Users').doc(state.email),
       text,
       image: imageUrl,
       comments: [],
@@ -81,7 +83,7 @@ const CreatePost = () => {
           }}>
           Ask question
         </Text>
-        <CustomBtn Title="Post" style={styles.post} />
+        <CustomBtn Title="Post" style={styles.post} onPress={()=>submitPost()}/>
       </View>
       <View style={styles.mainContainer}>
         <View style={styles.card}>
@@ -98,6 +100,10 @@ const CreatePost = () => {
           <TextInput
             style={styles.msg}
             multiline={true}
+            value={text}
+            onChangeText={e => {
+              setText(e);
+            }}
             placeholder="What do you want to share?"
             numberOfLines={8}
             maxLength={150}
@@ -159,9 +165,9 @@ const CreatePost = () => {
                 <Icon name="times" size={26} color={AppColors.FontsColor} />
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => {
+                onPress={ async() => {
                   if (image) {
-                    AddCameraImage();
+                   AddCameraImage(setImageUrl);
                   }
                   if (video) {
                     AddCameraVideo();
@@ -179,9 +185,9 @@ const CreatePost = () => {
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => {
+                onPress={async() => {
                   if (image) {
-                    AddGalleryImage();
+                    AddGalleryImage(setImageUrl);
                   }
                   if (video) {
                     AddGalleryVideo();

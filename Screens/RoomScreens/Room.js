@@ -24,8 +24,21 @@ import CustomModal from './CustomModal';
 import firestore from '@react-native-firebase/firestore';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import {UserContext} from '../../App';
+
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
+
+const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+function generateString(length) {
+    let result = ' ';
+    const charactersLength = characters.length;
+    for ( let i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result;
+}
 
 const Room = () => {
   const [posts, setPosts] = useState(null);
@@ -33,6 +46,7 @@ const Room = () => {
   const [deleted, setDeleted] = useState(false);
   const [features, setFeatures] = useState(true);
   const [subs, setSubs] = useState(false);
+  const [message, setMessage] = useState();
   const [writeComments, setWriteComments] = useState(false);
   const navigation = useNavigation();
   const {state, dispatch} = useContext(UserContext);
@@ -79,8 +93,6 @@ const Room = () => {
                   if (loading) {
                     setLoading(false);
                   }
-                  // console.log('Posts: ', posts);
-                  // console.log("lists :", list)
                 })
                 .catch(err => console.error(err));
             } else {
@@ -89,7 +101,6 @@ const Room = () => {
               if (loading) {
                 setLoading(false);
               }
-              // console.log('Posts: ', posts);
             }
           });
         });
@@ -166,7 +177,7 @@ const Room = () => {
         );
         setDeleted(true);
       })
-      .catch(e => console.log('Error deleting posst.', e));
+      .catch(e => console.log('Error deleting post.', e));
   };
 
   const likePost = async (postId, post) => {
@@ -182,6 +193,15 @@ const Room = () => {
 
     try {
       await firestore().collection('Posts').doc(postId).update({likes: list});
+      var list2 =[]; 
+      posts.map(post=>{
+        if(post.id==postId){
+          post.likes=list;
+        }
+        list2.push(post);
+      });
+      setPosts(list2);
+
     } catch (err) {
       console.log(err);
     }
@@ -190,11 +210,15 @@ const Room = () => {
   const commentPost = async (postId, post, text) => {
     var list = [];
 
+    console.log(text);
+
     var comment = {
-      commentedby: `/Users/${state.email}`,
+      commentedby: firestore().collection('Users').doc(state.email),
       commentid: generateString(8),
       text,
     };
+
+    setMessage('');
 
     list = [...post.comments, comment];
     console.log(list);
@@ -204,6 +228,15 @@ const Room = () => {
         .collection('Posts')
         .doc(postId)
         .update({comments: list});
+
+        var list2 =[]; 
+        posts.map(post=>{
+          if(post.id==postId){
+            post.comments=list;
+          }
+          list2.push(post);
+        });
+        setPosts(list2);
     } catch (err) {
       console.log(err);
     }
@@ -249,7 +282,7 @@ const Room = () => {
               fontFamily: 'Poppins-SemiBold',
               fontSize: 21,
             }}>
-            Room {loading == false && console.log('postsss feed:', posts[0])}
+            Room 
           </Text>
         </View>
         <CustomMenuBar
@@ -268,7 +301,10 @@ const Room = () => {
         />
         <ScrollView style={{marginTop: '5%'}}>
           {posts &&
-            posts.map((item, index) => (
+            posts.map((item, index) => 
+            {
+              console.log(index)
+            return(
               <LinearGradient
                 key={index}
                 colors={[AppColors.primarycolor, '#012437']}
@@ -355,7 +391,9 @@ const Room = () => {
                 </View>
                 <View style={styles.IconContainer}>
                   <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                      onPress={()=>likePost(item.id, item)}
+                    >
                       <Icon
                         name="heart"
                         size={22}
@@ -363,7 +401,7 @@ const Room = () => {
                       />
                     </TouchableOpacity>
                     <Text style={[styles.name, {marginStart: '8%'}]}>
-                      {item.likes}
+                      {item.likes.length}
                     </Text>
                   </View>
                   <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -378,7 +416,7 @@ const Room = () => {
                       />
                     </TouchableOpacity>
                     <Text style={[styles.name, {marginStart: '8%'}]}>
-                      {item.comments}
+                      {item.comments.length}
                     </Text>
                   </View>
                   <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -407,9 +445,15 @@ const Room = () => {
                       placeholder="Write Something"
                       style={{color: AppColors.FontsColor}}
                       placeholderTextColor={AppColors.infoFonts}
+                      value={message}
+                      onChangeText={e => {
+                        setMessage(e);
+                      }}
                     />
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                      <TouchableOpacity>
+                      <TouchableOpacity 
+                        onPress={()=>{commentPost(item.id, item, message )}}
+                      >
                         <Icon3
                           name="send"
                           size={22}
@@ -427,7 +471,9 @@ const Room = () => {
                   </View>
                 )}
               </LinearGradient>
-            ))}
+            )})
+                    
+          }
         </ScrollView>
         <CreatePostButton
           style={styles.createBtn}

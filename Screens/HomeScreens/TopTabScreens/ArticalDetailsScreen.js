@@ -12,7 +12,8 @@ import Backbtn from '../../../Componants/Backbtn';
 import AppColors from '../../../Constaint/AppColors';
 import {useNavigation} from '@react-navigation/native';
 import Ionic from 'react-native-vector-icons/Ionicons';
-import {UserContext} from '../../../App';
+import {UserContext, SavedArticleContext} from '../../../App';
+import { SaveArticle, RemoveArticle } from '../../../utils/fireBaseFunctions';
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
@@ -21,7 +22,20 @@ const ArticalDetailsScreen = props => {
   const {state, dispatch} = useContext(UserContext);
   const navigation = useNavigation();
   const articaldetails = props.route.params.articalData;
+  const {savedarticlestate, savedarticledispatch} =
+  useContext(SavedArticleContext);
   // console.log(articaldetails);
+  function saveArticle(item) {
+    if (state.savedArticles.includes(item.id)) {
+      dispatch({type: 'REMOVEARTICLE', payload: item.id});
+      savedarticledispatch({type: 'REMOVE', payload: item});
+      RemoveArticle(item, state.email, state.savedArticles);
+    } else {
+      dispatch({type: 'SAVEARTICLE', payload: item.id});
+      savedarticledispatch({type: 'UPDATE', payload: item});
+      SaveArticle(item, state.email, state.savedArticles);
+    }
+  }
   return (
     state && (
       <View style={{flex: 1, backgroundColor: AppColors.primarycolor}}>
@@ -45,7 +59,7 @@ const ArticalDetailsScreen = props => {
                     navigation.goBack();
                   }}
                 />
-                <TouchableOpacity activeOpacity={0.7}>
+                <TouchableOpacity activeOpacity={0.7}  onPress={() => saveArticle(articaldetails)}>
                   <Ionic
                     name="heart"
                     size={30}

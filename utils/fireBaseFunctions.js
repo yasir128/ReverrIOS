@@ -48,7 +48,7 @@ export const ChangeDp = (loading, setLoading, dispatch) => {
   });
 };
 
-export const AddGalleryImage = () => {
+export const AddGalleryImage = (setImageUrl) => {
   ImagePicker.openPicker({
     mediaType: 'photo',
   }).then(image => {
@@ -62,6 +62,7 @@ export const AddGalleryImage = () => {
           var imgURL = await storage()
             .ref('Images/' + imageURL)
             .getDownloadURL();
+          setImageUrl(imgURL);
           console.log(imgURL);
           /*  dispatch({type: 'UPDATEPHOTO', payload: imgURL});
           await firestore().collection('Users').doc(userEmail).update({
@@ -73,7 +74,7 @@ export const AddGalleryImage = () => {
     }
   });
 };
-export const AddCameraImage = () => {
+export const AddCameraImage = (setImageUrl) => {
   ImagePicker.openCamera({
     mediaType: 'photo',
   }).then(image => {
@@ -87,7 +88,9 @@ export const AddCameraImage = () => {
           var imgURL = await storage()
             .ref('Images/' + imageURL)
             .getDownloadURL();
+          setImageUrl(imgURL);
           console.log(imgURL);
+          
           /*  dispatch({type: 'UPDATEPHOTO', payload: imgURL});
           await firestore().collection('Users').doc(userEmail).update({
             image: imgURL,
@@ -95,6 +98,7 @@ export const AddCameraImage = () => {
         });
     } catch (error) {
       alert('Cancel');
+      return null;
     }
   });
 };
@@ -138,7 +142,8 @@ export const AddCameraVideo = () => {
           var imgURL = await storage()
             .ref('Images/' + imageURL)
             .getDownloadURL();
-          console.log(imgURL);
+          // console.log(imgURL);
+          return imgURL;
           /*  dispatch({type: 'UPDATEPHOTO', payload: imgURL});
           await firestore().collection('Users').doc(userEmail).update({
             image: imgURL,
@@ -146,6 +151,7 @@ export const AddCameraVideo = () => {
         });
     } catch (error) {
       alert('Cancel');
+      return null;
     }
   });
 };

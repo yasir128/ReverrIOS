@@ -13,7 +13,7 @@ import {NewsData} from '../../../dummy-data/Dummy_News';
 import TrendingNewsCard from '../../../Componants/SwipeCard';
 import NewsCard from '../../../Componants/HomeScreenComponants/NewsScreenComponants/NewsCard';
 import Paginator from '../../../Componants/HomeScreenComponants/NewsScreenComponants/Paginator';
-import SwipeCard from '../../../Componants/SwipeCard';
+import SwipeCardNews from '../../../Componants/SwipeCardNews';
 import {NewsContext} from '../../../App';
 
 const Width = Dimensions.get('window').width;
@@ -40,8 +40,8 @@ const NewsScreen = () => {
         <View>
           <Text style={styles.heading}>Trending</Text>
         </View>
-        <SwipeCard
-          data={NewsData}
+        <SwipeCardNews
+          data={newsstate}
           onScroll={Animated.event(
             [{nativeEvent: {contentOffset: {x: scrollX}}}],
             {

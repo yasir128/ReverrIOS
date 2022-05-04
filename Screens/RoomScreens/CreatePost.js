@@ -22,13 +22,14 @@ import {
   AddGalleryVideo,
 } from '../../utils/fireBaseFunctions';
 import {UserContext} from '../../App';
+import CustomPopup from '../../Componants/CustomPopup';
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
 const CreatePost = () => {
   const {state, dispatch} = useContext(UserContext);
-  const [poupop, setPoupop] = useState(false);
+  const [popup, setPopup] = useState(false);
   const [image, setImage] = useState(false);
   const [video, setVideo] = useState(false);
   const navigation = useNavigation();
@@ -111,7 +112,7 @@ const CreatePost = () => {
             }}>
             <TouchableOpacity
               onPress={() => {
-                setPoupop(true);
+                setPopup(true);
                 setImage(true);
                 setVideo(false);
               }}>
@@ -120,7 +121,7 @@ const CreatePost = () => {
             <TouchableOpacity
               style={{marginStart: '5%'}}
               onPress={() => {
-                setPoupop(true);
+                setPopup(true);
                 setVideo(true);
                 setImage(false);
               }}>
@@ -141,67 +142,70 @@ const CreatePost = () => {
               />
             </TouchableOpacity>
           </View>
-          <ModelView
-            ShowModal={poupop}
-            onRequestClose={() => {
-              setPoupop(false);
-            }}>
-            <LinearGradient
-              colors={[AppColors.primarycolor, '#012437']}
-              start={{x: -0.7, y: 1.3}}
-              end={{x: 1, y: 0.5}}
-              style={styles.BottomPoupop}>
-              <TouchableOpacity
-                onPress={() => {
-                  setPoupop(false);
-                }}
-                style={{marginStart: Width / 1.1, paddingVertical: '3%'}}>
-                <Icon name="times" size={26} color={AppColors.FontsColor} />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  if (image) {
-                    AddCameraImage();
-                  }
-                  if (video) {
-                    AddCameraVideo();
-                  }
-                }}
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  paddingHorizontal: '8%',
-                  marginTop: '5%',
-                }}>
-                <Icon name="camera" color={AppColors.FontsColor} size={25} />
-                <Text style={[styles.name, {marginStart: '5%'}]}>
-                  Open Camera
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  if (image) {
-                    AddGalleryImage();
-                  }
-                  if (video) {
-                    AddGalleryVideo();
-                  }
-                }}
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  paddingHorizontal: '8%',
-                  marginTop: '6%',
-                }}>
-                <Icon name="images" color={AppColors.FontsColor} size={25} />
-                <Text style={[styles.name, {marginStart: '5%'}]}>
-                  Select From Gallary
-                </Text>
-              </TouchableOpacity>
-            </LinearGradient>
-          </ModelView>
         </View>
       </View>
+      <CustomPopup
+        visible={popup}
+        handleOpen={() => {
+          setPopup(true);
+        }}
+        handleClose={() => {
+          setPopup(false);
+        }}
+        animationConfig={{
+          speed: 14,
+          bounciness: 4,
+        }}
+        containerStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
+        overlayColor="rgba(0,0,0,0.4)"
+        backdropStyle={{
+          backgroundColor: '#fff',
+        }}>
+        <LinearGradient
+          colors={[AppColors.primarycolor, '#012437']}
+          start={{x: -0.7, y: 1.3}}
+          end={{x: 1, y: 0.5}}
+          style={styles.BottomPoupop}>
+          <TouchableOpacity
+            onPress={() => {
+              if (image) {
+                AddCameraImage();
+              }
+              if (video) {
+                AddCameraVideo();
+              }
+            }}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingHorizontal: '8%',
+              marginTop: '15%',
+            }}>
+            <Icon name="camera" color={AppColors.FontsColor} size={25} />
+            <Text style={[styles.name, {marginStart: '5%'}]}>Open Camera</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              if (image) {
+                AddCameraImage();
+              }
+              if (video) {
+                AddCameraVideo();
+              }
+            }}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingHorizontal: '8%',
+              marginTop: '5%',
+            }}>
+            <Icon name="camera" color={AppColors.FontsColor} size={25} />
+            <Text style={[styles.name, {marginStart: '5%'}]}>
+              Select From Gallary
+            </Text>
+          </TouchableOpacity>
+        </LinearGradient>
+      </CustomPopup>
     </View>
   );
 };
@@ -274,9 +278,46 @@ const styles = StyleSheet.create({
     height: Height / 3.5,
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
-    position: 'absolute',
-    backgroundColor: 'red',
     bottom: 0,
   },
 });
 export default CreatePost;
+
+/*<TouchableOpacity
+            onPress={() => {
+              if (image) {
+                AddCameraImage();
+              }
+              if (video) {
+                AddCameraVideo();
+              }
+            }}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingHorizontal: '8%',
+              marginTop: '5%',
+            }}>
+            <Icon name="camera" color={AppColors.FontsColor} size={25} />
+            <Text style={[styles.name, {marginStart: '5%'}]}>Open Camera</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              if (image) {
+                AddGalleryImage();
+              }
+              if (video) {
+                AddGalleryVideo();
+              }
+            }}
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              paddingHorizontal: '8%',
+              marginTop: '6%',
+            }}>
+            <Icon name="images" color={AppColors.FontsColor} size={25} />
+            <Text style={[styles.name, {marginStart: '5%'}]}>
+              Select From Gallary
+            </Text>
+          </TouchableOpacity>*/

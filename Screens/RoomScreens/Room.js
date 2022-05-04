@@ -20,10 +20,10 @@ import CustomMenuBar from '../../Componants/CustomMenuBar';
 import {postData} from '../../dummy-data/postData';
 import CreatePostButton from '../../Componants/LearnComponents/CreatePostButton';
 import {smallString} from '../../utils/helper';
-import CustomModal from './CustomModal';
 import firestore from '@react-native-firebase/firestore';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import {UserContext} from '../../App';
+import CustomPopup from '../../Componants/CustomPopup';
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
@@ -36,10 +36,7 @@ const Room = () => {
   const [writeComments, setWriteComments] = useState(false);
   const navigation = useNavigation();
   const {state, dispatch} = useContext(UserContext);
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
+  const [popup, setPopup] = useState(false);
 
   const fetchPosts = async () => {
     try {
@@ -226,6 +223,10 @@ const Room = () => {
     }
   };
 
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
   if (loading) {
     return (
       <View>
@@ -288,8 +289,7 @@ const Room = () => {
                       </Text>
                     </View>
                   </View>
-                  <TouchableOpacity /* onPress={() => popupRef.onOpenModal()} */
-                  >
+                  <TouchableOpacity onPress={() => setPopup(true)}>
                     <Icon2
                       name="ellipsis-vertical"
                       size={22}
@@ -435,6 +435,15 @@ const Room = () => {
             navigation.navigate('CreatePost');
           }}
         />
+        <CustomPopup
+          open={popup}
+          closeOnTouchOutside={true}
+          modalDidClose={() => {
+            setPopup(false);
+          }}
+          style={{alignItems: 'center'}}>
+          <Text>close</Text>
+        </CustomPopup>
       </View>
     );
   }

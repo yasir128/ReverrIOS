@@ -23,7 +23,7 @@ import CreatePostButton from '../../Componants/LearnComponents/CreatePostButton'
 import {smallString} from '../../utils/helper';
 import firestore from '@react-native-firebase/firestore';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
-import {UserContext} from '../../App';
+import App, {UserContext} from '../../App';
 import CustomPopup from '../../Componants/CustomPopup';
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
@@ -470,6 +470,68 @@ const Room = () => {
                       </View>
                     </View>
                   )}
+                  <CustomPopup
+                    open={popup}
+                    closeOnTouchOutside={true}
+                    modalDidClose={() => {
+                      setPopup(false);
+                    }}
+                    overlayStyle={{
+                      backgroundColor: 'rgba(0, 0, 0, 0.2)',
+                      flex: 1,
+                    }}
+                    modalStyle={{
+                      borderRadius: 20,
+                      width: Width / 2,
+                      alignSelf: 'center',
+                      backgroundColor: AppColors.primarycolor,
+                    }}
+                    style={{alignItems: 'center'}}>
+                    <View
+                      style={{
+                        borderBottomColor: AppColors.FontsColor,
+                        borderBottomWidth: 2,
+                        paddingVertical: '4%',
+                        alignItems: 'center',
+                      }}>
+                      <TouchableOpacity>
+                        <Text style={{color: AppColors.FontsColor}}>
+                          Delete
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                    <View
+                      style={{
+                        borderBottomColor: AppColors.FontsColor,
+                        borderBottomWidth: 2,
+                        paddingVertical: '4%',
+                        alignItems: 'center',
+                      }}>
+                      <TouchableOpacity>
+                        <Text style={{color: AppColors.FontsColor}}>Edit</Text>
+                      </TouchableOpacity>
+                    </View>
+                    <View
+                      style={{
+                        borderBottomColor: AppColors.FontsColor,
+                        borderBottomWidth: 2,
+                        alignItems: 'center',
+                        paddingVertical: '4%',
+                      }}>
+                      <TouchableOpacity>
+                        <Text style={{color: AppColors.FontsColor}}>Share</Text>
+                      </TouchableOpacity>
+                    </View>
+                    <View
+                      style={{
+                        paddingVertical: '4%',
+                        alignItems: 'center',
+                      }}>
+                      <TouchableOpacity>
+                        <Text style={{color: AppColors.FontsColor}}>Save</Text>
+                      </TouchableOpacity>
+                    </View>
+                  </CustomPopup>
                 </LinearGradient>
               );
             })}
@@ -480,15 +542,6 @@ const Room = () => {
             navigation.navigate('CreatePost');
           }}
         />
-        <CustomPopup
-          open={popup}
-          closeOnTouchOutside={true}
-          modalDidClose={() => {
-            setPopup(false);
-          }}
-          style={{alignItems: 'center'}}>
-          <Text>close</Text>
-        </CustomPopup>
       </View>
     );
   }

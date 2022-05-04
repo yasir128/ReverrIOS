@@ -201,7 +201,8 @@ const styles = StyleSheet.create({
   defaultModalStyle: {
     borderRadius: 2,
     margin: 20,
-    padding: 10,
+    zIndex: 10,
+    paddingVertical: 10,
     backgroundColor: '#F5F5F5',
   },
   defaultOverlayStyle: {

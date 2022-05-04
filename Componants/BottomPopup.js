@@ -78,6 +78,7 @@ const BottomPopup = ({
     Animated.spring(transitionY.current, {
       toValue: 0,
       ...animationConfigConcated,
+      useNativeDriver: false,
     }).start(() => afterOpen());
   }, [afterOpen, animationConfigConcated]);
 
@@ -85,6 +86,7 @@ const BottomPopup = ({
     Animated.spring(transitionY.current, {
       toValue: contentHeight - closedHeight,
       ...animationConfigConcated,
+      useNativeDriver: false,
     }).start(() => afterClose());
   }, [contentHeight, closedHeight, afterClose, animationConfigConcated]);
 

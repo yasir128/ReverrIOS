@@ -6,7 +6,7 @@ import {
   Image,
   TextInput,
   Dimensions,
-  Alert
+  Alert,
 } from 'react-native';
 import React, {useState, useContext} from 'react';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -25,27 +25,23 @@ import {
 } from '../../utils/fireBaseFunctions';
 import {UserContext} from '../../App';
 import CustomPopup from '../../Componants/CustomPopup';
+import BottomPopup from '../../Componants/BottomPopup';
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
 const CreatePost = () => {
   const {state, dispatch} = useContext(UserContext);
-<<<<<<< HEAD
   const [popup, setPopup] = useState(false);
-=======
-  const [poupop, setPoupop] = useState(false);
-  const [text, setText] = useState('');
->>>>>>> 64b0c22313af7ba844e2cc326cf3ac1f65ccad2e
   const [image, setImage] = useState(false);
   const [video, setVideo] = useState(false);
   const [imageUrl, setImageUrl] = useState('');
+  const [text, setText] = useState('');
   const navigation = useNavigation();
 
   const submitPost = async () => {
     var post = {
       postedby: firestore().collection('Users').doc(state.email),
-      text,
       image: imageUrl,
       comments: [],
       likes: [],
@@ -88,7 +84,11 @@ const CreatePost = () => {
           }}>
           Ask question
         </Text>
-        <CustomBtn Title="Post" style={styles.post} onPress={()=>submitPost()}/>
+        <CustomBtn
+          Title="Post"
+          style={styles.post}
+          onPress={() => submitPost()}
+        />
       </View>
       <View style={styles.mainContainer}>
         <View style={styles.card}>
@@ -152,71 +152,9 @@ const CreatePost = () => {
               />
             </TouchableOpacity>
           </View>
-<<<<<<< HEAD
-=======
-          <ModelView
-            ShowModal={poupop}
-            onRequestClose={() => {
-              setPoupop(false);
-            }}>
-            <LinearGradient
-              colors={[AppColors.primarycolor, '#012437']}
-              start={{x: -0.7, y: 1.3}}
-              end={{x: 1, y: 0.5}}
-              style={styles.BottomPoupop}>
-              <TouchableOpacity
-                onPress={() => {
-                  setPoupop(false);
-                }}
-                style={{marginStart: Width / 1.1, paddingVertical: '3%'}}>
-                <Icon name="times" size={26} color={AppColors.FontsColor} />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={ async() => {
-                  if (image) {
-                   AddCameraImage(setImageUrl);
-                  }
-                  if (video) {
-                    AddCameraVideo();
-                  }
-                }}
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  paddingHorizontal: '8%',
-                  marginTop: '5%',
-                }}>
-                <Icon name="camera" color={AppColors.FontsColor} size={25} />
-                <Text style={[styles.name, {marginStart: '5%'}]}>
-                  Open Camera
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={async() => {
-                  if (image) {
-                    AddGalleryImage(setImageUrl);
-                  }
-                  if (video) {
-                    AddGalleryVideo();
-                  }
-                }}
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  paddingHorizontal: '8%',
-                  marginTop: '6%',
-                }}>
-                <Icon name="images" color={AppColors.FontsColor} size={25} />
-                <Text style={[styles.name, {marginStart: '5%'}]}>
-                  Select From Gallary
-                </Text>
-              </TouchableOpacity>
-            </LinearGradient>
-          </ModelView>
->>>>>>> 64b0c22313af7ba844e2cc326cf3ac1f65ccad2e
         </View>
       </View>
-      <CustomPopup
+      <BottomPopup
         visible={popup}
         handleOpen={() => {
           setPopup(true);
@@ -229,10 +167,7 @@ const CreatePost = () => {
           bounciness: 4,
         }}
         containerStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
-        overlayColor="rgba(0,0,0,0.4)"
-        backdropStyle={{
-          backgroundColor: '#fff',
-        }}>
+        overlayColor="rgba(0,0,0,0.4)">
         <LinearGradient
           colors={[AppColors.primarycolor, '#012437']}
           start={{x: -0.7, y: 1.3}}
@@ -277,7 +212,7 @@ const CreatePost = () => {
             </Text>
           </TouchableOpacity>
         </LinearGradient>
-      </CustomPopup>
+      </BottomPopup>
     </View>
   );
 };
@@ -347,7 +282,7 @@ const styles = StyleSheet.create({
   },
   BottomPoupop: {
     width: '100%',
-    height: Height / 3.5,
+    height: Height / 4.5,
     borderTopLeftRadius: 40,
     borderTopRightRadius: 40,
     bottom: 0,

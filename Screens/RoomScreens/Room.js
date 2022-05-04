@@ -6,6 +6,7 @@ import {
   ScrollView,
   Image,
   TextInput,
+  ImageBackground,
   TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useState, useContext} from 'react';
@@ -23,24 +24,21 @@ import {smallString} from '../../utils/helper';
 import firestore from '@react-native-firebase/firestore';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import {UserContext} from '../../App';
-<<<<<<< HEAD
 import CustomPopup from '../../Componants/CustomPopup';
-=======
-
->>>>>>> 64b0c22313af7ba844e2cc326cf3ac1f65ccad2e
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
-const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+const characters =
+  'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
 function generateString(length) {
-    let result = ' ';
-    const charactersLength = characters.length;
-    for ( let i = 0; i < length; i++ ) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
+  let result = ' ';
+  const charactersLength = characters.length;
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
 
-    return result;
+  return result;
 }
 
 const Room = () => {
@@ -54,7 +52,7 @@ const Room = () => {
   const navigation = useNavigation();
   const {state, dispatch} = useContext(UserContext);
   const [popup, setPopup] = useState(false);
-
+  const [seeMore, setSeeMore] = useState(false);
   const fetchPosts = async () => {
     try {
       const list = [];
@@ -193,15 +191,14 @@ const Room = () => {
 
     try {
       await firestore().collection('Posts').doc(postId).update({likes: list});
-      var list2 =[]; 
-      posts.map(post=>{
-        if(post.id==postId){
-          post.likes=list;
+      var list2 = [];
+      posts.map(post => {
+        if (post.id == postId) {
+          post.likes = list;
         }
         list2.push(post);
       });
       setPosts(list2);
-
     } catch (err) {
       console.log(err);
     }
@@ -229,14 +226,14 @@ const Room = () => {
         .doc(postId)
         .update({comments: list});
 
-        var list2 =[]; 
-        posts.map(post=>{
-          if(post.id==postId){
-            post.comments=list;
-          }
-          list2.push(post);
-        });
-        setPosts(list2);
+      var list2 = [];
+      posts.map(post => {
+        if (post.id == postId) {
+          post.comments = list;
+        }
+        list2.push(post);
+      });
+      setPosts(list2);
     } catch (err) {
       console.log(err);
     }
@@ -286,7 +283,7 @@ const Room = () => {
               fontFamily: 'Poppins-SemiBold',
               fontSize: 21,
             }}>
-            Room 
+            Room
           </Text>
         </View>
         <CustomMenuBar
@@ -305,178 +302,177 @@ const Room = () => {
         />
         <ScrollView style={{marginTop: '5%'}}>
           {posts &&
-            posts.map((item, index) => 
-            {
-              console.log(index)
-            return(
-              <LinearGradient
-                key={index}
-                colors={[AppColors.primarycolor, '#012437']}
-                start={{x: -3, y: 1.3}}
-                end={{x: 3, y: 0.5}}
-                style={styles.postCard}>
-                <View style={styles.creatorDetails}>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <Image
-                      style={styles.dp}
-                      source={{uri: item.postedby.image}}
-                    />
-                    <View style={{marginStart: '3%'}}>
-                      <Text style={styles.name}>{item.postedby.name}</Text>
-                      <Text style={styles.company}>
-                        {item.postedby.designation}
-                      </Text>
+            posts.map((item, index) => {
+              console.log(index);
+              return (
+                <LinearGradient
+                  key={index}
+                  colors={[AppColors.primarycolor, '#012437']}
+                  start={{x: -3, y: 1.3}}
+                  end={{x: 3, y: 0.5}}
+                  style={styles.postCard}>
+                  <View style={styles.creatorDetails}>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <Image
+                        style={styles.dp}
+                        source={{uri: item.postedby.image}}
+                      />
+                      <View style={{marginStart: '3%'}}>
+                        <Text style={styles.name}>{item.postedby.name}</Text>
+                        <Text style={styles.company}>
+                          {item.postedby.designation}
+                        </Text>
+                      </View>
                     </View>
+                    <TouchableOpacity onPress={() => setPopup(true)}>
+                      <Icon2
+                        name="ellipsis-vertical"
+                        size={22}
+                        color={AppColors.FontsColor}
+                      />
+                    </TouchableOpacity>
                   </View>
-                  <TouchableOpacity onPress={() => setPopup(true)}>
-                    <Icon2
-                      name="ellipsis-vertical"
-                      size={22}
-                      color={AppColors.FontsColor}
-                    />
-                  </TouchableOpacity>
-                </View>
-                <View style={styles.postContainer}>
-                  {item.image !== '' && item.image !== undefined ? (
-                    <View>
-                      {item.text !== '' ? (
-                        <View>
-                          {seeMore ? (
-                            <View style={[styles.image, {overflow: 'hidden'}]}>
-                              <ImageBackground
-                                style={{width: '100%', height: '100%'}}
-                                source={{uri: item.image}}>
-                                <View style={{paddingHorizontal: '5%'}}>
+                  <View style={styles.postContainer}>
+                    {item.image !== '' && item.image !== undefined ? (
+                      <View>
+                        {item.text !== '' ? (
+                          <View>
+                            {seeMore ? (
+                              <View
+                                style={[styles.image, {overflow: 'hidden'}]}>
+                                <ImageBackground
+                                  style={{width: '100%', height: '100%'}}
+                                  source={{uri: item.image}}>
+                                  <View style={{paddingHorizontal: '5%'}}>
+                                    <Text style={styles.details}>
+                                      {item.text}
+                                    </Text>
+                                    <TouchableOpacity
+                                      onPress={() => {
+                                        setSeeMore(false);
+                                      }}>
+                                      <Text style={styles.company}>Hide</Text>
+                                    </TouchableOpacity>
+                                  </View>
+                                </ImageBackground>
+                              </View>
+                            ) : (
+                              <View>
+                                <Image
+                                  style={styles.image}
+                                  source={{uri: item.image}}
+                                />
+                                <View>
                                   <Text style={styles.details}>
-                                    {item.text}
+                                    {smallString(item.text, 100)}
                                   </Text>
                                   <TouchableOpacity
                                     onPress={() => {
-                                      setSeeMore(false);
+                                      setSeeMore(true);
                                     }}>
-                                    <Text style={styles.company}>Hide</Text>
+                                    <Text style={styles.company}>See More</Text>
                                   </TouchableOpacity>
                                 </View>
-                              </ImageBackground>
-                            </View>
-                          ) : (
-                            <View>
-                              <Image
-                                style={styles.image}
-                                source={{uri: item.image}}
-                              />
-                              <View>
-                                <Text style={styles.details}>
-                                  {smallString(item.text, 100)}
-                                </Text>
-                                <TouchableOpacity
-                                  onPress={() => {
-                                    setSeeMore(true);
-                                  }}>
-                                  <Text style={styles.company}>See More</Text>
-                                </TouchableOpacity>
                               </View>
-                            </View>
-                          )}
-                        </View>
-                      ) : (
-                        <Image
-                          style={styles.image}
-                          source={{uri: item.image}}
-                        />
-                      )}
-                    </View>
-                  ) : (
-                    <View>
-                      <Text style={styles.details}>{item.text}</Text>
-                    </View>
-                  )}
-                </View>
-                <View style={styles.IconContainer}>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <TouchableOpacity
-                      onPress={()=>likePost(item.id, item)}
-                    >
-                      <Icon
-                        name="heart"
-                        size={22}
-                        color={AppColors.FontsColor}
-                      />
-                    </TouchableOpacity>
-                    <Text style={[styles.name, {marginStart: '8%'}]}>
-                      {item.likes.length}
-                    </Text>
+                            )}
+                          </View>
+                        ) : (
+                          <Image
+                            style={styles.image}
+                            source={{uri: item.image}}
+                          />
+                        )}
+                      </View>
+                    ) : (
+                      <View>
+                        <Text style={styles.details}>{item.text}</Text>
+                      </View>
+                    )}
                   </View>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <TouchableOpacity
-                      onPress={() => {
-                        setWriteComments(true);
-                      }}>
-                      <Icon
-                        name="comment"
-                        size={22}
-                        color={AppColors.FontsColor}
-                      />
-                    </TouchableOpacity>
-                    <Text style={[styles.name, {marginStart: '8%'}]}>
-                      {item.comments.length}
-                    </Text>
-                  </View>
-                  <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    <TouchableOpacity>
-                      <Icon
-                        name="share-square"
-                        size={22}
-                        color={AppColors.FontsColor}
-                      />
-                    </TouchableOpacity>
-                    <Text style={[styles.name, {marginStart: '8%'}]}>
-                      {item.share}
-                    </Text>
-                  </View>
-                </View>
-                {writeComments && (
-                  <View
-                    style={{
-                      width: '100%',
-                      paddingVertical: 2,
-                      flexDirection: 'row',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                    }}>
-                    <TextInput
-                      placeholder="Write Something"
-                      style={{color: AppColors.FontsColor}}
-                      placeholderTextColor={AppColors.infoFonts}
-                      value={message}
-                      onChangeText={e => {
-                        setMessage(e);
-                      }}
-                    />
+                  <View style={styles.IconContainer}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                      <TouchableOpacity 
-                        onPress={()=>{commentPost(item.id, item, message )}}
-                      >
-                        <Icon3
-                          name="send"
+                      <TouchableOpacity onPress={() => likePost(item.id, item)}>
+                        <Icon
+                          name="heart"
                           size={22}
                           color={AppColors.FontsColor}
                         />
                       </TouchableOpacity>
-                      {/* <TouchableOpacity>
+                      <Text style={[styles.name, {marginStart: '8%'}]}>
+                        {item.likes.length}
+                      </Text>
+                    </View>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <TouchableOpacity
+                        onPress={() => {
+                          setWriteComments(true);
+                        }}>
+                        <Icon
+                          name="comment"
+                          size={22}
+                          color={AppColors.FontsColor}
+                        />
+                      </TouchableOpacity>
+                      <Text style={[styles.name, {marginStart: '8%'}]}>
+                        {item.comments.length}
+                      </Text>
+                    </View>
+                    <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                      <TouchableOpacity>
+                        <Icon
+                          name="share-square"
+                          size={22}
+                          color={AppColors.FontsColor}
+                        />
+                      </TouchableOpacity>
+                      <Text style={[styles.name, {marginStart: '8%'}]}>
+                        {item.share}
+                      </Text>
+                    </View>
+                  </View>
+                  {writeComments && (
+                    <View
+                      style={{
+                        width: '100%',
+                        paddingVertical: 2,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                      }}>
+                      <TextInput
+                        placeholder="Write Something"
+                        style={{color: AppColors.FontsColor}}
+                        placeholderTextColor={AppColors.infoFonts}
+                        value={message}
+                        onChangeText={e => {
+                          setMessage(e);
+                        }}
+                      />
+                      <View
+                        style={{flexDirection: 'row', alignItems: 'center'}}>
+                        <TouchableOpacity
+                          onPress={() => {
+                            commentPost(item.id, item, message);
+                          }}>
+                          <Icon3
+                            name="send"
+                            size={22}
+                            color={AppColors.FontsColor}
+                          />
+                        </TouchableOpacity>
+                        {/* <TouchableOpacity>
                         <Icon3
                           name="close"
                           size={22}
                           color={AppColors.FontsColor}
                         />
                       </TouchableOpacity> */}
+                      </View>
                     </View>
-                  </View>
-                )}
-              </LinearGradient>
-            )})
-                    
-          }
+                  )}
+                </LinearGradient>
+              );
+            })}
         </ScrollView>
         <CreatePostButton
           style={styles.createBtn}

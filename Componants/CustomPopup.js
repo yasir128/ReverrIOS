@@ -60,6 +60,7 @@ class CustomPopup extends Component {
     }
 
     if (props.open !== this.props.open) {
+      if(props.id==props.postId)
       if (props.open) {
         this.open();
       } else {

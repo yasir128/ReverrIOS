@@ -42,7 +42,7 @@ function generateString(length) {
 }
 
 const Room = () => {
-  const [posts, setPosts] = useState(null);
+  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
   const [features, setFeatures] = useState(true);
@@ -53,6 +53,14 @@ const Room = () => {
   const {state, dispatch} = useContext(UserContext);
   const [popup, setPopup] = useState(false);
   const [seeMore, setSeeMore] = useState(false);
+  const [seemoreId, setSeemoreId] = useState();
+  const [id, setId] = useState();
+
+  const clickhandler = (id)=>{
+    setId(id);
+    setPopup(true);
+  }
+
   const fetchPosts = async () => {
     try {
       const list = [];
@@ -62,7 +70,6 @@ const Room = () => {
         .get()
         .then(querySnapshot => {
           // console.log('Total Posts: ', querySnapshot.size);
-
           querySnapshot.forEach(doc => {
             let post = doc.data();
             post.id = doc.id;
@@ -85,10 +92,10 @@ const Room = () => {
                         .catch(err => console.log(err));
                     });
                   }
-                  console.log(post);
                   list.push(post);
-                  setPosts(list);
+                  setPosts((posts)=>[...posts,post]);
                   if (loading) {
+                    console.log("list",list);
                     setLoading(false);
                   }
                 })
@@ -324,7 +331,7 @@ const Room = () => {
                         </Text>
                       </View>
                     </View>
-                    <TouchableOpacity onPress={() => setPopup(true)}>
+                    <TouchableOpacity onPress={() => clickhandler(item.id)}>
                       <Icon2
                         name="ellipsis-vertical"
                         size={22}
@@ -338,6 +345,7 @@ const Room = () => {
                         {item.text !== '' ? (
                           <View>
                             {seeMore ? (
+                              item.id==seemoreId&&
                               <View
                                 style={[styles.image, {overflow: 'hidden'}]}>
                                 <ImageBackground
@@ -368,6 +376,7 @@ const Room = () => {
                                   </Text>
                                   <TouchableOpacity
                                     onPress={() => {
+                                      setSeemoreId(item.id);
                                       setSeeMore(true);
                                     }}>
                                     <Text style={styles.company}>See More</Text>
@@ -471,8 +480,11 @@ const Room = () => {
                     </View>
                   )}
                   <CustomPopup
+                    key={item.id}
                     open={popup}
                     closeOnTouchOutside={true}
+                    postId = {id}
+                    id = {item.id}
                     modalDidClose={() => {
                       setPopup(false);
                     }}

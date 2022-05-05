@@ -96,16 +96,39 @@ const OpenBook = props => {
         />
       )}
       <View style={styles.StatusContainer}>
+        {
+          (bookData.type = 'TEXT' && (
+            <View
+              style={{
+                flexDirection: 'row',
+                paddingBottom: '5%',
+              }}>
+              <TouchableOpacity style={{marginEnd: '10%', marginStart: '10%'}}>
+                <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
+                  A.
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={{marginEnd: '10%'}}>
+                <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
+                  B.
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={{marginEnd: '10%'}}>
+                <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
+                  C.
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={{marginEnd: '10%'}}>
+                <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
+                  D.
+                </Text>
+              </TouchableOpacity>
+            </View>
+          ))
+        }
         <View style={styles.progressContainer}>
           <View style={[styles.complete, {width: progress}]}></View>
         </View>
-        <TouchableOpacity style={{marginStart: '12%'}}>
-          <Icon2
-            name="bookmark-outline"
-            size={28}
-            color={AppColors.ActiveColor}
-          />
-        </TouchableOpacity>
       </View>
     </View>
   );
@@ -144,14 +167,13 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   StatusContainer: {
-    flexDirection: 'row',
-    paddingVertical: '3%',
+    paddingBottom: '5%',
     alignItems: 'center',
-    paddingHorizontal: '2%',
+    paddingHorizontal: '6%',
   },
   progressContainer: {
     height: 10,
-    width: '76%',
+    width: '100%',
     borderRadius: 20,
     backgroundColor: AppColors.BtnClr,
   },

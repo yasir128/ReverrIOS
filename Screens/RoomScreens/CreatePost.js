@@ -30,7 +30,7 @@ import BottomPopup from '../../Componants/BottomPopup';
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
-const CreatePost = () => {
+const CreatePost = (props) => {
   const {state, dispatch} = useContext(UserContext);
   const [popup, setPopup] = useState(false);
   const [image, setImage] = useState(false);
@@ -39,24 +39,42 @@ const CreatePost = () => {
   const [text, setText] = useState('');
   const navigation = useNavigation();
 
+  const {setPosts,fetchPosts2} = props.route.params;
+
   const submitPost = async () => {
     var post = {
       postedby: firestore().collection('Users').doc(state.email),
       image: imageUrl,
       comments: [],
       likes: [],
+      text,
       createdat: firestore.Timestamp.fromDate(new Date()),
     };
     console.log('Post: ', post);
+
 
     await firestore()
       .collection('Posts')
       .add(post)
       .then(() => {
+        setPosts([]);
+        fetchPosts2();
         console.log('Post Added!');
         Alert.alert(
           'Post published!',
           'Your post has been published Successfully!',
+          [
+            {
+              text: 'Cancel',
+              onPress: () => console.log('Cancel Pressed!'),
+              style: 'cancel',
+            },
+            {
+              text: 'okay',
+              onPress: () => navigation.navigate('Room'),
+            },
+          ],
+          {cancelable: false},
         );
       })
       .catch(error => {
@@ -291,40 +309,40 @@ const styles = StyleSheet.create({
 export default CreatePost;
 
 /*<TouchableOpacity
-            onPress={() => {
-              if (image) {
-                AddCameraImage();
-              }
-              if (video) {
-                AddCameraVideo();
-              }
-            }}
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              paddingHorizontal: '8%',
-              marginTop: '5%',
-            }}>
-            <Icon name="camera" color={AppColors.FontsColor} size={25} />
-            <Text style={[styles.name, {marginStart: '5%'}]}>Open Camera</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              if (image) {
-                AddGalleryImage();
-              }
-              if (video) {
-                AddGalleryVideo();
-              }
-            }}
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              paddingHorizontal: '8%',
-              marginTop: '6%',
-            }}>
-            <Icon name="images" color={AppColors.FontsColor} size={25} />
-            <Text style={[styles.name, {marginStart: '5%'}]}>
-              Select From Gallary
-            </Text>
-          </TouchableOpacity>*/
+    onPress={() => {
+      if (image) {
+        AddCameraImage();
+      }
+      if (video) {
+        AddCameraVideo();
+      }
+    }}
+    style={{
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingHorizontal: '8%',
+      marginTop: '5%',
+    }}>
+    <Icon name="camera" color={AppColors.FontsColor} size={25} />
+    <Text style={[styles.name, {marginStart: '5%'}]}>Open Camera</Text>
+  </TouchableOpacity>
+  <TouchableOpacity
+    onPress={() => {
+      if (image) {
+        AddGalleryImage();
+      }
+      if (video) {
+        AddGalleryVideo();
+      }
+    }}
+    style={{
+      flexDirection: 'row',
+      alignItems: 'center',
+      paddingHorizontal: '8%',
+      marginTop: '6%',
+    }}>
+    <Icon name="images" color={AppColors.FontsColor} size={25} />
+    <Text style={[styles.name, {marginStart: '5%'}]}>
+      Select From Gallary
+    </Text>
+  </TouchableOpacity>*/

@@ -23,7 +23,6 @@ const SwipeCardNews = props => {
       <FlatList
         data={props.data.reverse()}
         horizontal
-        inverted={true}
         pagingEnabled={props.pagingEnabled}
         onScroll={props.onScroll}
         renderItem={({item}) => {

@@ -8,6 +8,7 @@ import {
   TextInput,
   ImageBackground,
   TouchableOpacity,
+  Alert
 } from 'react-native';
 import React, {useEffect, useState, useContext} from 'react';
 import AppColors from '../../Constaint/AppColors';
@@ -25,6 +26,7 @@ import firestore from '@react-native-firebase/firestore';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import App, {UserContext} from '../../App';
 import CustomPopup from '../../Componants/CustomPopup';
+import storage from '@react-native-firebase/storage';
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
@@ -55,71 +57,63 @@ const Room = () => {
   const [seeMore, setSeeMore] = useState(false);
   const [seemoreId, setSeemoreId] = useState();
   const [id, setId] = useState();
+  const [owner, setOwner] = useState(false);
 
-  const clickhandler = (id)=>{
-    setId(id);
+  const clickhandler = (post)=>{
+    setId(post.id);
     setPopup(true);
+    if(post.postedby.email == state.email)
+    {
+      setOwner(true);
+    }
+    else{
+      setOwner(false);
+    }
+    
+
   }
 
-  const fetchPosts = async () => {
+  const fetchPosts2 = async () => {
     try {
-      const list = [];
+      const list3 = [];
       await firestore()
         .collection('Posts')
         .orderBy('createdat', 'desc')
         .get()
         .then(querySnapshot => {
-          // console.log('Total Posts: ', querySnapshot.size);
           querySnapshot.forEach(doc => {
             let post = doc.data();
             post.id = doc.id;
-            if (post.postedby) {
-              post.postedby
-                .get()
-                .then(res => {
-                  let response = res.data();
-                  delete response.password;
-                  post.postedby = response;
-                  if (post.comments.length > 0) {
-                    post.comments.forEach(comment => {
-                      comment.commentedby
-                        .get()
-                        .then(res => {
-                          let commentor = res.data();
-                          delete commentor.password;
-                          comment.commentedby = commentor;
-                        })
-                        .catch(err => console.log(err));
-                    });
-                  }
-                  list.push(post);
-                  setPosts((posts)=>[...posts,post]);
-                  if (loading) {
-                    console.log("list",list);
-                    setLoading(false);
-                  }
-                })
-                .catch(err => console.error(err));
-            } else {
-              list.push(post);
-              setPosts(list);
-              if (loading) {
-                setLoading(false);
-              }
-            }
+            list3.push(post);
           });
-        });
+        list3.forEach(async(post)=>{
+          let response =await post.postedby.get()
+          response = response.data();
+          delete response.password;
+          post.postedby = response;
+
+          if(post.comments.length>0)
+            for(var i=0; i<post.comments.length; i++){
+              let commentor= await post.comments[i].commentedby.get()
+              commentor= commentor.data()
+              delete commentor.password;
+              post.comments[i].commentedby = commentor;
+            }
+          setPosts((posts)=>[...posts,post]);
+          if (loading) {
+            setLoading(false);
+          }
+        });      
+      });
     } catch (e) {
       console.log(e);
     }
   };
 
-  useEffect(() => {
-    fetchPosts();
-    setDeleted(false);
-  }, [deleted]);
 
-  const handleDelete = postId => {
+
+  const handleDelete = post => {
+    setPopup(false);
     Alert.alert(
       'Delete post',
       'Are you sure?',
@@ -131,43 +125,36 @@ const Room = () => {
         },
         {
           text: 'Confirm',
-          onPress: () => deletePost(postId),
+          onPress: () => deletePost(post),
         },
       ],
       {cancelable: false},
     );
   };
 
-  const deletePost = postId => {
-    console.log('Current Post Id: ', postId);
+  const deletePost = post => {
+   
+      const {image} = post;
+      const postId = post.id;
 
-    firestore()
-      .collection('Posts')
-      .doc(postId)
-      .get()
-      .then(documentSnapshot => {
-        if (documentSnapshot.exists) {
-          const {image} = documentSnapshot.data();
+      if (image != null && image!= '') {
+        const storageRef = storage().refFromURL(image);
+        const imageRef = storage().ref(storageRef.fullPath);
 
-          if (image != null) {
-            const storageRef = storage().refFromURL(image);
-            const imageRef = storage().ref(storageRef.fullPath);
-
-            imageRef
-              .delete()
-              .then(() => {
-                console.log(`${image} has been deleted successfully.`);
-                deleteFirestoreData(postId);
-              })
-              .catch(e => {
-                console.log('Error while deleting the image. ', e);
-              });
-            // If the post image is not available
-          } else {
+        imageRef
+          .delete()
+          .then(() => {
+            console.log(`${image} has been deleted successfully.`);
             deleteFirestoreData(postId);
-          }
-        }
-      });
+          })
+          .catch(e => {
+            console.log('Error while deleting the image. ', e);
+          });
+        // If the post image is not available
+      } else {
+        deleteFirestoreData(postId);
+      }
+      
   };
 
   const deleteFirestoreData = postId => {
@@ -181,6 +168,7 @@ const Room = () => {
           'Your post has been deleted successfully!',
         );
         setDeleted(true);
+        setPosts((posts)=>[...posts.filter(post=>post.id!=postId)]);
       })
       .catch(e => console.log('Error deleting post.', e));
   };
@@ -194,7 +182,7 @@ const Room = () => {
       list = [...post.likes, state.email];
     }
 
-    console.log(list);
+    // console.log(list);
 
     try {
       await firestore().collection('Posts').doc(postId).update({likes: list});
@@ -214,7 +202,7 @@ const Room = () => {
   const commentPost = async (postId, post, text) => {
     var list = [];
 
-    console.log(text);
+    // console.log(text);
 
     var comment = {
       commentedby: firestore().collection('Users').doc(state.email),
@@ -225,7 +213,7 @@ const Room = () => {
     setMessage('');
 
     list = [...post.comments, comment];
-    console.log(list);
+    // console.log(list);
 
     try {
       await firestore()
@@ -264,7 +252,7 @@ const Room = () => {
   };
 
   useEffect(() => {
-    fetchPosts();
+    fetchPosts2();
   }, []);
 
   if (loading) {
@@ -310,7 +298,7 @@ const Room = () => {
         <ScrollView style={{marginTop: '5%'}}>
           {posts &&
             posts.map((item, index) => {
-              console.log(index);
+              // console.log(index);
               return (
                 <LinearGradient
                   key={index}
@@ -331,7 +319,7 @@ const Room = () => {
                         </Text>
                       </View>
                     </View>
-                    <TouchableOpacity onPress={() => clickhandler(item.id)}>
+                    <TouchableOpacity onPress={() => clickhandler(item)}>
                       <Icon2
                         name="ellipsis-vertical"
                         size={22}
@@ -485,6 +473,7 @@ const Room = () => {
                     closeOnTouchOutside={true}
                     postId = {id}
                     id = {item.id}
+                    owner = {owner}
                     modalDidClose={() => {
                       setPopup(false);
                     }}
@@ -499,6 +488,7 @@ const Room = () => {
                       backgroundColor: AppColors.primarycolor,
                     }}
                     style={{alignItems: 'center'}}>
+                    {owner&&
                     <View
                       style={{
                         borderBottomColor: AppColors.FontsColor,
@@ -506,13 +496,14 @@ const Room = () => {
                         paddingVertical: '4%',
                         alignItems: 'center',
                       }}>
-                      <TouchableOpacity>
+                      <TouchableOpacity onPress={()=>handleDelete(item)}>
                         <Text style={{color: AppColors.FontsColor}}>
                           Delete
                         </Text>
                       </TouchableOpacity>
                     </View>
-                    <View
+                    }
+                    {/* <View
                       style={{
                         borderBottomColor: AppColors.FontsColor,
                         borderBottomWidth: 2,
@@ -522,7 +513,7 @@ const Room = () => {
                       <TouchableOpacity>
                         <Text style={{color: AppColors.FontsColor}}>Edit</Text>
                       </TouchableOpacity>
-                    </View>
+                    </View> */}
                     <View
                       style={{
                         borderBottomColor: AppColors.FontsColor,
@@ -536,11 +527,22 @@ const Room = () => {
                     </View>
                     <View
                       style={{
-                        paddingVertical: '4%',
+                        borderBottomColor: AppColors.FontsColor,
+                        borderBottomWidth: 2,
                         alignItems: 'center',
+                        paddingVertical: '4%',
                       }}>
                       <TouchableOpacity>
                         <Text style={{color: AppColors.FontsColor}}>Save</Text>
+                      </TouchableOpacity>
+                    </View>
+                    <View
+                      style={{
+                        paddingVertical: '4%',
+                        alignItems: 'center',
+                      }}>
+                      <TouchableOpacity onPress={()=>setPopup(false)}>
+                        <Text style={{color: AppColors.FontsColor}}>close</Text>
                       </TouchableOpacity>
                     </View>
                   </CustomPopup>
@@ -551,7 +553,7 @@ const Room = () => {
         <CreatePostButton
           style={styles.createBtn}
           onPress={() => {
-            navigation.navigate('CreatePost');
+            navigation.navigate('CreatePost',{setPosts,fetchPosts2});
           }}
         />
       </View>

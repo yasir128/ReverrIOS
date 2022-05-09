@@ -34,17 +34,6 @@ import CreatePost from '../Screens/RoomScreens/CreatePost';
 const Stack = createNativeStackNavigator();
 
 export const HomeStack = () => {
-  const config = {
-    animation: 'slide',
-    config: {
-      stiffness: 1000,
-      damping: 500,
-      mass: 3,
-      overshootClamping: true,
-      restDisplacementThreshold: 0.01,
-      restSpeedThreshold: 0.01,
-    },
-  };
   return (
     <Stack.Navigator>
       <Stack.Screen

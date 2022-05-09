@@ -5,6 +5,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   ScrollView,
+  FlatList,
   Dimensions,
 } from 'react-native';
 import React from 'react';
@@ -13,7 +14,6 @@ import Backbtn from '../../Componants/Backbtn';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/Ionicons';
-import {FlatList} from 'react-native-gesture-handler';
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;

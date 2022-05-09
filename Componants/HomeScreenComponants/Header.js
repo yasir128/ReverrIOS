@@ -5,7 +5,6 @@ import Ionic from 'react-native-vector-icons/Ionicons';
 import AppColors from '../../Constaint/AppColors';
 
 const Header = props => {
-  console.log(props.DpUrl);
   return (
     <View style={styles.Container}>
       <TouchableOpacity style={styles.dp} onPress={props.onPressDp}>
@@ -44,6 +43,8 @@ const styles = StyleSheet.create({
   Container: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: '3%',
     height: '10%',
   },
   dp: {
@@ -52,21 +53,17 @@ const styles = StyleSheet.create({
   calender: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginStart: '11%',
   },
   logo: {
-    marginStart: '6%',
     backgroundColor: AppColors.primarycolor,
   },
   notification: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginStart: '11%',
   },
   chat: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginStart: '11%',
   },
 });
 

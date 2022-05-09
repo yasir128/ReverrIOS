@@ -34,12 +34,25 @@ import CreatePost from '../Screens/RoomScreens/CreatePost';
 const Stack = createNativeStackNavigator();
 
 export const HomeStack = () => {
+  const config = {
+    animation: 'slide',
+    config: {
+      stiffness: 1000,
+      damping: 500,
+      mass: 3,
+      overshootClamping: true,
+      restDisplacementThreshold: 0.01,
+      restSpeedThreshold: 0.01,
+    },
+  };
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="DashBoard"
         component={Dashboard}
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+        }}
       />
       <Stack.Screen
         name="Individual"
@@ -54,7 +67,9 @@ export const HomeStack = () => {
       <Stack.Screen
         name="Setting"
         component={Settings}
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+        }}
       />
       <Stack.Screen
         name="Chat"

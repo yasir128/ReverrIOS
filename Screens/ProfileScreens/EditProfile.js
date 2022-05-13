@@ -132,7 +132,7 @@ const EditProfile = () => {
         </Text>
       </View>
       <ScrollView style={styles.mainContainer}>
-        <TextInput
+        <EditCard
           value={Name}
           style={styles.name}
           onChangeText={n => {
@@ -146,7 +146,7 @@ const EditProfile = () => {
           }}
           value={About == '>/s<' ? 'Enter About' : About}
         />
-        <TextInput
+        <EditCard
           value={Industry == '>/s<' ? 'Enter Your Industry' : Industry}
           style={[
             styles.name,
@@ -302,15 +302,7 @@ const styles = StyleSheet.create({
     marginStart: Width / 2.15,
   },
   name: {
-    backgroundColor: AppColors.CardColor,
-    height: Height / 24,
-    paddingBottom: 4.5,
-    fontFamily: 'Poppins-Regular',
-    color: AppColors.infoFonts,
-    paddingStart: 9,
     marginTop: Height / 13,
-    borderRadius: 10,
-    width: '99%',
   },
 });
 

@@ -8,7 +8,7 @@ import {
   TextInput,
   ImageBackground,
   TouchableOpacity,
-  Alert
+  Alert,
 } from 'react-native';
 import React, {useEffect, useState, useContext} from 'react';
 import AppColors from '../../Constaint/AppColors';
@@ -27,6 +27,7 @@ import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import App, {UserContext} from '../../App';
 import CustomPopup from '../../Componants/CustomPopup';
 import storage from '@react-native-firebase/storage';
+import {FlatList} from 'react-native-gesture-handler';
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
@@ -59,19 +60,15 @@ const Room = () => {
   const [id, setId] = useState();
   const [owner, setOwner] = useState(false);
 
-  const clickhandler = (post)=>{
+  const clickhandler = post => {
     setId(post.id);
     setPopup(true);
-    if(post.postedby.email == state.email)
-    {
+    if (post.postedby.email == state.email) {
       setOwner(true);
-    }
-    else{
+    } else {
       setOwner(false);
     }
-    
-
-  }
+  };
 
   const fetchPosts2 = async () => {
     try {
@@ -86,31 +83,29 @@ const Room = () => {
             post.id = doc.id;
             list3.push(post);
           });
-        list3.forEach(async(post)=>{
-          let response =await post.postedby.get()
-          response = response.data();
-          delete response.password;
-          post.postedby = response;
+          list3.forEach(async post => {
+            let response = await post.postedby.get();
+            response = response.data();
+            delete response.password;
+            post.postedby = response;
 
-          if(post.comments.length>0)
-            for(var i=0; i<post.comments.length; i++){
-              let commentor= await post.comments[i].commentedby.get()
-              commentor= commentor.data()
-              delete commentor.password;
-              post.comments[i].commentedby = commentor;
+            if (post.comments.length > 0)
+              for (var i = 0; i < post.comments.length; i++) {
+                let commentor = await post.comments[i].commentedby.get();
+                commentor = commentor.data();
+                delete commentor.password;
+                post.comments[i].commentedby = commentor;
+              }
+            setPosts(posts => [...posts, post]);
+            if (loading) {
+              setLoading(false);
             }
-          setPosts((posts)=>[...posts,post]);
-          if (loading) {
-            setLoading(false);
-          }
-        });      
-      });
+          });
+        });
     } catch (e) {
       console.log(e);
     }
   };
-
-
 
   const handleDelete = post => {
     setPopup(false);
@@ -133,28 +128,26 @@ const Room = () => {
   };
 
   const deletePost = post => {
-   
-      const {image} = post;
-      const postId = post.id;
+    const {image} = post;
+    const postId = post.id;
 
-      if (image != null && image!= '') {
-        const storageRef = storage().refFromURL(image);
-        const imageRef = storage().ref(storageRef.fullPath);
+    if (image != null && image != '') {
+      const storageRef = storage().refFromURL(image);
+      const imageRef = storage().ref(storageRef.fullPath);
 
-        imageRef
-          .delete()
-          .then(() => {
-            console.log(`${image} has been deleted successfully.`);
-            deleteFirestoreData(postId);
-          })
-          .catch(e => {
-            console.log('Error while deleting the image. ', e);
-          });
-        // If the post image is not available
-      } else {
-        deleteFirestoreData(postId);
-      }
-      
+      imageRef
+        .delete()
+        .then(() => {
+          console.log(`${image} has been deleted successfully.`);
+          deleteFirestoreData(postId);
+        })
+        .catch(e => {
+          console.log('Error while deleting the image. ', e);
+        });
+      // If the post image is not available
+    } else {
+      deleteFirestoreData(postId);
+    }
   };
 
   const deleteFirestoreData = postId => {
@@ -168,7 +161,7 @@ const Room = () => {
           'Your post has been deleted successfully!',
         );
         setDeleted(true);
-        setPosts((posts)=>[...posts.filter(post=>post.id!=postId)]);
+        setPosts(posts => [...posts.filter(post => post.id != postId)]);
       })
       .catch(e => console.log('Error deleting post.', e));
   };
@@ -333,25 +326,26 @@ const Room = () => {
                         {item.text !== '' ? (
                           <View>
                             {seeMore ? (
-                              item.id==seemoreId&&
-                              <View
-                                style={[styles.image, {overflow: 'hidden'}]}>
-                                <ImageBackground
-                                  style={{width: '100%', height: '100%'}}
-                                  source={{uri: item.image}}>
-                                  <View style={{paddingHorizontal: '5%'}}>
-                                    <Text style={styles.details}>
-                                      {item.text}
-                                    </Text>
-                                    <TouchableOpacity
-                                      onPress={() => {
-                                        setSeeMore(false);
-                                      }}>
-                                      <Text style={styles.company}>Hide</Text>
-                                    </TouchableOpacity>
-                                  </View>
-                                </ImageBackground>
-                              </View>
+                              item.id == seemoreId && (
+                                <View
+                                  style={[styles.image, {overflow: 'hidden'}]}>
+                                  <ImageBackground
+                                    style={{width: '100%', height: '100%'}}
+                                    source={{uri: item.image}}>
+                                    <View style={{paddingHorizontal: '5%'}}>
+                                      <Text style={styles.details}>
+                                        {item.text}
+                                      </Text>
+                                      <TouchableOpacity
+                                        onPress={() => {
+                                          setSeeMore(false);
+                                        }}>
+                                        <Text style={styles.company}>Hide</Text>
+                                      </TouchableOpacity>
+                                    </View>
+                                  </ImageBackground>
+                                </View>
+                              )
                             ) : (
                               <View>
                                 <Image
@@ -402,7 +396,7 @@ const Room = () => {
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                       <TouchableOpacity
                         onPress={() => {
-                          setWriteComments(true);
+                          setWriteComments(!writeComments);
                         }}>
                         <Icon
                           name="comment"
@@ -428,42 +422,44 @@ const Room = () => {
                     </View>
                   </View>
                   {writeComments && (
-                    <View
-                      style={{
-                        width: '100%',
-                        paddingVertical: 2,
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                      }}>
-                      <TextInput
-                        placeholder="Write Something"
-                        style={{color: AppColors.FontsColor}}
-                        placeholderTextColor={AppColors.infoFonts}
-                        value={message}
-                        onChangeText={e => {
-                          setMessage(e);
-                        }}
-                      />
+                    <View>
+                      <Text>Here Previous Comments</Text>
                       <View
-                        style={{flexDirection: 'row', alignItems: 'center'}}>
-                        <TouchableOpacity
-                          onPress={() => {
-                            commentPost(item.id, item, message);
-                          }}>
-                          <Icon3
-                            name="send"
-                            size={22}
-                            color={AppColors.FontsColor}
-                          />
-                        </TouchableOpacity>
-                        {/* <TouchableOpacity>
+                        style={{
+                          width: '100%',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                        }}>
+                        <TextInput
+                          placeholder="Write Something"
+                          style={{color: AppColors.FontsColor}}
+                          placeholderTextColor={AppColors.infoFonts}
+                          value={message}
+                          onChangeText={e => {
+                            setMessage(e);
+                          }}
+                        />
+                        <View
+                          style={{flexDirection: 'row', alignItems: 'center'}}>
+                          <TouchableOpacity
+                            onPress={() => {
+                              commentPost(item.id, item, message);
+                            }}>
+                            <Icon3
+                              name="send"
+                              size={22}
+                              color={AppColors.FontsColor}
+                            />
+                          </TouchableOpacity>
+                          {/* <TouchableOpacity>
                         <Icon3
                           name="close"
                           size={22}
                           color={AppColors.FontsColor}
                         />
                       </TouchableOpacity> */}
+                        </View>
                       </View>
                     </View>
                   )}
@@ -471,9 +467,9 @@ const Room = () => {
                     key={item.id}
                     open={popup}
                     closeOnTouchOutside={true}
-                    postId = {id}
-                    id = {item.id}
-                    owner = {owner}
+                    postId={id}
+                    id={item.id}
+                    owner={owner}
                     modalDidClose={() => {
                       setPopup(false);
                     }}
@@ -488,21 +484,21 @@ const Room = () => {
                       backgroundColor: AppColors.primarycolor,
                     }}
                     style={{alignItems: 'center'}}>
-                    {owner&&
-                    <View
-                      style={{
-                        borderBottomColor: AppColors.FontsColor,
-                        borderBottomWidth: 2,
-                        paddingVertical: '4%',
-                        alignItems: 'center',
-                      }}>
-                      <TouchableOpacity onPress={()=>handleDelete(item)}>
-                        <Text style={{color: AppColors.FontsColor}}>
-                          Delete
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
-                    }
+                    {owner && (
+                      <View
+                        style={{
+                          borderBottomColor: AppColors.FontsColor,
+                          borderBottomWidth: 2,
+                          paddingVertical: '4%',
+                          alignItems: 'center',
+                        }}>
+                        <TouchableOpacity onPress={() => handleDelete(item)}>
+                          <Text style={{color: AppColors.FontsColor}}>
+                            Delete
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    )}
                     {/* <View
                       style={{
                         borderBottomColor: AppColors.FontsColor,
@@ -541,7 +537,7 @@ const Room = () => {
                         paddingVertical: '4%',
                         alignItems: 'center',
                       }}>
-                      <TouchableOpacity onPress={()=>setPopup(false)}>
+                      <TouchableOpacity onPress={() => setPopup(false)}>
                         <Text style={{color: AppColors.FontsColor}}>close</Text>
                       </TouchableOpacity>
                     </View>
@@ -553,7 +549,7 @@ const Room = () => {
         <CreatePostButton
           style={styles.createBtn}
           onPress={() => {
-            navigation.navigate('CreatePost',{setPosts,fetchPosts2});
+            navigation.navigate('CreatePost', {setPosts, fetchPosts2});
           }}
         />
       </View>

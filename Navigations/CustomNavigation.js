@@ -39,7 +39,9 @@ export const HomeStack = () => {
       <Stack.Screen
         name="DashBoard"
         component={Dashboard}
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+        }}
       />
       <Stack.Screen
         name="Individual"
@@ -54,7 +56,9 @@ export const HomeStack = () => {
       <Stack.Screen
         name="Setting"
         component={Settings}
-        options={{headerShown: false}}
+        options={{
+          headerShown: false,
+        }}
       />
       <Stack.Screen
         name="Chat"

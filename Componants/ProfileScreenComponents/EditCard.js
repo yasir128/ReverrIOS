@@ -1,12 +1,17 @@
 import {View, Text, StyleSheet, Dimensions, TextInput} from 'react-native';
 import React from 'react';
 import AppColors from '../../Constaint/AppColors';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
 const EditCard = props => {
   return (
-    <View style={styles.Card}>
+    <LinearGradient
+      colors={[AppColors.primarycolor, '#012437']}
+      start={{x: 0, y: 1.3}}
+      end={{x: 0.3, y: 0.5}}
+      style={{...styles.Card, ...props.style}}>
       <Text
         style={{
           color: AppColors.FontsColor,
@@ -25,7 +30,7 @@ const EditCard = props => {
         onChangeText={props.onChangeText}
         value={props.value}
       />
-    </View>
+    </LinearGradient>
   );
 };
 const styles = StyleSheet.create({

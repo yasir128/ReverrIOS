@@ -10,6 +10,7 @@ import {
 import React, {useState} from 'react';
 import AppColors from '../../../Constaint/AppColors';
 import {useNavigation} from '@react-navigation/native';
+import {smallString} from '../../../utils/helper';
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
@@ -44,7 +45,7 @@ const NewsCard = props => {
                           color: AppColors.FontsColor,
                           fontFamily: 'Poppins-Regular',
                         }}>
-                        {item.name}
+                        {smallString(item.name, 60)}
                       </Text>
                     </View>
                   </ImageBackground>

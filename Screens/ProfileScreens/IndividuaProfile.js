@@ -21,7 +21,7 @@ const Height = Dimensions.get('screen').height;
 const IndividuaProfile = props => {
   const navigation = useNavigation();
   const {state, dispatch} = useContext(UserContext);
-  // console.log(state.education.map(ed => ed));
+  console.log(state, 'state');
 
   return (
     state && (
@@ -72,7 +72,7 @@ const IndividuaProfile = props => {
               <Text style={styles.text}>Setting</Text>
             </TouchableOpacity>
           </View>
-          <View style={{height: '7%'}}>
+          <View style={{height: '12%'}}>
             <Text
               style={[
                 styles.text,
@@ -80,11 +80,26 @@ const IndividuaProfile = props => {
                   width: '100%',
                   textAlign: 'center',
                   marginLeft: 10,
+                  marginTop: Height / 82,
                   fontSize: 18,
                   textTransform: 'capitalize',
                 },
               ]}>
               {state && state.name}
+            </Text>
+            <Text
+              style={[
+                styles.text,
+                {
+                  width: '100%',
+                  textAlign: 'center',
+                  marginLeft: 10,
+                  color: AppColors.infoFonts,
+                  fontSize: 18,
+                  textTransform: 'capitalize',
+                },
+              ]}>
+              {state && state.designation}
             </Text>
           </View>
           <View
@@ -128,7 +143,6 @@ const IndividuaProfile = props => {
           <View style={styles.CompanyDetails}>
             <Text style={[styles.text, {fontSize: 18}]}>Experience</Text>
             <Text style={[styles.txt, {width: Width / 2}]}>
-
               {state.experience &&
                 state.experience.length > 0 &&
                 state.experience.map(ex => ex)}
@@ -202,7 +216,6 @@ const styles = StyleSheet.create({
   },
   text: {
     color: AppColors.FontsColor,
-    marginTop: Height / 82,
     fontFamily: 'Poppins-Regular',
     fontSize: 13,
   },

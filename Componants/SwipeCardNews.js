@@ -17,7 +17,7 @@ const Height = Dimensions.get('window').height;
 
 const SwipeCardNews = props => {
   const navigation = useNavigation();
-  var count =5;
+  var count = 5;
   return (
     <View>
       <FlatList
@@ -26,33 +26,34 @@ const SwipeCardNews = props => {
         pagingEnabled={props.pagingEnabled}
         onScroll={props.onScroll}
         renderItem={({item}) => {
-          
-          if(item.image){
-            count --;
-          if(count>-1)
-          return(
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={() => {
-              console.log(item)
-              navigation.navigate('NewsDetails', {
-                articalData: item,
-              });
-            }}
-            style={{...styles.container, ...props.style}}>
-            <ImageBackground style={{flex: 1}} source={{uri: item.image.thumbnail.contentUrl}}>
-              <View style={{...styles.title}}>
-                <Text
-                  style={{
-                    ...{
-                      color: AppColors.FontsColor,
-                      fontFamily: 'Poppins-Bold',
-                    },
-                    ...props.title,
-                  }}>
-                  {item.name}
-                </Text>
-                {/* <Text
+          if (item.image) {
+            count--;
+            if (count > -1)
+              return (
+                <TouchableOpacity
+                  activeOpacity={0.6}
+                  onPress={() => {
+                    console.log(item);
+                    navigation.navigate('NewsDetails', {
+                      articalData: item,
+                    });
+                  }}
+                  style={{...styles.container, ...props.style}}>
+                  <ImageBackground
+                    style={{flex: 1}}
+                    source={{uri: item.image.thumbnail.contentUrl}}>
+                    <View style={{...styles.title}}>
+                      <Text
+                        style={{
+                          ...{
+                            color: AppColors.FontsColor,
+                            fontFamily: 'Poppins-Bold',
+                          },
+                          ...props.title,
+                        }}>
+                        {item.name}
+                      </Text>
+                      {/* <Text
                   style={{
                     ...{
                       color: AppColors.BtnClr,
@@ -62,10 +63,12 @@ const SwipeCardNews = props => {
                   }}>
                   {smallString(item.description, props.maxString)}
                 </Text> */}
-              </View>
-            </ImageBackground>
-          </TouchableOpacity>
-        )}}}
+                    </View>
+                  </ImageBackground>
+                </TouchableOpacity>
+              );
+          }
+        }}
       />
     </View>
   );
@@ -85,10 +88,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
     width: '100%',
-    height: '40%',
+    height: '50%',
     paddingVertical: 5,
     paddingHorizontal: '3%',
-    top: Height > 684 ? 145 : 90,
+    top: Height > 684 ? 115 : 50,
   },
 });
 

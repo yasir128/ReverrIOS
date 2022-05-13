@@ -31,6 +31,7 @@ const LearnerNav = () => {
               fontFamily: 'Poppins-Bold',
               fontSize: 10,
             },
+            tabBarHideOnKeyboard: true,
             tabBarActiveBackgroundColor: AppColors.bottomBg,
             tabBarLabelPosition: 'below-icon',
             tabBarActiveTintColor: AppColors.FontsColor,
@@ -74,6 +75,7 @@ const LearnerNav = () => {
               fontFamily: 'Poppins-Bold',
               fontSize: 10,
             },
+            tabBarHideOnKeyboard: true,
             tabBarActiveBackgroundColor: AppColors.bottomBg,
             tabBarLabelPosition: 'below-icon',
             tabBarActiveTintColor: AppColors.FontsColor,
@@ -108,6 +110,7 @@ const LearnerNav = () => {
               fontFamily: 'Poppins-Bold',
               fontSize: 10,
             },
+            tabBarHideOnKeyboard: true,
             tabBarActiveBackgroundColor: AppColors.bottomBg,
             tabBarLabelPosition: 'below-icon',
             tabBarActiveTintColor: AppColors.FontsColor,
@@ -118,9 +121,9 @@ const LearnerNav = () => {
             },
             tabBarIcon: tabinfo => {
               return (
-                <Icon2
-                  name="rupee-sign"
-                  size={28}
+                <Ionic
+                  name="calculator"
+                  size={30}
                   color={tabinfo.focused ? '#40BFFF' : '#A6A6A6'}
                   style={{
                     marginTop: 5,
@@ -142,6 +145,7 @@ const LearnerNav = () => {
               fontFamily: 'Poppins-Bold',
               fontSize: 10,
             },
+            tabBarHideOnKeyboard: true,
             tabBarActiveBackgroundColor: AppColors.bottomBg,
             tabBarLabelPosition: 'below-icon',
             tabBarActiveTintColor: AppColors.FontsColor,

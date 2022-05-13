@@ -30,7 +30,7 @@ import BottomPopup from '../../Componants/BottomPopup';
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
-const CreatePost = (props) => {
+const CreatePost = props => {
   const {state, dispatch} = useContext(UserContext);
   const [popup, setPopup] = useState(false);
   const [image, setImage] = useState(false);
@@ -39,7 +39,7 @@ const CreatePost = (props) => {
   const [text, setText] = useState('');
   const navigation = useNavigation();
 
-  const {setPosts,fetchPosts2} = props.route.params;
+  const {setPosts, fetchPosts2} = props.route.params;
 
   const submitPost = async () => {
     var post = {
@@ -50,8 +50,7 @@ const CreatePost = (props) => {
       text,
       createdat: firestore.Timestamp.fromDate(new Date()),
     };
-    console.log('Post: ', post);
-
+    //  console.log('Post: ', post);
 
     await firestore()
       .collection('Posts')
@@ -289,12 +288,13 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
   },
   msg: {
-    borderRadius: 7,
+    borderRadius: 4,
     marginHorizontal: '5%',
+    color: AppColors.FontsColor,
     fontSize: 20,
-    paddingLeft: 12,
-    height: 250,
-    paddingRight: 10,
+    paddingHorizontal: 9,
+    fontFamily: 'Poppins-Regular',
+    height: Height / 3,
     lineHeight: 23,
     textAlignVertical: 'top',
   },

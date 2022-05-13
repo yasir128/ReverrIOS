@@ -37,7 +37,7 @@ const NewsScreen = () => {
   return (
     <View style={styles.screen}>
       <View>
-        <View>
+        {/* <View>
           <Text style={styles.heading}>Trending</Text>
         </View>
         <SwipeCardNews
@@ -48,12 +48,12 @@ const NewsScreen = () => {
               useNativeDriver: false,
             },
           )}
-        />
+        /> */}
         <Paginator
           data={newsstate && newsstate.length > 0 && newsstate}
           scrollX={scrollX}
         />
-        <View style={{height: Height > 684 ? Height / 2.38 : Height / 2.4}}>
+        <View style={{height: Height > 684 ? Height / 1.3 : Height / 1.35}}>
           <View>
             <Text style={styles.news}>News</Text>
           </View>

@@ -246,7 +246,6 @@ export const SaveArticle = async (item, email, articles) => {
     .collection('Users')
     .doc(email)
     .update({savedArticles: [...articles, item.id]});
-  console.log(res);
 };
 
 export const RemoveArticle = async (item, email, articles) => {
@@ -254,22 +253,34 @@ export const RemoveArticle = async (item, email, articles) => {
     .collection('Users')
     .doc(email)
     .update({savedArticles: [...articles.filter(arti => arti != item.id)]});
-  console.log(res);
 };
 export const SavePost = async (item, email, posts) => {
-  console.log(email);
   const res = await firestore()
     .collection('Users')
     .doc(email)
     .update({savedPosts: [...posts, item.id]});
-  console.log(res);
 };
 
 export const RemovePost = async (item, email, posts) => {
-  console.log(email);
   const res = await firestore()
     .collection('Users')
     .doc(email)
     .update({savedPosts: [...posts.filter(arti => arti != item.id)]});
-  console.log(res);
+};
+export const SaveCourse = async (item, email, courses) => {
+  if(courses == undefined){
+    courses = [];
+  }
+  const res = await firestore()
+    .collection('Users')
+    .doc(email)
+    .update({savedCourses: [...courses, item.id]});
+  console.log('firebase save: ',res);
+};
+
+export const RemoveCourse = async (item, email, courses) => {
+  const res = await firestore()
+    .collection('Users')
+    .doc(email)
+    .update({savedCourses: [...courses.filter(arti => arti != item.id)]});
 };

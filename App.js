@@ -21,6 +21,7 @@ import { savedpostreducer, savedpostintialState } from './Redux/savedpostreducer
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import axios from 'axios';
+import { savedcourseintialState, savedcoursereducer } from './Redux/savedcoursereducer';
 
 export const UserContext = createContext();
 export const NewsContext = createContext();
@@ -29,6 +30,7 @@ export const ArticleContext = createContext();
 export const SavedArticleContext = createContext();
 export const SavedPostContext = createContext();
 export const CourseContext = createContext();
+export const SavedCourseContext = createContext();
 
 const Routing = () => {
   const {state, dispatch} = useContext(UserContext);
@@ -38,6 +40,7 @@ const Routing = () => {
   const {savedarticlestate,savedarticledispatch} = useContext(SavedArticleContext);
   const {savedpoststate,savedpostdispatch} = useContext(SavedPostContext);
   const {coursestate, coursedispatch} = useContext(CourseContext);
+  const {savedcoursestate, savedcoursedispatch} = useContext(SavedCourseContext);
   async function loadChatUser(list) {
     list.forEach(async user => {
       const User = await firestore().collection('Users').doc(user).get();
@@ -50,6 +53,13 @@ const Routing = () => {
     articles.map(async(id)=>{
       const res = await firestore().collection('Blogs').doc(id).get();
       savedarticledispatch({type:"UPDATE",payload:res.data()});
+    })
+  }
+
+  async function loadsavedcourse(courses){
+    courses.map(async(id)=>{
+      const res = await firestore().collection('Courses').doc(id).get();
+      savedcoursedispatch({type:"UPDATE",payload:res.data()});
     })
   }
 
@@ -101,6 +111,7 @@ const Routing = () => {
         dispatch({type: 'USER', payload: savedUser._data});
         loadsavedarticle(savedUser._data.savedArticles);
         loadsavedposts(savedUser._data.savedPosts);
+        loadsavedcourse(savedUser._data.savedCourses);
       } catch (err) {
         console.log(err);
       }
@@ -161,7 +172,7 @@ const App = () => {
   const [coursestate, coursedispatch] = useReducer(coursereducer, courseintialState);
   const [savedarticlestate, savedarticledispatch] = useReducer(savedarticlereducer, savedarticleintialState);
   const [savedpoststate, savedpostdispatch] = useReducer(savedpostreducer, savedpostintialState);
-
+  const [savedcoursestate, savedcoursedispatch] = useReducer(savedcoursereducer, savedcourseintialState);
   return (
     <Provider store={store} style={{flex: 1}}>
       <StatusBar
@@ -176,7 +187,9 @@ const App = () => {
                 <NewsContext.Provider value={{newsstate,newsdispatch}}>
                   <CourseContext.Provider value={{coursestate, coursedispatch}}>
                     <SavedPostContext.Provider value={{savedpoststate, savedpostdispatch}}>
-                      <Routing />
+                      <SavedCourseContext.Provider value={{savedcoursestate, savedcoursedispatch}}>
+                        <Routing />
+                      </SavedCourseContext.Provider>
                     </SavedPostContext.Provider>
                   </CourseContext.Provider>
                 </NewsContext.Provider>

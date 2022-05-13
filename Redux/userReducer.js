@@ -49,7 +49,6 @@ export const reducer = (state, action) => {
     };
   }
   if (action.type === 'SAVEPOST') {
-    console.log(action.payload+" added to saves");
     return {
       ...state,
       savedPosts:[
@@ -59,7 +58,6 @@ export const reducer = (state, action) => {
     };
   }
   if (action.type === 'REMOVEPOST') {
-    console.log(action.payload+" removed from saves");
     return {
       ...state,
       savedPosts:[

@@ -22,6 +22,7 @@ import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import axios from 'axios';
 import { savedcourseintialState, savedcoursereducer } from './Redux/savedcoursereducer';
+import { savedmentorintialState, savedmentorreducer } from './Redux/savedmentorreducer';
 
 export const UserContext = createContext();
 export const NewsContext = createContext();
@@ -31,6 +32,7 @@ export const SavedArticleContext = createContext();
 export const SavedPostContext = createContext();
 export const CourseContext = createContext();
 export const SavedCourseContext = createContext();
+export const SavedMentorContext = createContext();
 
 const Routing = () => {
   const {state, dispatch} = useContext(UserContext);
@@ -59,6 +61,14 @@ const Routing = () => {
   async function loadsavedcourse(courses){
     courses.map(async(id)=>{
       const res = await firestore().collection('Courses').doc(id).get();
+      savedcoursedispatch({type:"UPDATE",payload:res.data()});
+    })
+  }
+
+  async function loadsavedmentor(mentors){
+    mentors.map(async(id)=>{
+      const res = await firestore().collection('Users').doc(id).get();
+      delete res.password;
       savedcoursedispatch({type:"UPDATE",payload:res.data()});
     })
   }
@@ -112,6 +122,7 @@ const Routing = () => {
         loadsavedarticle(savedUser._data.savedArticles);
         loadsavedposts(savedUser._data.savedPosts);
         loadsavedcourse(savedUser._data.savedCourses);
+        loadsavedmentor(savedUser._data.savedMentors);
       } catch (err) {
         console.log(err);
       }
@@ -173,6 +184,7 @@ const App = () => {
   const [savedarticlestate, savedarticledispatch] = useReducer(savedarticlereducer, savedarticleintialState);
   const [savedpoststate, savedpostdispatch] = useReducer(savedpostreducer, savedpostintialState);
   const [savedcoursestate, savedcoursedispatch] = useReducer(savedcoursereducer, savedcourseintialState);
+  const [savedmentorstate, savedmentordispatch] = useReducer(savedmentorreducer, savedmentorintialState);
   return (
     <Provider store={store} style={{flex: 1}}>
       <StatusBar
@@ -188,7 +200,9 @@ const App = () => {
                   <CourseContext.Provider value={{coursestate, coursedispatch}}>
                     <SavedPostContext.Provider value={{savedpoststate, savedpostdispatch}}>
                       <SavedCourseContext.Provider value={{savedcoursestate, savedcoursedispatch}}>
-                        <Routing />
+                        <SavedMentorContext.Provider value={{savedmentorstate, savedmentordispatch}}>
+                          <Routing />
+                        </SavedMentorContext.Provider>
                       </SavedCourseContext.Provider>
                     </SavedPostContext.Provider>
                   </CourseContext.Provider>

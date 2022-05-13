@@ -56,7 +56,22 @@ const Routing = () => {
   async function loadsavedposts(posts){
     posts.map(async(id)=>{
       const res = await firestore().collection('Posts').doc(id).get();
-      savedarticledispatch({type:"UPDATE",payload:res.data()});
+      const post = res.data();
+      post.id = res.id;
+
+      let response =await post.postedby.get()
+      response = response.data();
+      delete response.password;
+      post.postedby = response;
+
+      if(post.comments.length>0)
+        for(var i=0; i<post.comments.length; i++){
+          let commentor= await post.comments[i].commentedby.get()
+          commentor= commentor.data()
+          delete commentor.password;
+          post.comments[i].commentedby = commentor;
+        }
+      savedpostdispatch({type:"UPDATE",payload:post});
     })
   }
 

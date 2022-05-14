@@ -30,6 +30,7 @@ import OpenBook from '../Screens/LearnScreens/OpenBook';
 import ReadingInstruction from '../Screens/LearnScreens/ReadingInstruction';
 import Room from '../Screens/RoomScreens/Room';
 import CreatePost from '../Screens/RoomScreens/CreatePost';
+import Room2 from '../Screens/RoomScreens/Room2';
 
 const Stack = createNativeStackNavigator();
 
@@ -123,6 +124,11 @@ export const HomeStack = () => {
       <Stack.Screen
         name="notification"
         component={Notification}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="savedposts"
+        component={Room2}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

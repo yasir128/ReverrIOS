@@ -8,18 +8,34 @@ import {
   FlatList,
   Dimensions,
 } from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
 import AppColors from '../../Constaint/AppColors';
 import Backbtn from '../../Componants/Backbtn';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/Ionicons';
+import { SavedCourseContext, UserContext } from '../../App';
+import { SaveCourse, RemoveCourse } from '../../utils/fireBaseFunctions';
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 const StartCourse = props => {
   const courseData = props.route.params.CourseDetails;
   const navigation = useNavigation();
+  const {savedcoursestate, savedcoursedispatch} = useContext(SavedCourseContext);
+  const {state, dispatch} = useContext(UserContext);
+
+  const SaveCourses = ()=>{
+    if (state.savedCourses.includes(courseData.id)) {
+      dispatch({type: 'REMOVECOURSE', payload: courseData.id});
+      savedcoursedispatch({type: 'REMOVE', payload: courseData});
+      RemoveCourse(courseData, state.email, state.savedCourses);
+    } else {
+      dispatch({type: 'SAVECOURSE', payload: courseData.id});
+      savedcoursedispatch({type: 'UPDATE', payload: courseData});
+      SaveCourse(courseData, state.email, state.savedCourse);
+    }
+  }
   return (
     <View style={styles.screen}>
       <ImageBackground
@@ -53,18 +69,20 @@ const StartCourse = props => {
         <TouchableOpacity style={styles.circle}>
           <Icon name="link" size={28} color={AppColors.ActiveColor} />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.circle}>
+        <TouchableOpacity style={styles.circle} 
+          onPress={()=>SaveCourses()}
+        >
           <Icon2
             name="bookmark-outline"
             size={28}
-            color={AppColors.ActiveColor}
+            color={state.savedCourses.includes(courseData.id)?'red':'blue'}
           />
         </TouchableOpacity>
         <TouchableOpacity style={styles.ContinueButton}>
           <Text style={styles.btnTxt}>Continue</Text>
         </TouchableOpacity>
       </View>
-      <Text style={styles.txt}>3 Chapters remaining</Text>
+      <Text style={styles.txt}>Chapters</Text>
       <ScrollView style={styles.ChapterContainer}>
         <FlatList
           data={courseData.chapter}

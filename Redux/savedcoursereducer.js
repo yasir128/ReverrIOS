@@ -1,6 +1,6 @@
-export const savedarticleintialState = [];
+export const savedcourseintialState = [];
 
-export const savedarticlereducer = (state, action) => {
+export const savedcoursereducer = (state, action) => {
   if (action.type === 'SET') {
     return action.payload;
   }

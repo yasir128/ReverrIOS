@@ -6,15 +6,16 @@ import SavedCard from '../../Componants/ProfileScreenComponents/SavedCard';
 import Backbtn from '../../Componants/Backbtn';
 import {useNavigation} from '@react-navigation/native';
 import {courseData} from '../../dummy-data/courseData';
-import { UserContext, SavedArticleContext } from '../../App';
+import { UserContext, SavedArticleContext, SavedPostContext, SavedCourseContext } from '../../App';
 import firestore from '@react-native-firebase/firestore';
 
 const SavedScreen = (props) => {
   const navigation = useNavigation();
   const {state,dispatch} = useContext(UserContext);
   const {savedarticlestate,savedarticledispatch} = useContext(SavedArticleContext);
+  const {savedpoststate, savedpostdispatch} = useContext(SavedPostContext);
+  const {savedcoursestate, savedcoursedispatch} = useContext(SavedCourseContext);
   var Mentors =[];
-  var Books =[];
   var Courses =[];
 
 
@@ -36,8 +37,8 @@ const SavedScreen = (props) => {
         <Text style={styles.text}>Saved</Text>
       </View>
       <SavedCard Title="Your Favourite Mentor" SavedList={Mentors} name="Mentor" />
-      <SavedCard Title="Your Library" SavedList={Books} name="Book" />
-      <SavedCard Title="Saved courses" SavedList={Courses} name="Course" />
+      <SavedCard Title="Saved Posts" SavedList={savedpoststate} name="Post" />
+      <SavedCard Title="Saved courses" SavedList={savedcoursestate} name="Course" />
       <SavedCard Title="Saved Articles" SavedList={savedarticlestate} name="Article" />
     </View>
   );

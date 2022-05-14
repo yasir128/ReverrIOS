@@ -78,7 +78,7 @@ const emailVerify = props => {
         },
         lookingFor: [],
         savedArticles:[],
-        savedBooks:[],
+        savedPosts:[],
         savedCourses:[],
         savedMentors:[]
       };
@@ -114,7 +114,7 @@ const emailVerify = props => {
         memeberNo: 'none',
         stage: '',
         savedArticles:[],
-        savedBooks:[],
+        savedPosts:[],
         savedCourses:[],
         savedMentors:[]
       };

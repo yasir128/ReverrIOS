@@ -1,6 +1,6 @@
-export const savedarticleintialState = [];
+export const savedpostintialState = [];
 
-export const savedarticlereducer = (state, action) => {
+export const savedpostreducer = (state, action) => {
   if (action.type === 'SET') {
     return action.payload;
   }
@@ -8,12 +8,14 @@ export const savedarticlereducer = (state, action) => {
     return null;
   }
   if (action.type === 'UPDATE') {
+    console.log(action.payload.id+" added");
     return [...state, action.payload];
   }
   
   if (action.type === 'REMOVE') {
+    console.log(action.payload+" removed from saves");
     return [
-        ...state.filter(arti=>arti!=action.payload)
+        ...state.filter(post=>post!=action.payload)
       ];
   }
   return state;

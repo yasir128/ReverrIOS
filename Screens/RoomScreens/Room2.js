@@ -19,6 +19,7 @@ import Icon2 from 'react-native-vector-icons/Ionicons';
 import Icon3 from 'react-native-vector-icons/MaterialIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import CustomMenuBar from '../../Componants/CustomMenuBar';
+import {postData} from '../../dummy-data/postData';
 import CreatePostButton from '../../Componants/LearnComponents/CreatePostButton';
 import {smallString} from '../../utils/helper';
 import firestore from '@react-native-firebase/firestore';
@@ -26,11 +27,7 @@ import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import App, {SavedPostContext, UserContext} from '../../App';
 import CustomPopup from '../../Componants/CustomPopup';
 import storage from '@react-native-firebase/storage';
-<<<<<<< HEAD
-
-=======
 import { SavePost, RemovePost } from '../../utils/fireBaseFunctions';
->>>>>>> c04e69fa05da0596c2370184f44f375d60178e64
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
@@ -47,7 +44,7 @@ function generateString(length) {
   return result;
 }
 
-const Room = () => {
+const Room2 = (props) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
@@ -63,6 +60,11 @@ const Room = () => {
   const [id, setId] = useState();
   const [owner, setOwner] = useState(false);
   const {savedpoststate, savedpostdispatch} = useContext(SavedPostContext);
+  
+  useEffect(()=>{
+    setPosts(props.route.params.posts);
+    setLoading(false);
+  },[]);
 
   const clickhandler = (post)=>{
     setId(post.id);
@@ -74,18 +76,19 @@ const Room = () => {
     else{
       setOwner(false);
     }
-    
-
   }
 
   const savePost = (post)=>{
     setPopup(false);
-    console.log(post.id);
+    // console.log(post.id);
 
     if (state.savedPosts.includes(post.id)) {
       dispatch({type: 'REMOVEPOST', payload: post.id});
       savedpostdispatch({type: 'REMOVE', payload: post});
       RemovePost(post, state.email, state.savedPosts);
+      setPosts(posts => [
+        ...posts.filter(item=>item!=post)
+      ])
     } else {
       dispatch({type: 'SAVEPOST', payload: post.id});
       savedpostdispatch({type: 'UPDATE', payload: post});
@@ -271,15 +274,30 @@ const Room = () => {
     }
   };
 
-  useEffect(() => {
-    fetchPosts2();
-  }, []);
-
-  if (loading) {
+  if (posts&& posts.length==0) {
     return (
-      <View>
-        <Text>loading...</Text>
-      </View>
+      <View style={styles.screen}>
+      <View style={styles.header}>
+          <Backbtn
+            IconSize={30}
+            onPress={() => {
+              navigation.goBack();
+            }}
+          />
+          <Text
+            style={{
+              color: AppColors.FontsColor,
+              marginStart: Width / 3.5,
+              fontFamily: 'Poppins-SemiBold',
+              fontSize: 21,
+            }}>
+            Room
+          </Text>
+        </View>
+        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
+          <Text style={{color: AppColors.FontsColor, fontSize: 18}}>You have no saved posts! ☹️</Text>
+        </View>
+        </View>
     );
   } else {
     return (
@@ -301,23 +319,9 @@ const Room = () => {
             Room
           </Text>
         </View>
-        <CustomMenuBar
-          Item1="Featured"
-          Item2="Discussion"
-          active1={features}
-          active2={subs}
-          ClickOnItem1={() => {
-            setFeatures(true);
-            setSubs(false);
-          }}
-          ClickOnItem2={() => {
-            setSubs(true);
-            setFeatures(false);
-          }}
-        />
         <ScrollView style={{marginTop: '5%'}}>
-          {posts &&
-            posts.map((item, index) => {
+          
+          {posts && posts.map((item, index) => {
               // console.log(index);
               return (
                 <LinearGradient
@@ -653,4 +657,4 @@ const styles = StyleSheet.create({
     paddingVertical: '2%',
   },
 });
-export default Room;
+export default Room2;

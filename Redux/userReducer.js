@@ -32,7 +32,6 @@ export const reducer = (state, action) => {
     };
   }
   if (action.type === 'SAVEARTICLE') {
-    console.log(action.payload+" added to saves");
     return {
       ...state,
       savedArticles:[
@@ -42,7 +41,6 @@ export const reducer = (state, action) => {
     };
   }
   if (action.type === 'REMOVEARTICLE') {
-    console.log(action.payload+" removed from saves");
     return {
       ...state,
       savedArticles:[
@@ -50,23 +48,24 @@ export const reducer = (state, action) => {
       ]
     };
   }
-  if (action.type === 'SAVEBOOK') {
+  if (action.type === 'SAVEPOST') {
     return {
       ...state,
-      savedBooks:[
-        ...state.savedBooks,
+      savedPosts:[
+        ...state.savedPosts,
         action.payload,
       ]
     };
   }
-  if (action.type === 'REMOVEARTICLE') {
+  if (action.type === 'REMOVEPOST') {
     return {
       ...state,
-      savedBooks:[
-        ...state.savedBooks.filter(arti=>arti!=action.payload)
+      savedPosts:[
+        ...state.savedPosts.filter(arti=>arti!=action.payload)
       ]
     };
   }
+  
   if (action.type === 'SAVECOURSE') {
     return {
       ...state,
@@ -76,7 +75,7 @@ export const reducer = (state, action) => {
       ]
     };
   }
-  if (action.type === 'REMOVEARTICLE') {
+  if (action.type === 'REMOVECOURSE') {
     return {
       ...state,
       savedCourses:[
@@ -93,7 +92,7 @@ export const reducer = (state, action) => {
       ]
     };
   }
-  if (action.type === 'REMOVEARTICLE') {
+  if (action.type === 'REMOVEMENTOR') {
     return {
       ...state,
       savedMentors:[

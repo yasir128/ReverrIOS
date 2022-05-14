@@ -105,7 +105,130 @@ const SavedCard = props => {
         </LinearGradient>
       </View>
     );
-  } else {
+  }else if(props.name == 'Post') {
+    return (
+      <View style={styles.container}>
+        <LinearGradient
+          colors={[AppColors.primarycolor, '#012437']}
+          start={{x: -0.2, y: 1}}
+          end={{x: 1, y: 0}}
+          style={styles.Card}>
+          <View style={styles.header}>
+            <Text style={styles.txt}>{props.Title}</Text>
+            <TouchableOpacity
+              onPress={() => {
+                naigation.navigate('savedposts',
+                {posts: props.SavedList});
+              }}>
+              <Icon
+                name="long-arrow-right"
+                size={24}
+                color={AppColors.FontsColor}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={{display: 'flex', flexDirection: 'row'}}>
+            {props.SavedList && props.SavedList.length > 0 ? (
+              <Text style={styles.name}>You have {props.SavedList.length} Saved Post</Text>
+            ) : (
+              <Text style={styles.name}>Your List is empty ☹️</Text>
+            )}
+            {props.SavedList && props.SavedList.length > 1 && (
+              <TouchableOpacity
+                style={styles.listContainer}>
+                <ImageBackground
+                  style={styles.img}
+                  source={{uri: props.SavedList[1].image}}>
+                  <View style={styles.overlay}>
+                    <Text style={styles.name}>
+                      {props.SavedList[1].heading}
+                    </Text>
+                  </View>
+                </ImageBackground>
+              </TouchableOpacity>
+            )}
+            {props.SavedList && props.SavedList.length > 2 && (
+              <TouchableOpacity
+                style={styles.listContainer}
+                onPress={() => {
+                  naigation.navigate('ArticalDetails', {
+                    articalData: props.SavedList[2],
+                  });
+                }}>
+                <ImageBackground
+                  style={styles.img}
+                  source={{uri: props.SavedList[2].image}}>
+                  <View style={styles.overlay}>
+                    <Text style={styles.name}>
+                      {props.SavedList[2].heading}
+                    </Text>
+                  </View>
+                </ImageBackground>
+              </TouchableOpacity>
+            )}
+          </View>
+        </LinearGradient>
+      </View>
+    );
+    
+  }else if(props.name == "Course"){
+    return (
+      <View style={styles.container}>
+        <LinearGradient
+          colors={[AppColors.primarycolor, '#012437']}
+          start={{x: -0.2, y: 1}}
+          end={{x: 1, y: 0}}
+          style={styles.Card}>
+          <View style={styles.header}>
+            <Text style={styles.txt}>{props.Title}</Text>
+            <Icon
+              name="long-arrow-right"
+              size={24}
+              color={AppColors.FontsColor}
+            />
+          </View>
+          <View style={{display: 'flex', flexDirection: 'row'}}>
+            {props.SavedList && props.SavedList.length > 0 ? (
+              <TouchableOpacity style={styles.listContainer}>
+                <ImageBackground
+                  style={styles.img}
+                  source={{uri: props.SavedList[0].image}}>
+                  <View style={styles.overlay}>
+                    <Text style={styles.name}>{props.SavedList[0].name}</Text>
+                  </View>
+                </ImageBackground>
+              </TouchableOpacity>
+            ) : (
+              <Text style={styles.name}>Your List is empty</Text>
+            )}
+            {props.SavedList && props.SavedList.length > 1 && (
+              <TouchableOpacity style={styles.listContainer}>
+                <ImageBackground
+                  style={styles.img}
+                  source={{uri: props.SavedList[1].image}}>
+                  <View style={styles.overlay}>
+                    <Text style={styles.name}>{props.SavedList[1].name}</Text>
+                  </View>
+                </ImageBackground>
+              </TouchableOpacity>
+            )}
+            {props.SavedList && props.SavedList.length > 2 && (
+              <TouchableOpacity style={styles.listContainer}>
+                <ImageBackground
+                  style={styles.img}
+                  source={{uri: props.SavedList[2].image}}>
+                  <View style={styles.overlay}>
+                    <Text style={styles.name}>{props.SavedList[2].name}</Text>
+                  </View>
+                </ImageBackground>
+              </TouchableOpacity>
+            )}
+          </View>
+        </LinearGradient>
+      </View>
+    );
+  }
+  else {
     return (
       <View style={styles.container}>
         <LinearGradient

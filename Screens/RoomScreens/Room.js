@@ -19,7 +19,6 @@ import Icon2 from 'react-native-vector-icons/Ionicons';
 import Icon3 from 'react-native-vector-icons/MaterialIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import CustomMenuBar from '../../Componants/CustomMenuBar';
-import {postData} from '../../dummy-data/postData';
 import CreatePostButton from '../../Componants/LearnComponents/CreatePostButton';
 import {smallString} from '../../utils/helper';
 import firestore from '@react-native-firebase/firestore';
@@ -27,7 +26,7 @@ import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import App, {UserContext} from '../../App';
 import CustomPopup from '../../Componants/CustomPopup';
 import storage from '@react-native-firebase/storage';
-import {FlatList} from 'react-native-gesture-handler';
+
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 

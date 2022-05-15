@@ -75,11 +75,11 @@ const MentorsList = props => {
                 }}>
                 <Image
                   style={styles.Dp}
-                  source={require('../../assets/Images/jatindp.png')}
+                  source={{uri:item.image}}
                 />
                 <View style={{alignItems: 'center'}}>
                   <Text style={styles.Name}>{item.name}</Text>
-                  <Text style={styles.Skills}>{item.skills}</Text>
+                  <Text style={styles.Skills}>{item.industry}</Text>
                 </View>
                 <View style={styles.rating}>
                   <Icon name="star" size={12} color={AppColors.infoFonts} />
@@ -112,7 +112,7 @@ const MentorsList = props => {
                       color: AppColors.ActiveColor,
                       marginStart: '5%',
                     }}>
-                    76 Review
+                    {item.reviews.length!=0?" ":item.reviews.length+" Reviews"}
                   </Text>
                 </View>
               </TouchableOpacity>

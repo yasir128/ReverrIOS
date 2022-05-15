@@ -79,7 +79,7 @@ const MentorDetails = props => {
             marginTop: Height / 13,
           }}>
           <Text style={styles.txt1}>Industry</Text>
-          <Text style={styles.txt2}>Fintech</Text>
+          <Text style={styles.txt2}>{mentorData.industry}</Text>
         </LinearGradient>
         <LinearGradient
           colors={[AppColors.primarycolor, '#012437']}
@@ -93,7 +93,7 @@ const MentorDetails = props => {
             marginTop: Height / 13,
           }}>
           <Text style={styles.txt1}>Appoinment</Text>
-          <Text style={styles.txt2}>$1000/Hr</Text>
+          <Text style={styles.txt2}>₹{mentorData.plans[0]}/Hr</Text>
         </LinearGradient>
         <LinearGradient
           colors={[AppColors.primarycolor, '#012437']}
@@ -106,7 +106,9 @@ const MentorDetails = props => {
             borderRadius: 6,
             marginTop: Height / 13,
           }}>
-          <Text style={styles.txt1}>Rating</Text>
+          <Text style={styles.txt1}>Rating </Text>
+          <Text style={styles.txt1}>{mentorData.totalRating!=0&&mentorData.totalRating} </Text>
+          
         </LinearGradient>
       </View>
       <LinearGradient
@@ -169,10 +171,7 @@ const MentorDetails = props => {
           }}>
           <Text
             style={{color: AppColors.infoFonts, fontFamily: 'Poppins-Regular'}}>
-            Market Research Mentor is the terminal where all industrial,
-            commercial and profitmaking venture will get the best research
-            reports of the market in all sectors like automotive, electronics,
-            pharmaceuticals and healthcare, food and beverages etc.
+            {mentorData.about}
           </Text>
         </View>
       ) : exp ? (
@@ -184,7 +183,7 @@ const MentorDetails = props => {
           }}>
           <Text
             style={{color: AppColors.infoFonts, fontFamily: 'Poppins-Regular'}}>
-            Experience
+            {mentorData.experience}
           </Text>
         </View>
       ) : plan ? (
@@ -196,7 +195,10 @@ const MentorDetails = props => {
           }}>
           <Text
             style={{color: AppColors.infoFonts, fontFamily: 'Poppins-Regular'}}>
-            plan
+            Hourly: {mentorData.plans[0]} {"\n"}
+            Monthly: {mentorData.plans[1]} {"\n"}
+            Quarterly: {mentorData.plans[2]} {"\n"}
+            Yearly: {mentorData.plans[3]} {"\n"}
           </Text>
         </View>
       ) : null}

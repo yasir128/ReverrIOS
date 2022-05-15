@@ -58,7 +58,7 @@ const Room = () => {
   const [seemoreId, setSeemoreId] = useState();
   const [id, setId] = useState();
   const [owner, setOwner] = useState(false);
-  const {savedpoststate, savedpostdispatch} = useContext(SavedPostContext);
+  const [currpostid, setcurrpostid] = useState('none');
 
   const clickhandler = (post)=>{
     setId(post.id);
@@ -70,9 +70,8 @@ const Room = () => {
     else{
       setOwner(false);
     }
-    
-
   }
+
 
   const savePost = (post)=>{
     setPopup(false);
@@ -418,7 +417,8 @@ const Room = () => {
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                       <TouchableOpacity
                         onPress={() => {
-                          setWriteComments(true);
+                          setcurrpostid(item.id);
+                          setWriteComments(!writeComments);
                         }}>
                         <Icon
                           name="comment"
@@ -443,7 +443,7 @@ const Room = () => {
                       </Text>
                     </View>
                   </View>
-                  {writeComments && (
+                  {writeComments && currpostid==item.id && (
                     <View
                       style={{
                         width: '100%',

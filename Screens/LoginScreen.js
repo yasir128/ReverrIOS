@@ -19,62 +19,61 @@ const Height = Dimensions.get('window').height;
 const Width = Dimensions.get('window').width;
 
 import firestore from '@react-native-firebase/firestore';
-import { UserContext, ChatContext , SavedArticleContext } from '../App';
-
+import {UserContext, ChatContext, SavedArticleContext} from '../App';
+import AlertBox from '../Componants/AlertBox';
 
 const LoginScreen = () => {
-
   var [isSecure, setisSecure] = useState(true);
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [emailerror, setemailerror] = useState(false);
   const [passerror, setpasserror] = useState(false);
-  const [password, setPassword] = useState("");
-  const { login } = useContext(AuthContext);
+  const [password, setPassword] = useState('');
+  const {login} = useContext(AuthContext);
   const navigation = useNavigation();
-  const {state,dispatch} = useContext(UserContext)
+  const {state, dispatch} = useContext(UserContext);
   const {chatstate, chatdispatch} = useContext(ChatContext);
-  const {savedarticlestate, savedarticledispatch} = useContext(SavedArticleContext);
+  const {savedarticlestate, savedarticledispatch} =
+    useContext(SavedArticleContext);
 
-  async function loadChatUser (list){
-      console.log(list);
-      list.forEach(async(user)=>{
+  async function loadChatUser(list) {
+    console.log(list);
+    list.forEach(async user => {
       const User = await firestore().collection('Users').doc(user).get();
       delete User._data.password;
-      chatdispatch({type:"UPDATE", payload:User._data});
-      })  
-      
+      chatdispatch({type: 'UPDATE', payload: User._data});
+    });
   }
-  async function loadsavedarticle(articles){
-    articles.map(async(id)=>{
+  async function loadsavedarticle(articles) {
+    articles.map(async id => {
       const res = await firestore().collection('Blogs').doc(id).get();
-      savedarticledispatch({type:"UPDATE",payload:res.data()});
-    })
+      savedarticledispatch({type: 'UPDATE', payload: res.data()});
+    });
   }
   const IsEmpty = () => {
-
-      if (email === "") {
-          setemailerror(true)
+    if (!email) {
+      setemailerror(true);
+    } else {
+      if (!password) {
+        setpasserror(true);
       } else {
-          if (password === "") {
-              setpasserror(true);
-          } else {
-              login(email, password);
-              async function getUser (email){
-                  const savedUser = await firestore()
-                    .collection('Users')
-                    .doc(email)
-                    .get();
-                  loadsavedarticle(savedUser._data.savedArticles);
-                  savedUser._data.userType=="Mentor"?loadChatUser(savedUser._data.clients):loadChatUser(savedUser._data.mentors);
-                  dispatch({type:"USER",payload:savedUser._data})
-                }
-              
-                getUser(email);
-          }
-      }
+        login(email, password);
+        async function getUser(email) {
+          const savedUser = await firestore()
+            .collection('Users')
+            .doc(email)
+            .get();
+          loadsavedarticle(savedUser._data.savedArticles);
+          savedUser._data.userType == 'Mentor'
+            ? loadChatUser(savedUser._data.clients)
+            : loadChatUser(savedUser._data.mentors);
+          dispatch({type: 'USER', payload: savedUser._data});
+        }
 
+        getUser(email);
+      }
     }
-  
+  };
+
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -97,6 +96,7 @@ const LoginScreen = () => {
             style={[styles.Text, {fontSize: 14, color: AppColors.infoFonts}]}>
             Please login to continue
           </Text>
+          {/*  <AlertBox text="dhruv" /> */}
         </View>
         <View style={{marginTop: Height / 12}}>
           <InputField

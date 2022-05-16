@@ -31,6 +31,8 @@ import ReadingInstruction from '../Screens/LearnScreens/ReadingInstruction';
 import Room from '../Screens/RoomScreens/Room';
 import CreatePost from '../Screens/RoomScreens/CreatePost';
 import Room2 from '../Screens/RoomScreens/Room2';
+import SkeltonLoader from '../Componants/SkeltonLoader';
+import AlertBox from '../Componants/AlertBox';
 
 const Stack = createNativeStackNavigator();
 
@@ -40,6 +42,13 @@ export const HomeStack = () => {
       <Stack.Screen
         name="DashBoard"
         component={Dashboard}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Alert"
+        component={AlertBox}
         options={{
           headerShown: false,
         }}
@@ -192,6 +201,11 @@ export const RoomStack = () => {
       <Stack.Screen
         name="CreatePost"
         component={CreatePost}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="demo"
+        component={SkeltonLoader}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

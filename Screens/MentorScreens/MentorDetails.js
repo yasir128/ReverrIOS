@@ -7,13 +7,15 @@ import {
   Image,
   ImageBackground,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Backbtn from '../../Componants/Backbtn';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AppColors from '../../Constaint/AppColors';
 import {useNavigation} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import CustomBtn from '../../Componants/CustomBtn';
+import { SavedMentorContext, UserContext } from '../../App';
+import { SaveMentor, RemoveMentor } from '../../utils/fireBaseFunctions';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
@@ -24,8 +26,22 @@ const MentorDetails = props => {
   const [about, setAbout] = useState(true);
   const [exp, setExp] = useState(false);
   const [plan, setplan] = useState(false);
+  const {state, dispatch} = useContext(UserContext);
+  const {savedmentorstate, savedmentordispatch} = useContext(SavedMentorContext);
 
-  // console.log(mentorData);
+  const savesmentor = ()=>{
+    if (state.savedMentors.includes(mentorData.email)) {
+      dispatch({type: 'REMOVEMENTOR', payload: mentorData.email});
+      savedmentordispatch({type: 'REMOVE', payload: mentorData});
+      RemoveMentor(mentorData, state.email, state.savedMentors);
+    } else {
+      dispatch({type: 'SAVEMENTOR', payload: mentorData.email});
+      savedmentordispatch({type: 'UPDATE', payload: mentorData});
+      SaveMentor(mentorData, state.email, state.savedMentors);
+    }
+  }
+
+  console.log(mentorData.password);
   return (
     <View style={styles.screen}>
       <View
@@ -40,7 +56,9 @@ const MentorDetails = props => {
             navigation.goBack();
           }}
         />
-        <Icon size={27} name="heart" color="red" style={{marginRight: '8%'}} />
+        <TouchableOpacity onPress={()=>savesmentor()}>
+        <Icon size={27} name="heart" color={state.savedMentors.includes(mentorData.email)?'red':'grey'} style={{marginRight: '8%'}} />
+        </TouchableOpacity>
       </View>
       <View style={styles.dp}>
         <Image

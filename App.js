@@ -43,6 +43,7 @@ const Routing = () => {
   const {savedpoststate,savedpostdispatch} = useContext(SavedPostContext);
   const {coursestate, coursedispatch} = useContext(CourseContext);
   const {savedcoursestate, savedcoursedispatch} = useContext(SavedCourseContext);
+  const {savedmentorstate, savedmentordispatch} = useContext(SavedMentorContext);
   async function loadChatUser(list) {
     list.forEach(async user => {
       const User = await firestore().collection('Users').doc(user).get();
@@ -69,7 +70,7 @@ const Routing = () => {
     mentors.map(async(id)=>{
       const res = await firestore().collection('Users').doc(id).get();
       delete res.password;
-      savedcoursedispatch({type:"UPDATE",payload:res.data()});
+      savedmentordispatch({type:"UPDATE",payload:res.data()});
     })
   }
 

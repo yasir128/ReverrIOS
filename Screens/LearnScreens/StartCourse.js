@@ -26,7 +26,6 @@ const StartCourse = props => {
   const {state, dispatch} = useContext(UserContext);
 
   const SaveCourses = ()=>{
-    console.log("COurse data: ", courseData)
     if (state.savedCourses.includes(courseData.id)) {
       dispatch({type: 'REMOVECOURSE', payload: courseData.id});
       savedcoursedispatch({type: 'REMOVE', payload: courseData});
@@ -34,7 +33,7 @@ const StartCourse = props => {
     } else {
       dispatch({type: 'SAVECOURSE', payload: courseData.id});
       savedcoursedispatch({type: 'UPDATE', payload: courseData});
-      SaveCourse(courseData, state.email, state.savedCourse);
+      SaveCourse(courseData, state.email, state.savedCourses);
     }
   }
   return (

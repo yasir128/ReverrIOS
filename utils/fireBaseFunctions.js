@@ -162,6 +162,7 @@ export const GetAllMentors = async setFn => {
     .onSnapshot(querySnapshot => {
       const users = [];
       querySnapshot.forEach(documentSnapshot => {
+        delete documentSnapshot.data().password;
         users.push({
           ...documentSnapshot.data(),
           key: documentSnapshot.id,
@@ -282,4 +283,20 @@ export const RemoveCourse = async (item, email, courses) => {
     .collection('Users')
     .doc(email)
     .update({savedCourses: [...courses.filter(arti => arti != item.id)]});
+};
+export const SaveMentor = async (item, email, mentors) => {
+  if(mentors == undefined){
+    mentors = [];
+  }
+  const res = await firestore()
+    .collection('Users')
+    .doc(email)
+    .update({savedMentors: [...mentors, item.email]});
+};
+
+export const RemoveMentor = async (item, email, mentors) => {
+  const res = await firestore()
+    .collection('Users')
+    .doc(email)
+    .update({savedMentors: [...mentors.filter(arti => arti != item.email)]});
 };

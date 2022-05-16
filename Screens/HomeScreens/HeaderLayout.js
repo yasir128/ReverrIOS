@@ -6,6 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 import CalanderScreen from '../CalanderScreen/CalanderScreen';
 import ModelView from '../../Componants/ModelView';
 import {UserContext} from '../../App';
+import AlertBox from '../../Componants/AlertBox';
 
 const HeaderLayout = props => {
   const {state, dispatch} = useContext(UserContext);
@@ -24,6 +25,7 @@ const HeaderLayout = props => {
           );
         }}
         onPressCalander={() => {
+          /*  navigation.navigate('Alert'); */
           setModelVisible(true);
         }}
         onPressNoti={() => {
@@ -34,7 +36,7 @@ const HeaderLayout = props => {
         }}
         DpUrl={state && state.image}
       />
-      <ModelView
+      {/*  <ModelView
         ShowModal={modelVisible}
         onCloseModal={() => {
           setModelVisible(false);
@@ -44,7 +46,8 @@ const HeaderLayout = props => {
             setModelVisible(false);
           }}
         />
-      </ModelView>
+      </ModelView> */}
+
       {props.children}
     </View>
   );

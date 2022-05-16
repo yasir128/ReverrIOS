@@ -25,7 +25,11 @@ import firestore from '@react-native-firebase/firestore';
 import App, {SavedPostContext, UserContext} from '../../App';
 import CustomPopup from '../../Componants/CustomPopup';
 import storage from '@react-native-firebase/storage';
+<<<<<<< HEAD
 import SkeltonLoader from '../../Componants/SkeltonLoader';
+=======
+import { SavePost, RemovePost } from '../../utils/fireBaseFunctions';
+>>>>>>> 1d18fd7e30c6693820b639efbcb1e465b5c48ee5
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
@@ -57,6 +61,7 @@ const Room = () => {
   const [seemoreId, setSeemoreId] = useState();
   const [id, setId] = useState();
   const [owner, setOwner] = useState(false);
+  const [currpostid, setcurrpostid] = useState('none');
   const {savedpoststate, savedpostdispatch} = useContext(SavedPostContext);
 
   const clickhandler = post => {
@@ -67,9 +72,16 @@ const Room = () => {
     } else {
       setOwner(false);
     }
+<<<<<<< HEAD
   };
 
   const savePost = post => {
+=======
+  }
+
+
+  const savePost = (post)=>{
+>>>>>>> 1d18fd7e30c6693820b639efbcb1e465b5c48ee5
     setPopup(false);
     console.log(post.id);
 
@@ -149,6 +161,7 @@ const Room = () => {
       const storageRef = storage().refFromURL(image);
       const imageRef = storage().ref(storageRef.fullPath);
 
+<<<<<<< HEAD
       imageRef
         .delete()
         .then(() => {
@@ -162,6 +175,21 @@ const Room = () => {
     } else {
       deleteFirestoreData(postId);
     }
+=======
+        imageRef
+          .delete()
+          .then(() => {
+            console.log(`${image} has been deleted successfully.`);
+            deleteFirestoreData(postId);
+          })
+          .catch(e => {
+            console.log('Error while deleting the image. ', e);
+          });
+      } else {
+        deleteFirestoreData(postId);
+      }
+      
+>>>>>>> 1d18fd7e30c6693820b639efbcb1e465b5c48ee5
   };
 
   const deleteFirestoreData = postId => {
@@ -409,6 +437,10 @@ const Room = () => {
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                       <TouchableOpacity
                         onPress={() => {
+<<<<<<< HEAD
+=======
+                          setcurrpostid(item.id);
+>>>>>>> 1d18fd7e30c6693820b639efbcb1e465b5c48ee5
                           setWriteComments(!writeComments);
                         }}>
                         <Icon
@@ -437,7 +469,7 @@ const Room = () => {
                       </Text>
                     </View>
                   </View>
-                  {writeComments && (
+                  {writeComments && currpostid==item.id && (
                     <View
                       style={{
                         width: '100%',

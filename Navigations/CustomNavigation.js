@@ -31,8 +31,13 @@ import ReadingInstruction from '../Screens/LearnScreens/ReadingInstruction';
 import Room from '../Screens/RoomScreens/Room';
 import CreatePost from '../Screens/RoomScreens/CreatePost';
 import Room2 from '../Screens/RoomScreens/Room2';
+<<<<<<< HEAD
 import SkeltonLoader from '../Componants/SkeltonLoader';
 import AlertBox from '../Componants/AlertBox';
+=======
+import Courses from '../Screens/LearnScreens/Courses';
+import MentorsList2 from '../Screens/MentorScreens/MentorsList2';
+>>>>>>> 1d18fd7e30c6693820b639efbcb1e465b5c48ee5
 
 const Stack = createNativeStackNavigator();
 
@@ -138,6 +143,21 @@ export const HomeStack = () => {
       <Stack.Screen
         name="savedposts"
         component={Room2}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="openBook"
+        component={OpenBook}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="courses"
+        component={Courses}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="savedmentorlist"
+        component={MentorsList2}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

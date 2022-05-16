@@ -18,7 +18,7 @@ const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
 
 const SavedCard = props => {
-  console.log(props.SavedList[0]);
+  // console.log(props.SavedList[0]);
   const naigation = useNavigation();
   if (props.name == 'Article') {
     return (
@@ -179,6 +179,11 @@ const SavedCard = props => {
           start={{x: -0.2, y: 1}}
           end={{x: 1, y: 0}}
           style={styles.Card}>
+          <TouchableOpacity
+              onPress={() => {
+                naigation.navigate('courses',
+                {courseData: props.SavedList});
+              }}>
           <View style={styles.header}>
             <Text style={styles.txt}>{props.Title}</Text>
             <Icon
@@ -187,9 +192,17 @@ const SavedCard = props => {
               color={AppColors.FontsColor}
             />
           </View>
+            </TouchableOpacity>
           <View style={{display: 'flex', flexDirection: 'row'}}>
-            {props.SavedList && props.SavedList.length > 0 ? (
-              <TouchableOpacity style={styles.listContainer}>
+            {props.SavedList && props.SavedList.length >
+             0 ? (
+              <TouchableOpacity style={styles.listContainer}
+              onPress={() => {
+                naigation.navigate('StartCourse', {
+                  CourseDetails:  props.SavedList[0],
+                });
+              }}
+              >
                 <ImageBackground
                   style={styles.img}
                   source={{uri: props.SavedList[0].image}}>
@@ -202,7 +215,13 @@ const SavedCard = props => {
               <Text style={styles.name}>Your List is empty</Text>
             )}
             {props.SavedList && props.SavedList.length > 1 && (
-              <TouchableOpacity style={styles.listContainer}>
+              <TouchableOpacity style={styles.listContainer}
+              onPress={() => {
+                naigation.navigate('StartCourse', {
+                  CourseDetails:  props.SavedList[1],
+                });
+              }}
+              >
                 <ImageBackground
                   style={styles.img}
                   source={{uri: props.SavedList[1].image}}>
@@ -213,7 +232,12 @@ const SavedCard = props => {
               </TouchableOpacity>
             )}
             {props.SavedList && props.SavedList.length > 2 && (
-              <TouchableOpacity style={styles.listContainer}>
+              <TouchableOpacity style={styles.listContainer} 
+              onPress={() => {
+                naigation.navigate('StartCourse', {
+                  CourseDetails:  props.SavedList[2],
+                });
+              }}>
                 <ImageBackground
                   style={styles.img}
                   source={{uri: props.SavedList[2].image}}>
@@ -236,6 +260,11 @@ const SavedCard = props => {
           start={{x: -0.2, y: 1}}
           end={{x: 1, y: 0}}
           style={styles.Card}>
+          <TouchableOpacity onPress={()=>{
+            naigation.navigate('savedmentorlist',{
+              mentors: props.SavedList,
+            });
+          }}>  
           <View style={styles.header}>
             <Text style={styles.txt}>{props.Title}</Text>
             <Icon
@@ -244,9 +273,16 @@ const SavedCard = props => {
               color={AppColors.FontsColor}
             />
           </View>
+          </TouchableOpacity>
           <View style={{display: 'flex', flexDirection: 'row'}}>
             {props.SavedList && props.SavedList.length > 0 ? (
-              <TouchableOpacity style={styles.listContainer}>
+              <TouchableOpacity style={styles.listContainer}
+                onPress={() => {
+                  naigation.navigate('MentorsProfile', {
+                    profileDetails: props.SavedList[0],
+                  });
+                }}
+              >
                 <ImageBackground
                   style={styles.img}
                   source={{uri: props.SavedList[0].image}}>
@@ -259,7 +295,13 @@ const SavedCard = props => {
               <Text style={styles.name}>Your List is empty</Text>
             )}
             {props.SavedList && props.SavedList.length > 1 && (
-              <TouchableOpacity style={styles.listContainer}>
+              <TouchableOpacity style={styles.listContainer}
+              onPress={() => {
+                naigation.navigate('MentorsProfile', {
+                  profileDetails: props.SavedList[1],
+                });
+              }}
+              >
                 <ImageBackground
                   style={styles.img}
                   source={{uri: props.SavedList[1].image}}>
@@ -270,7 +312,13 @@ const SavedCard = props => {
               </TouchableOpacity>
             )}
             {props.SavedList && props.SavedList.length > 2 && (
-              <TouchableOpacity style={styles.listContainer}>
+              <TouchableOpacity style={styles.listContainer}
+              onPress={() => {
+                naigation.navigate('MentorsProfile', {
+                  profileDetails: props.SavedList[2],
+                });
+              }}
+              >
                 <ImageBackground
                   style={styles.img}
                   source={{uri: props.SavedList[2].image}}>

@@ -33,7 +33,7 @@ const StartCourse = props => {
     } else {
       dispatch({type: 'SAVECOURSE', payload: courseData.id});
       savedcoursedispatch({type: 'UPDATE', payload: courseData});
-      SaveCourse(courseData, state.email, state.savedCourse);
+      SaveCourse(courseData, state.email, state.savedCourses);
     }
   }
   return (

@@ -162,12 +162,13 @@ export const GetAllMentors = async setFn => {
     .onSnapshot(querySnapshot => {
       const users = [];
       querySnapshot.forEach(documentSnapshot => {
+        delete documentSnapshot.data().password;
         users.push({
           ...documentSnapshot.data(),
           key: documentSnapshot.id,
         });
       });
-      setFn(users.filter(y => y.userType == 'mentor'));
+      setFn(users.filter(y => y.userType == 'Mentor'));
     });
 };
 export const CreateMessagePath = async (currentcUser, sendTo) => {
@@ -275,7 +276,6 @@ export const SaveCourse = async (item, email, courses) => {
     .collection('Users')
     .doc(email)
     .update({savedCourses: [...courses, item.id]});
-  console.log('firebase save: ',res);
 };
 
 export const RemoveCourse = async (item, email, courses) => {
@@ -283,4 +283,20 @@ export const RemoveCourse = async (item, email, courses) => {
     .collection('Users')
     .doc(email)
     .update({savedCourses: [...courses.filter(arti => arti != item.id)]});
+};
+export const SaveMentor = async (item, email, mentors) => {
+  if(mentors == undefined){
+    mentors = [];
+  }
+  const res = await firestore()
+    .collection('Users')
+    .doc(email)
+    .update({savedMentors: [...mentors, item.email]});
+};
+
+export const RemoveMentor = async (item, email, mentors) => {
+  const res = await firestore()
+    .collection('Users')
+    .doc(email)
+    .update({savedMentors: [...mentors.filter(arti => arti != item.email)]});
 };

@@ -7,13 +7,15 @@ import {
   Image,
   ImageBackground,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Backbtn from '../../Componants/Backbtn';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AppColors from '../../Constaint/AppColors';
 import {useNavigation} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import CustomBtn from '../../Componants/CustomBtn';
+import { SavedMentorContext, UserContext } from '../../App';
+import { SaveMentor, RemoveMentor } from '../../utils/fireBaseFunctions';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
@@ -24,8 +26,20 @@ const MentorDetails = props => {
   const [about, setAbout] = useState(true);
   const [exp, setExp] = useState(false);
   const [plan, setplan] = useState(false);
+  const {state, dispatch} = useContext(UserContext);
+  const {savedmentorstate, savedmentordispatch} = useContext(SavedMentorContext);
 
-  // console.log(mentorData);
+  const savesmentor = ()=>{
+    if (state.savedMentors.includes(mentorData.email)) {
+      dispatch({type: 'REMOVEMENTOR', payload: mentorData.email});
+      savedmentordispatch({type: 'REMOVE', payload: mentorData});
+      RemoveMentor(mentorData, state.email, state.savedMentors);
+    } else {
+      dispatch({type: 'SAVEMENTOR', payload: mentorData.email});
+      savedmentordispatch({type: 'UPDATE', payload: mentorData});
+      SaveMentor(mentorData, state.email, state.savedMentors);
+    }
+  }
   return (
     <View style={styles.screen}>
       <View
@@ -40,7 +54,9 @@ const MentorDetails = props => {
             navigation.goBack();
           }}
         />
-        <Icon size={27} name="heart" color="red" style={{marginRight: '8%'}} />
+        <TouchableOpacity onPress={()=>savesmentor()}>
+        <Icon size={27} name="heart" color={state.savedMentors.includes(mentorData.email)?'red':'grey'} style={{marginRight: '8%'}} />
+        </TouchableOpacity>
       </View>
       <View style={styles.dp}>
         <Image
@@ -79,7 +95,7 @@ const MentorDetails = props => {
             marginTop: Height / 13,
           }}>
           <Text style={styles.txt1}>Industry</Text>
-          <Text style={styles.txt2}>Fintech</Text>
+          <Text style={styles.txt2}>{mentorData.industry}</Text>
         </LinearGradient>
         <LinearGradient
           colors={[AppColors.primarycolor, '#012437']}
@@ -93,7 +109,7 @@ const MentorDetails = props => {
             marginTop: Height / 13,
           }}>
           <Text style={styles.txt1}>Appoinment</Text>
-          <Text style={styles.txt2}>$1000/Hr</Text>
+          <Text style={styles.txt2}>₹{mentorData.plans[0]}/Hr</Text>
         </LinearGradient>
         <LinearGradient
           colors={[AppColors.primarycolor, '#012437']}
@@ -106,7 +122,9 @@ const MentorDetails = props => {
             borderRadius: 6,
             marginTop: Height / 13,
           }}>
-          <Text style={styles.txt1}>Rating</Text>
+          <Text style={styles.txt1}>Rating </Text>
+          <Text style={styles.txt1}>{mentorData.totalRating!=0&&mentorData.totalRating} </Text>
+          
         </LinearGradient>
       </View>
       <LinearGradient
@@ -169,10 +187,7 @@ const MentorDetails = props => {
           }}>
           <Text
             style={{color: AppColors.infoFonts, fontFamily: 'Poppins-Regular'}}>
-            Market Research Mentor is the terminal where all industrial,
-            commercial and profitmaking venture will get the best research
-            reports of the market in all sectors like automotive, electronics,
-            pharmaceuticals and healthcare, food and beverages etc.
+            {mentorData.about}
           </Text>
         </View>
       ) : exp ? (
@@ -184,7 +199,7 @@ const MentorDetails = props => {
           }}>
           <Text
             style={{color: AppColors.infoFonts, fontFamily: 'Poppins-Regular'}}>
-            Experience
+            {mentorData.experience}
           </Text>
         </View>
       ) : plan ? (
@@ -196,7 +211,10 @@ const MentorDetails = props => {
           }}>
           <Text
             style={{color: AppColors.infoFonts, fontFamily: 'Poppins-Regular'}}>
-            plan
+            Hourly: {mentorData.plans[0]} {"\n"}
+            Monthly: {mentorData.plans[1]} {"\n"}
+            Quarterly: {mentorData.plans[2]} {"\n"}
+            Yearly: {mentorData.plans[3]} {"\n"}
           </Text>
         </View>
       ) : null}

@@ -21,32 +21,14 @@ import LinearGradient from 'react-native-linear-gradient';
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
 
-const MentorsList = props => {
+const MentorsList2 = props => {
   const navigation = useNavigation();
   // const mentorData = props.route.params.mentorData;
-  const [all, setAll] = useState();
   const [listColumn, setListColumn] = useState(2);
-  useEffect(() => {
-    GetAllMentors(setAll);
-  }, []);
+  const mentorlist = props.route.params.mentors;
 
   return (
-    //<HeaderLayout>
     <View style={styles.screen}>
-      {/*  <LinearGradient
-        colors={[AppColors.primarycolor, '#012437']}
-        start={{x: 0, y: 1.3}}
-        end={{x: 1, y: 0.5}}
-        style={styles.Header}>
-        <Text
-          style={{
-            fontFamily: 'Poppins-Bold',
-            color: AppColors.FontsColor,
-            fontSize: 17,
-          }}>
-          Mentors
-        </Text>
-      </LinearGradient> */}
       <Text
         style={{
           fontFamily: 'Poppins-Bold',
@@ -58,7 +40,7 @@ const MentorsList = props => {
       </Text>
       <View>
         <FlatList
-          data={all}
+          data={mentorlist}
           numColumns={2}
           renderItem={({item}) => (
             <LinearGradient
@@ -180,4 +162,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-export default MentorsList;
+export default MentorsList2;

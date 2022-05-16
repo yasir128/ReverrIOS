@@ -59,6 +59,7 @@ const Room = () => {
   const [id, setId] = useState();
   const [owner, setOwner] = useState(false);
   const [currpostid, setcurrpostid] = useState('none');
+  const {savedpoststate, savedpostdispatch} = useContext(SavedPostContext);
 
   const clickhandler = (post)=>{
     setId(post.id);
@@ -165,7 +166,6 @@ const Room = () => {
           .catch(e => {
             console.log('Error while deleting the image. ', e);
           });
-        // If the post image is not available
       } else {
         deleteFirestoreData(postId);
       }

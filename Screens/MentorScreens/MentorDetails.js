@@ -40,8 +40,6 @@ const MentorDetails = props => {
       SaveMentor(mentorData, state.email, state.savedMentors);
     }
   }
-
-  console.log(mentorData.password);
   return (
     <View style={styles.screen}>
       <View

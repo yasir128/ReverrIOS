@@ -11,7 +11,6 @@ import EditProfile from '../Screens/ProfileScreens/EditProfile';
 import ArticalDetailsScreen from '../Screens/HomeScreens/TopTabScreens/ArticalDetailsScreen';
 import MentorsList from '../Screens/MentorScreens/MentorsList';
 import ArticleScreen from '../Screens/HomeScreens/TopTabScreens/ArticleScreen';
-import ArticleScreen2 from '../Screens/HomeScreens/TopTabScreens/ArticleScreen2';
 import MentorDetails from '../Screens/MentorScreens/MentorDetails';
 import FundingScreen from '../Screens/FundingScreens/FundingScreen';
 import Dashboard from '../Screens/HomeScreens/Dashboard';
@@ -30,14 +29,13 @@ import OpenBook from '../Screens/LearnScreens/OpenBook';
 import ReadingInstruction from '../Screens/LearnScreens/ReadingInstruction';
 import Room from '../Screens/RoomScreens/Room';
 import CreatePost from '../Screens/RoomScreens/CreatePost';
-import Room2 from '../Screens/RoomScreens/Room2';
-<<<<<<< HEAD
 import SkeltonLoader from '../Componants/SkeltonLoader';
 import AlertBox from '../Componants/AlertBox';
-=======
 import Courses from '../Screens/LearnScreens/Courses';
-import MentorsList2 from '../Screens/MentorScreens/MentorsList2';
->>>>>>> 1d18fd7e30c6693820b639efbcb1e465b5c48ee5
+import MentorsList2 from '../Screens/MentorScreens/SavedMentorsList';
+import SavedPosts from '../Screens/RoomScreens/SavedPosts';
+import SavedArticals from '../Screens/HomeScreens/TopTabScreens/SavedArticals';
+import SavedMentorsList from '../Screens/MentorScreens/SavedMentorsList';
 
 const Stack = createNativeStackNavigator();
 
@@ -51,13 +49,13 @@ export const HomeStack = () => {
           headerShown: false,
         }}
       />
-      <Stack.Screen
+      {/*    <Stack.Screen
         name="Alert"
         component={AlertBox}
         options={{
           headerShown: false,
         }}
-      />
+      /> */}
       <Stack.Screen
         name="Individual"
         component={IndividuaProfile}
@@ -121,8 +119,8 @@ export const HomeStack = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="Artical2"
-        component={ArticleScreen2}
+        name="savedArticals"
+        component={SavedArticals}
         options={{headerShown: false}}
       />
       <Stack.Screen
@@ -142,7 +140,7 @@ export const HomeStack = () => {
       />
       <Stack.Screen
         name="savedposts"
-        component={Room2}
+        component={SavedPosts}
         options={{headerShown: false}}
       />
       <Stack.Screen
@@ -157,7 +155,7 @@ export const HomeStack = () => {
       />
       <Stack.Screen
         name="savedmentorlist"
-        component={MentorsList2}
+        component={SavedMentorsList}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

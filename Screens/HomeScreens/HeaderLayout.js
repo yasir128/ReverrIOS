@@ -25,7 +25,6 @@ const HeaderLayout = props => {
           );
         }}
         onPressCalander={() => {
-          /*  navigation.navigate('Alert'); */
           setModelVisible(true);
         }}
         onPressNoti={() => {
@@ -36,7 +35,7 @@ const HeaderLayout = props => {
         }}
         DpUrl={state && state.image}
       />
-      {/*  <ModelView
+      <ModelView
         ShowModal={modelVisible}
         onCloseModal={() => {
           setModelVisible(false);
@@ -46,7 +45,7 @@ const HeaderLayout = props => {
             setModelVisible(false);
           }}
         />
-      </ModelView> */}
+      </ModelView>
 
       {props.children}
     </View>

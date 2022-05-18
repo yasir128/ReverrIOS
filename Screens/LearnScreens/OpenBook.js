@@ -17,7 +17,6 @@ const Height = Dimensions.get('window').height;
 
 const OpenBook = props => {
   const bookData = props.route.params.BookData;
-  //  console.log(bookData);
   const pagesRef = useRef();
   const [currIndex, setCurrIndex] = useState(0);
   const [progress, setProgress] = useState('10%');
@@ -96,8 +95,7 @@ const OpenBook = props => {
         />
       )}
       <View style={styles.StatusContainer}>
-        {
-          (bookData.type = 'TEXT' && (
+          {bookData[currIndex].type=="QUIZ"&&
             <View
               style={{
                 flexDirection: 'row',
@@ -124,8 +122,7 @@ const OpenBook = props => {
                 </Text>
               </TouchableOpacity>
             </View>
-          ))
-        }
+          }
         <View style={styles.progressContainer}>
           <View style={[styles.complete, {width: progress}]}></View>
         </View>

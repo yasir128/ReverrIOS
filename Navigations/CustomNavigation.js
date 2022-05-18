@@ -29,6 +29,7 @@ import OpenBook from '../Screens/LearnScreens/OpenBook';
 import ReadingInstruction from '../Screens/LearnScreens/ReadingInstruction';
 import Room from '../Screens/RoomScreens/Room';
 import CreatePost from '../Screens/RoomScreens/CreatePost';
+<<<<<<< HEAD
 import SkeltonLoader from '../Componants/SkeltonLoader';
 import AlertBox from '../Componants/AlertBox';
 import Courses from '../Screens/LearnScreens/Courses';
@@ -36,6 +37,13 @@ import MentorsList2 from '../Screens/MentorScreens/SavedMentorsList';
 import SavedPosts from '../Screens/RoomScreens/SavedPosts';
 import SavedArticals from '../Screens/HomeScreens/TopTabScreens/SavedArticals';
 import SavedMentorsList from '../Screens/MentorScreens/SavedMentorsList';
+=======
+import Room2 from '../Screens/RoomScreens/Room2';
+import SkeltonLoader from '../Componants/SkeltonLoader';
+import AlertBox from '../Componants/AlertBox';
+import Courses from '../Screens/LearnScreens/Courses';
+import MentorsList2 from '../Screens/MentorScreens/MentorsList2';
+>>>>>>> 5522ac7b0d407007ff75322cbe5b53baebe292b1
 
 const Stack = createNativeStackNavigator();
 

@@ -11,6 +11,7 @@ import AppColors from '../../Constaint/AppColors';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {ShowCalander} from '../../utils/calanderFunctionality';
+import { DataTable } from 'react-native-paper';
 
 const Height = Dimensions.get('screen').height;
 const Width = Dimensions.get('screen').width;
@@ -39,7 +40,7 @@ function getCalender(month, year) {
     'Friday',
     'Saturday',
   ];
-  var dayarr = [' S', ' M', ' T', ' W', 'Th', ' F', 'Sa'];
+  var dayarr = ['   S', '   M', '   T', '   W', '  Th', '   F', '  Sa'];
   var Tdays = new Date(year, month + 1, 0).getDate(); //total days in the current month
   var prevdays = new Date(year, month, 0).getDate(); //total days in the prev month
   var dt = new Date(year, month, 1);
@@ -94,7 +95,7 @@ const CalanderScreen = props => {
     'Friday',
     'Saturday',
   ];
-  var dayarr = [' S', ' M', ' T', ' W', 'Th', ' F', 'Sa'];
+  var dayarr = [' S', ' M', ' T', ' W', ' Th', ' F', ' Sa'];
 
   var date = new Date();
   const [month, setmonth] = useState(date.getMonth());
@@ -143,69 +144,87 @@ const CalanderScreen = props => {
         </TouchableOpacity>
       </View>
       <View style={{width: '100%', marginStart: '9%', marginTop: '3%'}}>
-        <FlatList
+        
+      <DataTable >
+      <DataTable.Row>
+      <FlatList
           data={dayarr}
           horizontal
           renderItem={({item}) => (
-            <View key={item} style={styles.daysName}>
-              <Text style={styles.text}>{item}</Text>
-            </View>
+            <TouchableOpacity key={item} style={styles.daysName}>
+              <DataTable.Cell>{item}</DataTable.Cell>
+            </TouchableOpacity>
           )}
         />
-        <FlatList
+      </DataTable.Row>
+      <DataTable.Row>
+      <FlatList
           data={calender[0]}
           horizontal
           renderItem={({item}) => (
             <TouchableOpacity key={item} style={styles.daysName}>
-              <Text style={styles.text}>{item}</Text>
+              <DataTable.Cell>{item}</DataTable.Cell>
             </TouchableOpacity>
           )}
         />
-        <FlatList
+      </DataTable.Row>
+  
+      <DataTable.Row>
+      <FlatList
           data={calender[1]}
           horizontal
           renderItem={({item}) => (
             <TouchableOpacity key={item} style={styles.daysName}>
-              <Text style={styles.text}>{item}</Text>
+              <DataTable.Cell>{item}</DataTable.Cell>
             </TouchableOpacity>
           )}
         />
-        <FlatList
+      </DataTable.Row>
+      <DataTable.Row>
+      <FlatList
           data={calender[2]}
           horizontal
           renderItem={({item}) => (
             <TouchableOpacity key={item} style={styles.daysName}>
-              <Text style={styles.text}>{item}</Text>
+               <DataTable.Cell>{item}</DataTable.Cell>
             </TouchableOpacity>
           )}
         />
-        <FlatList
+      </DataTable.Row>
+      <DataTable.Row>
+      <FlatList
           data={calender[3]}
           horizontal
           renderItem={({item}) => (
             <TouchableOpacity key={item} style={styles.daysName}>
-              <Text style={styles.text}>{item}</Text>
+               <DataTable.Cell>{item}</DataTable.Cell>
             </TouchableOpacity>
           )}
         />
-        <FlatList
+      </DataTable.Row>
+      <DataTable.Row>
+      <FlatList
           data={calender[4] && calender[4]}
           horizontal
           renderItem={({item}) => (
             <TouchableOpacity key={item} style={styles.daysName}>
-              <Text style={styles.text}>{item}</Text>
+             <DataTable.Cell>{item}</DataTable.Cell>
             </TouchableOpacity>
           )}
         />
-        <FlatList
+      </DataTable.Row>
+      <DataTable.Row>
+      <FlatList
           data={calender[5] && calender[5]}
           horizontal
           renderItem={({item}) => (
             <TouchableOpacity key={item} style={styles.daysName}>
-              <Text style={styles.text}>{item}</Text>
+              <DataTable.Cell>{item}</DataTable.Cell>
             </TouchableOpacity>
           )}
         />
+      </DataTable.Row>
+    </DataTable>
       </View>
       <View
         style={{
@@ -248,7 +267,8 @@ const styles = StyleSheet.create({
   },
   daysName: {
     flexDirection: 'row',
-    marginStart: Width / 14,
+    marginStart: Width / 30,
+    marginEnd:Width/30,
   },
   text: {
     fontFamily: 'Poppins-SemiBold',

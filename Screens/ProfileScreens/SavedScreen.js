@@ -1,44 +1,67 @@
-import {View, Text, StyleSheet} from 'react-native';
-import React, { useContext, useEffect, useState } from 'react';
+import {View, Text, StyleSheet, ScrollView} from 'react-native';
+import React, {useContext, useEffect, useState} from 'react';
 import AppColors from '../../Constaint/AppColors';
 import {AllMentors} from '../../dummy-data/AllMentors';
 import SavedCard from '../../Componants/ProfileScreenComponents/SavedCard';
 import Backbtn from '../../Componants/Backbtn';
 import {useNavigation} from '@react-navigation/native';
 import {courseData} from '../../dummy-data/courseData';
-import { UserContext, SavedArticleContext, SavedPostContext, SavedCourseContext, SavedMentorContext } from '../../App';
+import {
+  UserContext,
+  SavedArticleContext,
+  SavedPostContext,
+  SavedCourseContext,
+  SavedMentorContext,
+} from '../../App';
 import firestore from '@react-native-firebase/firestore';
 
-const SavedScreen = (props) => {
+const SavedScreen = props => {
   const navigation = useNavigation();
-  const {state,dispatch} = useContext(UserContext);
-  const {savedarticlestate,savedarticledispatch} = useContext(SavedArticleContext);
+  const {state, dispatch} = useContext(UserContext);
+  const {savedarticlestate, savedarticledispatch} =
+    useContext(SavedArticleContext);
   const {savedpoststate, savedpostdispatch} = useContext(SavedPostContext);
-  const {savedcoursestate, savedcoursedispatch} = useContext(SavedCourseContext);
-  const {savedmentorstate, savedmentordispatch} = useContext(SavedMentorContext);
+  const {savedcoursestate, savedcoursedispatch} =
+    useContext(SavedCourseContext);
+  const {savedmentorstate, savedmentordispatch} =
+    useContext(SavedMentorContext);
 
-  return state&&(
-    <View style={styles.screen}>
-      <View
-        style={{
-          marginStart: '5%',
-          alignItems: 'center',
-          paddingBottom: '5%',
-          flexDirection: 'row',
-        }}>
-        <Backbtn
-          IconSize={30}
-          onPress={() => {
-            navigation.goBack();
-          }}
+  return (
+    state && (
+      <ScrollView style={styles.screen}>
+        <View
+          style={{
+            marginStart: '5%',
+            alignItems: 'center',
+            paddingBottom: '5%',
+            flexDirection: 'row',
+          }}>
+          <Backbtn
+            IconSize={30}
+            onPress={() => {
+              navigation.goBack();
+            }}
+          />
+          <Text style={styles.text}>Saved</Text>
+        </View>
+        <SavedCard
+          Title="Your Favourite Mentor"
+          SavedList={savedmentorstate}
+          name="Mentor"
         />
-        <Text style={styles.text}>Saved</Text>
-      </View>
-      <SavedCard Title="Your Favourite Mentor" SavedList={savedmentorstate} name="Mentor" />
-      <SavedCard Title="Saved Posts" SavedList={savedpoststate} name="Post" />
-      <SavedCard Title="Saved courses" SavedList={savedcoursestate} name="Course" />
-      <SavedCard Title="Saved Articles" SavedList={savedarticlestate} name="Article" />
-    </View>
+        <SavedCard Title="Saved Posts" SavedList={savedpoststate} name="Post" />
+        <SavedCard
+          Title="Saved courses"
+          SavedList={savedcoursestate}
+          name="Course"
+        />
+        <SavedCard
+          Title="Saved Articles"
+          SavedList={savedarticlestate}
+          name="Article"
+        />
+      </ScrollView>
+    )
   );
 };
 const styles = StyleSheet.create({

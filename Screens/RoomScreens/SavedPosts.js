@@ -8,7 +8,7 @@ import {
   TextInput,
   ImageBackground,
   TouchableOpacity,
-  Alert
+  Alert,
 } from 'react-native';
 import React, {useEffect, useState, useContext} from 'react';
 import AppColors from '../../Constaint/AppColors';
@@ -27,7 +27,7 @@ import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import App, {SavedPostContext, UserContext} from '../../App';
 import CustomPopup from '../../Componants/CustomPopup';
 import storage from '@react-native-firebase/storage';
-import { SavePost, RemovePost } from '../../utils/fireBaseFunctions';
+import {SavePost, RemovePost} from '../../utils/fireBaseFunctions';
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
@@ -44,7 +44,7 @@ function generateString(length) {
   return result;
 }
 
-const Room2 = (props) => {
+const SavedPosts = props => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
@@ -60,25 +60,23 @@ const Room2 = (props) => {
   const [id, setId] = useState();
   const [owner, setOwner] = useState(false);
   const {savedpoststate, savedpostdispatch} = useContext(SavedPostContext);
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     setPosts(props.route.params.posts);
     setLoading(false);
-  },[]);
+  }, []);
 
-  const clickhandler = (post)=>{
+  const clickhandler = post => {
     setId(post.id);
     setPopup(true);
-    if(post.postedby.email == state.email)
-    {
+    if (post.postedby.email == state.email) {
       setOwner(true);
-    }
-    else{
+    } else {
       setOwner(false);
     }
-  }
+  };
 
-  const savePost = (post)=>{
+  const savePost = post => {
     setPopup(false);
     // console.log(post.id);
 
@@ -86,15 +84,13 @@ const Room2 = (props) => {
       dispatch({type: 'REMOVEPOST', payload: post.id});
       savedpostdispatch({type: 'REMOVE', payload: post});
       RemovePost(post, state.email, state.savedPosts);
-      setPosts(posts => [
-        ...posts.filter(item=>item!=post)
-      ])
+      setPosts(posts => [...posts.filter(item => item != post)]);
     } else {
       dispatch({type: 'SAVEPOST', payload: post.id});
       savedpostdispatch({type: 'UPDATE', payload: post});
       SavePost(post, state.email, state.savedPosts);
     }
-  }
+  };
 
   const fetchPosts2 = async () => {
     try {
@@ -109,31 +105,29 @@ const Room2 = (props) => {
             post.id = doc.id;
             list3.push(post);
           });
-        list3.forEach(async(post)=>{
-          let response =await post.postedby.get()
-          response = response.data();
-          delete response.password;
-          post.postedby = response;
+          list3.forEach(async post => {
+            let response = await post.postedby.get();
+            response = response.data();
+            delete response.password;
+            post.postedby = response;
 
-          if(post.comments.length>0)
-            for(var i=0; i<post.comments.length; i++){
-              let commentor= await post.comments[i].commentedby.get()
-              commentor= commentor.data()
-              delete commentor.password;
-              post.comments[i].commentedby = commentor;
+            if (post.comments.length > 0)
+              for (var i = 0; i < post.comments.length; i++) {
+                let commentor = await post.comments[i].commentedby.get();
+                commentor = commentor.data();
+                delete commentor.password;
+                post.comments[i].commentedby = commentor;
+              }
+            setPosts(posts => [...posts, post]);
+            if (loading) {
+              setLoading(false);
             }
-          setPosts((posts)=>[...posts,post]);
-          if (loading) {
-            setLoading(false);
-          }
-        });      
-      });
+          });
+        });
     } catch (e) {
       console.log(e);
     }
   };
-
-
 
   const handleDelete = post => {
     setPopup(false);
@@ -156,28 +150,26 @@ const Room2 = (props) => {
   };
 
   const deletePost = post => {
-   
-      const {image} = post;
-      const postId = post.id;
+    const {image} = post;
+    const postId = post.id;
 
-      if (image != null && image!= '') {
-        const storageRef = storage().refFromURL(image);
-        const imageRef = storage().ref(storageRef.fullPath);
+    if (image != null && image != '') {
+      const storageRef = storage().refFromURL(image);
+      const imageRef = storage().ref(storageRef.fullPath);
 
-        imageRef
-          .delete()
-          .then(() => {
-            console.log(`${image} has been deleted successfully.`);
-            deleteFirestoreData(postId);
-          })
-          .catch(e => {
-            console.log('Error while deleting the image. ', e);
-          });
-        // If the post image is not available
-      } else {
-        deleteFirestoreData(postId);
-      }
-      
+      imageRef
+        .delete()
+        .then(() => {
+          console.log(`${image} has been deleted successfully.`);
+          deleteFirestoreData(postId);
+        })
+        .catch(e => {
+          console.log('Error while deleting the image. ', e);
+        });
+      // If the post image is not available
+    } else {
+      deleteFirestoreData(postId);
+    }
   };
 
   const deleteFirestoreData = postId => {
@@ -191,7 +183,7 @@ const Room2 = (props) => {
           'Your post has been deleted successfully!',
         );
         setDeleted(true);
-        setPosts((posts)=>[...posts.filter(post=>post.id!=postId)]);
+        setPosts(posts => [...posts.filter(post => post.id != postId)]);
       })
       .catch(e => console.log('Error deleting post.', e));
   };
@@ -274,10 +266,10 @@ const Room2 = (props) => {
     }
   };
 
-  if (posts&& posts.length==0) {
+  if (posts && posts.length == 0) {
     return (
       <View style={styles.screen}>
-      <View style={styles.header}>
+        <View style={styles.header}>
           <Backbtn
             IconSize={30}
             onPress={() => {
@@ -287,17 +279,19 @@ const Room2 = (props) => {
           <Text
             style={{
               color: AppColors.FontsColor,
-              marginStart: Width / 3.5,
+              marginStart: Width / 3.9,
               fontFamily: 'Poppins-SemiBold',
               fontSize: 21,
             }}>
-            Room
+            Saved Posts
           </Text>
         </View>
-        <View style={{justifyContent:'center', alignItems:'center', flex:1}}>
-          <Text style={{color: AppColors.FontsColor, fontSize: 18}}>You have no saved posts! ☹️</Text>
+        <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+          <Text style={{color: AppColors.FontsColor, fontSize: 18}}>
+            You have no saved posts! ☹️
+          </Text>
         </View>
-        </View>
+      </View>
     );
   } else {
     return (
@@ -320,8 +314,8 @@ const Room2 = (props) => {
           </Text>
         </View>
         <ScrollView style={{marginTop: '5%'}}>
-          
-          {posts && posts.map((item, index) => {
+          {posts &&
+            posts.map((item, index) => {
               // console.log(index);
               return (
                 <LinearGradient
@@ -357,25 +351,26 @@ const Room2 = (props) => {
                         {item.text !== '' ? (
                           <View>
                             {seeMore ? (
-                              item.id==seemoreId&&
-                              <View
-                                style={[styles.image, {overflow: 'hidden'}]}>
-                                <ImageBackground
-                                  style={{width: '100%', height: '100%'}}
-                                  source={{uri: item.image}}>
-                                  <View style={{paddingHorizontal: '5%'}}>
-                                    <Text style={styles.details}>
-                                      {item.text}
-                                    </Text>
-                                    <TouchableOpacity
-                                      onPress={() => {
-                                        setSeeMore(false);
-                                      }}>
-                                      <Text style={styles.company}>Hide</Text>
-                                    </TouchableOpacity>
-                                  </View>
-                                </ImageBackground>
-                              </View>
+                              item.id == seemoreId && (
+                                <View
+                                  style={[styles.image, {overflow: 'hidden'}]}>
+                                  <ImageBackground
+                                    style={{width: '100%', height: '100%'}}
+                                    source={{uri: item.image}}>
+                                    <View style={{paddingHorizontal: '5%'}}>
+                                      <Text style={styles.details}>
+                                        {item.text}
+                                      </Text>
+                                      <TouchableOpacity
+                                        onPress={() => {
+                                          setSeeMore(false);
+                                        }}>
+                                        <Text style={styles.company}>Hide</Text>
+                                      </TouchableOpacity>
+                                    </View>
+                                  </ImageBackground>
+                                </View>
+                              )
                             ) : (
                               <View>
                                 <Image
@@ -495,9 +490,9 @@ const Room2 = (props) => {
                     key={item.id}
                     open={popup}
                     closeOnTouchOutside={true}
-                    postId = {id}
-                    id = {item.id}
-                    owner = {owner}
+                    postId={id}
+                    id={item.id}
+                    owner={owner}
                     modalDidClose={() => {
                       setPopup(false);
                     }}
@@ -512,21 +507,21 @@ const Room2 = (props) => {
                       backgroundColor: AppColors.primarycolor,
                     }}
                     style={{alignItems: 'center'}}>
-                    {owner&&
-                    <View
-                      style={{
-                        borderBottomColor: AppColors.FontsColor,
-                        borderBottomWidth: 2,
-                        paddingVertical: '4%',
-                        alignItems: 'center',
-                      }}>
-                      <TouchableOpacity onPress={()=>handleDelete(item)}>
-                        <Text style={{color: AppColors.FontsColor}}>
-                          Delete
-                        </Text>
-                      </TouchableOpacity>
-                    </View>
-                    }
+                    {owner && (
+                      <View
+                        style={{
+                          borderBottomColor: AppColors.FontsColor,
+                          borderBottomWidth: 2,
+                          paddingVertical: '4%',
+                          alignItems: 'center',
+                        }}>
+                        <TouchableOpacity onPress={() => handleDelete(item)}>
+                          <Text style={{color: AppColors.FontsColor}}>
+                            Delete
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    )}
                     {/* <View
                       style={{
                         borderBottomColor: AppColors.FontsColor,
@@ -556,8 +551,12 @@ const Room2 = (props) => {
                         alignItems: 'center',
                         paddingVertical: '4%',
                       }}>
-                      <TouchableOpacity onPress={()=>savePost(item)}>
-                        <Text style={{color: AppColors.FontsColor}}>{state.savedPosts.includes(item.id)?"Unsave":"Save"}</Text>
+                      <TouchableOpacity onPress={() => savePost(item)}>
+                        <Text style={{color: AppColors.FontsColor}}>
+                          {state.savedPosts.includes(item.id)
+                            ? 'Unsave'
+                            : 'Save'}
+                        </Text>
                       </TouchableOpacity>
                     </View>
                     <View
@@ -565,7 +564,7 @@ const Room2 = (props) => {
                         paddingVertical: '4%',
                         alignItems: 'center',
                       }}>
-                      <TouchableOpacity onPress={()=>setPopup(false)}>
+                      <TouchableOpacity onPress={() => setPopup(false)}>
                         <Text style={{color: AppColors.FontsColor}}>close</Text>
                       </TouchableOpacity>
                     </View>
@@ -577,7 +576,7 @@ const Room2 = (props) => {
         <CreatePostButton
           style={styles.createBtn}
           onPress={() => {
-            navigation.navigate('CreatePost',{setPosts,fetchPosts2});
+            navigation.navigate('CreatePost', {setPosts, fetchPosts2});
           }}
         />
       </View>
@@ -657,4 +656,4 @@ const styles = StyleSheet.create({
     paddingVertical: '2%',
   },
 });
-export default Room2;
+export default SavedPosts;

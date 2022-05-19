@@ -1,18 +1,19 @@
 import {View, Text, StyleSheet, Dimensions, ScrollView} from 'react-native';
 import React, {useContext, useState} from 'react';
 import HeaderCard from '../../../Componants/HomeScreenComponants/ArticalScreenComponants/HeaderCard';
-import ArticalList2 from '../../../Componants/HomeScreenComponants/ArticalScreenComponants/ArticalList2';
+import ArticalList2 from '../../../Componants/HomeScreenComponants/ArticalScreenComponants/SavedArticalsList';
 import {SavedArticleContext} from '../../../App';
 import AppColors from '../../../Constaint/AppColors';
 import Backbtn from '../../../Componants/Backbtn';
 import {useNavigation} from '@react-navigation/native';
+import SavedArticalsList from '../../../Componants/HomeScreenComponants/ArticalScreenComponants/SavedArticalsList';
 
 const Height = Dimensions.get('window').height;
 const Width = Dimensions.get('window').width;
 
 console.log(Height);
 
-const ArticleScreen2 = props => {
+const SavedArticals = props => {
   const {savedarticlestate, savedarticledispatch} =
     useContext(SavedArticleContext);
 
@@ -20,14 +21,17 @@ const ArticleScreen2 = props => {
 
   return (
     <View style={styles.screen}>
-      <Backbtn
-        IconSize={30}
-        onPress={() => {
-          navigation.goBack();
-        }}
-      />
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <Backbtn
+          IconSize={30}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
+        <Text style={styles.headerTitle}>Saved Articals</Text>
+      </View>
       <View style={styles.ListContainer}>
-        <ArticalList2 data={savedarticlestate} />
+        <SavedArticalsList data={savedarticlestate} />
       </View>
     </View>
   );
@@ -45,6 +49,12 @@ const styles = StyleSheet.create({
     width: '100%',
     height: Height > 684 ? '100%' : '100%',
   },
+  headerTitle: {
+    color: AppColors.FontsColor,
+    marginStart: '25%',
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 18,
+  },
 });
 
-export default ArticleScreen2;
+export default SavedArticals;

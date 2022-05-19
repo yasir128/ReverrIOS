@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
-  ImageBackground,
+  ScrollView,
 } from 'react-native';
 import React, {useContext, useState} from 'react';
 import Backbtn from '../../Componants/Backbtn';
@@ -14,8 +14,8 @@ import AppColors from '../../Constaint/AppColors';
 import {useNavigation} from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import CustomBtn from '../../Componants/CustomBtn';
-import { SavedMentorContext, UserContext } from '../../App';
-import { SaveMentor, RemoveMentor } from '../../utils/fireBaseFunctions';
+import {SavedMentorContext, UserContext} from '../../App';
+import {SaveMentor, RemoveMentor} from '../../utils/fireBaseFunctions';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
@@ -27,9 +27,10 @@ const MentorDetails = props => {
   const [exp, setExp] = useState(false);
   const [plan, setplan] = useState(false);
   const {state, dispatch} = useContext(UserContext);
-  const {savedmentorstate, savedmentordispatch} = useContext(SavedMentorContext);
+  const {savedmentorstate, savedmentordispatch} =
+    useContext(SavedMentorContext);
 
-  const savesmentor = ()=>{
+  const savesmentor = () => {
     if (state.savedMentors.includes(mentorData.email)) {
       dispatch({type: 'REMOVEMENTOR', payload: mentorData.email});
       savedmentordispatch({type: 'REMOVE', payload: mentorData});
@@ -39,9 +40,9 @@ const MentorDetails = props => {
       savedmentordispatch({type: 'UPDATE', payload: mentorData});
       SaveMentor(mentorData, state.email, state.savedMentors);
     }
-  }
+  };
   return (
-    <View style={styles.screen}>
+    <ScrollView style={styles.screen}>
       <View
         style={{
           flexDirection: 'row',
@@ -54,8 +55,15 @@ const MentorDetails = props => {
             navigation.goBack();
           }}
         />
-        <TouchableOpacity onPress={()=>savesmentor()}>
-        <Icon size={27} name="heart" color={state.savedMentors.includes(mentorData.email)?'red':'grey'} style={{marginRight: '8%'}} />
+        <TouchableOpacity onPress={() => savesmentor()}>
+          <Icon
+            size={27}
+            name="heart"
+            color={
+              state.savedMentors.includes(mentorData.email) ? 'red' : 'grey'
+            }
+            style={{marginRight: '8%'}}
+          />
         </TouchableOpacity>
       </View>
       <View style={styles.dp}>
@@ -123,8 +131,9 @@ const MentorDetails = props => {
             marginTop: Height / 13,
           }}>
           <Text style={styles.txt1}>Rating </Text>
-          <Text style={styles.txt1}>{mentorData.totalRating!=0&&mentorData.totalRating} </Text>
-          
+          <Text style={styles.txt1}>
+            {mentorData.totalRating != 0 && mentorData.totalRating}{' '}
+          </Text>
         </LinearGradient>
       </View>
       <LinearGradient
@@ -211,10 +220,10 @@ const MentorDetails = props => {
           }}>
           <Text
             style={{color: AppColors.infoFonts, fontFamily: 'Poppins-Regular'}}>
-            Hourly: {mentorData.plans[0]} {"\n"}
-            Monthly: {mentorData.plans[1]} {"\n"}
-            Quarterly: {mentorData.plans[2]} {"\n"}
-            Yearly: {mentorData.plans[3]} {"\n"}
+            Hourly: {mentorData.plans[0]} {'\n'}
+            Monthly: {mentorData.plans[1]} {'\n'}
+            Quarterly: {mentorData.plans[2]} {'\n'}
+            Yearly: {mentorData.plans[3]} {'\n'}
           </Text>
         </View>
       ) : null}
@@ -229,7 +238,7 @@ const MentorDetails = props => {
           });
         }}
       />
-    </View>
+    </ScrollView>
   );
 };
 const styles = StyleSheet.create({

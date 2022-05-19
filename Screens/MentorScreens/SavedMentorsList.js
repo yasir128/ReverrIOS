@@ -21,7 +21,7 @@ import LinearGradient from 'react-native-linear-gradient';
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
 
-const MentorsList2 = props => {
+const SavedMentorsList = props => {
   const navigation = useNavigation();
   // const mentorData = props.route.params.mentorData;
   const [listColumn, setListColumn] = useState(2);
@@ -29,15 +29,15 @@ const MentorsList2 = props => {
 
   return (
     <View style={styles.screen}>
-      <Text
-        style={{
-          fontFamily: 'Poppins-Bold',
-          color: AppColors.FontsColor,
-          fontSize: 17,
-          marginStart: '5%',
-        }}>
-        Mentors
-      </Text>
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <Backbtn
+          IconSize={30}
+          onPress={() => {
+            navigation.goBack();
+          }}
+        />
+        <Text style={styles.headerTitle}>Saved Mentors</Text>
+      </View>
       <View>
         <FlatList
           data={mentorlist}
@@ -55,10 +55,7 @@ const MentorsList2 = props => {
                     profileDetails: item,
                   });
                 }}>
-                <Image
-                  style={styles.Dp}
-                  source={{uri:item.image}}
-                />
+                <Image style={styles.Dp} source={{uri: item.image}} />
                 <View style={{alignItems: 'center'}}>
                   <Text style={styles.Name}>{item.name}</Text>
                   <Text style={styles.Skills}>{item.industry}</Text>
@@ -94,7 +91,9 @@ const MentorsList2 = props => {
                       color: AppColors.ActiveColor,
                       marginStart: '5%',
                     }}>
-                    {item.reviews.length!=0?" ":item.reviews.length+" Reviews"}
+                    {item.reviews.length != 0
+                      ? ' '
+                      : item.reviews.length + ' Reviews'}
                   </Text>
                 </View>
               </TouchableOpacity>
@@ -109,7 +108,6 @@ const MentorsList2 = props => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    marginTop: '6%',
     backgroundColor: AppColors.primarycolor,
   },
   Header: {
@@ -119,6 +117,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 10,
     marginBottom: '2%',
+  },
+  headerTitle: {
+    color: AppColors.FontsColor,
+    marginStart: '25%',
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: 18,
   },
   Card: {
     marginVertical: 10,
@@ -162,4 +166,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-export default MentorsList2;
+export default SavedMentorsList;

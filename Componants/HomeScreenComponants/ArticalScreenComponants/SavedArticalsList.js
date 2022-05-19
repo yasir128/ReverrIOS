@@ -16,7 +16,7 @@ import {SaveArticle, RemoveArticle} from '../../../utils/fireBaseFunctions';
 const Height = Dimensions.get('window').height;
 const Width = Dimensions.get('window').width;
 
-const ArticalList2 = props => {
+const SavedArticalsList = props => {
   const {state, dispatch} = useContext(UserContext);
   const {savedarticlestate, savedarticledispatch} =
     useContext(SavedArticleContext);
@@ -95,4 +95,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ArticalList2;
+export default SavedArticalsList;

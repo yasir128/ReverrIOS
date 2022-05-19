@@ -24,45 +24,73 @@ export const ChangeDp = (loading, setLoading, dispatch) => {
     try {
       loading;
       const url = image.path;
-      const imageURL = url.substring(url.lastIndexOf('/') + 1);
+      const fileUrl = url.substring(url.lastIndexOf('/') + 1);
       storage()
-        .ref('Images/' + imageURL)
+        .ref('Images/' + fileUrl)
         .putFile(url)
         .then(async () => {
           const udata = await auth().currentcUser;
           var userEmail = udata.email;
           var imgURL = await storage()
-            .ref('Images/' + imageURL)
+            .ref('Images/' + fileUrl)
             .getDownloadURL();
           dispatch({type: 'UPDATEPHOTO', payload: imgURL});
           await firestore().collection('Users').doc(userEmail).update({
             image: imgURL,
           });
-
-          setLoading(false);
         });
     } catch (error) {
-      setLoading(false);
       alert('Cancel');
     }
   });
 };
 
-export const AddGalleryImage = (setImageUrl) => {
+export const AddDeckFile = (name, companyName, setFile) => {
+  ImagePicker.openPicker({
+    mediaType: 'any',
+  }).then(file => {
+    try {
+      loading;
+      const url = file.path;
+      setFile(url);
+      const fileUrl = url.substring(url.lastIndexOf('/') + 1);
+      storage()
+        .ref('FundingFiles/' + fileUrl)
+        .putFile(url)
+        .then(async () => {
+          const udata = await auth().currentcUser;
+          var userEmail = udata.email;
+          var deckFile = await storage()
+            .ref('FundingFiles/' + fileUrl)
+            .getDownloadURL();
+
+          await firestore().collection('Funding').doc(userEmail).set({
+            name: name,
+            companyName: companyName,
+            file: deckFile,
+          });
+        });
+    } catch (error) {
+      alert('Cancel');
+    }
+  });
+};
+
+export const AddGalleryImage = setfileUrl => {
   ImagePicker.openPicker({
     mediaType: 'photo',
   }).then(image => {
     try {
       const url = image.path;
-      const imageURL = url.substring(url.lastIndexOf('/') + 1);
+      const fileUrl = url.substring(url.lastIndexOf('/') + 1);
       storage()
-        .ref('Images/' + imageURL)
+        .ref('Images/' + fileUrl)
         .putFile(url)
         .then(async () => {
           var imgURL = await storage()
-            .ref('Images/' + imageURL)
+            .ref('Images/' + fileUrl)
             .getDownloadURL();
-          setImageUrl(imgURL);
+          setfileUrl(imgURL);
           console.log(imgURL);
           /*  dispatch({type: 'UPDATEPHOTO', payload: imgURL});
           await firestore().collection('Users').doc(userEmail).update({
@@ -74,23 +102,23 @@ export const AddGalleryImage = (setImageUrl) => {
     }
   });
 };
-export const AddCameraImage = (setImageUrl) => {
+export const AddCameraImage = setfileUrl => {
   ImagePicker.openCamera({
     mediaType: 'photo',
   }).then(image => {
     try {
       const url = image.path;
-      const imageURL = url.substring(url.lastIndexOf('/') + 1);
+      const fileUrl = url.substring(url.lastIndexOf('/') + 1);
       storage()
-        .ref('Images/' + imageURL)
+        .ref('Images/' + fileUrl)
         .putFile(url)
         .then(async () => {
           var imgURL = await storage()
-            .ref('Images/' + imageURL)
+            .ref('Images/' + fileUrl)
             .getDownloadURL();
-          setImageUrl(imgURL);
+          setfileUrl(imgURL);
           console.log(imgURL);
-          
+
           /*  dispatch({type: 'UPDATEPHOTO', payload: imgURL});
           await firestore().collection('Users').doc(userEmail).update({
             image: imgURL,
@@ -109,13 +137,13 @@ export const AddGalleryVideo = () => {
   }).then(image => {
     try {
       const url = image.path;
-      const imageURL = url.substring(url.lastIndexOf('/') + 1);
+      const fileUrl = url.substring(url.lastIndexOf('/') + 1);
       storage()
-        .ref('Images/' + imageURL)
+        .ref('Images/' + fileUrl)
         .putFile(url)
         .then(async () => {
           var imgURL = await storage()
-            .ref('Images/' + imageURL)
+            .ref('Images/' + fileUrl)
             .getDownloadURL();
           console.log(imgURL);
           /*  dispatch({type: 'UPDATEPHOTO', payload: imgURL});
@@ -134,13 +162,13 @@ export const AddCameraVideo = () => {
   }).then(image => {
     try {
       const url = image.path;
-      const imageURL = url.substring(url.lastIndexOf('/') + 1);
+      const fileUrl = url.substring(url.lastIndexOf('/') + 1);
       storage()
-        .ref('Images/' + imageURL)
+        .ref('Images/' + fileUrl)
         .putFile(url)
         .then(async () => {
           var imgURL = await storage()
-            .ref('Images/' + imageURL)
+            .ref('Images/' + fileUrl)
             .getDownloadURL();
           // console.log(imgURL);
           return imgURL;
@@ -269,7 +297,7 @@ export const RemovePost = async (item, email, posts) => {
     .update({savedPosts: [...posts.filter(arti => arti != item.id)]});
 };
 export const SaveCourse = async (item, email, courses) => {
-  if(courses == undefined){
+  if (courses == undefined) {
     courses = [];
   }
   const res = await firestore()
@@ -285,7 +313,7 @@ export const RemoveCourse = async (item, email, courses) => {
     .update({savedCourses: [...courses.filter(arti => arti != item.id)]});
 };
 export const SaveMentor = async (item, email, mentors) => {
-  if(mentors == undefined){
+  if (mentors == undefined) {
     mentors = [];
   }
   const res = await firestore()

@@ -231,7 +231,11 @@ const MentorDetails = props => {
         Title="Schedule"
         style={styles.btn}
         onPress={() => {
-          navigation.navigate('Plans');
+          navigation.navigate('Plans',{
+            plans:mentorData.plans,
+            mentor:mentorData.email,
+            orders:mentorData.orders
+          });
         }}
       />
     </ScrollView>

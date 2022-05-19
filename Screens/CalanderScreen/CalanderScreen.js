@@ -11,7 +11,10 @@ import AppColors from '../../Constaint/AppColors';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {ShowCalander} from '../../utils/calanderFunctionality';
-import { DataTable } from 'react-native-paper';
+import {DataTable} from 'react-native-paper';
+import CustomBtn from '../../Componants/CustomBtn';
+import {useNavigation} from '@react-navigation/native';
+import App from '../../App';
 
 const Height = Dimensions.get('screen').height;
 const Width = Dimensions.get('screen').width;
@@ -102,6 +105,7 @@ const CalanderScreen = props => {
   var year = date.getFullYear();
 
   const [calender, setCalender] = useState([]);
+  const navigation = useNavigation();
 
   function Prev() {
     setCalender(getCalender(month - 1, year));
@@ -123,7 +127,7 @@ const CalanderScreen = props => {
     <View
       style={{
         width: '100%',
-        height: Height / 2.3,
+        height: Height / 2,
         borderBottomEndRadius: 50,
         borderBottomStartRadius: 50,
         backgroundColor: AppColors.poupopbg,
@@ -144,96 +148,93 @@ const CalanderScreen = props => {
         </TouchableOpacity>
       </View>
       <View style={{width: '100%', marginStart: '9%', marginTop: '3%'}}>
-        
-      <DataTable >
-      <DataTable.Row>
-      <FlatList
-          data={dayarr}
-          horizontal
-          renderItem={({item}) => (
-            <TouchableOpacity key={item} style={styles.daysName}>
-              <DataTable.Cell>{item}</DataTable.Cell>
-            </TouchableOpacity>
-          )}
-        />
-      </DataTable.Row>
-      <DataTable.Row>
-      <FlatList
-          data={calender[0]}
-          horizontal
-          renderItem={({item}) => (
-            <TouchableOpacity key={item} style={styles.daysName}>
-              <DataTable.Cell>{item}</DataTable.Cell>
-            </TouchableOpacity>
-          )}
-        />
-      </DataTable.Row>
-  
-      <DataTable.Row>
-      <FlatList
-          data={calender[1]}
-          horizontal
-          renderItem={({item}) => (
-            <TouchableOpacity key={item} style={styles.daysName}>
-              <DataTable.Cell>{item}</DataTable.Cell>
-            </TouchableOpacity>
-          )}
-        />
-      </DataTable.Row>
-      <DataTable.Row>
-      <FlatList
-          data={calender[2]}
-          horizontal
-          renderItem={({item}) => (
-            <TouchableOpacity key={item} style={styles.daysName}>
-               <DataTable.Cell>{item}</DataTable.Cell>
-            </TouchableOpacity>
-          )}
-        />
-      </DataTable.Row>
-      <DataTable.Row>
-      <FlatList
-          data={calender[3]}
-          horizontal
-          renderItem={({item}) => (
-            <TouchableOpacity key={item} style={styles.daysName}>
-               <DataTable.Cell>{item}</DataTable.Cell>
-            </TouchableOpacity>
-          )}
-        />
-      </DataTable.Row>
-      <DataTable.Row>
-      <FlatList
-          data={calender[4] && calender[4]}
-          horizontal
-          renderItem={({item}) => (
-            <TouchableOpacity key={item} style={styles.daysName}>
-             <DataTable.Cell>{item}</DataTable.Cell>
-            </TouchableOpacity>
-          )}
-        />
-      </DataTable.Row>
-      <DataTable.Row>
-      <FlatList
-          data={calender[5] && calender[5]}
-          horizontal
-          renderItem={({item}) => (
-            <TouchableOpacity key={item} style={styles.daysName}>
-              <DataTable.Cell>{item}</DataTable.Cell>
-            </TouchableOpacity>
-          )}
-        />
-      </DataTable.Row>
-    </DataTable>
-      </View>
-      <View
-        style={{
-          width: '83%',
-          height: '60%',
-          flexDirection: 'row',
-          marginTop: '3%',
-        }}>
-        {/* {dates && dates.map(item => console.log(item))} */}
+        <DataTable style={{overflow: 'hidden'}}>
+          <DataTable.Row>
+            <FlatList
+              data={dayarr}
+              horizontal
+              renderItem={({item}) => (
+                <TouchableOpacity key={item} style={styles.daysName}>
+                  <DataTable.Cell>{item}</DataTable.Cell>
+                </TouchableOpacity>
+              )}
+            />
+          </DataTable.Row>
+          <DataTable.Row>
+            <FlatList
+              data={calender[0]}
+              horizontal
+              renderItem={({item}) => (
+                <TouchableOpacity key={item} style={styles.daysName}>
+                  <DataTable.Cell>{item}</DataTable.Cell>
+                </TouchableOpacity>
+              )}
+            />
+          </DataTable.Row>
+          <DataTable.Row>
+            <FlatList
+              data={calender[1]}
+              horizontal
+              renderItem={({item}) => (
+                <TouchableOpacity key={item} style={styles.daysName}>
+                  <DataTable.Cell>{item}</DataTable.Cell>
+                </TouchableOpacity>
+              )}
+            />
+          </DataTable.Row>
+          <DataTable.Row>
+            <FlatList
+              data={calender[2]}
+              horizontal
+              renderItem={({item}) => (
+                <TouchableOpacity key={item} style={styles.daysName}>
+                  <DataTable.Cell>{item}</DataTable.Cell>
+                </TouchableOpacity>
+              )}
+            />
+          </DataTable.Row>
+          <DataTable.Row>
+            <FlatList
+              data={calender[3]}
+              horizontal
+              renderItem={({item}) => (
+                <TouchableOpacity key={item} style={styles.daysName}>
+                  <DataTable.Cell>{item}</DataTable.Cell>
+                </TouchableOpacity>
+              )}
+            />
+          </DataTable.Row>
+          <DataTable.Row>
+            <FlatList
+              data={calender[4] && calender[4]}
+              horizontal
+              renderItem={({item}) => (
+                <TouchableOpacity key={item} style={styles.daysName}>
+                  <DataTable.Cell>{item}</DataTable.Cell>
+                </TouchableOpacity>
+              )}
+            />
+          </DataTable.Row>
+          <DataTable.Row>
+            <FlatList
+              data={calender[5] && calender[5]}
+              horizontal
+              renderItem={({item}) => (
+                <TouchableOpacity key={item} style={styles.daysName}>
+                  <DataTable.Cell>{item}</DataTable.Cell>
+                </TouchableOpacity>
+              )}
+            />
+          </DataTable.Row>
+        </DataTable>
+        <TouchableOpacity
+          style={styles.btn}
+          activeOpacity={0.7}
+          onPress={() => {
+            navigation.navigate('apointment');
+          }}>
+          <Text style={styles.text}>Proceed</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -268,11 +269,20 @@ const styles = StyleSheet.create({
   daysName: {
     flexDirection: 'row',
     marginStart: Width / 30,
-    marginEnd:Width/30,
+    marginEnd: Width / 30,
   },
   text: {
     fontFamily: 'Poppins-SemiBold',
     color: 'white',
+  },
+  btn: {
+    backgroundColor: 'black',
+    marginTop: '-9%',
+    width: '70%',
+    marginStart: '7%',
+    borderRadius: 12,
+    alignItems: 'center',
+    paddingVertical: '3%',
   },
 });
 export default CalanderScreen;

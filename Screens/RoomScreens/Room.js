@@ -26,10 +26,6 @@ import App, {SavedPostContext, UserContext} from '../../App';
 import CustomPopup from '../../Componants/CustomPopup';
 import storage from '@react-native-firebase/storage';
 import SkeltonLoader from '../../Componants/SkeltonLoader';
-<<<<<<< HEAD
-=======
-import { SavePost, RemovePost } from '../../utils/fireBaseFunctions';
->>>>>>> 5522ac7b0d407007ff75322cbe5b53baebe292b1
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
@@ -72,17 +68,9 @@ const Room = () => {
     } else {
       setOwner(false);
     }
-<<<<<<< HEAD
   };
 
   const savePost = post => {
-=======
-
-  }
-
-
-  const savePost = (post)=>{
->>>>>>> 5522ac7b0d407007ff75322cbe5b53baebe292b1
     setPopup(false);
     console.log(post.id);
 
@@ -422,10 +410,6 @@ const Room = () => {
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                       <TouchableOpacity
                         onPress={() => {
-<<<<<<< HEAD
-=======
-                          setcurrpostid(item.id);
->>>>>>> 5522ac7b0d407007ff75322cbe5b53baebe292b1
                           setWriteComments(!writeComments);
                         }}>
                         <Icon

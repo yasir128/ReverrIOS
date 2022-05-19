@@ -100,6 +100,15 @@ export const reducer = (state, action) => {
       ]
     };
   }
+  if (action.type === 'NEWPAYMENT') {
+    return {
+      ...state,
+      orders:[
+        ...state.orders,
+        action.payload,
+      ]
+    };
+  }
 
   return state;
 };

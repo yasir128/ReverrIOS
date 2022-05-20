@@ -234,7 +234,8 @@ const MentorDetails = props => {
           navigation.navigate('Plans',{
             plans:mentorData.plans,
             mentor:mentorData.email,
-            orders:mentorData.orders
+            orders:mentorData.orders,
+            clients:mentorData.clients
           });
         }}
       />

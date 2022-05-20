@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import AppColors from '../../Constaint/AppColors';
 import Backbtn from '../../Componants/Backbtn';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -19,7 +19,6 @@ const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;
 
 const MentorProfile = props => {
-  const [defaultDp, setdefaultDp] = useState(true);
   const {state, dispatch} = useContext(UserContext);
   const navigation = useNavigation();
 
@@ -42,7 +41,6 @@ const MentorProfile = props => {
               marginStart: Width / 30,
               fontSize: 22,
             }}>
-
             Profile
           </Text>
         </View>

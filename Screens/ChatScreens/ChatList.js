@@ -12,7 +12,6 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import {useNavigation} from '@react-navigation/native';
 import HeaderLayout from '../HomeScreens/HeaderLayout';
 import LinearGradient from 'react-native-linear-gradient';
-
 import {ChatContext, UserContext} from '../../App';
 import {CreateMessagePath} from '../../utils/fireBaseFunctions';
 import CustomCard from '../../Componants/CustomCard';
@@ -33,7 +32,6 @@ const ChatList = () => {
         <Text style={[styles.headerText]}>
           {state && state.userType == 'Mentor' ? 'Learners' : 'Mentors'}
         </Text>
-
 
         <View style={{flexDirection: 'row', marginTop: '1%'}}>
           {chatstate !== undefined && chatstate.length > 0 ? (

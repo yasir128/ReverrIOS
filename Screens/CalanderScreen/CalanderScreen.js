@@ -10,11 +10,8 @@ import React, {useState, useEffect} from 'react';
 import AppColors from '../../Constaint/AppColors';
 import Icon2 from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {ShowCalander} from '../../utils/calanderFunctionality';
 import {DataTable} from 'react-native-paper';
-import CustomBtn from '../../Componants/CustomBtn';
 import {useNavigation} from '@react-navigation/native';
-import App from '../../App';
 
 const Height = Dimensions.get('screen').height;
 const Width = Dimensions.get('screen').width;

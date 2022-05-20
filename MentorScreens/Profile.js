@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   Dimensions,
   Image,
-  ImageBackground,
 } from 'react-native';
 import React, {useState, useContext} from 'react';
 import Backbtn from '../Componants/Backbtn';

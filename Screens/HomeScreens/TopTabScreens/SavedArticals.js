@@ -1,7 +1,5 @@
 import {View, Text, StyleSheet, Dimensions, ScrollView} from 'react-native';
 import React, {useContext, useState} from 'react';
-import HeaderCard from '../../../Componants/HomeScreenComponants/ArticalScreenComponants/HeaderCard';
-import ArticalList2 from '../../../Componants/HomeScreenComponants/ArticalScreenComponants/SavedArticalsList';
 import {SavedArticleContext} from '../../../App';
 import AppColors from '../../../Constaint/AppColors';
 import Backbtn from '../../../Componants/Backbtn';

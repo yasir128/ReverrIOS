@@ -10,7 +10,6 @@ import {
 import React from 'react';
 import {Data} from '../../dummy-data/dummyData';
 import AppColors from '../../Constaint/AppColors';
-import LinearGradient from 'react-native-linear-gradient';
 import CustomCard from '../CustomCard';
 
 const Width = Dimensions.get('screen').width;

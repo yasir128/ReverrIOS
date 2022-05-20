@@ -1,16 +1,8 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Dimensions,
-  ScrollView,
-} from 'react-native';
+import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import React, {useState} from 'react';
 import AppColors from '../../Constaint/AppColors';
 import SearchBar from '../../Componants/SearchBar';
 import WeeksMentors from '../../Componants/MentorScreenComponents/WeeksMentors';
-import MentorsCategories from '../../Componants/MentorScreenComponents/MentorsCategories';
 import {useNavigation} from '@react-navigation/native';
 import HeaderLayout from '../HomeScreens/HeaderLayout';
 import MentorsList from './MentorsList';

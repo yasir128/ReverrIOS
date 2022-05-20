@@ -21,7 +21,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import CreatePostButton from '../../Componants/LearnComponents/CreatePostButton';
 import {smallString} from '../../utils/helper';
 import firestore from '@react-native-firebase/firestore';
-import App, {SavedPostContext, UserContext} from '../../App';
+import {SavedPostContext, UserContext} from '../../App';
 import CustomPopup from '../../Componants/CustomPopup';
 import storage from '@react-native-firebase/storage';
 import {SavePost, RemovePost} from '../../utils/fireBaseFunctions';

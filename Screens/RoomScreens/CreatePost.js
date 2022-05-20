@@ -14,7 +14,6 @@ import Icon2 from 'react-native-vector-icons/Ionicons';
 import AppColors from '../../Constaint/AppColors';
 import CustomBtn from '../../Componants/CustomBtn';
 import LinearGradient from 'react-native-linear-gradient';
-import ModelView from '../../Componants/ModelView';
 import {useNavigation} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import {
@@ -24,7 +23,6 @@ import {
   AddGalleryVideo,
 } from '../../utils/fireBaseFunctions';
 import {UserContext} from '../../App';
-import CustomPopup from '../../Componants/CustomPopup';
 import BottomPopup from '../../Componants/BottomPopup';
 
 const Width = Dimensions.get('window').width;
@@ -110,10 +108,7 @@ const CreatePost = props => {
       <View style={styles.mainContainer}>
         <View style={styles.card}>
           <View style={styles.profile}>
-            <Image
-              style={styles.dp}
-              source={require('../../assets/Images/jatindp.png')}
-            />
+            <Image style={styles.dp} source={{uri: state.image}} />
             <View style={{justifyContent: 'center', marginStart: '3%'}}>
               <Text style={styles.name}>Jatin khurana</Text>
               <Text style={styles.company}>Co-Founder (Fimple)</Text>

@@ -12,141 +12,141 @@ import Backbtn from '../../Componants/Backbtn';
 import {useNavigation} from '@react-navigation/native';
 import AppColors from '../../Constaint/AppColors';
 import {paymentType} from '../../dummy-data/paymentType';
-import {Directions} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import RNPgReactNativeSDK from 'react-native-pg-react-native-sdk';
 import firestore from '@react-native-firebase/firestore';
-import { UserContext } from '../../App';
+import {UserContext} from '../../App';
 
 const Height = Dimensions.get('window').height;
 const Width = Dimensions.get('window').width;
 
 function makeid(length) {
-  var result           = '';
-  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var result = '';
+  var characters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   var charactersLength = characters.length;
-  for ( var i = 0; i < length; i++ ) {
-    result += characters.charAt(Math.floor(Math.random() * 
-charactersLength));
- }
- return result;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
 }
 
-const Plans = (props) => {
+const Plans = props => {
   const navigation = useNavigation();
-  const mentor= props.route.params.mentor;
+  const mentor = props.route.params.mentor;
   const mentorOrders = props.route.params.orders;
   const mentorClients = props.route.params.clients;
   const plans = props.route.params.plans;
   const [column, setColumn] = useState(2);
   const {state, dispatch} = useContext(UserContext);
 
-
-  const payment = (plan)=>{
-    if(state.mentors.includes(mentor)){
-      alert("go to appoinment ");
-    }else{
-    // console.log(plan);
-    var oId = makeid(12);
-    // console.log("oid: ",oId[0]);
-    const order={
-      orderId:oId,
-      orderCurrency:'INR',
-      orderAmount:"1"
-    }
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json',
-                 'x-client-id': '21235619dae90a7c71fa82b24c653212',
-                 'x-client-secret': 'b3fcd2aee2a93a9d7efedcd88936046a43506c5c' },
-      body: JSON.stringify(order)
-  };
-  fetch('https://api.cashfree.com/api/v2/cftoken/order', requestOptions)
-      .then(response => response.json())
-      .then(data => {
-        order.token = data.cftoken;
-        cashfree(order);
-      });
-    }
-  }
-
-  const cashfree = (order)=>{
-    var env = "TEST";
-        var map = {
-                "orderId":order.orderId,
-                "orderAmount": order.orderAmount,
-                "appId": "21235619dae90a7c71fa82b24c653212",
-                "tokenData": order.token,
-                "orderCurrency": order.orderCurrency,
-                "orderNote": " ",
-                "notifyUrl": "https://test.gocashfree.com/notify",
-                "customerName": state.name,
-                "customerPhone": state.mobile,
-                "customerEmail": state.email
-              }
-        RNPgReactNativeSDK.startPaymentWEB(map, 'PROD', (result) => 
-        {
-
-          var payment={
-            paymentMode:"",
-            orderId:"",
-            txTime:"",
-            referenceId:"",
-            txMsg:"",
-            signature:"",
-            orderAmount:"",
-            txStatus:"",
-            vendor:mentor,
-            user:state.email
-          };
-
-                      var obj = JSON.parse(result, function (key, value) 
-                  {
-
-                    if(key =="paymentMode")
-                      payment.paymentMode = value;
-                    else if( key =="orderId")
-                      payment.orderId=value;
-                    else if(key =="txTime")
-                      payment.txTime=value;
-                    else if(key=="referenceId")
-                      payment.referenceId=value;
-                    else if(key=="txMsg")
-                      payment.txMsg=value;
-                    else if(key =="signature" )
-                      payment.signature=value;
-                    else if(key =="orderAmount")
-                      payment.orderAmount=value
-                    else if(key =="txStatus")
-                      payment.txStatus = value;
-                  })
-                  handleResponse(payment);
+  const payment = plan => {
+    if (state.mentors.includes(mentor)) {
+      alert('go to appoinment ');
+    } else {
+      // console.log(plan);
+      var oId = makeid(12);
+      // console.log("oid: ",oId[0]);
+      const order = {
+        orderId: oId,
+        orderCurrency: 'INR',
+        orderAmount: '1',
+      };
+      const requestOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-client-id': '21235619dae90a7c71fa82b24c653212',
+          'x-client-secret': 'b3fcd2aee2a93a9d7efedcd88936046a43506c5c',
+        },
+        body: JSON.stringify(order),
+      };
+      fetch('https://api.cashfree.com/api/v2/cftoken/order', requestOptions)
+        .then(response => response.json())
+        .then(data => {
+          order.token = data.cftoken;
+          cashfree(order);
         });
-  }
-
-  const handleResponse = (res)=>{
-    var id ;
-    firestore().collection("Payments").add(res)
-    .then((data)=>{
-      // console.log("added successfully",data._documentPath._parts[1])
-      id= data._documentPath._parts[1];
-      updateUser(id,res);
-    });
-
-  }
-
-  const updateUser=(id,res)=>{
-    order = firestore().collection("Payments").doc(id);
-    dispatch({type: 'NEWPAYMENT', payload: order});
-    firestore().collection("Users").doc(state.email).update({orders: [...state.orders, order]})
-    firestore().collection("Users").doc(mentor).update({orders: [...mentorOrders, order]})
-    if(res.txStatus=="SUCCESS"){
-    firestore().collection("Users").doc(state.email).update({mentors: [...state.mentors, mentor]})
-    firestore().collection("Users").doc(mentor).update({clients: [...mentorClients, state.email]})
-    //create msg path here;
-
     }
-  }
+  };
+
+  const cashfree = order => {
+    var env = 'TEST';
+    var map = {
+      orderId: order.orderId,
+      orderAmount: order.orderAmount,
+      appId: '21235619dae90a7c71fa82b24c653212',
+      tokenData: order.token,
+      orderCurrency: order.orderCurrency,
+      orderNote: ' ',
+      notifyUrl: 'https://test.gocashfree.com/notify',
+      customerName: state.name,
+      customerPhone: state.mobile,
+      customerEmail: state.email,
+    };
+    RNPgReactNativeSDK.startPaymentWEB(map, 'PROD', result => {
+      var payment = {
+        paymentMode: '',
+        orderId: '',
+        txTime: '',
+        referenceId: '',
+        txMsg: '',
+        signature: '',
+        orderAmount: '',
+        txStatus: '',
+        vendor: mentor,
+        user: state.email,
+      };
+
+      var obj = JSON.parse(result, function (key, value) {
+        if (key == 'paymentMode') payment.paymentMode = value;
+        else if (key == 'orderId') payment.orderId = value;
+        else if (key == 'txTime') payment.txTime = value;
+        else if (key == 'referenceId') payment.referenceId = value;
+        else if (key == 'txMsg') payment.txMsg = value;
+        else if (key == 'signature') payment.signature = value;
+        else if (key == 'orderAmount') payment.orderAmount = value;
+        else if (key == 'txStatus') payment.txStatus = value;
+      });
+      handleResponse(payment);
+    });
+  };
+
+  const handleResponse = res => {
+    var id;
+    firestore()
+      .collection('Payments')
+      .add(res)
+      .then(data => {
+        // console.log("added successfully",data._documentPath._parts[1])
+        id = data._documentPath._parts[1];
+        updateUser(id, res);
+      });
+  };
+
+  const updateUser = (id, res) => {
+    order = firestore().collection('Payments').doc(id);
+    dispatch({type: 'NEWPAYMENT', payload: order});
+    firestore()
+      .collection('Users')
+      .doc(state.email)
+      .update({orders: [...state.orders, order]});
+    firestore()
+      .collection('Users')
+      .doc(mentor)
+      .update({orders: [...mentorOrders, order]});
+    if (res.txStatus == 'SUCCESS') {
+      firestore()
+        .collection('Users')
+        .doc(state.email)
+        .update({mentors: [...state.mentors, mentor]});
+      firestore()
+        .collection('Users')
+        .doc(mentor)
+        .update({clients: [...mentorClients, state.email]});
+      //create msg path here;
+    }
+  };
 
   return (
     <HeaderLayout>
@@ -163,7 +163,7 @@ const Plans = (props) => {
         <FlatList
           data={paymentType}
           numColumns={column}
-          renderItem={({item,index}) => (
+          renderItem={({item, index}) => (
             <TouchableOpacity
               onPress={() => {
                 // navigation.navigate('PlanDetails', {PlanType: item.name});

@@ -7,7 +7,7 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
 } from 'react-native';
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState} from 'react';
 import AppColors from '../Constaint/AppColors';
 import InputField from '../Componants/InputField';
 import CustomBtn from '../Componants/CustomBtn';

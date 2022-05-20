@@ -6,15 +6,17 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, {useContext} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import AppColors from '../Constaint/AppColors';
+import {UserContext} from '../App';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Height = Dimensions.get('window').height;
 const Width = Dimensions.get('window').width;
 
 const HomeCard = () => {
+  const {state, dispatch} = useContext(UserContext);
   return (
     <View>
       <LinearGradient
@@ -30,12 +32,9 @@ const HomeCard = () => {
               paddingHorizontal: '3%',
             }}>
             <View style={{paddingVertical: '3%'}}>
-              <Image
-                style={styles.img}
-                source={require('../assets/Images/jatindp.png')}
-              />
+              <Image style={styles.img} source={{uri: state.image}} />
               <Text style={{color: AppColors.FontsColor, marginTop: '7%'}}>
-                Jatin Khurana
+                {state.name}
               </Text>
             </View>
             <View>

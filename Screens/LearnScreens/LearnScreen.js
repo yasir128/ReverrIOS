@@ -9,7 +9,6 @@ import {
 import React, {useContext} from 'react';
 import HeaderLayout from '../HomeScreens/HeaderLayout';
 import SwipeCard from '../../Componants/SwipeCard';
-import {courseData} from '../../dummy-data/courseData';
 import AppColors from '../../Constaint/AppColors';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {CourseContext} from '../../App';

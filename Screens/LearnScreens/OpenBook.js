@@ -9,7 +9,6 @@ import {
 import React, {useRef, useState} from 'react';
 import AppColors from '../../Constaint/AppColors';
 import Backbtn from '../../Componants/Backbtn';
-import Icon2 from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 
 const Width = Dimensions.get('window').width;
@@ -95,34 +94,34 @@ const OpenBook = props => {
         />
       )}
       <View style={styles.StatusContainer}>
-          {bookData[currIndex].type=="QUIZ"&&
-            <View
-              style={{
-                flexDirection: 'row',
-                paddingBottom: '5%',
-              }}>
-              <TouchableOpacity style={{marginEnd: '10%', marginStart: '10%'}}>
-                <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
-                  A.
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={{marginEnd: '10%'}}>
-                <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
-                  B.
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={{marginEnd: '10%'}}>
-                <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
-                  C.
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={{marginEnd: '10%'}}>
-                <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
-                  D.
-                </Text>
-              </TouchableOpacity>
-            </View>
-          }
+        {bookData[currIndex].type == 'QUIZ' && (
+          <View
+            style={{
+              flexDirection: 'row',
+              paddingBottom: '5%',
+            }}>
+            <TouchableOpacity style={{marginEnd: '10%', marginStart: '10%'}}>
+              <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
+                A.
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={{marginEnd: '10%'}}>
+              <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
+                B.
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={{marginEnd: '10%'}}>
+              <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
+                C.
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={{marginEnd: '10%'}}>
+              <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
+                D.
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
         <View style={styles.progressContainer}>
           <View style={[styles.complete, {width: progress}]}></View>
         </View>

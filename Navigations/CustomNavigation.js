@@ -36,12 +36,7 @@ import MentorsList2 from '../Screens/MentorScreens/SavedMentorsList';
 import SavedPosts from '../Screens/RoomScreens/SavedPosts';
 import SavedArticals from '../Screens/HomeScreens/TopTabScreens/SavedArticals';
 import SavedMentorsList from '../Screens/MentorScreens/SavedMentorsList';
-<<<<<<< HEAD
 import CalanderApointment from '../Screens/CalanderScreen/CalanderApointment';
-=======
-// import Room2 from '../Screens/RoomScreens/Room2';
-
->>>>>>> 7a5331fd066473165b8ad5e746b0bc36032cfb1f
 
 const Stack = createNativeStackNavigator();
 

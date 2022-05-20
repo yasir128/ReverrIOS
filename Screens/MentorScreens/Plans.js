@@ -36,15 +36,19 @@ const Plans = (props) => {
   const navigation = useNavigation();
   const mentor= props.route.params.mentor;
   const mentorOrders = props.route.params.orders;
+  const mentorClients = props.route.params.clients;
   const plans = props.route.params.plans;
   const [column, setColumn] = useState(2);
   const {state, dispatch} = useContext(UserContext);
 
 
   const payment = (plan)=>{
-    console.log(plan);
+    if(state.mentors.includes(mentor)){
+      alert("go to appoinment ");
+    }else{
+    // console.log(plan);
     var oId = makeid(12);
-    console.log("oid: ",oId[0]);
+    // console.log("oid: ",oId[0]);
     const order={
       orderId:oId,
       orderCurrency:'INR',
@@ -63,6 +67,7 @@ const Plans = (props) => {
         order.token = data.cftoken;
         cashfree(order);
       });
+    }
   }
 
   const cashfree = (order)=>{
@@ -125,17 +130,22 @@ const Plans = (props) => {
     .then((data)=>{
       // console.log("added successfully",data._documentPath._parts[1])
       id= data._documentPath._parts[1];
-      updateUser(id);
+      updateUser(id,res);
     });
 
   }
 
-  const updateUser=(id)=>{
+  const updateUser=(id,res)=>{
     order = firestore().collection("Payments").doc(id);
     dispatch({type: 'NEWPAYMENT', payload: order});
     firestore().collection("Users").doc(state.email).update({orders: [...state.orders, order]})
     firestore().collection("Users").doc(mentor).update({orders: [...mentorOrders, order]})
-    
+    if(res.txStatus=="SUCCESS"){
+    firestore().collection("Users").doc(state.email).update({mentors: [...state.mentors, mentor]})
+    firestore().collection("Users").doc(mentor).update({clients: [...mentorClients, state.email]})
+    //create msg path here;
+
+    }
   }
 
   return (

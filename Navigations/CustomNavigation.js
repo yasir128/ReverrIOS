@@ -37,6 +37,10 @@ import SavedPosts from '../Screens/RoomScreens/SavedPosts';
 import SavedArticals from '../Screens/HomeScreens/TopTabScreens/SavedArticals';
 import SavedMentorsList from '../Screens/MentorScreens/SavedMentorsList';
 import CalanderApointment from '../Screens/CalanderScreen/CalanderApointment';
+<<<<<<< HEAD
+=======
+
+>>>>>>> eb72f0a9ea7d9f533c25f41fdb36f5883276903d
 
 const Stack = createNativeStackNavigator();
 

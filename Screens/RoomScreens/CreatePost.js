@@ -95,9 +95,8 @@ const CreatePost = props => {
           style={{
             color: AppColors.FontsColor,
             fontFamily: 'Poppins-Regular',
-            fontSize: 18,
+            fontSize: 16,
           }}>
-          Ask question
         </Text>
         <CustomBtn
           Title="Post"
@@ -108,10 +107,17 @@ const CreatePost = props => {
       <View style={styles.mainContainer}>
         <View style={styles.card}>
           <View style={styles.profile}>
+<<<<<<< HEAD
             <Image style={styles.dp} source={{uri: state.image}} />
+=======
+          <Image
+            style={{borderRadius: 56,  height: Width/8,width: Width / 8,}}
+            source={{uri: state.image}}
+          />
+>>>>>>> 224a6e019514e7e4b1b0adfaa8ea67dc93d1a5c8
             <View style={{justifyContent: 'center', marginStart: '3%'}}>
-              <Text style={styles.name}>Jatin khurana</Text>
-              <Text style={styles.company}>Co-Founder (Fimple)</Text>
+              <Text style={styles.name}>{state.name}</Text>
+              <Text style={styles.company}>{state.designation}</Text>
             </View>
           </View>
           <TextInput
@@ -149,7 +155,7 @@ const CreatePost = props => {
               }}>
               <Icon name="video" size={27} color={AppColors.FontsColor} />
             </TouchableOpacity>
-            <TouchableOpacity style={{marginStart: '5%'}}>
+            {/* <TouchableOpacity style={{marginStart: '5%'}}>
               <Icon2
                 name="stats-chart"
                 size={27}
@@ -162,7 +168,7 @@ const CreatePost = props => {
                 size={27}
                 color={AppColors.FontsColor}
               />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
       </View>

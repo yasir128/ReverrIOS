@@ -40,7 +40,6 @@ const Plans = props => {
   const [column, setColumn] = useState(2);
   const {state, dispatch} = useContext(UserContext);
 
-<<<<<<< HEAD
   const payment = plan => {
     if (state.mentors.includes(mentor)) {
       alert('go to appoinment ');
@@ -67,88 +66,6 @@ const Plans = props => {
         .then(data => {
           order.token = data.cftoken;
           cashfree(order);
-=======
-
-  const payment = (plan)=>{
-    if(state.mentors.includes(mentor)){
-      alert("go to appoinment ");
-    }else{
-    // console.log(plan);
-    var oId = makeid(12);
-    // console.log("oid: ",oId[0]);
-    const order={
-      orderId:oId,
-      orderCurrency:'INR',
-      orderAmount:plan
-    }
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json',
-                 'x-client-id': '21235619dae90a7c71fa82b24c653212',
-                 'x-client-secret': 'b3fcd2aee2a93a9d7efedcd88936046a43506c5c' },
-      body: JSON.stringify(order)
-  };
-  fetch('https://api.cashfree.com/api/v2/cftoken/order', requestOptions)
-      .then(response => response.json())
-      .then(data => {
-        order.token = data.cftoken;
-        cashfree(order);
-      });
-    }
-  }
-
-  const cashfree = (order)=>{
-    var env = "TEST";
-        var map = {
-                "orderId":order.orderId,
-                "orderAmount": order.orderAmount,
-                "appId": "21235619dae90a7c71fa82b24c653212",
-                "tokenData": order.token,
-                "orderCurrency": order.orderCurrency,
-                "orderNote": " ",
-                "notifyUrl": "https://test.gocashfree.com/notify",
-                "customerName": state.name,
-                "customerPhone": state.mobile,
-                "customerEmail": state.email
-              }
-        RNPgReactNativeSDK.startPaymentWEB(map, 'PROD', (result) => 
-        {
-
-          var payment={
-            paymentMode:"",
-            orderId:"",
-            txTime:"",
-            referenceId:"",
-            txMsg:"",
-            signature:"",
-            orderAmount:"",
-            txStatus:"",
-            vendor:mentor,
-            user:state.email
-          };
-
-                      var obj = JSON.parse(result, function (key, value) 
-                  {
-
-                    if(key =="paymentMode")
-                      payment.paymentMode = value;
-                    else if( key =="orderId")
-                      payment.orderId=value;
-                    else if(key =="txTime")
-                      payment.txTime=value;
-                    else if(key=="referenceId")
-                      payment.referenceId=value;
-                    else if(key=="txMsg")
-                      payment.txMsg=value;
-                    else if(key =="signature" )
-                      payment.signature=value;
-                    else if(key =="orderAmount")
-                      payment.orderAmount=value
-                    else if(key =="txStatus")
-                      payment.txStatus = value;
-                  })
-                  handleResponse(payment);
->>>>>>> 224a6e019514e7e4b1b0adfaa8ea67dc93d1a5c8
         });
     }
   };

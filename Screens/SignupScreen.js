@@ -37,7 +37,7 @@ const SignupScreen = props => {
   const data = {
     userType: UserType,
     Name: name,
-    Email: email,
+    Email: email.trim(),
     Password: password,
     Mobile: mobile,
   };
@@ -62,6 +62,7 @@ const SignupScreen = props => {
               if (password != ConfermPass) {
                 alert('Password not matched!!');
               } else {
+
                 const savedUser = await firestore()
                   .collection('Users')
                   .doc(email)
@@ -73,7 +74,7 @@ const SignupScreen = props => {
                   alert('Please check your inbox');
                   navigation.navigate('emailVerify', {
                     OTP: OTP,
-                    Email: email,
+                    Email: email.trim(),
                     Password: password,
                     Name: name,
                     Mobile: mobile,

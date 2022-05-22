@@ -85,6 +85,9 @@ const EditProfile = () => {
   const navigation = useNavigation();
 
   const saveChanges = async () => {
+    var abt= About == '>/s<'?"":About;
+    var ind =Industry == '>/s<'?"":Industry;
+
     const Experience = [
       ex1 == '>/s<' ? '' : ex1,
       ex2 == '>/s<' ? '' : ex2,
@@ -105,12 +108,13 @@ const EditProfile = () => {
       name: Name,
       experience: Experience,
       skills: Skills,
-      about: About,
-      industry: Industry,
+      about: abt,
+      industry: ind,
       education: Education,
     };
     await firestore().collection('Users').doc(state.email).update(data);
     dispatch({type: 'UPDATE', payload: data});
+    navigation.navigate("Individual");
   };
   return (
     <View style={styles.screen}>

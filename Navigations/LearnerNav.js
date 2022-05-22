@@ -1,4 +1,3 @@
-import {Image} from 'react-native';
 import React from 'react';
 import Ionic from 'react-native-vector-icons/Ionicons';
 import Icon from 'react-native-vector-icons/MaterialIcons';

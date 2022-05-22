@@ -1,11 +1,9 @@
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import React, {useContext, useEffect, useState} from 'react';
 import AppColors from '../../Constaint/AppColors';
-import {AllMentors} from '../../dummy-data/AllMentors';
 import SavedCard from '../../Componants/ProfileScreenComponents/SavedCard';
 import Backbtn from '../../Componants/Backbtn';
 import {useNavigation} from '@react-navigation/native';
-import {courseData} from '../../dummy-data/courseData';
 import {
   UserContext,
   SavedArticleContext,
@@ -13,7 +11,6 @@ import {
   SavedCourseContext,
   SavedMentorContext,
 } from '../../App';
-import firestore from '@react-native-firebase/firestore';
 
 const SavedScreen = props => {
   const navigation = useNavigation();

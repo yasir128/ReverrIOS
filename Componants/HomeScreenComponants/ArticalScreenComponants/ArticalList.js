@@ -13,6 +13,8 @@ import AppColors from '../../../Constaint/AppColors';
 import {useNavigation} from '@react-navigation/native';
 import {ArticleContext, UserContext, SavedArticleContext} from '../../../App';
 import {SaveArticle, RemoveArticle} from '../../../utils/fireBaseFunctions';
+import {ArticalSlice} from '../../../Redux/appSlice';
+import ArticalLoader from './ArticalLoader';
 const Height = Dimensions.get('window').height;
 const Width = Dimensions.get('window').width;
 
@@ -33,40 +35,49 @@ const ArticalList = props => {
     }
   }
   const naigation = useNavigation();
-  return (
-    <View style={{marginTop: '2%'}}>
-      <FlatList
-        data={articlestate && articlestate}
-        nestedScrollEnabled={true}
-        showsVerticalScrollIndicator={false}
-        renderItem={({item}) => (
-          <TouchableOpacity
-            onPress={() => {
-              naigation.navigate('ArticalDetails', {
-                articalData: item,
-              });
-            }}>
-            <View style={styles.line}></View>
-            <View style={styles.title}>
-              <Text style={styles.text}>{item.heading}</Text>
-              <TouchableOpacity
-                onPress={() => saveArticle(item)}
-                style={{justifyContent: 'center', alignItems: 'center'}}>
-                <Ionic
-                  name="heart"
-                  size={20}
-                  color={state.savedArticles.includes(item.id) ? 'red' : 'grey'}
-                />
-              </TouchableOpacity>
-            </View>
-            <View style={styles.description}>
-              <Text style={styles.desc}>{item.body.substring(0, 100)}...</Text>
-            </View>
-          </TouchableOpacity>
-        )}
-      />
-    </View>
-  );
+  // console.log(ArticalSlice, 'AST');
+  if (!articlestate) {
+    return <ArticalLoader />;
+  } else {
+    return (
+      <View style={{marginTop: '2%'}}>
+        <FlatList
+          data={articlestate && articlestate}
+          nestedScrollEnabled={true}
+          showsVerticalScrollIndicator={false}
+          renderItem={({item}) => (
+            <TouchableOpacity
+              onPress={() => {
+                naigation.navigate('ArticalDetails', {
+                  articalData: item,
+                });
+              }}>
+              <View style={styles.line}></View>
+              <View style={styles.title}>
+                <Text style={styles.text}>{item.heading}</Text>
+                <TouchableOpacity
+                  onPress={() => saveArticle(item)}
+                  style={{justifyContent: 'center', alignItems: 'center'}}>
+                  <Ionic
+                    name="heart"
+                    size={20}
+                    color={
+                      state.savedArticles.includes(item.id) ? 'red' : 'grey'
+                    }
+                  />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.description}>
+                <Text style={styles.desc}>
+                  {item.body.substring(0, 100)}...
+                </Text>
+              </View>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+    );
+  }
 };
 const styles = StyleSheet.create({
   line: {

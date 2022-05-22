@@ -11,7 +11,6 @@ import {
 import React, {useState, useEffect, useContext} from 'react';
 import AppColors from '../../Constaint/AppColors';
 import Backbtn from '../../Componants/Backbtn';
-import auth from '@react-native-firebase/auth';
 import {useNavigation} from '@react-navigation/native';
 import Icon2 from 'react-native-vector-icons/FontAwesome5';
 import Icon from 'react-native-vector-icons/MaterialIcons';

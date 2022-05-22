@@ -5,17 +5,13 @@ import {
   Dimensions,
   TouchableOpacity,
   FlatList,
-  ScrollView,
-  Image,
 } from 'react-native';
 import React, {useContext} from 'react';
 import HeaderLayout from '../Screens/HomeScreens/HeaderLayout';
 import AppColors from '../Constaint/AppColors';
-import {Trending} from '../dummy-data/TrendingMentorsData';
 import LinearGradient from 'react-native-linear-gradient';
 import CustomCard from '../Componants/CustomCard';
 import {ChatContext} from '../App';
-import CustomMenuBar from '../Componants/CustomMenuBar';
 
 const Width = Dimensions.get('screen').width;
 const Height = Dimensions.get('screen').height;

@@ -30,14 +30,11 @@ import ReadingInstruction from '../Screens/LearnScreens/ReadingInstruction';
 import Room from '../Screens/RoomScreens/Room';
 import CreatePost from '../Screens/RoomScreens/CreatePost';
 import SkeltonLoader from '../Componants/SkeltonLoader';
-import AlertBox from '../Componants/AlertBox';
 import Courses from '../Screens/LearnScreens/Courses';
-import MentorsList2 from '../Screens/MentorScreens/SavedMentorsList';
 import SavedPosts from '../Screens/RoomScreens/SavedPosts';
 import SavedArticals from '../Screens/HomeScreens/TopTabScreens/SavedArticals';
 import SavedMentorsList from '../Screens/MentorScreens/SavedMentorsList';
 import CalanderApointment from '../Screens/CalanderScreen/CalanderApointment';
-
 
 const Stack = createNativeStackNavigator();
 

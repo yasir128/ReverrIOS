@@ -5,7 +5,6 @@ import {individualNoti} from '../dummy-data/notificationData';
 import LinearGradient from 'react-native-linear-gradient';
 import AppColors from '../Constaint/AppColors';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import App from '../App';
 import Backbtn from '../Componants/Backbtn';
 import {useNavigation} from '@react-navigation/native';
 

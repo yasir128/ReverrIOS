@@ -9,7 +9,6 @@ import {
 import React, {useRef, useState} from 'react';
 import AppColors from '../../Constaint/AppColors';
 import Backbtn from '../../Componants/Backbtn';
-import Icon2 from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 
 const Width = Dimensions.get('window').width;
@@ -20,6 +19,7 @@ const OpenBook = props => {
   const pagesRef = useRef();
   const [currIndex, setCurrIndex] = useState(0);
   const [progress, setProgress] = useState('10%');
+  const [checkedAnswer, setCheckedAnswer] = useState(false);
   const Next = index => {
     setCurrIndex(index + 1);
     setProgress(((currIndex + 2) / 7) * 100 + '%');
@@ -31,6 +31,7 @@ const OpenBook = props => {
     pagesRef.current.scrollToIndex({index: index - 1});
   };
   const navigation = useNavigation();
+  // console.log(bookData.type);
   return (
     <View style={styles.screen}>
       <Backbtn
@@ -53,6 +54,7 @@ const OpenBook = props => {
                     onPress={() => {
                       if (index > 0) {
                         Preious(index);
+                        setCheckedAnswer(false);
                       }
                     }}
                     style={styles.previous}></TouchableOpacity>
@@ -60,6 +62,7 @@ const OpenBook = props => {
                     onPress={() => {
                       if (index < bookData.length - 1) {
                         Next(index);
+                        setCheckedAnswer(false);
                       }
                     }}
                     style={styles.next}></TouchableOpacity>
@@ -95,34 +98,94 @@ const OpenBook = props => {
         />
       )}
       <View style={styles.StatusContainer}>
-          {bookData[currIndex].type=="QUIZ"&&
+        {bookData[currIndex].type == 'QUIZ' &&
+          (checkedAnswer ? (
             <View
               style={{
                 flexDirection: 'row',
                 paddingBottom: '5%',
               }}>
               <TouchableOpacity style={{marginEnd: '10%', marginStart: '10%'}}>
-                <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
+                <Text
+                  style={{
+                    color: bookData[currIndex].ans == 0 ? `green` : 'red',
+                    fontSize: 20,
+                  }}>
                   A.
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity style={{marginEnd: '10%'}}>
-                <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
+                <Text
+                  style={{
+                    color: bookData[currIndex].ans == 1 ? `green` : 'red',
+                    fontSize: 20,
+                  }}>
                   B.
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity style={{marginEnd: '10%'}}>
-                <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
+                <Text
+                  style={{
+                    color: bookData[currIndex].ans == 2 ? `green` : 'red',
+                    fontSize: 20,
+                  }}>
                   C.
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity style={{marginEnd: '10%'}}>
+                <Text
+                  style={{
+                    color: bookData[currIndex].ans == 3 ? `green` : 'red',
+                    fontSize: 20,
+                  }}>
+                  D.
+                </Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <View
+              style={{
+                flexDirection: 'row',
+                paddingBottom: '5%',
+              }}>
+              <TouchableOpacity
+                onPress={() => {
+                  setCheckedAnswer(true);
+                }}
+                style={{marginEnd: '10%', marginStart: '10%'}}>
+                <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
+                  A.
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setCheckedAnswer(true);
+                }}
+                style={{marginEnd: '10%'}}>
+                <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
+                  B.
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setCheckedAnswer(true);
+                }}
+                style={{marginEnd: '10%'}}>
+                <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
+                  C.
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  setCheckedAnswer(true);
+                }}
+                style={{marginEnd: '10%'}}>
                 <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
                   D.
                 </Text>
               </TouchableOpacity>
             </View>
-          }
+          ))}
         <View style={styles.progressContainer}>
           <View style={[styles.complete, {width: progress}]}></View>
         </View>

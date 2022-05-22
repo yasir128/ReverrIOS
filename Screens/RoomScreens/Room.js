@@ -26,7 +26,7 @@ import App, {SavedPostContext, UserContext} from '../../App';
 import CustomPopup from '../../Componants/CustomPopup';
 import storage from '@react-native-firebase/storage';
 import SkeltonLoader from '../../Componants/SkeltonLoader';
-import { SavePost, RemovePost } from '../../utils/fireBaseFunctions';
+import {SavePost, RemovePost} from '../../utils/fireBaseFunctions';
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
 
@@ -70,7 +70,6 @@ const Room = () => {
       setOwner(false);
     }
   };
-
   const savePost = post => {
     setPopup(false);
     console.log(post.id);
@@ -411,7 +410,6 @@ const Room = () => {
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                       <TouchableOpacity
                         onPress={() => {
-                          setcurrpostid(item.id);
                           setWriteComments(!writeComments);
                         }}>
                         <Icon
@@ -440,26 +438,51 @@ const Room = () => {
                       </Text>
                     </View>
                   </View>
-                  {writeComments && currpostid == item.id && (
-                    <View
-                      style={{
-                        width: '100%',
-                        paddingVertical: 2,
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                      }}>
-                      <TextInput
-                        placeholder="Write Something"
-                        style={{color: AppColors.FontsColor}}
-                        placeholderTextColor={AppColors.infoFonts}
-                        value={message}
-                        onChangeText={e => {
-                          setMessage(e);
-                        }}
-                      />
+                  {writeComments && (
+                    /*currpostid == item.id &&*/ <View>
                       <View
                         style={{flexDirection: 'row', alignItems: 'center'}}>
+                        <View
+                          style={{
+                            height: 20,
+                            width: 20,
+                            borderRadius: 20,
+                            overflow: 'hidden',
+                          }}>
+                          <Image
+                            source={{uri: state.image}}
+                            style={{
+                              height: '100%',
+                              width: '100%',
+                              borderRadius: 20,
+                            }}
+                          />
+                        </View>
+                        <Text
+                          style={{
+                            color: AppColors.FontsColor,
+                            marginStart: '4%',
+                          }}>
+                          {state.name}
+                        </Text>
+                      </View>
+                      <View
+                        style={{
+                          width: '100%',
+                          paddingVertical: 2,
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                        }}>
+                        <TextInput
+                          placeholder="Write Something"
+                          style={{color: AppColors.FontsColor}}
+                          placeholderTextColor={AppColors.infoFonts}
+                          value={message}
+                          onChangeText={e => {
+                            setMessage(e);
+                          }}
+                        />
                         <TouchableOpacity
                           onPress={() => {
                             commentPost(item.id, item, message);

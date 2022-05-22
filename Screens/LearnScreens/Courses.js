@@ -1,18 +1,7 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Dimensions,
-  TouchableOpacity,
-} from 'react-native';
-import React, {useContext} from 'react';
-import HeaderLayout from '../HomeScreens/HeaderLayout';
+import {View, Text, StyleSheet, ScrollView, Dimensions} from 'react-native';
+import React from 'react';
 import SwipeCard from '../../Componants/SwipeCard';
-import {courseData} from '../../dummy-data/courseData';
 import AppColors from '../../Constaint/AppColors';
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import {CourseContext} from '../../App';
 import Backbtn from '../../Componants/Backbtn';
 import {useNavigation} from '@react-navigation/native';
 

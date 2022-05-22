@@ -4,18 +4,14 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
-  ScrollView,
   FlatList,
   Dimensions,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
-import Backbtn from '../../Componants/Backbtn';
 import AppColors from '../../Constaint/AppColors';
-import SearchBar from '../../Componants/SearchBar';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {GetAllMentors} from '../../utils/fireBaseFunctions';
 import {useNavigation} from '@react-navigation/native';
-import HeaderLayout from '../HomeScreens/HeaderLayout';
 import LinearGradient from 'react-native-linear-gradient';
 
 const Width = Dimensions.get('screen').width;
@@ -73,10 +69,7 @@ const MentorsList = props => {
                     profileDetails: item,
                   });
                 }}>
-                <Image
-                  style={styles.Dp}
-                  source={{uri:item.image}}
-                />
+                <Image style={styles.Dp} source={{uri: item.image}} />
                 <View style={{alignItems: 'center'}}>
                   <Text style={styles.Name}>{item.name}</Text>
                   <Text style={styles.Skills}>{item.industry}</Text>
@@ -112,7 +105,9 @@ const MentorsList = props => {
                       color: AppColors.ActiveColor,
                       marginStart: '5%',
                     }}>
-                    {item.reviews.length!=0?" ":item.reviews.length+" Reviews"}
+                    {item.reviews.length != 0
+                      ? ' '
+                      : item.reviews.length + ' Reviews'}
                   </Text>
                 </View>
               </TouchableOpacity>

@@ -4,14 +4,12 @@ import {
   StyleSheet,
   Image,
   ScrollView,
-  TouchableOpacity,
   Dimensions,
 } from 'react-native';
 import React from 'react';
 import AppColors from '../../Constaint/AppColors';
 import Backbtn from '../../Componants/Backbtn';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import Ionic from 'react-native-vector-icons/Ionicons';
 import {useNavigation} from '@react-navigation/native';
 
 const Width = Dimensions.get('screen').width;
@@ -203,4 +201,3 @@ const styles = StyleSheet.create({
 });
 
 export default ViewIndividuaProfile;
-

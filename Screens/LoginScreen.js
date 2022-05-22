@@ -11,7 +11,6 @@ import React, {useContext, useState} from 'react';
 import AppColors from '../Constaint/AppColors';
 import InputField from '../Componants/InputField';
 import CustomBtn from '../Componants/CustomBtn';
-
 import {useNavigation} from '@react-navigation/native';
 import {AuthContext} from '../Navigations/AuthProvider';
 

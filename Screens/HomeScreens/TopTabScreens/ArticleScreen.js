@@ -1,8 +1,6 @@
-import {View, Text, StyleSheet, Dimensions, ScrollView} from 'react-native';
-import React, {useState} from 'react';
-import HeaderCard from '../../../Componants/HomeScreenComponants/ArticalScreenComponants/HeaderCard';
+import {View, StyleSheet, Dimensions} from 'react-native';
+import React from 'react';
 import ArticalList from '../../../Componants/HomeScreenComponants/ArticalScreenComponants/ArticalList';
-
 
 const Height = Dimensions.get('window').height;
 const Width = Dimensions.get('window').width;
@@ -13,7 +11,7 @@ const ArticleScreen = props => {
   return (
     <View style={styles.screen}>
       <View style={styles.ListContainer}>
-        <ArticalList  />
+        <ArticalList />
       </View>
     </View>
   );

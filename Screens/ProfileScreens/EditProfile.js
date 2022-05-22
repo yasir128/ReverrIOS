@@ -3,19 +3,17 @@ import {
   Text,
   StyleSheet,
   Image,
-  TextInput,
   TouchableOpacity,
   ActivityIndicator,
   Dimensions,
   ScrollView,
 } from 'react-native';
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import AppColors from '../../Constaint/AppColors';
 import {AuthContext} from '../../Navigations/AuthProvider';
 import Backbtn from '../../Componants/Backbtn';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {ChangeDp} from '../../utils/fireBaseFunctions';
-import TitleCard from '../../Componants/ProfileScreenComponents/TitleCard';
 import {useNavigation} from '@react-navigation/native';
 import EditCard from '../../Componants/ProfileScreenComponents/EditCard';
 import firestore from '@react-native-firebase/firestore';

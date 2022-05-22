@@ -1,12 +1,11 @@
 import {View, StyleSheet} from 'react-native';
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useContext} from 'react';
 import Header from '../../Componants/HomeScreenComponants/Header';
 import AppColors from '../../Constaint/AppColors';
 import {useNavigation} from '@react-navigation/native';
 import CalanderScreen from '../CalanderScreen/CalanderScreen';
 import ModelView from '../../Componants/ModelView';
 import {UserContext} from '../../App';
-import AlertBox from '../../Componants/AlertBox';
 
 const HeaderLayout = props => {
   const {state, dispatch} = useContext(UserContext);

@@ -14,7 +14,6 @@ import Icon2 from 'react-native-vector-icons/Ionicons';
 import AppColors from '../../Constaint/AppColors';
 import CustomBtn from '../../Componants/CustomBtn';
 import LinearGradient from 'react-native-linear-gradient';
-import ModelView from '../../Componants/ModelView';
 import {useNavigation} from '@react-navigation/native';
 import firestore from '@react-native-firebase/firestore';
 import {
@@ -24,7 +23,6 @@ import {
   AddGalleryVideo,
 } from '../../utils/fireBaseFunctions';
 import {UserContext} from '../../App';
-import CustomPopup from '../../Componants/CustomPopup';
 import BottomPopup from '../../Componants/BottomPopup';
 
 const Width = Dimensions.get('window').width;
@@ -98,8 +96,7 @@ const CreatePost = props => {
             color: AppColors.FontsColor,
             fontFamily: 'Poppins-Regular',
             fontSize: 16,
-          }}>
-        </Text>
+          }}></Text>
         <CustomBtn
           Title="Post"
           style={styles.post}
@@ -109,10 +106,7 @@ const CreatePost = props => {
       <View style={styles.mainContainer}>
         <View style={styles.card}>
           <View style={styles.profile}>
-          <Image
-            style={{borderRadius: 56,  height: Width/8,width: Width / 8,}}
-            source={{uri: state.image}}
-          />
+            <Image style={styles.dp} source={{uri: state.image}} />
             <View style={{justifyContent: 'center', marginStart: '3%'}}>
               <Text style={styles.name}>{state.name}</Text>
               <Text style={styles.company}>{state.designation}</Text>

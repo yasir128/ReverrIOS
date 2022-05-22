@@ -13,7 +13,7 @@ import AppColors from '../../../Constaint/AppColors';
 import {useNavigation} from '@react-navigation/native';
 import Ionic from 'react-native-vector-icons/Ionicons';
 import {UserContext, SavedArticleContext} from '../../../App';
-import { SaveArticle, RemoveArticle } from '../../../utils/fireBaseFunctions';
+import {SaveArticle, RemoveArticle} from '../../../utils/fireBaseFunctions';
 
 const Width = Dimensions.get('window').width;
 const Height = Dimensions.get('window').height;
@@ -23,7 +23,7 @@ const ArticalDetailsScreen = props => {
   const navigation = useNavigation();
   const articaldetails = props.route.params.articalData;
   const {savedarticlestate, savedarticledispatch} =
-  useContext(SavedArticleContext);
+    useContext(SavedArticleContext);
   // console.log(articaldetails);
   function saveArticle(item) {
     if (state.savedArticles.includes(item.id)) {
@@ -59,7 +59,9 @@ const ArticalDetailsScreen = props => {
                     navigation.goBack();
                   }}
                 />
-                <TouchableOpacity activeOpacity={0.7}  onPress={() => saveArticle(articaldetails)}>
+                <TouchableOpacity
+                  activeOpacity={0.7}
+                  onPress={() => saveArticle(articaldetails)}>
                   <Ionic
                     name="heart"
                     size={30}

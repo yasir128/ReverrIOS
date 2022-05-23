@@ -20,18 +20,43 @@ const OpenBook = props => {
   const [currIndex, setCurrIndex] = useState(0);
   const [progress, setProgress] = useState('10%');
   const [checkedAnswer, setCheckedAnswer] = useState(false);
+  const [acolor, setacolor] = useState("white");
+  const [bcolor, setbcolor] = useState("white");
+  const [ccolor, setccolor] = useState("white");
+  const [dcolor, setdcolor] = useState("white");
+
+  const checkans = (idx)=>{
+    if(idx==0)
+    bookData[currIndex].ans==0?setacolor("green"):setacolor("red");
+    if(idx==1)
+    bookData[currIndex].ans==1?setbcolor("green"):setbcolor("red");
+    if(idx==2)
+    bookData[currIndex].ans==2?setccolor("green"):setccolor("red");
+    if(idx==3)
+    bookData[currIndex].ans==3?setdcolor("green"):setdcolor("red");
+  }
+
+  const resetans = ()=>{
+    setacolor("white");
+    setbcolor("white");
+    setccolor("white");
+    setdcolor("white");
+  }
+
   const Next = index => {
     setCurrIndex(index + 1);
-    setProgress(((currIndex + 2) / 7) * 100 + '%');
+    setProgress(((currIndex + 2) / bookData.length) * 100 + '%');
     pagesRef.current.scrollToIndex({index: index + 1});
+    resetans();
+   
   };
   const Preious = index => {
     setCurrIndex(index - 1);
-    setProgress((currIndex / 7) * 100 + '%');
+    setProgress((currIndex / bookData.length) * 100 + '%');
     pagesRef.current.scrollToIndex({index: index - 1});
+    resetans();
   };
   const navigation = useNavigation();
-  // console.log(bookData.type);
   return (
     <View style={styles.screen}>
       <Backbtn
@@ -76,19 +101,18 @@ const OpenBook = props => {
                   ) : (
                     <>
                       <Text style={styles.question}>{item.question}</Text>
-                      <TouchableOpacity>
-                        <Text>A. {item.option[0]}</Text>
+                      <TouchableOpacity style={{marginBottom:"3%"}}>
+                        <Text style={{fontSize:16,textTransform: "uppercase"}}>A. {item.option[0]}</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={{marginBottom:"3%"}}>
+                        <Text style={{fontSize:16,textTransform: "uppercase"}}>B. {item.option[1]}</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity style={{marginBottom:"3%"}}>
+                        <Text style={{fontSize:16,textTransform: "uppercase"}}>C. {item.option[2]}</Text>
                       </TouchableOpacity>
                       <TouchableOpacity>
-                        <Text>B. {item.option[1]}</Text>
+                        <Text style={{fontSize:16,textTransform: "uppercase"}}>D. {item.option[3]}</Text>
                       </TouchableOpacity>
-                      <TouchableOpacity>
-                        <Text>C. {item.option[2]}</Text>
-                      </TouchableOpacity>
-                      <TouchableOpacity>
-                        <Text>D. {item.option[3]}</Text>
-                      </TouchableOpacity>
-                      <Text>{item.ans}</Text>
                     </>
                   )}
                 </View>
@@ -150,38 +174,38 @@ const OpenBook = props => {
               }}>
               <TouchableOpacity
                 onPress={() => {
-                  setCheckedAnswer(true);
+                  checkans(0);
                 }}
-                style={{marginEnd: '10%', marginStart: '10%'}}>
-                <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
-                  A.
+                style={{marginEnd: '10%', marginStart: '10%', backgroundColor:acolor, paddingRight:"2.5%",paddingLeft:"2.5%", borderRadius:8}}>
+                <Text style={{color: "black", fontSize: 20}}>
+                  A
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  setCheckedAnswer(true);
+                  checkans(1);
                 }}
-                style={{marginEnd: '10%'}}>
-                <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
-                  B.
+                style={{marginEnd: '10%', backgroundColor:bcolor, paddingRight:"2.5%",paddingLeft:"2.5%", borderRadius:8}}>
+                <Text style={{color: "black", fontSize: 20}}>
+                  B
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  setCheckedAnswer(true);
+                  checkans(2);
                 }}
-                style={{marginEnd: '10%'}}>
-                <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
-                  C.
+                style={{marginEnd: '10%',  backgroundColor:ccolor, paddingRight:"2.5%",paddingLeft:"2.5%", borderRadius:8}}>
+                <Text style={{color: "black", fontSize: 20}}>
+                  C
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  setCheckedAnswer(true);
+                  checkans(3);
                 }}
-                style={{marginEnd: '10%'}}>
-                <Text style={{color: AppColors.FontsColor, fontSize: 20}}>
-                  D.
+                style={{marginEnd: '10%',  backgroundColor:dcolor, paddingRight:"2.5%",paddingLeft:"2.5%", borderRadius:8}}>
+                <Text style={{color: "black", fontSize: 20}}>
+                  D
                 </Text>
               </TouchableOpacity>
             </View>

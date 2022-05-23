@@ -8,7 +8,7 @@ import {
   FlatList,
   Dimensions,
 } from 'react-native';
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import AppColors from '../../Constaint/AppColors';
 import Backbtn from '../../Componants/Backbtn';
 import {useNavigation} from '@react-navigation/native';
@@ -25,6 +25,8 @@ const StartCourse = props => {
   const {savedcoursestate, savedcoursedispatch} =
     useContext(SavedCourseContext);
   const {state, dispatch} = useContext(UserContext);
+  const [chp , setchp] = useState(0);
+  const [slide, setslide]= useState(0);
 
   const SaveCourses = () => {
     if (state.savedCourses.includes(courseData.id)) {
@@ -75,18 +77,24 @@ const StartCourse = props => {
             activeOpacity={0.6}
             style={styles.circle}
             onPress={() => SaveCourses()}>
-            <Icon2 name="bookmark" size={28} color="blue" />
+            <Icon2 name="bookmark" size={28} color="#0077B7" />
           </TouchableOpacity>
         ) : (
           <TouchableOpacity
             activeOpacity={0.6}
             style={styles.circle}
             onPress={() => SaveCourses()}>
-            <Icon2 name="bookmark-outline" size={28} color="blue" />
+            <Icon2 name="bookmark-outline" size={28} color="#0077B7" />
           </TouchableOpacity>
         )}
 
-        <TouchableOpacity style={styles.ContinueButton}>
+        <TouchableOpacity style={styles.ContinueButton}
+          onPress={() => {
+            navigation.navigate('instruction', {
+              BookData: courseData.chapter[chp],
+            });
+          }}
+        >
           <Text style={styles.btnTxt}>Continue</Text>
         </TouchableOpacity>
       </View>
@@ -111,6 +119,7 @@ const StartCourse = props => {
                 </View>
                 <TouchableOpacity
                   onPress={() => {
+                    setchp(index)
                     navigation.navigate('instruction', {
                       BookData: item,
                     });

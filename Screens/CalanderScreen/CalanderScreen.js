@@ -16,6 +16,8 @@ import {useNavigation} from '@react-navigation/native';
 const Height = Dimensions.get('screen').height;
 const Width = Dimensions.get('screen').width;
 
+const dates = [];
+
 function getCalender(month, year) {
   var montharr = [
     'January',
@@ -59,6 +61,7 @@ function getCalender(month, year) {
     for (var j = outputD.length; j < 7; j++) {
       if (i < Tdays + 1) {
         i < 10 ? outputD.push('  ' + i) : outputD.push(i);
+        dates.push(i);
         i++;
       }
     }
@@ -228,7 +231,7 @@ const CalanderScreen = props => {
           style={styles.btn}
           activeOpacity={0.7}
           onPress={() => {
-            navigation.navigate('apointment');
+            navigation.navigate('apointment',{dates});
           }}>
           <Text style={styles.text}>Proceed</Text>
         </TouchableOpacity>

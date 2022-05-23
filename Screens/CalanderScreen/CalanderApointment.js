@@ -15,13 +15,66 @@ import CustomBtn from '../../Componants/CustomBtn';
 const Height = Dimensions.get('window').height;
 const Width = Dimensions.get('window').width;
 
-const schedulingData = [20, 21, 22, 23, 24, 25, 26, 27];
+// const schedulingData = [20, 21, 22, 23, 24, 25, 26, 27];
 const times = [11, 12, 1, 2];
 
-const CalanderApointment = () => {
-  const [selectedDate, setSelectedDate] = useState(2);
+var montharr = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+var fulldayarr = [
+  'Sunday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday',
+];
+var dayarr = ['S', 'M', 'T', 'W', 'Th', 'F', 'Sa'];
+
+const CalanderApointment = (props) => {
+  const dates =  props.route.params.dates;
+  const [selectedDate, setSelectedDate] = useState(-1);
   const navigation = useNavigation();
-  useEffect(() => {}, [selectedDate]);
+  // console.log(dates);
+  var dt = new Date();
+  var today = dt.getDate();
+  // console.log(today);
+  var schedulingData = [today,today+1,today+2,today+3,today+4,today+5,today+6];
+
+  var temp=[];
+  var ans=[];
+  for(var i=0; i<7; i++){
+    if(i<dt.getDay()){
+      temp.push(dayarr[i]);
+    }else{
+      ans.push(dayarr[i]);
+    }
+  }
+  for(var i=0; i<temp.length; i++){
+    ans.push(temp[i]);
+  }
+
+  // useEffect(() => {}, [selectedDate]);
+
+  const submitHandler = ()=>{
+    
+    var date = schedulingData[selectedDate];
+    var time;
+
+    
+  }
   return (
     <View style={styles.screen}>
       <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -43,16 +96,16 @@ const CalanderApointment = () => {
         <View style={{flexDirection: 'row'}}>
           <Text
             style={{color: 'gray', fontSize: 30, fontFamily: 'Poppins-Bold'}}>
-            24
+            {today}
           </Text>
           <View style={{marginStart: '5%'}}>
             <Text
               style={{color: AppColors.BtnClr, fontFamily: 'Poppins-Regular'}}>
-              Wed
+              {fulldayarr[dt.getDay()]}
             </Text>
             <Text
               style={{color: AppColors.BtnClr, fontFamily: 'Poppins-Regular'}}>
-              March 2022
+              {montharr[dt.getMonth()]} {dt.getFullYear()}
             </Text>
           </View>
         </View>
@@ -81,11 +134,11 @@ const CalanderApointment = () => {
                     setSelectedDate(index);
                   }}
                   style={{
-                    backgroundColor: selectedDate == 0 && AppColors.buttonFont,
+                    backgroundColor: selectedDate == 0 ? AppColors.buttonFont:null,
                     paddingHorizontal: 8,
                     borderRadius: 6,
                   }}>
-                  <Text style={styles.daysName}>S</Text>
+                  <Text style={styles.daysName}>{ans[index]}</Text>
                   <Text style={styles.date}>{item}</Text>
                 </TouchableOpacity>
               )}
@@ -95,11 +148,11 @@ const CalanderApointment = () => {
                     setSelectedDate(index);
                   }}
                   style={{
-                    backgroundColor: selectedDate == 1 && AppColors.buttonFont,
+                    backgroundColor: selectedDate == 1 ? AppColors.buttonFont:null,
                     paddingHorizontal: 8,
                     borderRadius: 6,
                   }}>
-                  <Text style={styles.daysName}>M</Text>
+                  <Text style={styles.daysName}>{ans[index]}</Text>
                   <Text style={styles.date}>{item}</Text>
                 </TouchableOpacity>
               )}
@@ -109,11 +162,11 @@ const CalanderApointment = () => {
                     setSelectedDate(index);
                   }}
                   style={{
-                    backgroundColor: selectedDate == 2 && AppColors.buttonFont,
+                    backgroundColor: selectedDate == 2 ? AppColors.buttonFont:null,
                     paddingHorizontal: 8,
                     borderRadius: 6,
                   }}>
-                  <Text style={styles.daysName}>T</Text>
+                  <Text style={styles.daysName}>{ans[index]}</Text>
                   <Text style={styles.date}>{item}</Text>
                 </TouchableOpacity>
               )}
@@ -123,11 +176,11 @@ const CalanderApointment = () => {
                     setSelectedDate(index);
                   }}
                   style={{
-                    backgroundColor: selectedDate == 3 && AppColors.buttonFont,
+                    backgroundColor: selectedDate == 3 ? AppColors.buttonFont:null,
                     paddingHorizontal: 8,
                     borderRadius: 6,
                   }}>
-                  <Text style={styles.daysName}>W</Text>
+                  <Text style={styles.daysName}>{ans[index]}</Text>
                   <Text style={styles.date}>{item}</Text>
                 </TouchableOpacity>
               )}
@@ -137,11 +190,11 @@ const CalanderApointment = () => {
                     setSelectedDate(index);
                   }}
                   style={{
-                    backgroundColor: selectedDate == 4 && AppColors.buttonFont,
+                    backgroundColor: selectedDate == 4 ? AppColors.buttonFont:null,
                     paddingHorizontal: 8,
                     borderRadius: 6,
                   }}>
-                  <Text style={styles.daysName}>T</Text>
+                  <Text style={styles.daysName}>{ans[index]}</Text>
                   <Text style={styles.date}>{item}</Text>
                 </TouchableOpacity>
               )}
@@ -151,11 +204,11 @@ const CalanderApointment = () => {
                     setSelectedDate(index);
                   }}
                   style={{
-                    backgroundColor: selectedDate == 5 && AppColors.buttonFont,
+                    backgroundColor: selectedDate == 5 ? AppColors.buttonFont:null,
                     paddingHorizontal: 8,
                     borderRadius: 6,
                   }}>
-                  <Text style={styles.daysName}>F</Text>
+                  <Text style={styles.daysName}>{ans[index]}</Text>
                   <Text style={styles.date}>{item}</Text>
                 </TouchableOpacity>
               )}
@@ -165,11 +218,11 @@ const CalanderApointment = () => {
                     setSelectedDate(index);
                   }}
                   style={{
-                    backgroundColor: selectedDate == 6 && AppColors.buttonFont,
+                    backgroundColor: selectedDate == 6 ? AppColors.buttonFont:null,
                     paddingHorizontal: 8,
                     borderRadius: 6,
                   }}>
-                  <Text style={styles.daysName}>S</Text>
+                  <Text style={styles.daysName}>{ans[index]}</Text>
                   <Text style={styles.date}>{item}</Text>
                 </TouchableOpacity>
               )}
@@ -213,6 +266,7 @@ const CalanderApointment = () => {
         Title="Proceed"
         style={{marginTop: '12%'}}
         TextStyle={{fontFamily: 'Poppins-Regular'}}
+        onPress={()=>submitHandler()}
       />
     </View>
   );

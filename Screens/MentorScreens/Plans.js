@@ -144,6 +144,7 @@ const Plans = props => {
         .collection('Users')
         .doc(mentor)
         .update({clients: [...mentorClients, state.email]});
+      
       //create msg path here;
     }
   };
